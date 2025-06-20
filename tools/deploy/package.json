@@ -1,0 +1,22 @@
+{
+  "name": "@awema/deploy",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Deployment tools and scripts for AWEMA 2030",
+  "main": "./src/index.ts",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src --ext .ts",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "@awema/core": "workspace:*",
+    "@awema/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - CMS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Login Screen */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .login-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-box h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #5a67d8;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 0.75rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        /* Admin Dashboard */
+        .admin-container {
+            display: none;
+        }
+
+        .admin-header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-content h1 {
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .btn-logout {
+            padding: 0.5rem 1rem;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-logout:hover {
+            background: #c82333;
+        }
+
+        .admin-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .section-header h2 {
+            color: #333;
+            font-size: 1.3rem;
+        }
+
+        .btn-save {
+            padding: 0.5rem 1.5rem;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-save:hover {
+            background: #218838;
+        }
+
+        .btn-save:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+
+        /* Editable Content */
+        .editable-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .editable-item:hover {
+            background: #e9ecef;
+        }
+
+        .editable-label {
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .editable-content {
+            min-height: 50px;
+            padding: 0.75rem;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: text;
+            white-space: pre-wrap;
+        }
+
+        .editable-content:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        }
+
+        .editable-content.editing {
+            background: #fff;
+        }
+
+        /* Image Editor */
+        .image-editor {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .image-preview {
+            width: 150px;
+            height: 150px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .image-controls {
+            flex: 1;
+        }
+
+        .btn-upload {
+            padding: 0.5rem 1rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-upload:hover {
+            background: #0056b3;
+        }
+
+        .image-url {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #28a745;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: #dc3545;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-content {
+                padding: 0 1rem;
+            }
+
+            .content-section {
+                padding: 1rem;
+            }
+
+            .header-content {
+                padding: 1rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .image-editor {
+                flex-direction: column;
+            }
+
+            .image-preview {
+                width: 100%;
+                height: 200px;
+            }
+        }
+
+        /* Rich Text Editor Toolbar */
+        .editor-toolbar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 5px 5px 0 0;
+            border: 1px solid #ddd;
+            border-bottom: none;
+        }
+
+        .toolbar-btn {
+            padding: 0.25rem 0.5rem;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .toolbar-btn:hover {
+            background: #e9ecef;
+        }
+
+        .toolbar-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .toolbar-separator {
+            width: 1px;
+            background: #ddd;
+            margin: 0 0.5rem;
+        }
+
+        /* SEO Section */
+        .seo-preview {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .seo-title {
+            color: #1a0dab;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+        }
+
+        .seo-url {
+            color: #006621;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .seo-description {
+            color: #545454;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-container" id="loginScreen">
+        <div class="login-box">
+            <h1>Administration CMS</h1>
+            <div class="error-message" id="loginError"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" required autofocus>
+                </div>
+                <button type="submit" class="btn">Se connecter</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-container" id="adminDashboard">
+        <header class="admin-header">
+            <div class="header-content">
+                <h1>Gestion du contenu</h1>
+                <button class="btn-logout" onclick="logout()">Déconnexion</button>
+            </div>
+        </header>
+
+        <main class="admin-content">
+            <!-- Hero Section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Section Hero</h2>
+                    <button class="btn-save" onclick="saveSection('hero')">
+                        <span class="save-text">Enregistrer</span>
+                        <span class="spinner" style="display: none;"></span>
+                    </button>
+                </div>
+                
+                <div class="editable-item">
+                    <div class="editable-label">Titre principal</div>
+                    <div class="editable-content" 
+                         contenteditable="true" 
+                         data-field="hero.title"
+                         data-type="text">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="editable-item">
+                    <div class="editable-label">Sous-titre</div>
+                    <div class="editable-content" 
+                         contenteditable="true" 
+                         data-field="hero.subtitle"
+                         data-type="text">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="editable-item">
+                    <div class="editable-label">Image de fond</div>
+                    <div class="image-editor">
+                        <div class="image-preview" data-field="hero.backgroundImage">
+                            <img src="" alt="Preview" style="display: none;">
+                            <span class="placeholder">Aucune image</span>
+                        </div>
+                        <div class="image-controls">
+                            <button class="btn-upload" onclick="uploadImage('hero.backgroundImage')">
+                                Télécharger une image
+                            </button>
+                            <input type="file" 
+                                   id="hero.backgroundImage-input" 
+                                   accept="image/*" 
+                                   style="display: none;"
+                                   onchange="handleImageUpload(this, 'hero.backgroundImage')">
+                            <input type="text" 
+                                   class="image-url" 
+                                   placeholder="Ou entrez l'URL de l'image"
+                                   data-field="hero.backgroundImage"
+                                   onchange="updateImagePreview(this)">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>À propos</h2>
+                    <button class="btn-save" onclick="saveSection('about')">
+                        <span class="save-text">Enregistrer</span>
+                        <span class="spinner" style="display: none;"></span>
+                    </button>
+                </div>
+                
+                <div class="editable-item">
+                    <div class="editable-label">Titre de la section</div>
+                    <div class="editable-content" 
+                         contenteditable="true" 
+                         data-field="about.title"
+                         data-type="text">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="editable-item">
+                    <div class="editable-label">Description</div>
+                    <div class="editor-toolbar">
+                        <button class="toolbar-btn" onclick="formatText('bold')" title="Gras">
+                            <strong>B</strong>
+                        </button>
+                        <button class="toolbar-btn" onclick="formatText('italic')" title="Italique">
+                            <em>I</em>
+                        </button>
+                        <button class="toolbar-btn" onclick="formatText('underline')" title="Souligné">
+                            <u>U</u>
+                        </button>
+                        <div class="toolbar-separator"></div>
+                        <button class="toolbar-btn" onclick="formatText('insertUnorderedList')" title="Liste à puces">
+                            • Liste
+                        </button>
+                        <button class="toolbar-btn" onclick="formatText('insertOrderedList')" title="Liste numérotée">
+                            1. Liste
+                        </button>
+                        <div class="toolbar-separator"></div>
+                        <button class="toolbar-btn" onclick="createLink()" title="Insérer un lien">
+                            🔗
+                        </button>
+                    </div>
+                    <div class="editable-content" 
+                         contenteditable="true" 
+                         data-field="about.description"
+                         data-type="richtext"
+                         style="min-height: 150px; border-radius: 0 0 5px 5px;">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Services</h2>
+                    <button class="btn-save" onclick="saveSection('services')">
+                        <span class="save-text">Enregistrer</span>
+                        <span class="spinner" style="display: none;"></span>
+                    </button>
+                </div>
+                
+                <div id="servicesContainer">
+                    <!-- Service items will be loaded dynamically -->
+                </div>
+                
+                <button class="btn-upload" onclick="addService()">
+                    + Ajouter un service
+                </button>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Informations de contact</h2>
+                    <button class="btn-save" onclick="saveSection('contact')">
+                        <span class="save-text">Enregistrer</span>
+                        <span class="spinner" style="display: none;"></span>
+                    </button>
+                </div>
+                
+                <div class="editable-item">
+                    <div class="editable-label">Téléphone</div>
+                    <div class="editable-content" 
+                         contenteditable="true" 
+                         data-field="contact.phone"
+                         data-type="text">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="editable-item">
+                    <div class="editable-label">Email</div>
+                    <div class="editable-content" 
+                         contenteditable="true" 
+                         data-field="contact.email"
+                         data-type="email">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="editable-item">
+                    <div class="editable-label">Adresse</div>
+                    <div class="editable-content" 
+                         contenteditable="true" 
+                         data-field="contact.address"
+                         data-type="text">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="editable-item">
+                    <div class="editable-label">Horaires d'ouverture</div>
+                    <div class="editable-content" 
+                         contenteditable="true" 
+                         data-field="contact.hours"
+                         data-type="text">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEO Section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>SEO & Métadonnées</h2>
+                    <button class="btn-save" onclick="saveSection('seo')">
+                        <span class="save-text">Enregistrer</span>
+                        <span class="spinner" style="display: none;"></span>
+                    </button>
+                </div>
+                
+                <div class="editable-item">
+                    <div class="editable-label">Titre de la page (Meta Title)</div>
+                    <div class="editable-content" 
+                         contenteditable="true" 
+                         data-field="seo.title"
+                         data-type="text"
+                         maxlength="60">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                    <small style="color: #666;">Maximum 60 caractères</small>
+                </div>
+
+                <div class="editable-item">
+                    <div class="editable-label">Description (Meta Description)</div>
+                    <div class="editable-content" 
+                         contenteditable="true" 
+                         data-field="seo.description"
+                         data-type="text"
+                         maxlength="160">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                    <small style="color: #666;">Maximum 160 caractères</small>
+                </div>
+
+                <div class="editable-item">
+                    <div class="editable-label">Mots-clés (séparés par des virgules)</div>
+                    <div class="editable-content" 
+                         contenteditable="true" 
+                         data-field="seo.keywords"
+                         data-type="text">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="seo-preview">
+                    <h3 style="margin-bottom: 1rem; color: #666;">Aperçu Google</h3>
+                    <div class="seo-title" id="seoPreviewTitle">Titre de votre page</div>
+                    <div class="seo-url" id="seoPreviewUrl">www.votresite.com</div>
+                    <div class="seo-description" id="seoPreviewDesc">Description de votre page...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Include CMS Editor Script -->
+    <script src="cms-editor.js"></script>
+</body>
+</html>

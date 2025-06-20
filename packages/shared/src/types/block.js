@@ -1,0 +1,71 @@
+export var BlockCategory;
+(function (BlockCategory) {
+    BlockCategory["HERO"] = "hero";
+    BlockCategory["HEADER"] = "header";
+    BlockCategory["NAVIGATION"] = "navigation";
+    BlockCategory["CONTENT"] = "content";
+    BlockCategory["FEATURES"] = "features";
+    BlockCategory["TESTIMONIALS"] = "testimonials";
+    BlockCategory["PRICING"] = "pricing";
+    BlockCategory["CONTACT"] = "contact";
+    BlockCategory["FOOTER"] = "footer";
+    BlockCategory["CTA"] = "cta";
+    BlockCategory["GALLERY"] = "gallery";
+    BlockCategory["FAQ"] = "faq";
+    BlockCategory["FORM"] = "form";
+    BlockCategory["SOCIAL"] = "social";
+    BlockCategory["MAP"] = "map";
+    BlockCategory["VIDEO"] = "video";
+    BlockCategory["CUSTOM"] = "custom";
+})(BlockCategory || (BlockCategory = {}));
+export var PropType;
+(function (PropType) {
+    PropType["STRING"] = "string";
+    PropType["NUMBER"] = "number";
+    PropType["BOOLEAN"] = "boolean";
+    PropType["COLOR"] = "color";
+    PropType["IMAGE"] = "image";
+    PropType["VIDEO"] = "video";
+    PropType["LINK"] = "link";
+    PropType["RICH_TEXT"] = "rich_text";
+    PropType["SELECT"] = "select";
+    PropType["MULTI_SELECT"] = "multi_select";
+    PropType["ARRAY"] = "array";
+    PropType["OBJECT"] = "object";
+    PropType["DATE"] = "date";
+    PropType["TIME"] = "time";
+})(PropType || (PropType = {}));
+export var EditorControl;
+(function (EditorControl) {
+    EditorControl["TEXT"] = "text";
+    EditorControl["TEXTAREA"] = "textarea";
+    EditorControl["NUMBER"] = "number";
+    EditorControl["TOGGLE"] = "toggle";
+    EditorControl["COLOR_PICKER"] = "color_picker";
+    EditorControl["IMAGE_PICKER"] = "image_picker";
+    EditorControl["VIDEO_PICKER"] = "video_picker";
+    EditorControl["LINK_PICKER"] = "link_picker";
+    EditorControl["RICH_TEXT_EDITOR"] = "rich_text_editor";
+    EditorControl["SELECT"] = "select";
+    EditorControl["MULTI_SELECT"] = "multi_select";
+    EditorControl["DATE_PICKER"] = "date_picker";
+    EditorControl["TIME_PICKER"] = "time_picker";
+    EditorControl["SLIDER"] = "slider";
+    EditorControl["RADIO"] = "radio";
+    EditorControl["CHECKBOX"] = "checkbox";
+})(EditorControl || (EditorControl = {}));
+export var DependencyType;
+(function (DependencyType) {
+    DependencyType["CSS"] = "css";
+    DependencyType["JS"] = "js";
+    DependencyType["FONT"] = "font";
+    DependencyType["ICON"] = "icon";
+    DependencyType["LIBRARY"] = "library";
+})(DependencyType || (DependencyType = {}));
+export var PerformanceImpact;
+(function (PerformanceImpact) {
+    PerformanceImpact["LOW"] = "low";
+    PerformanceImpact["MEDIUM"] = "medium";
+    PerformanceImpact["HIGH"] = "high";
+})(PerformanceImpact || (PerformanceImpact = {}));
+//# sourceMappingURL=block.js.map

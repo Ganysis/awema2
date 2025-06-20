@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.menuiserie-artisanale.fr/sitemap.xml

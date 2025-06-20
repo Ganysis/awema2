@@ -1,0 +1,1 @@
+export { pricingTables, renderPricingTables } from './pricing-tables';

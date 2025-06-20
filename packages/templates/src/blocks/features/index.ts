@@ -1,0 +1,1 @@
+export { featuresMultiStyle, renderFeaturesMultiStyle } from './features-multi-style';

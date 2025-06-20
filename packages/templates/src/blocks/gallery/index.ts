@@ -1,0 +1,1 @@
+export { galleryPortfolio, renderGalleryPortfolio } from './gallery-portfolio';

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.electricpro-paris.fr/sitemap.xml

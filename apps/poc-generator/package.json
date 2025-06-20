@@ -1,0 +1,29 @@
+{
+  "name": "@awema/poc-generator",
+  "version": "0.0.1",
+  "private": true,
+  "description": "POC for AWEMA generator",
+  "scripts": {
+    "generate": "tsx src/generate.ts",
+    "test": "tsx src/test-generator.ts",
+    "test:templates": "tsx src/test-template-system.ts",
+    "test:lighthouse": "node tools/test/lighthouse-ci.js",
+    "test:performance": "tsx src/test-performance.ts",
+    "report:performance": "tsx src/generate-performance-report.ts",
+    "demo": "tsx src/demo.ts"
+  },
+  "dependencies": {
+    "@awema/core": "workspace:*",
+    "@awema/shared": "workspace:*",
+    "@awema/templates": "workspace:*",
+    "@awema/analytics": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.5",
+    "lighthouse": "^11.0.0",
+    "chrome-launcher": "^1.0.0",
+    "playwright": "^1.40.0",
+    "@lhci/cli": "^0.13.0"
+  }
+}

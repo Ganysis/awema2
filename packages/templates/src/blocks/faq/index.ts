@@ -1,0 +1,1 @@
+export { faqAccordion, renderFaqAccordion } from './faq-accordion';

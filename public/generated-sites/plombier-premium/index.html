@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plomberie Premium - Plombier Premium Lyon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --gold: #d4af37;
+            --dark-gold: #b8941f;
+            --navy: #1a2332;
+            --light: #ffffff;
+            --gray: #6c757d;
+            --cream: #faf7f0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--navy);
+            line-height: 1.6;
+        }
+        
+        /* Navigation Premium */
+        nav {
+            background: var(--light);
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo::before {
+            content: '♦';
+            color: var(--gold);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-cta {
+            background: var(--gold);
+            color: var(--navy);
+            padding: 0.75rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--gold);
+        }
+        
+        .nav-cta:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+        
+        /* Hero Premium */
+        .hero-premium {
+            min-height: 90vh;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--light) 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+        }
+        
+        .gold-text {
+            color: var(--gold);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .btn-gold {
+            background: var(--gold);
+            color: var(--navy);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--gold);
+        }
+        
+        .btn-gold:hover {
+            background: var(--dark-gold);
+            border-color: var(--dark-gold);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--navy);
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--navy);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline:hover {
+            background: var(--navy);
+            color: var(--light);
+        }
+        
+        .hero-visual {
+            position: relative;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 600px;
+            background: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop') center/cover;
+            border-radius: 0;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        .hero-badge {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: var(--gold);
+            color: var(--navy);
+            padding: 1rem 2rem;
+            font-weight: 700;
+            transform: rotate(5deg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Services Premium */
+        .services-premium {
+            padding: 8rem 0;
+            background: var(--light);
+        }
+        
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--navy);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+        
+        .service-card {
+            background: var(--cream);
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            border: 1px solid var(--cream);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: var(--gold);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+        
+        .service-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--navy);
+        }
+        
+        .service-desc {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .service-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Features Premium */
+        .features-premium {
+            padding: 8rem 0;
+            background: var(--navy);
+            color: var(--light);
+        }
+        
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .features-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .feature-item {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-desc {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        /* Contact Premium */
+        .contact-premium {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--light) 100%);
+        }
+        
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--navy);
+        }
+        
+        .contact-desc {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+        }
+        
+        .contact-info {
+            background: var(--light);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .contact-icon {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: var(--light);
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-logo::before {
+            content: '♦';
+            color: var(--gold);
+        }
+        
+        .footer-desc {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-visual {
+                display: none;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Plomberie Premium</a>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link">Accueil</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="tel:04 78 90 12 34" class="nav-cta">04 78 90 12 34</a>
+        </div>
+    </nav>
+
+    <section class="hero-premium">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>
+                    <span class="gold-text">Excellence</span> &<br>
+                    Savoir-faire
+                </h1>
+                <p class="hero-subtitle">Plombier Premium à Lyon</p>
+                <p class="hero-desc">Plombier professionnel à Lyon, expert en installation sanitaire, dépannage urgent et rénovation de salle de bain.</p>
+                <div class="hero-buttons">
+                    <a href="tel:04 78 90 12 34" class="btn-gold">Consultation Gratuite</a>
+                    <a href="#services" class="btn-outline">Nos Services</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image"></div>
+                <div class="hero-badge">Premium Service</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-premium" id="services">
+        <div class="services-container">
+            <div class="section-header">
+                <h2 class="section-title">Services <span class="gold-text">Premium</span></h2>
+                <p class="section-subtitle">Un savoir-faire d'exception à votre service</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">👑</div>
+                    <h3 class="service-title">Installation Premium</h3>
+                    <p class="service-desc">Service haut de gamme avec matériaux premium et finitions soignées pour un résultat exceptionnel.</p>
+                    <div class="service-price">Sur Devis</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🛡️</div>
+                    <h3 class="service-title">Service Conciergerie</h3>
+                    <p class="service-desc">Accompagnement personnalisé et service sur-mesure pour répondre à toutes vos exigences.</p>
+                    <div class="service-price">Service VIP</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">💎</div>
+                    <h3 class="service-title">Maintenance Premium</h3>
+                    <p class="service-desc">Programme de maintenance préventive avec garantie étendue et service prioritaire.</p>
+                    <div class="service-price">Forfait Annuel</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-premium">
+        <div class="features-container">
+            <h2 class="features-title">L'Excellence <span class="gold-text">à Chaque Étape</span></h2>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⭐</div>
+                    <h3 class="feature-title">Expertise Confirmée</h3>
+                    <p class="feature-desc">15 ans d'expérience au service de l'excellence</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">Certifications Premium</h3>
+                    <p class="feature-desc">Toutes les certifications et labels qualité</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🤝</div>
+                    <h3 class="feature-title">Service Personnalisé</h3>
+                    <p class="feature-desc">Un interlocuteur dédié pour votre projet</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">✨</div>
+                    <h3 class="feature-title">Garantie Satisfaction</h3>
+                    <p class="feature-desc">100% satisfait ou nous revenons gratuitement</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-premium" id="contact">
+        <div class="contact-container">
+            <h2 class="contact-title">Prenez Rendez-vous</h2>
+            <p class="contact-desc">Découvrez l'excellence de nos services premium</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <span>04 78 90 12 34</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <span>contact@plomberie-premium.fr</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span>15 Rue de la République, Lyon</span>
+                </div>
+            </div>
+            
+            <a href="tel:04 78 90 12 34" class="btn-gold">Consultation Gratuite</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Plomberie Premium</div>
+            <p class="footer-desc">L'excellence au service de votre confort</p>
+            <div class="footer-bottom">
+                <p>© 2025 Plomberie Premium - Design Premium - Tous droits réservés</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
