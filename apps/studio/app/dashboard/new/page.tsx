@@ -92,7 +92,7 @@ const businessTypes = [
   { value: 'serrurier', label: 'Serrurier' }
 ];
 
-const colorSchemes = {
+const colorSchemes: Record<string, { primary: string; secondary: string; accent: string; }> = {
   electricien: { primary: '#FFA500', secondary: '#1E40AF', accent: '#10B981' },
   plombier: { primary: '#3B82F6', secondary: '#6366F1', accent: '#EF4444' },
   menuisier: { primary: '#92400E', secondary: '#B45309', accent: '#059669' },

@@ -22,7 +22,17 @@ interface CollectionEditorProps {
   itemLabel?: (item: any, index: number) => string;
 }
 
-function SortableItem({ id, item, index, itemSchema, onUpdate, onRemove, itemLabel }: any) {
+interface SortableItemProps {
+  id: string;
+  item: any;
+  index: number;
+  itemSchema: CollectionEditorProps['itemSchema'];
+  onUpdate: (key: string, value: any) => void;
+  onRemove: () => void;
+  itemLabel?: (item: any, index: number) => string;
+}
+
+function SortableItem({ id, item, index, itemSchema, onUpdate, onRemove, itemLabel }: SortableItemProps) {
   const {
     attributes,
     listeners,

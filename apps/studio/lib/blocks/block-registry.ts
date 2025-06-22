@@ -1,53 +1,50 @@
 import {
-  // Hero blocks
-  heroSplitScreen,
   heroCentered,
-  renderHeroSplitScreen,
   renderHeroCentered,
-  
-  // Services blocks
+  heroSplitScreen,
+  renderHeroSplitScreen,
   servicesGridCards,
-  servicesListDetailed,
   renderServicesGridCards,
+  servicesListDetailed,
   renderServicesListDetailed,
-  
-  // Contact blocks
   contactFormMap,
   renderContactFormMap,
-  
-  // Testimonials blocks
   testimonialsCarousel,
   renderTestimonialsCarousel,
-  
-  // Layout blocks
-  simpleHeader,
-  renderSimpleHeader,
-  simpleFooter,
-  renderSimpleFooter,
-  
-  // Content blocks
+  textImageClean,
+  renderTextImageClean,
   textImageBlock,
   renderTextImageBlock,
-  
-  // Features blocks
+  featuresClean,
+  renderFeaturesClean,
   featuresMultiStyle,
   renderFeaturesMultiStyle,
-  
-  // Gallery blocks
+  featuresIconGrid,
+  renderFeaturesIconGrid,
+  galleryClean,
+  renderGalleryClean,
   galleryPortfolio,
   renderGalleryPortfolio,
-  
-  // FAQ blocks
+  galleryMasonry,
+  renderGalleryMasonry,
   faqAccordion,
   renderFaqAccordion,
-  
-  // Pricing blocks
+  faqClean,
+  renderFaqClean,
+  faqUltraModern,
+  renderFaqUltraModern,
+  pricingClean,
+  renderPricingClean,
   pricingTables,
   renderPricingTables,
-  
-  // CTA blocks
+  ctaClean,
+  renderCtaClean,
   ctaSection,
   renderCtaSection,
+  simpleFooter,
+  renderSimpleFooter,
+  simpleHeader,
+  renderSimpleHeader,
   
   // Types
   type Block
@@ -77,120 +74,153 @@ export interface BlockDefinition {
 
 // Define all available blocks with metadata
 export const blockRegistry: BlockDefinition[] = [
-  // Hero blocks
-  {
-    block: heroSplitScreen,
-    category: BlockCategory.HERO,
-    name: 'Split Screen Hero',
-    description: 'Hero section with content on one side and image on the other',
-  },
   {
     block: heroCentered,
     category: BlockCategory.HERO,
     name: 'Centered Hero',
-    description: 'Centered hero section with title, subtitle and CTA',
+    description: 'Centered hero section with background options',
   },
-  
-  // Services blocks
+  {
+    block: heroSplitScreen,
+    category: BlockCategory.HERO,
+    name: 'Split Screen Hero',
+    description: 'Hero section with content on left and image on right',
+  },
   {
     block: servicesGridCards,
     category: BlockCategory.FEATURES,
-    name: 'Services Grid',
-    description: 'Grid layout for displaying services with cards',
+    name: 'Services Grid Cards',
+    description: 'Display services in a responsive grid layout with cards',
   },
   {
     block: servicesListDetailed,
     category: BlockCategory.FEATURES,
-    name: 'Services List',
-    description: 'Detailed list view of services',
+    name: 'Services Detailed List',
+    description: 'Display services in a detailed list format with images',
   },
-  
-  // Contact blocks
   {
     block: contactFormMap,
     category: BlockCategory.CONTACT,
     name: 'Contact Form with Map',
-    description: 'Contact form alongside location map',
+    description: 'Contact section with form and optional map',
   },
-  
-  // Testimonials blocks
   {
     block: testimonialsCarousel,
     category: BlockCategory.TESTIMONIALS,
     name: 'Testimonials Carousel',
-    description: 'Rotating testimonials display',
-  },
-  
-  // Layout blocks
-  {
-    block: simpleHeader,
-    category: BlockCategory.HEADER,
-    name: 'Header Simple',
-    description: 'En-tête simple avec logo et navigation',
+    description: 'Display customer testimonials in a carousel',
   },
   {
-    block: simpleFooter,
-    category: BlockCategory.FOOTER,
-    name: 'Footer Simple',
-    description: 'Pied de page simple avec informations de contact',
+    block: textImageClean,
+    category: BlockCategory.CONTENT,
+    name: 'Texte & Image',
+    description: 'Section avec texte et image côte à côte',
   },
-  
-  // Content blocks
   {
     block: textImageBlock,
     category: BlockCategory.CONTENT,
-    name: 'Texte & Image Flexible',
-    description: 'Section avec texte et image, multiples layouts disponibles',
+    name: 'Texte & Image',
+    description: 'Section flexible avec texte et image (multiple layouts)',
   },
-  
-  // Features blocks
+  {
+    block: featuresClean,
+    category: BlockCategory.FEATURES,
+    name: 'Points Forts',
+    description: 'Grille de points forts avec icônes',
+  },
   {
     block: featuresMultiStyle,
     category: BlockCategory.FEATURES,
-    name: 'Points Forts Multi-Styles',
-    description: 'Avantages et points forts avec 10+ styles de présentation',
+    name: 'Points Forts / Avantages',
+    description: 'Section avantages avec multiples styles de présentation',
   },
-  
-  // Gallery blocks
+  {
+    block: featuresIconGrid,
+    category: BlockCategory.FEATURES,
+    name: 'Icon Grid Features',
+    description: 'Grid layout with icons and feature descriptions',
+  },
+  {
+    block: galleryClean,
+    category: BlockCategory.GALLERY,
+    name: 'Galerie Photos',
+    description: 'Galerie d\'images avec lightbox',
+  },
   {
     block: galleryPortfolio,
     category: BlockCategory.GALLERY,
-    name: 'Galerie Portfolio',
-    description: 'Galerie photos avec lightbox et multiples layouts',
+    name: 'Galerie / Portfolio',
+    description: 'Galerie photos avec multiples layouts pour présenter les réalisations',
   },
-  
-  // FAQ blocks
+  {
+    block: galleryMasonry,
+    category: BlockCategory.GALLERY,
+    name: 'Masonry Gallery',
+    description: 'Pinterest-style masonry gallery with filtering',
+  },
   {
     block: faqAccordion,
     category: BlockCategory.FAQ,
-    name: 'FAQ Accordéon',
-    description: 'Questions fréquentes avec 8 styles différents',
+    name: 'FAQ / Questions Fréquentes',
+    description: 'Section FAQ avec accordéon et multiples styles',
   },
-  
-  // Pricing blocks
+  {
+    block: faqClean,
+    category: BlockCategory.FAQ,
+    name: 'FAQ',
+    description: 'Questions fréquemment posées avec accordéon',
+  },
+  {
+    block: faqUltraModern,
+    category: BlockCategory.FAQ,
+    name: 'FAQ Ultra-Moderne',
+    description: 'Système FAQ révolutionnaire avec 8 variantes ultra-modernes et fonctionnalités avancées',
+  },
+  {
+    block: pricingClean,
+    category: BlockCategory.PRICING,
+    name: 'Tarifs',
+    description: 'Grille de tarifs professionnelle',
+  },
   {
     block: pricingTables,
     category: BlockCategory.PRICING,
-    name: 'Tables de Prix',
-    description: 'Tarifs avec 8 présentations différentes',
+    name: 'Tarifs / Prix',
+    description: 'Tables de prix avec multiples styles de présentation',
   },
-  
-  // CTA blocks
+  {
+    block: ctaClean,
+    category: BlockCategory.CTA,
+    name: 'Appel à Action',
+    description: 'Section d\'appel à l\'action professionnelle',
+  },
   {
     block: ctaSection,
     category: BlockCategory.CTA,
     name: 'Call to Action',
-    description: 'Appel à l\'action avec 10 variantes',
+    description: 'Section d\'appel à l\'action avec multiples variantes',
   },
-];
+  {
+    block: simpleFooter,
+    category: BlockCategory.CONTENT,
+    name: 'Footer Simple',
+    description: 'Pied de page simple avec informations de contact',
+  },
+  {
+    block: simpleHeader,
+    category: BlockCategory.CONTENT,
+    name: 'Header Simple',
+    description: 'En-tête simple avec logo et navigation',
+  },
+].filter(def => def && def.block); // Filter out any invalid entries
 
 // Helper functions
 export function getBlocksByCategory(category: BlockCategory): BlockDefinition[] {
-  return blockRegistry.filter(def => def.category === category);
+  return blockRegistry.filter(def => def && def.block && def.category === category);
 }
 
 export function getBlockById(id: string): BlockDefinition | undefined {
-  return blockRegistry.find(def => def.block.id === id);
+  return blockRegistry.find(def => def && def.block && def.block.id === id);
 }
 
 export function getAllCategories(): BlockCategory[] {
@@ -200,20 +230,29 @@ export function getAllCategories(): BlockCategory[] {
 
 // Map of block IDs to their render functions
 const renderFunctions: Record<string, any> = {
-  'hero-split-screen': renderHeroSplitScreen,
   'hero-centered': renderHeroCentered,
+  'hero-split-screen': renderHeroSplitScreen,
   'services-grid-cards': renderServicesGridCards,
   'services-list-detailed': renderServicesListDetailed,
   'contact-form-map': renderContactFormMap,
   'testimonials-carousel': renderTestimonialsCarousel,
-  'simple-header': renderSimpleHeader,
-  'simple-footer': renderSimpleFooter,
+  'text-image-clean': renderTextImageClean,
   'text-image-flexible': renderTextImageBlock,
+  'features-clean': renderFeaturesClean,
   'features-multi-style': renderFeaturesMultiStyle,
+  'features-icon-grid': renderFeaturesIconGrid,
+  'gallery-clean': renderGalleryClean,
   'gallery-portfolio': renderGalleryPortfolio,
+  'gallery-masonry': renderGalleryMasonry,
   'faq-accordion': renderFaqAccordion,
+  'faq-clean': renderFaqClean,
+  'faq-ultra-modern': renderFaqUltraModern,
+  'pricing-clean': renderPricingClean,
   'pricing-tables': renderPricingTables,
+  'cta-clean': renderCtaClean,
   'cta-section': renderCtaSection,
+  'simple-footer': renderSimpleFooter,
+  'simple-header': renderSimpleHeader,
 };
 
 export function getBlockRenderFunction(blockId: string): ((props: any, variants?: string[]) => any) | undefined {

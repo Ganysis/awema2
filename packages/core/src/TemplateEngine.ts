@@ -4,14 +4,15 @@ import {
   GeneratorContext,
   BlockInstance,
   Block,
+  BlockCategory,
   RenderedBlock,
   Template,
   TemplateVariant
 } from '@awema/shared';
 
 export class TemplateEngine {
-  private blockCache: Map<string, Block> = new Map();
-  private templateCache: Map<string, Template> = new Map();
+  // private blockCache: Map<string, Block> = new Map();
+  // private templateCache: Map<string, Template> = new Map();
 
   async renderPage(page: Page, project: Project, context: GeneratorContext): Promise<string> {
     const { template } = project;
@@ -45,7 +46,7 @@ export class TemplateEngine {
   async renderBlock(
     blockInstance: BlockInstance,
     project: Project,
-    context: GeneratorContext
+    _context: GeneratorContext
   ): Promise<RenderedBlock> {
     const block = await this.getBlock(blockInstance.blockId);
     
@@ -66,7 +67,7 @@ export class TemplateEngine {
     // Render block HTML (simplified for POC)
     const html = this.renderBlockHTML(block, props, project);
     const css = this.renderBlockCSS(block, props, project);
-    const js = block.category === 'FORM' || block.category === 'GALLERY' 
+    const js = block.category === BlockCategory.FORM || block.category === BlockCategory.GALLERY 
       ? this.renderBlockJS(block, props, project) 
       : undefined;
 
@@ -82,15 +83,15 @@ export class TemplateEngine {
   private renderBlockHTML(block: Block, props: any, project: Project): string {
     // Simplified block rendering for POC
     switch (block.category) {
-      case 'HERO':
+      case BlockCategory.HERO:
         return this.renderHeroBlock(props, project);
-      case 'HEADER':
+      case BlockCategory.HEADER:
         return this.renderHeaderBlock(props, project);
-      case 'FEATURES':
+      case BlockCategory.FEATURES:
         return this.renderFeaturesBlock(props, project);
-      case 'CTA':
+      case BlockCategory.CTA:
         return this.renderCTABlock(props, project);
-      case 'FOOTER':
+      case BlockCategory.FOOTER:
         return this.renderFooterBlock(props, project);
       default:
         return `<div class="block-${block.id}">Block: ${block.name}</div>`;
@@ -176,7 +177,7 @@ export class TemplateEngine {
     `;
   }
 
-  private renderCTABlock(props: any, project: Project): string {
+  private renderCTABlock(props: any, _project: Project): string {
     return `
       <section class="cta" aria-label="Call to action">
         <div class="container">
@@ -248,7 +249,7 @@ export class TemplateEngine {
     `;
   }
 
-  private renderBlockCSS(block: Block, props: any, project: Project): string {
+  private renderBlockCSS(block: Block, _props: any, project: Project): string {
     const { colors, fonts, spacing } = project.template.customizations;
     
     // Base CSS variables
@@ -268,19 +269,19 @@ export class TemplateEngine {
 
     // Add block-specific CSS
     switch (block.category) {
-      case 'HERO':
+      case BlockCategory.HERO:
         css += this.getHeroCSS();
         break;
-      case 'HEADER':
+      case BlockCategory.HEADER:
         css += this.getHeaderCSS();
         break;
-      case 'FEATURES':
+      case BlockCategory.FEATURES:
         css += this.getFeaturesCSS();
         break;
-      case 'CTA':
+      case BlockCategory.CTA:
         css += this.getCTACSS();
         break;
-      case 'FOOTER':
+      case BlockCategory.FOOTER:
         css += this.getFooterCSS();
         break;
     }
@@ -471,7 +472,7 @@ export class TemplateEngine {
     `;
   }
 
-  private renderBlockJS(block: Block, props: any, project: Project): string {
+  private renderBlockJS(_block: Block, _props: any, _project: Project): string {
     // Simple JS for interactivity
     return `
     (function() {
@@ -613,7 +614,7 @@ export class TemplateEngine {
 </html>`;
   }
 
-  async generatePageCSS(page: Page, project: Project, context: GeneratorContext): Promise<string> {
+  async generatePageCSS(_page: Page, _project: Project, _context: GeneratorContext): Promise<string> {
     // This would contain non-critical CSS
     // For POC, we're inlining all CSS, so this returns empty
     return '';

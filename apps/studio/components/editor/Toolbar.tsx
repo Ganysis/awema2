@@ -74,8 +74,8 @@ export function Toolbar({ onPreview }: ToolbarProps) {
         slug: '/',
         blocks: randomSite.blocks,
         meta: {
-          title: `${businessInfo.businessName} - ${businessInfo.businessType}`,
-          description: businessInfo.description || `Services de ${businessInfo.businessType}`
+          title: `${businessInfo.companyName} - ${businessInfo.industry.category}`,
+          description: businessInfo.description || `Services de ${businessInfo.industry.category}`
         }
       });
       
@@ -91,8 +91,8 @@ export function Toolbar({ onPreview }: ToolbarProps) {
           slug: `/${slug}`,
           blocks: pageBlocks,
           meta: {
-            title: `${pageName} - ${businessInfo.businessName}`,
-            description: `${pageName} - ${businessInfo.businessType}`
+            title: `${pageName} - ${businessInfo.companyName}`,
+            description: `${pageName} - ${businessInfo.industry.category}`
           }
         });
       });

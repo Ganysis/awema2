@@ -7,37 +7,20 @@
   3. ✅ Pré-génération automatique du site
   4. ✅ Générateur de pages SEO local (ville × service)
   5. ✅ Structure des pages (accueil, services individuels)
+  6. ✅ Navigation multi-pages dans l'éditeur
+  7. ✅ Bloc Header avec menu responsive
+  8. ✅ Bloc Footer professionnel
+  9. ✅ Bloc FAQ accordéon (8 layouts)
+  10. ✅ Bloc Tarifs/Pricing (8 layouts)
+  11. ✅ Blocs Features (3 variantes)
+  12. ✅ Blocs Gallery (3 variantes)
+  13. ✅ Blocs CTA (2 variantes)
+  14. ✅ Blocs Content (2 variantes)
+  15. ✅ Export statique optimisé avec minification
+  16. ✅ CMS intégré avec interface d'administration
+  17. ✅ Support Schema.org et SEO avancé
 
   🚀 PRIORITÉ HAUTE - À FAIRE
-
-  Navigation & Structure
-
-  - Navigation multi-pages dans l'éditeur (#27)
-    - Onglets ou sidebar pour switcher entre les pages
-    - Édition des pages services individuelles
-    - Édition des pages SEO locales
-  - Bloc Header avec menu (#28)
-    - Menu responsive avec burger mobile
-    - Logo + navigation principale
-    - Bouton CTA téléphone
-    - Liens réseaux sociaux
-  - Bloc Footer professionnel (#29)
-    - Coordonnées complètes
-    - Liens rapides services
-    - Zones d'intervention
-    - Mentions légales / CGV
-    - Newsletter (optionnel)
-
-  Blocs manquants
-
-  - Bloc FAQ accordéon (#30)
-    - Questions/réponses personnalisables
-    - Animation smooth
-    - Schema.org FAQ
-  - Bloc Tarifs/Pricing
-    - Tableaux comparatifs
-    - Cards de prix
-    - Options sur devis
 
   Base de données & Persistance
 
@@ -109,12 +92,25 @@
   - Email pro
   - Maintenance & mises à jour
 
-  🎯 PROCHAINE SESSION
+  🎯 PROCHAINES ÉTAPES RECOMMANDÉES
 
-  1. Commencer par : Header/Footer pour navigation
-  2. Puis : Navigation multi-pages dans l'éditeur
-  3. Ensuite : Base de données pour persistance
-  4. Finir par : Export et déploiement
+  1. **Base de données** : Intégrer PostgreSQL/SQLite avec Prisma pour la persistance
+  2. **Gestion des médias** : Système d'upload avec compression automatique
+  3. **Sauvegarde automatique** : Auto-save toutes les 30 secondes
+  4. **Déploiement one-click** : Intégration Netlify/Vercel
+  5. **Preview responsive** : Visualisation mobile/tablet/desktop
 
-  Le système commence à prendre forme ! Avec le header/footer et la navigation multi-pages, l'expérience
-  sera complète. À demain ! 🚀
+  📈 PROGRESSION DU PROJET
+
+  Le projet est très avancé avec une excellente base technique :
+  - ✅ Architecture modulaire solide
+  - ✅ Large bibliothèque de blocs (15+ types)
+  - ✅ Export statique sophistiqué
+  - ✅ CMS intégré fonctionnel
+  - ✅ SEO et performance optimisés
+
+  Il reste principalement à ajouter la persistance des données et améliorer l'expérience utilisateur avec les uploads et le déploiement automatisé.
+
+  🧠 Mémoires de Conversation
+
+  - Retient le dernier message que tu m'as écrit

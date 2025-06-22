@@ -121,9 +121,13 @@ export function PageNavigationEnhanced() {
       id: newPageId,
       name: page.name + ' (copie)',
       slug: newSlug,
-      blocks: [...page.blocks],
       meta: { ...page.meta }
     });
+    // Copy blocks to the new page
+    const newPage = pages.find(p => p.id === newPageId);
+    if (newPage) {
+      updatePage(newPageId, { blocks: [...page.blocks] });
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {

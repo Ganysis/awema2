@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { 
   PlusIcon, 
   MagnifyingGlassIcon,
-  FunnelIcon,
   DocumentDuplicateIcon,
   ArrowDownTrayIcon,
   GlobeAltIcon,
@@ -47,14 +46,14 @@ const mockClients = [
   }
 ];
 
-const statusColors = {
+const statusColors: Record<string, string> = {
   draft: 'bg-gray-100 text-gray-800',
   review: 'bg-yellow-100 text-yellow-800',
   published: 'bg-green-100 text-green-800',
   maintenance: 'bg-orange-100 text-orange-800'
 };
 
-const statusLabels = {
+const statusLabels: Record<string, string> = {
   draft: 'Brouillon',
   review: 'En révision',
   published: 'Publié',

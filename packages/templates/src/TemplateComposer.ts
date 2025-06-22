@@ -2,53 +2,51 @@ import {
   Template, 
   TemplateVariant, 
   RenderedBlock,
-  Block,
-  DefaultBlock
+  Block
 } from '@awema/shared';
 
 // Import blocks
-import { heroSplitScreen, renderHeroSplitScreen } from './blocks/hero/split-screen';
 import { heroCentered, renderHeroCentered } from './blocks/hero/centered';
+import { heroSplitScreen, renderHeroSplitScreen } from './blocks/hero/split-screen';
 import { servicesGridCards, renderServicesGridCards } from './blocks/services/grid-cards';
 import { servicesListDetailed, renderServicesListDetailed } from './blocks/services/list-detailed';
 import { contactFormMap, renderContactFormMap } from './blocks/contact/form-map';
 import { testimonialsCarousel, renderTestimonialsCarousel } from './blocks/testimonials/carousel';
-import { simpleHeader, renderSimpleHeader } from './blocks/layout/header';
-import { simpleFooter, renderSimpleFooter } from './blocks/layout/footer';
-import { textImageBlock, renderTextImageBlock } from './blocks/content/text-image';
-import { featuresMultiStyle, renderFeaturesMultiStyle } from './blocks/features/features-multi-style';
-import { galleryPortfolio, renderGalleryPortfolio } from './blocks/gallery/gallery-portfolio';
-import { faqAccordion, renderFaqAccordion } from './blocks/faq/faq-accordion';
-import { pricingTables, renderPricingTables } from './blocks/pricing/pricing-tables';
-import { ctaSection, renderCtaSection } from './blocks/cta/cta-section';
-
-// Import clean style blocks
 import { textImageClean, renderTextImageClean } from './blocks/content/text-image-clean';
+import { textImageBlock, renderTextImageBlock } from './blocks/content/text-image';
 import { featuresClean, renderFeaturesClean } from './blocks/features/features-clean';
+import { featuresMultiStyle, renderFeaturesMultiStyle } from './blocks/features/features-multi-style';
+import { featuresIconGrid, renderFeaturesIconGrid } from './blocks/features/icon-grid';
 import { galleryClean, renderGalleryClean } from './blocks/gallery/gallery-clean';
+import { galleryPortfolio, renderGalleryPortfolio } from './blocks/gallery/gallery-portfolio';
+import { galleryMasonry, renderGalleryMasonry } from './blocks/gallery/masonry';
+import { faqAccordion, renderFaqAccordion } from './blocks/faq/faq-accordion';
 import { faqClean, renderFaqClean } from './blocks/faq/faq-clean';
+import { faqUltraModern, renderFaqUltraModern } from './blocks/faq/faq-ultra-modern';
 import { pricingClean, renderPricingClean } from './blocks/pricing/pricing-clean';
+import { pricingTables, renderPricingTables } from './blocks/pricing/pricing-tables';
 import { ctaClean, renderCtaClean } from './blocks/cta/cta-clean';
+import { ctaSection, renderCtaSection } from './blocks/cta/cta-section';
+import { simpleFooter, renderSimpleFooter } from './blocks/layout/footer';
+import { simpleHeader, renderSimpleHeader } from './blocks/layout/header';
 
 // Import variants
 import { ultraProVariant, ultraProStyles } from './variants/ultra-pro';
 import { premiumVariant, premiumStyles } from './variants/premium';
 import { minimalVariant, minimalStyles } from './variants/minimal';
 
-// Import page templates
-import { landingPageTemplate, LandingPageConfig, generateLandingPageBlocks } from './pages/landing';
-import { multiPageTemplate, MultiPageConfig, generateMultiPageStructure } from './pages/multi-page';
+// Import templates
+import { landingPageTemplate } from './pages/landing';
+import { multiPageTemplate } from './pages/multi-page';
 
 export class TemplateComposer {
   private blocks: Map<string, Block>;
-  private renderers: Map<string, (props: any, variants: string[]) => RenderedBlock>;
   private variants: Map<string, TemplateVariant>;
-  private variantStyles: Map<string, string>;
+  private variantStyles: Map<string, string>; // Changed to Map<string, string>
   private templates: Map<string, Template>;
 
   constructor() {
     this.blocks = new Map();
-    this.renderers = new Map();
     this.variants = new Map();
     this.variantStyles = new Map();
     this.templates = new Map();
@@ -59,77 +57,29 @@ export class TemplateComposer {
   }
 
   private registerBlocks() {
-    // Hero blocks
-    this.blocks.set('hero-split-screen', heroSplitScreen);
-    this.renderers.set('hero-split-screen', renderHeroSplitScreen);
-    
     this.blocks.set('hero-centered', heroCentered);
-    this.renderers.set('hero-centered', renderHeroCentered);
-
-    // Service blocks
+    this.blocks.set('hero-split-screen', heroSplitScreen);
     this.blocks.set('services-grid-cards', servicesGridCards);
-    this.renderers.set('services-grid-cards', renderServicesGridCards);
-    
     this.blocks.set('services-list-detailed', servicesListDetailed);
-    this.renderers.set('services-list-detailed', renderServicesListDetailed);
-
-    // Contact blocks
     this.blocks.set('contact-form-map', contactFormMap);
-    this.renderers.set('contact-form-map', renderContactFormMap);
-
-    // Testimonial blocks
     this.blocks.set('testimonials-carousel', testimonialsCarousel);
-    this.renderers.set('testimonials-carousel', renderTestimonialsCarousel);
-
-    // Layout blocks
-    this.blocks.set('simple-header', simpleHeader);
-    this.renderers.set('simple-header', renderSimpleHeader);
-    
-    this.blocks.set('simple-footer', simpleFooter);
-    this.renderers.set('simple-footer', renderSimpleFooter);
-
-    // Content blocks
-    this.blocks.set('text-image-flexible', textImageBlock);
-    this.renderers.set('text-image-flexible', renderTextImageBlock);
-
-    // Features blocks
-    this.blocks.set('features-multi-style', featuresMultiStyle);
-    this.renderers.set('features-multi-style', renderFeaturesMultiStyle);
-
-    // Gallery blocks
-    this.blocks.set('gallery-portfolio', galleryPortfolio);
-    this.renderers.set('gallery-portfolio', renderGalleryPortfolio);
-
-    // FAQ blocks
-    this.blocks.set('faq-accordion', faqAccordion);
-    this.renderers.set('faq-accordion', renderFaqAccordion);
-
-    // Pricing blocks
-    this.blocks.set('pricing-tables', pricingTables);
-    this.renderers.set('pricing-tables', renderPricingTables);
-
-    // CTA blocks
-    this.blocks.set('cta-section', ctaSection);
-    this.renderers.set('cta-section', renderCtaSection);
-
-    // Clean style blocks
     this.blocks.set('text-image-clean', textImageClean);
-    this.renderers.set('text-image-clean', renderTextImageClean);
-
+    this.blocks.set('text-image-flexible', textImageBlock);
     this.blocks.set('features-clean', featuresClean);
-    this.renderers.set('features-clean', renderFeaturesClean);
-
+    this.blocks.set('features-multi-style', featuresMultiStyle);
+    this.blocks.set('features-icon-grid', featuresIconGrid);
     this.blocks.set('gallery-clean', galleryClean);
-    this.renderers.set('gallery-clean', renderGalleryClean);
-
+    this.blocks.set('gallery-portfolio', galleryPortfolio);
+    this.blocks.set('gallery-masonry', galleryMasonry);
+    this.blocks.set('faq-accordion', faqAccordion);
     this.blocks.set('faq-clean', faqClean);
-    this.renderers.set('faq-clean', renderFaqClean);
-
+    this.blocks.set('faq-ultra-modern', faqUltraModern);
     this.blocks.set('pricing-clean', pricingClean);
-    this.renderers.set('pricing-clean', renderPricingClean);
-
+    this.blocks.set('pricing-tables', pricingTables);
     this.blocks.set('cta-clean', ctaClean);
-    this.renderers.set('cta-clean', renderCtaClean);
+    this.blocks.set('cta-section', ctaSection);
+    this.blocks.set('simple-footer', simpleFooter);
+    this.blocks.set('simple-header', simpleHeader);
   }
 
   private registerVariants() {
@@ -152,258 +102,171 @@ export class TemplateComposer {
     return this.blocks.get(blockId);
   }
 
+  public getAllBlocks(): Block[] {
+    return Array.from(this.blocks.values());
+  }
+
+  public getBlocksByCategory(category: string): Block[] {
+    return this.getAllBlocks().filter(block => block.category === category);
+  }
+
   public getVariant(variantId: string): TemplateVariant | undefined {
     return this.variants.get(variantId);
+  }
+
+  public getAllVariants(): TemplateVariant[] {
+    return Array.from(this.variants.values());
   }
 
   public getTemplate(templateId: string): Template | undefined {
     return this.templates.get(templateId);
   }
 
+  public getAllTemplates(): Template[] {
+    return Array.from(this.templates.values());
+  }
+
   public renderBlock(blockId: string, props: Record<string, any>, variants: string[] = []): RenderedBlock | null {
-    const renderer = this.renderers.get(blockId);
-    if (!renderer) {
-      console.error(`No renderer found for block: ${blockId}`);
+    const block = this.blocks.get(blockId);
+    if (!block) {
+      console.error(`Block not found: ${blockId}`);
       return null;
     }
 
-    return renderer(props, variants);
+    // Get the appropriate render function based on block ID
+    let renderer;
+    switch (blockId) {
+      case 'hero-centered':
+        renderer = renderHeroCentered;
+        break;
+      case 'hero-split-screen':
+        renderer = renderHeroSplitScreen;
+        break;
+      case 'services-grid-cards':
+        renderer = renderServicesGridCards;
+        break;
+      case 'services-list-detailed':
+        renderer = renderServicesListDetailed;
+        break;
+      case 'contact-form-map':
+        renderer = renderContactFormMap;
+        break;
+      case 'testimonials-carousel':
+        renderer = renderTestimonialsCarousel;
+        break;
+      case 'text-image-clean':
+        renderer = renderTextImageClean;
+        break;
+      case 'text-image-flexible':
+        renderer = renderTextImageBlock;
+        break;
+      case 'features-clean':
+        renderer = renderFeaturesClean;
+        break;
+      case 'features-multi-style':
+        renderer = renderFeaturesMultiStyle;
+        break;
+      case 'features-icon-grid':
+        renderer = renderFeaturesIconGrid;
+        break;
+      case 'gallery-clean':
+        renderer = renderGalleryClean;
+        break;
+      case 'gallery-portfolio':
+        renderer = renderGalleryPortfolio;
+        break;
+      case 'gallery-masonry':
+        renderer = renderGalleryMasonry;
+        break;
+      case 'faq-accordion':
+        renderer = renderFaqAccordion;
+        break;
+      case 'faq-clean':
+        renderer = renderFaqClean;
+        break;
+      case 'faq-ultra-modern':
+        renderer = renderFaqUltraModern;
+        break;
+      case 'pricing-clean':
+        renderer = renderPricingClean;
+        break;
+      case 'pricing-tables':
+        renderer = renderPricingTables;
+        break;
+      case 'cta-clean':
+        renderer = renderCtaClean;
+        break;
+      case 'cta-section':
+        renderer = renderCtaSection;
+        break;
+      case 'simple-footer':
+        renderer = renderSimpleFooter;
+        break;
+      case 'simple-header':
+        renderer = renderSimpleHeader;
+        break;
+      default:
+        console.error(`No renderer found for block: ${blockId}`);
+        return null;
+    }
+
+    try {
+      const mergedProps = { ...block.props, ...props };
+      return renderer(mergedProps, variants);
+    } catch (error) {
+      console.error(`Error rendering block ${blockId}:`, error);
+      return null;
+    }
   }
 
-  public composePage(config: {
+  public getVariantStyles(variantId: string): string {
+    return this.variantStyles.get(variantId) || '';
+  }
+
+  public composePage(options: {
     template: string;
     variant: string;
-    blocks: DefaultBlock[];
+    blocks: Array<{ blockId: string; order: number; props: Record<string, any>; variants: string[] }>;
     customStyles?: string;
-  }): {
-    html: string;
-    css: string;
-    js: string;
-    criticalCSS: string;
-  } {
-    const variant = this.variants.get(config.variant);
-    const variantStyles = this.variantStyles.get(config.variant) || '';
+  }): { html: string; css: string; js: string; criticalCSS: string } {
+    const { blocks, variant, customStyles } = options;
     
-    if (!variant) {
-      throw new Error(`Variant not found: ${config.variant}`);
-    }
-
-    let html = '';
-    let css = variantStyles;
-    let js = '';
-    let criticalCSS = '';
-    const dependencies = new Set<string>();
-
     // Sort blocks by order
-    const sortedBlocks = [...config.blocks].sort((a, b) => a.order - b.order);
-
+    const sortedBlocks = [...blocks].sort((a, b) => a.order - b.order);
+    
     // Render each block
-    for (const blockConfig of sortedBlocks) {
-      const rendered = this.renderBlock(blockConfig.blockId, blockConfig.props, blockConfig.variants);
-      
-      if (rendered) {
-        html += rendered.html + '\n';
-        css += '\n' + rendered.css;
-        if (rendered.js) {
-          js += '\n' + rendered.js;
-        }
-        if (rendered.criticalCSS) {
-          criticalCSS += '\n' + rendered.criticalCSS;
-        }
-        
-        // Collect dependencies
-        rendered.dependencies?.forEach(dep => {
-          dependencies.add(JSON.stringify(dep));
-        });
-      }
-    }
-
-    // Add custom styles if provided
-    if (config.customStyles) {
-      css += '\n' + config.customStyles;
-    }
-
-    // Add base button styles
-    css = this.getBaseStyles() + '\n' + css;
-    criticalCSS = this.getBaseCriticalStyles() + '\n' + criticalCSS;
-
+    const renderedBlocks = sortedBlocks.map(block => {
+      const rendered = this.renderBlock(block.blockId, block.props, [...block.variants, variant]);
+      return rendered;
+    }).filter(Boolean);
+    
+    // Combine HTML
+    const html = renderedBlocks.map(block => block!.html).join('\n');
+    
+    // Get variant styles
+    const variantCss = this.getVariantStyles(variant);
+    
+    // Combine CSS
+    const css = [
+      variantCss,
+      ...renderedBlocks.map(block => block!.css || ''),
+      customStyles || ''
+    ].filter(Boolean).join('\n');
+    
+    // Combine JS
+    const js = renderedBlocks
+      .map(block => block!.js || '')
+      .filter(Boolean)
+      .join('\n');
+    
+    // For now, all CSS is critical
+    const criticalCSS = css;
+    
     return {
-      html: this.wrapInLayout(html, variant),
-      css: this.optimizeCSS(css),
-      js: this.optimizeJS(js),
-      criticalCSS: this.optimizeCSS(criticalCSS)
+      html,
+      css,
+      js,
+      criticalCSS
     };
-  }
-
-  private getBaseStyles(): string {
-    return `
-      /* Base Reset and Typography */
-      *, *::before, *::after {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-      }
-
-      /* Base Button Styles */
-      .btn {
-        display: inline-block;
-        padding: 0.75rem 1.5rem;
-        font-size: 1rem;
-        font-weight: 500;
-        text-align: center;
-        text-decoration: none;
-        border: none;
-        border-radius: var(--border-radius, 4px);
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .btn-lg {
-        padding: 1rem 2rem;
-        font-size: 1.125rem;
-      }
-
-      .btn-sm {
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-      }
-
-      .btn-block {
-        display: block;
-        width: 100%;
-      }
-
-      /* Utility Classes */
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-      }
-    `;
-  }
-
-  private getBaseCriticalStyles(): string {
-    return `
-      *, *::before, *::after { box-sizing: border-box; }
-      body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
-      img { max-width: 100%; height: auto; }
-      .btn { display: inline-block; padding: 0.75rem 1.5rem; text-decoration: none; cursor: pointer; }
-    `;
-  }
-
-  private wrapInLayout(content: string, _variant: TemplateVariant): string {
-    return `
-      <main class="site-main" role="main">
-        ${content}
-      </main>
-    `;
-  }
-
-  private optimizeCSS(css: string): string {
-    // Remove empty rules and comments
-    return css
-      .replace(/\/\*[\s\S]*?\*\//g, '') // Remove comments
-      .replace(/\s+/g, ' ') // Collapse whitespace
-      .replace(/\s*{\s*/g, '{') // Remove space around {
-      .replace(/\s*}\s*/g, '}') // Remove space around }
-      .replace(/\s*:\s*/g, ':') // Remove space around :
-      .replace(/\s*;\s*/g, ';') // Remove space around ;
-      .replace(/;}}/g, '}}') // Remove last semicolon
-      .trim();
-  }
-
-  private optimizeJS(js: string): string {
-    if (!js) return '';
-    
-    // Wrap in IIFE to avoid global scope pollution
-    return `(function(){${js.trim()}})();`;
-  }
-
-  // Helper methods for specific use cases
-  public generateLandingPage(config: LandingPageConfig & { variant: string }): {
-    html: string;
-    css: string;
-    js: string;
-    criticalCSS: string;
-  } {
-    const blocks = generateLandingPageBlocks(config);
-    
-    return this.composePage({
-      template: 'landing-page',
-      variant: config.variant,
-      blocks,
-      customStyles: this.generateBusinessSpecificStyles(config)
-    });
-  }
-
-  public generateMultiPageSite(config: MultiPageConfig & { variant: string }): Map<string, {
-    html: string;
-    css: string;
-    js: string;
-    criticalCSS: string;
-  }> {
-    const pages = generateMultiPageStructure(config);
-    const results = new Map();
-
-    for (const page of pages) {
-      const pageContent = this.composePage({
-        template: 'multi-page',
-        variant: config.variant,
-        blocks: page.blocks,
-        customStyles: this.generateBusinessSpecificStyles(config)
-      });
-
-      results.set(page.slug, pageContent);
-    }
-
-    return results;
-  }
-
-  private generateBusinessSpecificStyles(config: any): string {
-    let styles = '';
-
-    if (config.colorScheme) {
-      styles += `
-        :root {
-          --color-primary: ${config.colorScheme.primary};
-          --color-secondary: ${config.colorScheme.secondary};
-          --color-accent: ${config.colorScheme.accent};
-        }
-      `;
-    }
-
-    return styles;
-  }
-
-  // Export available blocks, variants, and templates
-  public getAvailableBlocks(): Block[] {
-    return Array.from(this.blocks.values());
-  }
-
-  public getAvailableVariants(): TemplateVariant[] {
-    return Array.from(this.variants.values());
-  }
-
-  public getAvailableTemplates(): Template[] {
-    return Array.from(this.templates.values());
   }
 }

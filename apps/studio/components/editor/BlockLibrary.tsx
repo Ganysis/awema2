@@ -2,20 +2,21 @@
 
 import { useMemo } from 'react';
 import { useEditorStore } from '@/lib/store/editor-store';
-import { blockRegistry, getBlocksByCategory, getAllCategories } from '@/lib/blocks/block-registry';
+import { blockRegistry, getAllCategories } from '@/lib/blocks/block-registry';
 import { BlockCategory } from '@awema/shared';
 import { 
   Square3Stack3DIcon,
   PhotoIcon,
   ChatBubbleBottomCenterTextIcon,
   CubeIcon,
-  Squares2X2Icon,
   PhoneIcon,
   UserGroupIcon,
   StarIcon,
   SparklesIcon,
   DocumentTextIcon,
-  UserIcon
+  UserIcon,
+  QuestionMarkCircleIcon,
+  CurrencyDollarIcon
 } from '@heroicons/react/24/outline';
 
 interface BlockLibraryProps {
@@ -32,6 +33,9 @@ const categoryIcons: Partial<Record<BlockCategory, React.ComponentType<any>>> = 
   [BlockCategory.CONTACT]: PhoneIcon,
   [BlockCategory.CTA]: StarIcon,
   [BlockCategory.FOOTER]: DocumentTextIcon,
+  [BlockCategory.FAQ]: QuestionMarkCircleIcon,
+  [BlockCategory.PRICING]: CurrencyDollarIcon,
+  [BlockCategory.CONTENT]: DocumentTextIcon,
 };
 
 // Category display names
@@ -44,10 +48,17 @@ const categoryNames: Partial<Record<BlockCategory, string>> = {
   [BlockCategory.CONTACT]: 'Contact',
   [BlockCategory.CTA]: 'Call to Action',
   [BlockCategory.FOOTER]: 'Footer',
+  [BlockCategory.FAQ]: 'FAQ',
+  [BlockCategory.PRICING]: 'Pricing',
+  [BlockCategory.CONTENT]: 'Content',
 };
 
 export function BlockLibrary({ searchQuery }: BlockLibraryProps) {
   const { addBlock } = useEditorStore();
+  
+  // Debug: Log all blocks to check if FAQ blocks are present
+  console.log('Total blocks in registry:', blockRegistry.length);
+  console.log('Categories in registry:', getAllCategories());
   
   // Filter blocks based on search
   const filteredBlocks = useMemo(() => {
@@ -105,12 +116,17 @@ export function BlockLibrary({ searchQuery }: BlockLibraryProps) {
             <div className="flex items-center mb-3">
               <Icon className="w-5 h-5 text-gray-400 mr-2" />
               <h3 className="text-sm font-semibold text-gray-700">
-                {categoryNames[category] || category}
+                {categoryNames[category as BlockCategory] || category}
               </h3>
             </div>
             
             <div className="space-y-2">
-              {blocks.map(blockDef => (
+              {blocks.map(blockDef => {
+                if (!blockDef || !blockDef.block) {
+                  console.error('Invalid blockDef:', blockDef);
+                  return null;
+                }
+                return (
                 <div
                   key={blockDef.block.id}
                   draggable
@@ -149,7 +165,8 @@ export function BlockLibrary({ searchQuery }: BlockLibraryProps) {
                     </button>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         );

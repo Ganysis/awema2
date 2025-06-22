@@ -10,7 +10,7 @@ const nextConfig = {
     '@awema/analytics'
   ],
   experimental: {
-    optimizePackageImports: ['@awema/editor', '@awema/templates']
+    optimizePackageImports: ['@awema/editor']
   }
 }
 

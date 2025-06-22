@@ -23,6 +23,19 @@ export class RandomSiteGenerator {
     return items[Math.floor(Math.random() * items.length)];
   }
 
+  private static mapVisualStyle(style: string): 'modern' | 'classic' | 'industrial' | 'natural' {
+    const mapping: Record<string, 'modern' | 'classic' | 'industrial' | 'natural'> = {
+      'clean': 'modern',
+      'modern': 'modern',
+      'elegant': 'classic',
+      'minimal': 'modern',
+      'professional': 'classic',
+      'creative': 'modern',
+      'bold': 'industrial'
+    };
+    return mapping[style] || 'modern';
+  }
+
   private static generateRandomConfig(): RandomizationConfig {
     // Générer une configuration cohérente
     const colorSchemes = ['primary', 'blue', 'green', 'purple', 'gradient'] as const;
@@ -31,12 +44,12 @@ export class RandomSiteGenerator {
     const animations = ['none', 'subtle', 'normal', 'dynamic'] as const;
 
     // Styles cohérents basés sur le style visuel principal
-    const visualStyle = this.getRandomItem(visualStyles);
+    const visualStyle = this.getRandomItem([...visualStyles]);
     
     // Adapter les autres choix au style principal
-    let colorScheme = this.getRandomItem(colorSchemes);
-    let spacing = this.getRandomItem(spacings);
-    let animationLevel = this.getRandomItem(animations);
+    let colorScheme = this.getRandomItem([...colorSchemes]);
+    let spacing = this.getRandomItem([...spacings]);
+    let animationLevel = this.getRandomItem([...animations]);
 
     // Cohérence des styles
     if (visualStyle === 'minimal' || visualStyle === 'clean') {
@@ -273,7 +286,7 @@ export class RandomSiteGenerator {
       ],
       certifications: businessInfo?.certifications || [],
       insurance: businessInfo?.insurance || true,
-      visualStyle: config.visualStyle,
+      visualStyle: this.mapVisualStyle(config.visualStyle),
       primaryColor: '#3B82F6',
       secondaryColor: '#1E40AF',
       selectedPages: ['home', 'services', 'contact', 'about']
@@ -327,8 +340,39 @@ export class RandomSiteGenerator {
       // Garder le contenu mais changer les styles
       const randomizedBlocks = this.applyRandomization(currentBlocks, newConfig);
       
+      // Convertir BusinessInfo en format Client
+      const clientData = {
+        businessName: businessInfo.companyName,
+        businessType: businessInfo.industry.category,
+        description: businessInfo.description,
+        phone: businessInfo.contact.phone,
+        email: businessInfo.contact.email,
+        address: businessInfo.contact.address?.street || '',
+        city: businessInfo.contact.address?.city || '',
+        postalCode: businessInfo.contact.address?.postalCode || '',
+        services: businessInfo.services.map(s => ({
+          id: s.id,
+          name: s.name,
+          description: s.description,
+          price: String(s.price?.amount || 0),
+          priceType: 'fixed' as const,
+          duration: '2 heures',
+          guarantee: '2 ans',
+          images: []
+        })),
+        interventionCities: [],
+        photos: [],
+        testimonials: [],
+        certifications: [],
+        insurance: 'Assuré',
+        visualStyle: this.mapVisualStyle(newConfig.visualStyle),
+        primaryColor: '#3B82F6',
+        secondaryColor: '#1E40AF',
+        selectedPages: ['home', 'services', 'contact', 'about']
+      };
+      
       // Régénérer les pages avec les nouveaux styles
-      const baseSite = siteGenerator.generateSiteFromClient(businessInfo);
+      const baseSite = siteGenerator.generateSiteFromClient(clientData);
       const randomizedPages = new Map();
       baseSite.pages.forEach((pageBlocks, slug) => {
         randomizedPages.set(slug, this.applyRandomization(pageBlocks, newConfig));

@@ -29,8 +29,8 @@ export class CriticalCSSGenerator {
 
   private async extractCriticalCSS(
     html: string,
-    page: Page,
-    context: GeneratorContext
+    _page: Page,
+    _context: GeneratorContext
   ): Promise<string> {
     // For POC, we'll extract CSS that's already in the HTML
     // In production, we'd use a tool like critical or penthouse
@@ -218,8 +218,8 @@ ${criticalCSS}
   }
 
   async generateCriticalPath(
-    page: Page,
-    context: GeneratorContext
+    _page: Page,
+    _context: GeneratorContext
   ): Promise<{
     inlineCSS: string;
     deferredCSS: string[];
@@ -228,7 +228,7 @@ ${criticalCSS}
     // For now, returning mock data
     return {
       inlineCSS: '',
-      deferredCSS: [`/css/${page.id}.css`]
+      deferredCSS: [`/css/${_page.id}.css`]
     };
   }
 

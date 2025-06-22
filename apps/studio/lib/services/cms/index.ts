@@ -7,11 +7,14 @@ export * from './cms-api';
 
 // Re-export specific items for easier access
 export { 
-  CMSApi, 
-  CMSContent, 
-  CMSConfig,
+  CMSApi,
   createCMSMiddleware,
   createStandaloneCMSServer,
   generateCMSIntegration,
   CMSExportUtils
+} from './cms-api';
+
+export type { 
+  CMSContent, 
+  CMSConfig
 } from './cms-api';

@@ -1,4 +1,4 @@
-import { GeneratorContext, PerformanceConfig } from '@awema/shared';
+import { GeneratorContext } from '@awema/shared';
 import { minify as htmlMinify } from 'html-minifier-terser';
 import postcss from 'postcss';
 import cssnano from 'cssnano';
@@ -103,7 +103,7 @@ export class PerformanceEngine {
     try {
       const result = await terserMinify(js, {
         compress: {
-          drop_console: context.config.environment === 'PRODUCTION',
+          drop_console: context.config.environment === 'production',
           drop_debugger: true,
           pure_funcs: ['console.log', 'console.debug'],
           passes: 2,
@@ -126,7 +126,7 @@ export class PerformanceEngine {
     }
   }
 
-  generateCacheHeaders(fileType: string, context: GeneratorContext): Record<string, string> {
+  generateCacheHeaders(_fileType: string, context: GeneratorContext): Record<string, string> {
     const { caching } = context.config.performance;
     
     if (!caching.enabled) {

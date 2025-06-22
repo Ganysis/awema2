@@ -9,7 +9,7 @@
     "pnpm": ">=10.0.0"
   },
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --concurrency=13",
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",

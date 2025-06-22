@@ -12,7 +12,7 @@ export interface ProcessedAsset {
 
 export class AssetPipeline {
   async process(asset: Asset, context: GeneratorContext): Promise<ProcessedAsset> {
-    const { performance } = context.config;
+    // const { performance } = context.config;
     
     switch (asset.type) {
       case AssetType.IMAGE:
@@ -53,7 +53,7 @@ export class AssetPipeline {
       let sharpInstance = sharp(inputBuffer);
       
       // Get metadata
-      const metadata = await sharpInstance.metadata();
+      // const metadata = await sharpInstance.metadata();
       
       // Resize if needed for responsive images
       if (images.responsive && images.sizes.length > 0) {
@@ -116,8 +116,8 @@ export class AssetPipeline {
     }
   }
 
-  private async processFont(asset: Asset, context: GeneratorContext): Promise<ProcessedAsset> {
-    const { fonts } = context.config.performance;
+  private async processFont(asset: Asset, _context: GeneratorContext): Promise<ProcessedAsset> {
+    // const { fonts } = context.config.performance;
     
     // For POC, we'll just copy fonts
     // In production, we'd subset fonts based on usage
@@ -131,7 +131,7 @@ export class AssetPipeline {
     };
   }
 
-  private async processGeneric(asset: Asset, context: GeneratorContext): Promise<ProcessedAsset> {
+  private async processGeneric(asset: Asset, _context: GeneratorContext): Promise<ProcessedAsset> {
     const content = await this.readAsset(asset.originalPath);
     
     return {
@@ -177,7 +177,7 @@ export class AssetPipeline {
   async generateImageSrcset(
     imagePath: string,
     sizes: Array<{ width: number; suffix: string }>,
-    context: GeneratorContext
+    _context: GeneratorContext
   ): Promise<string> {
     const srcset: string[] = [];
     
@@ -213,7 +213,7 @@ export class AssetPipeline {
   async generatePlaceholder(
     imagePath: string,
     type: 'blur' | 'lqip' | 'color',
-    context: GeneratorContext
+    _context: GeneratorContext
   ): Promise<string> {
     try {
       const inputBuffer = await this.readAsset(imagePath);

@@ -19,7 +19,7 @@ interface BlockItemProps {
 }
 
 // Block preview component
-function BlockPreview({ blockType, blockProps }: { blockType: string; blockProps: Record<string, any> }) {
+function BlockPreview({ blockType, blockProps: _blockProps }: { blockType: string; blockProps: Record<string, any> }) {
   const blockDef = getBlockById(blockType);
   
   if (!blockDef) {
@@ -198,7 +198,7 @@ export function BlockItem({ block, isGlobal = false }: BlockItemProps) {
     selectBlock(block.id);
   };
 
-  const blockDef = getBlockById(block.type);
+  // const blockDef = getBlockById(block.type);
   const isHidden = block.props?.hidden || false;
 
   return (

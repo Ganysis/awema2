@@ -7,8 +7,7 @@ import {
   GeneratorMetrics,
   GeneratorError,
   GeneratedFile,
-  FileType,
-  Environment
+  FileType
 } from '@awema/shared';
 import { TemplateEngine } from './TemplateEngine';
 import { PerformanceEngine } from './PerformanceEngine';
@@ -43,6 +42,9 @@ export class AWEMAGenerator {
     this.assetPipeline = new AssetPipeline();
     this.seoEngine = new SEOEngine();
     this.criticalCSSGenerator = new CriticalCSSGenerator();
+    
+    // Initialize context (will be set properly in generate method)
+    this.context = {} as GeneratorContext;
   }
 
   async generate(project: Project): Promise<GeneratorResult> {

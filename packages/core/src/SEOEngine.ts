@@ -1,15 +1,11 @@
 import {
   Page,
-  Project,
-  SEOConfig,
-  StructuredData,
-  SchemaType,
-  ChangeFrequency
+  Project
 } from '@awema/shared';
 
 export class SEOEngine {
   async optimize(html: string, page: Page, project: Project): Promise<string> {
-    const { seo, businessInfo } = project;
+    // const { seo, businessInfo } = project;
     
     // Generate meta tags
     const metaTags = this.generateMetaTags(page, project);

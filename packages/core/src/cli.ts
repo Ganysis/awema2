@@ -99,12 +99,12 @@ program
   .option('-n, --name <name>', 'Business name')
   .option('-o, --output <path>', 'Output directory', path.join(process.cwd(), '..', 'preview-server', 'output'))
   .option('--no-optimize', 'Skip optimization steps')
-  .action(async (options) => {
+  .action(async (options: any) => {
     const spinner = ora();
     
     try {
       // Validate trade
-      if (!options.trade || !TRADES[options.trade]) {
+      if (!options.trade || !TRADES[options.trade as keyof typeof TRADES]) {
         console.error(chalk.red('Error: Invalid or missing trade.'));
         console.log('Available trades:', Object.keys(TRADES).join(', '));
         process.exit(1);
@@ -117,7 +117,7 @@ program
         process.exit(1);
       }
       
-      const trade = TRADES[options.trade];
+      const trade = TRADES[options.trade as keyof typeof TRADES];
       const businessName = options.name || `${trade.nameFr} Pro Services`;
       const outputName = `${options.trade}-${options.variant}-${Date.now()}`;
       const outputPath = path.join(options.output, outputName);
@@ -150,7 +150,7 @@ program
           hours: 'Lun-Ven: 8h-18h, Sam: 9h-12h, Urgences 24/7'
         },
         services: trade.services,
-        testimonials: trade.testimonials.map((t, i) => ({
+        testimonials: trade.testimonials.map((t: any, i: number) => ({
           ...t,
           image: `/testimonial-${i + 1}.jpg`
         })),
@@ -166,7 +166,80 @@ program
       // Generate site
       spinner.start('Generating website...');
       const composer = new TemplateComposer();
-      const pageContent = composer.generateLandingPage(config);
+      
+      // Create blocks for the landing page
+      const blocks = [
+        {
+          blockId: 'simple-header',
+          order: 0,
+          props: {
+            companyName: config.businessName,
+            navItems: ['Accueil', 'Services', 'À propos', 'Contact']
+          },
+          variants: []
+        },
+        {
+          blockId: 'hero-centered',
+          order: 1,
+          props: {
+            title: `${config.businessName} - ${config.businessType} Professionnel`,
+            subtitle: 'Service de qualité, prix compétitifs et satisfaction garantie',
+            ctaText: 'Demander un devis',
+            ctaLink: '#contact'
+          },
+          variants: []
+        },
+        {
+          blockId: 'services-grid-cards',
+          order: 2,
+          props: {
+            title: 'Nos Services',
+            subtitle: 'Des solutions adaptées à vos besoins',
+            services: config.services
+          },
+          variants: []
+        },
+        {
+          blockId: 'features-clean',
+          order: 3,
+          props: {
+            title: 'Pourquoi nous choisir ?',
+            features: config.features.map((feature: string) => ({
+              title: feature,
+              description: '',
+              icon: 'check'
+            }))
+          },
+          variants: []
+        },
+        {
+          blockId: 'contact-form-map',
+          order: 4,
+          props: {
+            title: 'Contactez-nous',
+            phone: config.phone,
+            email: config.email
+          },
+          variants: []
+        },
+        {
+          blockId: 'simple-footer',
+          order: 5,
+          props: {
+            companyName: config.businessName,
+            phone: config.phone,
+            email: config.email
+          },
+          variants: []
+        }
+      ];
+      
+      const pageContent = composer.composePage({
+        template: 'landing-page',
+        variant: config.theme?.variant || 'minimal',
+        blocks,
+        customStyles: ''
+      });
       
       // Generate complete HTML
       const html = generateCompleteHTML(config, pageContent);
@@ -210,7 +283,7 @@ program
       
     } catch (error) {
       spinner.fail('Generation failed');
-      console.error(chalk.red('\nError:'), error.message);
+      console.error(chalk.red('\nError:'), (error as Error).message);
       process.exit(1);
     }
   });
