@@ -21,12 +21,18 @@ import {
   renderFeaturesMultiStyle,
   featuresIconGrid,
   renderFeaturesIconGrid,
+  processSteps,
+  renderProcessSteps,
+  statsNumbers,
+  renderStatsNumbers,
   galleryClean,
   renderGalleryClean,
   galleryPortfolio,
   renderGalleryPortfolio,
   galleryMasonry,
   renderGalleryMasonry,
+  beforeAfter,
+  renderBeforeAfter,
   faqAccordion,
   renderFaqAccordion,
   faqClean,
@@ -43,8 +49,12 @@ import {
   renderCtaSection,
   simpleFooter,
   renderSimpleFooter,
+  footerPro,
+  renderFooterPro,
   simpleHeader,
   renderSimpleHeader,
+  headerPro,
+  renderHeaderPro,
   
   // Types
   type Block
@@ -141,6 +151,18 @@ export const blockRegistry: BlockDefinition[] = [
     description: 'Grid layout with icons and feature descriptions',
   },
   {
+    block: processSteps,
+    category: BlockCategory.FEATURES,
+    name: 'Processus / Étapes',
+    description: 'Présentation des étapes de votre processus de travail',
+  },
+  {
+    block: statsNumbers,
+    category: BlockCategory.FEATURES,
+    name: 'Statistiques / Chiffres',
+    description: 'Chiffres clés et statistiques avec animations',
+  },
+  {
     block: galleryClean,
     category: BlockCategory.GALLERY,
     name: 'Galerie Photos',
@@ -157,6 +179,12 @@ export const blockRegistry: BlockDefinition[] = [
     category: BlockCategory.GALLERY,
     name: 'Masonry Gallery',
     description: 'Pinterest-style masonry gallery with filtering',
+  },
+  {
+    block: beforeAfter,
+    category: BlockCategory.GALLERY,
+    name: 'Avant/Après',
+    description: 'Comparaison interactive avant/après pour montrer vos réalisations',
   },
   {
     block: faqAccordion,
@@ -207,10 +235,22 @@ export const blockRegistry: BlockDefinition[] = [
     description: 'Pied de page simple avec informations de contact',
   },
   {
+    block: footerPro,
+    category: BlockCategory.FOOTER,
+    name: 'Footer Professionnel',
+    description: 'Pied de page professionnel avec liens services, mentions légales et crédit Awema',
+  },
+  {
     block: simpleHeader,
     category: BlockCategory.CONTENT,
     name: 'Header Simple',
     description: 'En-tête simple avec logo et navigation',
+  },
+  {
+    block: headerPro,
+    category: BlockCategory.HEADER,
+    name: 'Header Professionnel',
+    description: 'En-tête professionnel avec navigation complète et sous-menus',
   },
 ].filter(def => def && def.block); // Filter out any invalid entries
 
@@ -241,9 +281,12 @@ const renderFunctions: Record<string, any> = {
   'features-clean': renderFeaturesClean,
   'features-multi-style': renderFeaturesMultiStyle,
   'features-icon-grid': renderFeaturesIconGrid,
+  'process-steps': renderProcessSteps,
+  'stats-numbers': renderStatsNumbers,
   'gallery-clean': renderGalleryClean,
   'gallery-portfolio': renderGalleryPortfolio,
   'gallery-masonry': renderGalleryMasonry,
+  'before-after': renderBeforeAfter,
   'faq-accordion': renderFaqAccordion,
   'faq-clean': renderFaqClean,
   'faq-ultra-modern': renderFaqUltraModern,
@@ -252,7 +295,9 @@ const renderFunctions: Record<string, any> = {
   'cta-clean': renderCtaClean,
   'cta-section': renderCtaSection,
   'simple-footer': renderSimpleFooter,
+  'footer-pro': renderFooterPro,
   'simple-header': renderSimpleHeader,
+  'header-pro': renderHeaderPro,
 };
 
 export function getBlockRenderFunction(blockId: string): ((props: any, variants?: string[]) => any) | undefined {

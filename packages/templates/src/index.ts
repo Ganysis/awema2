@@ -16,9 +16,12 @@ export { textImageBlock, renderTextImageBlock } from './blocks/content/text-imag
 export { featuresClean, renderFeaturesClean } from './blocks/features/features-clean';
 export { featuresMultiStyle, renderFeaturesMultiStyle } from './blocks/features/features-multi-style';
 export { featuresIconGrid, renderFeaturesIconGrid } from './blocks/features/icon-grid';
+export { processSteps, renderProcessSteps } from './blocks/features/process-steps';
+export { statsNumbers, renderStatsNumbers } from './blocks/features/stats-numbers';
 export { galleryClean, renderGalleryClean } from './blocks/gallery/gallery-clean';
 export { galleryPortfolio, renderGalleryPortfolio } from './blocks/gallery/gallery-portfolio';
 export { galleryMasonry, renderGalleryMasonry } from './blocks/gallery/masonry';
+export { beforeAfter, renderBeforeAfter } from './blocks/gallery/before-after';
 export { faqAccordion, renderFaqAccordion } from './blocks/faq/faq-accordion';
 export { faqClean, renderFaqClean } from './blocks/faq/faq-clean';
 export { faqUltraModern, renderFaqUltraModern } from './blocks/faq/faq-ultra-modern';
@@ -27,7 +30,9 @@ export { pricingTables, renderPricingTables } from './blocks/pricing/pricing-tab
 export { ctaClean, renderCtaClean } from './blocks/cta/cta-clean';
 export { ctaSection, renderCtaSection } from './blocks/cta/cta-section';
 export { simpleFooter, renderSimpleFooter } from './blocks/layout/footer';
+export { footerPro, renderFooterPro } from './blocks/layout/footer-pro';
 export { simpleHeader, renderSimpleHeader } from './blocks/layout/header';
+export { headerPro, renderHeaderPro } from './blocks/layout/header-pro';
 
 // Export utility generators
 export { ColorGenerator } from './utils/color-generator';

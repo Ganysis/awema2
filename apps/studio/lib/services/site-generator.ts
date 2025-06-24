@@ -44,7 +44,7 @@ export class SiteGenerator {
    */
   private generateTheme(client: Partial<Client>) {
     return {
-      variant: this.getVariantFromStyle(client.visualStyle),
+      variant: this.getVariantFromStyle(client.visualStyle || 'modern'),
       colors: {
         primary: client.primaryColor,
         secondary: client.secondaryColor,
@@ -195,13 +195,13 @@ export class SiteGenerator {
       type: 'hero-split-screen',
       props: {
         title: client.businessName,
-        subtitle: client.slogan || `${this.getBusinessTypeLabel(client.businessType)} professionnel depuis ${client.yearsExperience} ans`,
+        subtitle: client.slogan || `${this.getBusinessTypeLabel(client.businessType || 'plumber')} professionnel depuis ${client.yearsExperience} ans`,
         ctaText: client.emergency247 ? 'Urgence 24/7' : 'Devis Gratuit',
         ctaLink: `tel:${client.phone}`,
         secondaryCtaText: 'Nos Services',
         secondaryCtaLink: '#services',
-        image: (client.photos && client.photos[0]) || this.getDefaultImage(client.businessType),
-        imageAlt: `${client.businessName} - ${this.getBusinessTypeLabel(client.businessType)}`
+        image: (client.photos && client.photos[0]) || this.getDefaultImage(client.businessType || 'plumber'),
+        imageAlt: `${client.businessName} - ${this.getBusinessTypeLabel(client.businessType || 'plumber')}`
       },
       children: []
     });
@@ -418,7 +418,7 @@ export class SiteGenerator {
         type: 'hero-split-screen',
         props: {
           title: `${service.name} à ${city}`,
-          subtitle: `${client.businessName} - Votre ${this.getBusinessTypeLabel(client.businessType)} à ${city}`,
+          subtitle: `${client.businessName} - Votre ${this.getBusinessTypeLabel(client.businessType || 'plumber')} à ${city}`,
           ctaText: 'Devis Gratuit',
           ctaLink: `tel:${client.phone}`,
           secondaryCtaText: 'En savoir plus',
@@ -474,7 +474,7 @@ export class SiteGenerator {
         type: 'hero-centered',
         props: {
           title: `À propos de ${client.businessName}`,
-          subtitle: `${this.getBusinessTypeLabel(client.businessType)} depuis ${new Date().getFullYear() - parseInt(client.yearsExperience)}`,
+          subtitle: `${this.getBusinessTypeLabel(client.businessType || 'plumber')} depuis ${new Date().getFullYear() - parseInt(client.yearsExperience || '10')}`,
           image: client.logo || client.photos[0],
           imageAlt: client.businessName
         },

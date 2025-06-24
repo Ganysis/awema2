@@ -17,9 +17,12 @@ import { textImageBlock, renderTextImageBlock } from './blocks/content/text-imag
 import { featuresClean, renderFeaturesClean } from './blocks/features/features-clean';
 import { featuresMultiStyle, renderFeaturesMultiStyle } from './blocks/features/features-multi-style';
 import { featuresIconGrid, renderFeaturesIconGrid } from './blocks/features/icon-grid';
+import { processSteps, renderProcessSteps } from './blocks/features/process-steps';
+import { statsNumbers, renderStatsNumbers } from './blocks/features/stats-numbers';
 import { galleryClean, renderGalleryClean } from './blocks/gallery/gallery-clean';
 import { galleryPortfolio, renderGalleryPortfolio } from './blocks/gallery/gallery-portfolio';
 import { galleryMasonry, renderGalleryMasonry } from './blocks/gallery/masonry';
+import { beforeAfter, renderBeforeAfter } from './blocks/gallery/before-after';
 import { faqAccordion, renderFaqAccordion } from './blocks/faq/faq-accordion';
 import { faqClean, renderFaqClean } from './blocks/faq/faq-clean';
 import { faqUltraModern, renderFaqUltraModern } from './blocks/faq/faq-ultra-modern';
@@ -28,7 +31,9 @@ import { pricingTables, renderPricingTables } from './blocks/pricing/pricing-tab
 import { ctaClean, renderCtaClean } from './blocks/cta/cta-clean';
 import { ctaSection, renderCtaSection } from './blocks/cta/cta-section';
 import { simpleFooter, renderSimpleFooter } from './blocks/layout/footer';
+import { footerPro, renderFooterPro } from './blocks/layout/footer-pro';
 import { simpleHeader, renderSimpleHeader } from './blocks/layout/header';
+import { headerPro, renderHeaderPro } from './blocks/layout/header-pro';
 
 // Import variants
 import { ultraProVariant, ultraProStyles } from './variants/ultra-pro';
@@ -68,9 +73,12 @@ export class TemplateComposer {
     this.blocks.set('features-clean', featuresClean);
     this.blocks.set('features-multi-style', featuresMultiStyle);
     this.blocks.set('features-icon-grid', featuresIconGrid);
+    this.blocks.set('process-steps', processSteps);
+    this.blocks.set('stats-numbers', statsNumbers);
     this.blocks.set('gallery-clean', galleryClean);
     this.blocks.set('gallery-portfolio', galleryPortfolio);
     this.blocks.set('gallery-masonry', galleryMasonry);
+    this.blocks.set('before-after', beforeAfter);
     this.blocks.set('faq-accordion', faqAccordion);
     this.blocks.set('faq-clean', faqClean);
     this.blocks.set('faq-ultra-modern', faqUltraModern);
@@ -79,7 +87,9 @@ export class TemplateComposer {
     this.blocks.set('cta-clean', ctaClean);
     this.blocks.set('cta-section', ctaSection);
     this.blocks.set('simple-footer', simpleFooter);
+    this.blocks.set('footer-pro', footerPro);
     this.blocks.set('simple-header', simpleHeader);
+    this.blocks.set('header-pro', headerPro);
   }
 
   private registerVariants() {
@@ -169,6 +179,12 @@ export class TemplateComposer {
       case 'features-icon-grid':
         renderer = renderFeaturesIconGrid;
         break;
+      case 'process-steps':
+        renderer = renderProcessSteps;
+        break;
+      case 'stats-numbers':
+        renderer = renderStatsNumbers;
+        break;
       case 'gallery-clean':
         renderer = renderGalleryClean;
         break;
@@ -177,6 +193,9 @@ export class TemplateComposer {
         break;
       case 'gallery-masonry':
         renderer = renderGalleryMasonry;
+        break;
+      case 'before-after':
+        renderer = renderBeforeAfter;
         break;
       case 'faq-accordion':
         renderer = renderFaqAccordion;
@@ -202,8 +221,14 @@ export class TemplateComposer {
       case 'simple-footer':
         renderer = renderSimpleFooter;
         break;
+      case 'footer-pro':
+        renderer = renderFooterPro;
+        break;
       case 'simple-header':
         renderer = renderSimpleHeader;
+        break;
+      case 'header-pro':
+        renderer = renderHeaderPro;
         break;
       default:
         console.error(`No renderer found for block: ${blockId}`);
