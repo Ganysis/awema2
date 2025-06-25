@@ -10,7 +10,13 @@ import { PropertiesPanel } from './PropertiesPanel';
 import { Toolbar } from './Toolbar';
 import { PreviewModal } from './PreviewModal';
 
-export function Editor() {
+interface EditorProps {
+  projectId?: string;
+  template?: string;
+  theme?: string;
+}
+
+export function Editor({ projectId, template, theme = 'premium' }: EditorProps = {}) {
   const [showPreview, setShowPreview] = useState(false);
   const { isPreviewMode, setPreviewMode, clearBlocks, addBlock, setThemeVariant, updateColors, initializePages, setBusinessInfo } = useEditorStore();
   const searchParams = useSearchParams();

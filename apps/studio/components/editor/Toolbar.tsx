@@ -18,9 +18,10 @@ import {
 
 interface ToolbarProps {
   onPreview: () => void;
+  saveStatus?: React.ReactNode;
 }
 
-export function Toolbar({ onPreview }: ToolbarProps) {
+export function Toolbar({ onPreview, saveStatus }: ToolbarProps) {
   const [showExportModal, setShowExportModal] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const { 
@@ -74,8 +75,8 @@ export function Toolbar({ onPreview }: ToolbarProps) {
         slug: '/',
         blocks: randomSite.blocks,
         meta: {
-          title: `${businessInfo.companyName} - ${businessInfo.industry.category}`,
-          description: businessInfo.description || `Services de ${businessInfo.industry.category}`
+          title: `${businessInfo.companyName || 'Mon Site'} - ${businessInfo.industry?.category || 'Services'}`,
+          description: businessInfo.description || `Services de ${businessInfo.industry?.category || 'qualité'}`
         }
       });
       
@@ -92,7 +93,7 @@ export function Toolbar({ onPreview }: ToolbarProps) {
           blocks: pageBlocks,
           meta: {
             title: `${pageName} - ${businessInfo.companyName}`,
-            description: `${pageName} - ${businessInfo.industry.category}`
+            description: `${pageName} - ${businessInfo.industry?.category || 'Services'}`
           }
         });
       });
@@ -145,8 +146,15 @@ export function Toolbar({ onPreview }: ToolbarProps) {
         </div>
       </div>
       
-      {/* Center Section - Device Preview */}
-      <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
+      {/* Center Section - Save Status & Device Preview */}
+      <div className="flex items-center space-x-4">
+        {saveStatus && (
+          <div className="flex items-center">
+            {saveStatus}
+          </div>
+        )}
+        
+        <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
         <button
           onClick={() => setPreviewDevice('mobile')}
           className={`p-2 rounded ${
@@ -174,6 +182,7 @@ export function Toolbar({ onPreview }: ToolbarProps) {
         >
           <ComputerDesktopIcon className="w-5 h-5" />
         </button>
+        </div>
       </div>
       
       {/* Right Section */}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
   PlusIcon, 
@@ -12,64 +12,73 @@ import {
   EyeIcon
 } from '@heroicons/react/24/outline';
 
-// Mock data for now - will be replaced with real database
-const mockClients = [
-  {
-    id: '1',
-    businessName: 'Électricité Durand',
-    businessType: 'electricien',
-    status: 'published',
-    createdAt: '2024-01-15',
-    lastModified: '2024-01-20',
-    city: 'Paris',
-    leadCount: 12
-  },
-  {
-    id: '2', 
-    businessName: 'Plomberie Martin',
-    businessType: 'plombier',
-    status: 'draft',
-    createdAt: '2024-01-18',
-    lastModified: '2024-01-19',
-    city: 'Lyon',
-    leadCount: 0
-  },
-  {
-    id: '3',
-    businessName: 'Menuiserie Lebois',
-    businessType: 'menuisier',
-    status: 'review',
-    createdAt: '2024-01-10',
-    lastModified: '2024-01-22',
-    city: 'Marseille',
-    leadCount: 5
-  }
-];
 
-const statusColors: Record<string, string> = {
-  draft: 'bg-gray-100 text-gray-800',
-  review: 'bg-yellow-100 text-yellow-800',
-  published: 'bg-green-100 text-green-800',
-  maintenance: 'bg-orange-100 text-orange-800'
-};
-
-const statusLabels: Record<string, string> = {
-  draft: 'Brouillon',
-  review: 'En révision',
-  published: 'Publié',
-  maintenance: 'Maintenance'
-};
+interface Client {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  city?: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  companyName?: string;
+  tags: string[];
+  _count?: {
+    projects: number;
+    leads: number;
+  };
+}
 
 export default function DashboardPage() {
+  const [clients, setClients] = useState<Client[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<string | null>(null);
   const [filterType, setFilterType] = useState<string | null>(null);
 
-  const filteredClients = mockClients.filter(client => {
-    const matchesSearch = client.businessName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         client.city.toLowerCase().includes(searchQuery.toLowerCase());
+  useEffect(() => {
+    fetchClients();
+  }, []);
+
+  const fetchClients = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/clients');
+      
+      // Debug: log raw response
+      const text = await response.text();
+      console.log('Raw API response:', text);
+      
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        console.error('JSON parse error:', e);
+        console.error('Raw text that failed to parse:', text);
+        return;
+      }
+      
+      if (data.success) {
+        console.log('Clients data:', data.data);
+        setClients(data.data);
+      } else {
+        console.error('Failed to fetch clients:', data.error);
+      }
+    } catch (error) {
+      console.error('Error fetching clients:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredClients = clients.filter(client => {
+    const matchesSearch = client.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         client.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         (client.city?.toLowerCase().includes(searchQuery.toLowerCase()) || false) ||
+                         (client.companyName?.toLowerCase().includes(searchQuery.toLowerCase()) || false);
     const matchesStatus = !filterStatus || client.status === filterStatus;
-    const matchesType = !filterType || client.businessType === filterType;
+    const matchesType = !filterType || (client.tags?.includes(filterType) || false);
     
     return matchesSearch && matchesStatus && matchesType;
   });
@@ -100,24 +109,24 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-lg shadow p-6">
             <p className="text-sm font-medium text-gray-600">Total Clients</p>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{mockClients.length}</p>
+            <p className="text-3xl font-bold text-gray-900 mt-2">{clients.length}</p>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-sm font-medium text-gray-600">Sites Publiés</p>
+            <p className="text-sm font-medium text-gray-600">Clients Actifs</p>
             <p className="text-3xl font-bold text-green-600 mt-2">
-              {mockClients.filter(c => c.status === 'published').length}
+              {clients.filter(c => c.status === 'ACTIVE').length}
             </p>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-sm font-medium text-gray-600">En Cours</p>
-            <p className="text-3xl font-bold text-yellow-600 mt-2">
-              {mockClients.filter(c => c.status === 'draft' || c.status === 'review').length}
+            <p className="text-sm font-medium text-gray-600">Total Projets</p>
+            <p className="text-3xl font-bold text-blue-600 mt-2">
+              {clients.reduce((sum, c) => sum + (c._count?.projects || 0), 0)}
             </p>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
             <p className="text-sm font-medium text-gray-600">Total Leads</p>
             <p className="text-3xl font-bold text-primary-600 mt-2">
-              {mockClients.reduce((sum, c) => sum + c.leadCount, 0)}
+              {clients.reduce((sum, c) => sum + (c._count?.leads || 0), 0)}
             </p>
           </div>
         </div>
@@ -145,13 +154,13 @@ export default function DashboardPage() {
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
               >
                 <option value="">Tous les statuts</option>
-                <option value="draft">Brouillon</option>
-                <option value="review">En révision</option>
-                <option value="published">Publié</option>
-                <option value="maintenance">Maintenance</option>
+                <option value="ACTIVE">Actif</option>
+                <option value="INACTIVE">Inactif</option>
+                <option value="SUSPENDED">Suspendu</option>
               </select>
               
-              <select
+              {/* Temporarily hide type filter until we have proper tag management */}
+              {/*<select
                 value={filterType || ''}
                 onChange={(e) => setFilterType(e.target.value || null)}
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
@@ -162,112 +171,139 @@ export default function DashboardPage() {
                 <option value="menuisier">Menuisier</option>
                 <option value="macon">Maçon</option>
                 <option value="peintre">Peintre</option>
-              </select>
+              </select>*/}
             </div>
           </div>
         </div>
 
         {/* Clients Table */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Client
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Métier
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Statut
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Leads
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Dernière modification
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {filteredClients.map((client) => (
-                <tr key={client.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div>
-                      <div className="text-sm font-medium text-gray-900">
-                        {client.businessName}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {client.city}
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="text-sm text-gray-900 capitalize">
-                      {client.businessType}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColors[client.status]}`}>
-                      {statusLabels[client.status]}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="text-sm text-gray-900">
-                      {client.leadCount}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {new Date(client.lastModified).toLocaleDateString('fr-FR')}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <div className="flex items-center justify-end gap-2">
-                      <Link
-                        href={`/?clientId=${client.id}`}
-                        className="text-primary-600 hover:text-primary-900"
-                        title="Éditer"
-                      >
-                        <PencilSquareIcon className="w-5 h-5" />
-                      </Link>
-                      <Link
-                        href={`/?clientId=${client.id}&preview=true`}
-                        className="text-gray-600 hover:text-gray-900"
-                        title="Preview"
-                      >
-                        <EyeIcon className="w-5 h-5" />
-                      </Link>
-                      <button
-                        className="text-gray-600 hover:text-gray-900"
-                        title="Dupliquer"
-                      >
-                        <DocumentDuplicateIcon className="w-5 h-5" />
-                      </button>
-                      <button
-                        className="text-gray-600 hover:text-gray-900"
-                        title="Exporter"
-                      >
-                        <ArrowDownTrayIcon className="w-5 h-5" />
-                      </button>
-                      {client.status === 'published' && (
-                        <a
-                          href={`https://${client.businessName.toLowerCase().replace(/\s+/g, '-')}.awema.fr`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-green-600 hover:text-green-900"
-                          title="Voir le site"
-                        >
-                          <GlobeAltIcon className="w-5 h-5" />
-                        </a>
-                      )}
-                    </div>
-                  </td>
+          {loading ? (
+            <div className="p-8 text-center">
+              <p className="text-gray-500">Chargement des clients...</p>
+            </div>
+          ) : filteredClients.length === 0 ? (
+            <div className="p-8 text-center">
+              <p className="text-gray-500">
+                {clients.length === 0 ? 'Aucun client trouvé.' : 'Aucun client ne correspond à vos critères de recherche.'}
+              </p>
+              {clients.length === 0 && (
+                <Link
+                  href="/dashboard/new"
+                  className="inline-flex items-center mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+                >
+                  <PlusIcon className="w-5 h-5 mr-2" />
+                  Créer votre premier client
+                </Link>
+              )}
+            </div>
+          ) : (
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Client
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Contact
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Statut
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Projets / Leads
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Dernière modification
+                  </th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {filteredClients.map((client) => {
+                  const statusColor = client.status === 'ACTIVE' ? 'bg-green-100 text-green-800' : 
+                                     client.status === 'INACTIVE' ? 'bg-gray-100 text-gray-800' : 
+                                     'bg-red-100 text-red-800';
+                  const statusLabel = client.status === 'ACTIVE' ? 'Actif' : 
+                                     client.status === 'INACTIVE' ? 'Inactif' : 
+                                     'Suspendu';
+                  
+                  return (
+                    <tr key={client.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div>
+                          <div className="text-sm font-medium text-gray-900">
+                            {client.name}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {client.companyName || 'Particulier'}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div>
+                          <div className="text-sm text-gray-900">
+                            {client.email}
+                          </div>
+                          {client.phone && (
+                            <div className="text-sm text-gray-500">
+                              {client.phone}
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColor}`}>
+                          {statusLabel}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">
+                          <span>{client._count?.projects || 0} projets</span>
+                          <span className="text-gray-500 ml-2">{client._count?.leads || 0} leads</span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {new Date(client.updatedAt).toLocaleDateString('fr-FR')}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <div className="flex items-center justify-end gap-2">
+                          <Link
+                            href={`/dashboard/clients/${client.id}`}
+                            className="text-primary-600 hover:text-primary-900"
+                            title="Voir détails"
+                          >
+                            <EyeIcon className="w-5 h-5" />
+                          </Link>
+                          <Link
+                            href={`/dashboard/clients/${client.id}/edit`}
+                            className="text-gray-600 hover:text-gray-900"
+                            title="Éditer"
+                          >
+                            <PencilSquareIcon className="w-5 h-5" />
+                          </Link>
+                          <button
+                            className="text-gray-600 hover:text-gray-900"
+                            title="Dupliquer"
+                          >
+                            <DocumentDuplicateIcon className="w-5 h-5" />
+                          </button>
+                          <button
+                            className="text-gray-600 hover:text-gray-900"
+                            title="Exporter"
+                          >
+                            <ArrowDownTrayIcon className="w-5 h-5" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
       </main>
     </div>
