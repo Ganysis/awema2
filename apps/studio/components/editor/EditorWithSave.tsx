@@ -357,6 +357,7 @@ export function EditorWithSave({ projectId, template, theme = 'premium' }: Edito
       <div className="flex-1 flex flex-col">
         <Toolbar 
           onPreview={() => setShowPreview(true)}
+          projectId={projectId}
           saveStatus={
             <div className="flex items-center space-x-2">
               {saveStatus === 'saving' && (

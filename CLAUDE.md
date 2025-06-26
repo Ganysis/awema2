@@ -19,30 +19,35 @@
   15. ✅ Export statique optimisé avec minification
   16. ✅ CMS intégré avec interface d'administration
   17. ✅ Support Schema.org et SEO avancé
+  18. ✅ Base de données avec Prisma/SQLite
+  19. ✅ Sauvegarde automatique (auto-save 30s)
+  20. ✅ Export ZIP fonctionnel
 
   🚀 PRIORITÉ HAUTE - À FAIRE
 
-  Base de données & Persistance
+  Déploiement & Hébergement
 
-  - Base de données clients/projets (#5)
-    - PostgreSQL ou SQLite
-    - Modèles Prisma
-    - API endpoints CRUD
-  - Sauvegarde automatique (#36)
-    - Auto-save toutes les 30 secondes
-    - Historique des versions
-    - Récupération en cas de crash
+  - Déploiement one-click (#40) 🎯 PROCHAINE ÉTAPE
+    - Intégration API Netlify
+    - Déploiement direct depuis l'éditeur
+    - Configuration DNS automatique
+    - 83% moins cher qu'o2switch (15€/an vs 87€/an)
+    - Inclut : CDN mondial, SSL auto, domaine personnalisé
 
-  Fonctionnalités essentielles
+  Gestion des médias
 
-  - Système d'export (#17)
-    - Export HTML/CSS/JS optimisé
-    - Téléchargement ZIP
-    - Déploiement one-click (Netlify/Vercel)
   - Gestion des uploads (#32)
     - Upload images avec compression
     - Galerie de médias
     - Drag & drop
+    - Optimisation WebP automatique
+
+  Fonctionnalités avancées
+
+  - Historique des versions (#37)
+    - Sauvegarde des versions précédentes
+    - Restauration en un clic
+    - Comparaison des changements
 
   🔧 PRIORITÉ MOYENNE
 
@@ -94,23 +99,33 @@
 
   🎯 PROCHAINES ÉTAPES RECOMMANDÉES
 
-  1. **Base de données** : Intégrer PostgreSQL/SQLite avec Prisma pour la persistance
-  2. **Gestion des médias** : Système d'upload avec compression automatique
-  3. **Sauvegarde automatique** : Auto-save toutes les 30 secondes
-  4. **Déploiement one-click** : Intégration Netlify/Vercel
-  5. **Preview responsive** : Visualisation mobile/tablet/desktop
+  1. **Déploiement one-click Netlify** : Permettre aux utilisateurs de publier leur site en 1 clic (83% moins cher qu'o2switch)
+  2. **Gestion des médias** : Système d'upload avec compression automatique et galerie
+  3. **Historique des versions** : Sauvegarder et restaurer les versions précédentes
+  4. **Preview responsive amélioré** : Visualisation mobile/tablet/desktop avec émulation réelle
+  5. **Générateur de mentions légales** : Auto-génération RGPD compliant
 
   📈 PROGRESSION DU PROJET
 
-  Le projet est très avancé avec une excellente base technique :
+  Le projet est maintenant fonctionnel avec :
   - ✅ Architecture modulaire solide
   - ✅ Large bibliothèque de blocs (15+ types)
-  - ✅ Export statique sophistiqué
+  - ✅ Export statique sophistiqué avec ZIP
   - ✅ CMS intégré fonctionnel
   - ✅ SEO et performance optimisés
+  - ✅ Base de données et persistance complète
+  - ✅ Sauvegarde automatique toutes les 30 secondes
 
-  Il reste principalement à ajouter la persistance des données et améliorer l'expérience utilisateur avec les uploads et le déploiement automatisé.
+  Prochaine priorité : Déploiement one-click avec Netlify pour permettre aux artisans de publier leur site en 1 clic à seulement 15€/an (vs 87€/an chez o2switch).
 
   🧠 Mémoires de Conversation
 
-  - Retient le dernier message que tu m'as écrit
+  - 25/06 : Finalisé l'export ZIP, fonctionne parfaitement
+  - 25/06 : Comparaison prix o2switch (87€/an) vs Netlify (15€/an) = 83% d'économie
+  - 25/06 : Prochaine étape prioritaire = déploiement one-click Netlify
+  - 26/06 : Implémenté le déploiement Netlify one-click avec :
+    - ✅ Transformation automatique des URLs pour le domaine de production
+    - ✅ Modal de configuration avec token et nom de site
+    - ✅ Feedback en temps réel du déploiement
+    - ✅ Support des domaines personnalisés
+    - ✅ Correction du rendu des blocs dans l'export statique

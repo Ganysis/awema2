@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useEditorStore } from '@/lib/store/editor-store';
-import ExportModal from '../export/ExportModal';
+import { ExportModalWithZip } from './ExportModalWithZip';
+import { NetlifyDeployModal } from './NetlifyDeployModal';
 import { RandomSiteGenerator } from '@/lib/services/random-site-generator';
 import { 
   ArrowLeftIcon, 
@@ -13,16 +14,19 @@ import {
   EyeIcon,
   CloudArrowUpIcon,
   Cog6ToothIcon,
-  SparklesIcon
+  SparklesIcon,
+  GlobeAltIcon
 } from '@heroicons/react/24/outline';
 
 interface ToolbarProps {
   onPreview: () => void;
   saveStatus?: React.ReactNode;
+  projectId?: string;
 }
 
-export function Toolbar({ onPreview, saveStatus }: ToolbarProps) {
+export function Toolbar({ onPreview, saveStatus, projectId }: ToolbarProps) {
   const [showExportModal, setShowExportModal] = useState(false);
+  const [showDeployModal, setShowDeployModal] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const { 
     projectName,
@@ -227,6 +231,16 @@ export function Toolbar({ onPreview, saveStatus }: ToolbarProps) {
         </button>
         
         <button
+          onClick={() => setShowDeployModal(true)}
+          className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 flex items-center space-x-2"
+          disabled={isSaving || !projectId}
+          title={!projectId ? 'Sauvegardez d\'abord votre projet' : 'Déployer sur Netlify'}
+        >
+          <GlobeAltIcon className="w-4 h-4" />
+          <span>Déployer</span>
+        </button>
+        
+        <button
           className="p-2 rounded hover:bg-gray-100"
           title="Settings"
         >
@@ -236,7 +250,14 @@ export function Toolbar({ onPreview, saveStatus }: ToolbarProps) {
     </div>
     
     {showExportModal && (
-      <ExportModal isOpen={showExportModal} onClose={() => setShowExportModal(false)} />
+      <ExportModalWithZip onClose={() => setShowExportModal(false)} projectId={projectId} />
+    )}
+    
+    {showDeployModal && projectId && (
+      <NetlifyDeployModal 
+        onClose={() => setShowDeployModal(false)} 
+        projectId={projectId} 
+      />
     )}
     </>
   );
