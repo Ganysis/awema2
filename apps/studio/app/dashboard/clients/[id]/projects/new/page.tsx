@@ -28,50 +28,50 @@ interface Template {
   preview: string;
 }
 
-const templates: Template[] = {
-  plumber: {
+const templates: Template[] = [
+  {
     id: 'plumber',
     name: 'Plombier',
     description: 'Template optimisé pour les plombiers avec services d\'urgence',
     icon: '🔧',
     preview: '/templates/plumber.jpg'
   },
-  electrician: {
+  {
     id: 'electrician',
     name: 'Électricien',
     description: 'Design moderne pour électriciens avec portfolio de réalisations',
     icon: '⚡',
     preview: '/templates/electrician.jpg'
   },
-  carpenter: {
+  {
     id: 'carpenter',
     name: 'Menuisier',
     description: 'Vitrine élégante pour menuisiers et ébénistes',
     icon: '🪵',
     preview: '/templates/carpenter.jpg'
   },
-  painter: {
+  {
     id: 'painter',
     name: 'Peintre',
     description: 'Portfolio visuel pour peintres en bâtiment',
     icon: '🎨',
     preview: '/templates/painter.jpg'
   },
-  tiler: {
+  {
     id: 'tiler',
     name: 'Carreleur',
     description: 'Galerie de réalisations pour carreleurs',
     icon: '🏗️',
     preview: '/templates/tiler.jpg'
   },
-  mason: {
+  {
     id: 'mason',
     name: 'Maçon',
     description: 'Site professionnel pour maçons et constructeurs',
     icon: '🧱',
     preview: '/templates/mason.jpg'
   }
-};
+];
 
 const themes = [
   { id: 'minimal', name: 'Minimal', description: 'Design épuré et moderne' },

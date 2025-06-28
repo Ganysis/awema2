@@ -19,7 +19,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    const project = await ProjectService.publish(params.id, authResult.user.id);
+    const project = await ProjectService.publish(params.id, authResult.user!.id);
 
     return NextResponse.json({
       success: true,
@@ -46,7 +46,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    const project = await ProjectService.unpublish(params.id, authResult.user.id);
+    const project = await ProjectService.unpublish(params.id, authResult.user!.id);
 
     return NextResponse.json({
       success: true,

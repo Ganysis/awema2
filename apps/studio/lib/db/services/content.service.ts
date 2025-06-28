@@ -33,9 +33,15 @@ export class ContentService {
       create: {
         projectId,
         section,
-        ...data,
+        data: JSON.stringify(data.data),
+        order: data.order,
+        isActive: data.isActive,
       },
-      update: data,
+      update: {
+        data: JSON.stringify(data.data),
+        order: data.order,
+        isActive: data.isActive,
+      },
       include: {
         project: {
           select: {
@@ -47,7 +53,7 @@ export class ContentService {
     });
 
     // Create version
-    await this.createVersion(content.id, content.projectId, content.data as object, userId);
+    await this.createVersion(content.id, content.projectId, JSON.parse(content.data), userId);
 
     // Log activity
     await ActivityLogService.log({
@@ -104,7 +110,7 @@ export class ContentService {
 
     // Create version if data changed
     if (data.data) {
-      await this.createVersion(content.id, content.projectId, content.data as object, userId);
+      await this.createVersion(content.id, content.projectId, JSON.parse(content.data), userId);
     }
 
     // Log activity
@@ -186,7 +192,7 @@ export class ContentService {
         contentId,
         projectId,
         version,
-        data,
+        data: JSON.stringify(data),
         changes,
         createdBy: userId,
       },
@@ -234,7 +240,7 @@ export class ContentService {
 
     const restored = await this.update(
       version.contentId,
-      { data: version.data as Record<string, any> },
+      { data: JSON.parse(version.data) },
       userId
     );
 
@@ -316,8 +322,8 @@ export class ContentService {
   static async search(query: string, projectId?: string): Promise<Content[]> {
     const where: Prisma.ContentWhereInput = {
       data: {
-        string_contains: query,
-      },
+        contains: query,
+      } as any,
     };
 
     if (projectId) {

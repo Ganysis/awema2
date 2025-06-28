@@ -2,14 +2,27 @@
 
 import { BlockProp, EditorControl, PropType } from '@awema/shared';
 import { CollectionEditor } from './CollectionEditor';
+import { ImagePickerWithDetails } from './ImagePickerWithDetails';
 
 interface PropertyControlsProps {
   props: BlockProp[];
   values: Record<string, any>;
   onChange: (propName: string, value: any) => void;
+  projectId?: string;
 }
 
-export function PropertyControls({ props, values, onChange }: PropertyControlsProps) {
+export function PropertyControls({ props, values, onChange, projectId }: PropertyControlsProps) {
+  // Fonction pour détecter si un champ est une image
+  const isImageField = (prop: BlockProp): boolean => {
+    // Si c'est explicitement un IMAGE_PICKER
+    if (prop.editorConfig?.control === EditorControl.IMAGE_PICKER) return true;
+    
+    // Détecter par le nom de la propriété
+    const imageKeywords = ['image', 'photo', 'logo', 'icon', 'avatar', 'banner', 'cover', 'thumbnail', 'img'];
+    const propNameLower = prop.name.toLowerCase();
+    
+    return imageKeywords.some(keyword => propNameLower.includes(keyword));
+  };
   // Group props by their group
   const groupedProps = props.reduce((acc, prop) => {
     const group = prop.editorConfig?.group || 'General';
@@ -161,11 +174,11 @@ export function PropertyControls({ props, values, onChange }: PropertyControlsPr
         itemLabel = (item: any, index: number) => item.name || `Testimonial ${index + 1}`;
       } else if (prop.name === 'images') {
         itemSchema = {
-          src: { type: 'image', label: 'Image URL', defaultValue: '/placeholder.jpg' },
-          alt: { type: 'text', label: 'Alt Text', defaultValue: 'Image' },
-          caption: { type: 'text', label: 'Caption (optional)' }
+          url: { type: 'image', label: 'Image URL', defaultValue: '/placeholder.jpg' },
+          alt: { type: 'text', label: 'Alt Text (SEO)', defaultValue: 'Image' },
+          title: { type: 'text', label: 'Title (optionnel)', defaultValue: '' }
         };
-        itemLabel = (item: any, index: number) => item.alt || `Image ${index + 1}`;
+        itemLabel = (item: any, index: number) => item.alt || item.title || `Image ${index + 1}`;
       } else if (prop.name === 'features') {
         itemSchema = {
           icon: { type: 'icon', label: 'Icon' },
@@ -187,6 +200,29 @@ export function PropertyControls({ props, values, onChange }: PropertyControlsPr
           itemSchema={itemSchema}
           itemLabel={itemLabel}
           maxItems={prop.validation?.max || 10}
+          projectId={projectId}
+        />
+      );
+    }
+
+    // Gérer les champs d'image automatiquement
+    if (isImageField(prop)) {
+      // Pour les propriétés de type STRING, on ne montre pas alt/title
+      // Pour les propriétés de type OBJECT ou avec des configs spéciales, on les montre
+      const isStringProp = prop.type === PropType.STRING;
+      const showAlt = !isStringProp && (prop.name.toLowerCase().includes('alt') || 
+                      (prop.editorConfig as any)?.showAlt !== false);
+      const showTitle = !isStringProp && ((prop.editorConfig as any)?.showTitle === true);
+      
+      return (
+        <ImagePickerWithDetails
+          value={value}
+          onChange={(val) => onChange(prop.name, val)}
+          projectId={projectId}
+          showAlt={showAlt}
+          showTitle={showTitle}
+          placeholder={config?.placeholder || 'Image URL'}
+          required={prop.required}
         />
       );
     }
@@ -292,33 +328,8 @@ export function PropertyControls({ props, values, onChange }: PropertyControlsPr
         );
 
       case EditorControl.IMAGE_PICKER:
-        return (
-          <div className="space-y-2">
-            <input
-              type="text"
-              value={value || ''}
-              onChange={(e) => onChange(prop.name, e.target.value)}
-              placeholder={config?.placeholder || 'Image URL'}
-              className="property-input"
-              required={prop.required}
-            />
-            {value && (
-              <div className="relative w-full h-32 bg-gray-100 rounded overflow-hidden">
-                <img 
-                  src={value} 
-                  alt="Preview" 
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                  }}
-                />
-              </div>
-            )}
-            {config?.helpText && (
-              <p className="text-xs text-gray-500">{config.helpText}</p>
-            )}
-          </div>
-        );
+        // Déjà géré par isImageField() au-dessus
+        return null;
 
       case EditorControl.SLIDER:
         return (
@@ -354,28 +365,31 @@ export function PropertyControls({ props, values, onChange }: PropertyControlsPr
   };
 
   return (
-    <div className="space-y-6">
-      {Object.entries(groupedProps).map(([group, props]) => (
-        <div key={group}>
-          <h4 className="text-sm font-medium text-gray-700 mb-3">{group}</h4>
-          <div className="space-y-4">
-            {props.map(prop => (
-              <div key={prop.name}>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  {prop.description}
-                  {prop.required && <span className="text-red-500 ml-1">*</span>}
-                </label>
-                {renderControl(prop)}
-                {prop.editorConfig?.helpText && (
-                  <p className="mt-1 text-xs text-gray-500">
-                    {prop.editorConfig.helpText}
-                  </p>
-                )}
-              </div>
-            ))}
+    <>
+      <div className="space-y-6">
+        {Object.entries(groupedProps).map(([group, props]) => (
+          <div key={group}>
+            <h4 className="text-sm font-medium text-gray-700 mb-3">{group}</h4>
+            <div className="space-y-4">
+              {props.map(prop => (
+                <div key={prop.name}>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    {prop.description}
+                    {prop.required && <span className="text-red-500 ml-1">*</span>}
+                  </label>
+                  {renderControl(prop)}
+                  {prop.editorConfig?.helpText && (
+                    <p className="mt-1 text-xs text-gray-500">
+                      {prop.editorConfig.helpText}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+
+    </>
   );
 }

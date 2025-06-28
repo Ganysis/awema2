@@ -17,7 +17,16 @@ export async function POST(request: NextRequest) {
     // }
 
     const body = await request.json();
-    const { projectId } = body;
+    const { 
+      projectId,
+      minifyHtml = true,
+      minifyCss = true,
+      minifyJs = true,
+      generateManifest = true,
+      generateServiceWorker = true,
+      includeCms = false,
+      cmsPassword
+    } = body;
 
     if (!projectId) {
       return NextResponse.json(
@@ -51,15 +60,16 @@ export async function POST(request: NextRequest) {
 
     // Préparer les options d'export
     const exportOptions = {
-      minifyHtml: true,
-      minifyCss: true,
-      minifyJs: true,
+      minifyHtml,
+      minifyCss,
+      minifyJs,
       optimizeImages: true,
-      generateManifest: true,
-      generateServiceWorker: true,
+      generateManifest,
+      generateServiceWorker,
       includeSourceMap: false,
       useCompression: true,
-      includeCms: false, // TODO: Ajouter une option dans l'UI
+      includeCms,
+      cmsPassword
     };
 
     // Créer le contenu statique

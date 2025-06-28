@@ -166,12 +166,12 @@ export function Editor({ projectId, template, theme = 'premium' }: EditorProps =
         <Canvas />
         
         {/* Right Panel - Properties */}
-        <PropertiesPanel />
+        <PropertiesPanel projectId={projectId} />
       </div>
       
       {/* Preview Modal */}
       {showPreview && (
-        <PreviewModal onClose={() => setShowPreview(false)} />
+        <PreviewModal onClose={() => setShowPreview(false)} projectId={projectId} />
       )}
     </div>
   );

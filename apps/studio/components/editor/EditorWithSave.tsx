@@ -389,10 +389,10 @@ export function EditorWithSave({ projectId, template, theme = 'premium' }: Edito
         </div>
       </div>
       
-      <PropertiesPanel />
+      <PropertiesPanel projectId={projectId} />
       
       {showPreview && (
-        <PreviewModal onClose={() => setShowPreview(false)} />
+        <PreviewModal onClose={() => setShowPreview(false)} projectId={projectId} />
       )}
     </div>
   );

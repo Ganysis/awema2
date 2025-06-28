@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { XMarkIcon, GlobeAltIcon, CheckCircleIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline';
+import { DNSInstructionsModal } from './DNSInstructionsModal';
+import { DomainPurchaseHelper, DomainStatusDisplay } from './DomainPurchaseHelper';
 
 interface NetlifyDeployModalProps {
   onClose: () => void;
@@ -16,6 +18,7 @@ interface DeployProgress {
   progress: number;
   siteUrl?: string;
   deployId?: string;
+  dnsInstructions?: any;
 }
 
 export function NetlifyDeployModal({ onClose, projectId }: NetlifyDeployModalProps) {
@@ -28,6 +31,8 @@ export function NetlifyDeployModal({ onClose, projectId }: NetlifyDeployModalPro
   const [deployProgress, setDeployProgress] = useState(0);
   const [siteUrl, setSiteUrl] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [showDNSInstructions, setShowDNSInstructions] = useState(false);
+  const [dnsConfig, setDnsConfig] = useState<any>(null);
 
   // Charger le token depuis le localStorage si disponible
   useEffect(() => {
@@ -100,6 +105,11 @@ export function NetlifyDeployModal({ onClose, projectId }: NetlifyDeployModalPro
       setDeployStatus('completed');
       setDeployMessage('Déploiement terminé avec succès !');
       setDeployProgress(100);
+      
+      // Si un domaine personnalisé a été configuré, récupérer les instructions DNS
+      if (customDomain && result.dnsConfig) {
+        setDnsConfig(result.dnsConfig);
+      }
 
     } catch (error: any) {
       console.error('Erreur de déploiement:', error);
@@ -191,27 +201,19 @@ export function NetlifyDeployModal({ onClose, projectId }: NetlifyDeployModalPro
                   </p>
                 </div>
 
-                <button
-                  onClick={() => setShowAdvanced(!showAdvanced)}
-                  className="text-sm text-blue-600 hover:underline"
-                >
-                  {showAdvanced ? '▼' : '▶'} Options avancées
-                </button>
+                {/* Domain Purchase Helper */}
+                <DomainPurchaseHelper 
+                  siteName={siteName || 'mon-site'} 
+                  onDomainSelected={setCustomDomain}
+                />
 
-                {showAdvanced && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Domaine personnalisé (optionnel)
-                    </label>
-                    <input
-                      type="text"
-                      value={customDomain}
-                      onChange={(e) => setCustomDomain(e.target.value)}
-                      placeholder="www.mon-entreprise.fr"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                {customDomain && (
+                  <div className="p-3 bg-gray-50 border border-gray-200 rounded">
+                    <p className="text-sm font-medium text-gray-700">
+                      Domaine configuré : {customDomain}
+                    </p>
                     <p className="text-xs text-gray-500 mt-1">
-                      Configurez votre domaine après le déploiement
+                      Les instructions DNS seront générées après le déploiement
                     </p>
                   </div>
                 )}
@@ -264,19 +266,31 @@ export function NetlifyDeployModal({ onClose, projectId }: NetlifyDeployModalPro
               </div>
 
               {deployStatus === 'completed' && siteUrl && (
-                <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <p className="text-sm text-green-800 mb-2">
-                    Votre site est maintenant en ligne !
-                  </p>
-                  <a
-                    href={siteUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium text-green-600 hover:underline"
-                  >
-                    {siteUrl} →
-                  </a>
-                </div>
+                <>
+                  <div className="mt-6">
+                    <p className="text-sm text-green-800 mb-4 text-center">
+                      ✅ Votre site est maintenant en ligne !
+                    </p>
+                    
+                    {/* Affichage du statut du domaine */}
+                    <DomainStatusDisplay
+                      temporaryUrl={siteUrl}
+                      customDomain={customDomain}
+                      isConfigured={false}
+                    />
+
+                    {customDomain && (
+                      <div className="mt-4 text-center">
+                        <button
+                          onClick={() => setShowDNSInstructions(true)}
+                          className="text-sm text-blue-600 hover:text-blue-800 underline"
+                        >
+                          Voir les instructions de configuration DNS →
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </>
               )}
 
               {deployStatus === 'error' && (
@@ -299,6 +313,16 @@ export function NetlifyDeployModal({ onClose, projectId }: NetlifyDeployModalPro
           )}
         </div>
       </div>
+
+      {/* Modal des instructions DNS */}
+      {showDNSInstructions && customDomain && (
+        <DNSInstructionsModal
+          domain={customDomain}
+          siteName={siteName}
+          dnsConfig={dnsConfig}
+          onClose={() => setShowDNSInstructions(false)}
+        />
+      )}
     </div>
   );
 }

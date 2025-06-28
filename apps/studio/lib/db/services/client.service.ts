@@ -163,10 +163,10 @@ export class ClientService {
 
     if (filters.search) {
       where.OR = [
-        { name: { contains: filters.search, mode: 'insensitive' } },
-        { email: { contains: filters.search, mode: 'insensitive' } },
-        { companyName: { contains: filters.search, mode: 'insensitive' } },
-        { phone: { contains: filters.search, mode: 'insensitive' } },
+        { name: { contains: filters.search, mode: 'insensitive' } as any },
+        { email: { contains: filters.search, mode: 'insensitive' } as any },
+        { companyName: { contains: filters.search, mode: 'insensitive' } as any },
+        { phone: { contains: filters.search, mode: 'insensitive' } as any },
       ];
     }
 

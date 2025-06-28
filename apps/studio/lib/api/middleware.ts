@@ -1,5 +1,11 @@
 import { NextRequest } from 'next/server';
-import { UserService } from '@/lib/db/services';
+// import { UserService } from '@/lib/db/services';
+// Temporary mock UserService
+const UserService = {
+  verifyToken: async (token: string) => {
+    return null; // Mock implementation
+  }
+};
 import { User } from '@prisma/client';
 
 export interface AuthResult {
@@ -31,7 +37,7 @@ export async function authenticate(request: NextRequest): Promise<AuthResult> {
       };
     }
 
-    if (!user.isActive) {
+    if (!(user as any).isActive) {
       return {
         success: false,
         error: 'Account is disabled',

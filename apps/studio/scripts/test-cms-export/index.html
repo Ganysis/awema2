@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Test Environment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .iframe-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: none;
+        }
+        .iframe-container.active {
+            display: block;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <div class="bg-white shadow-sm border-b border-gray-200 h-16 flex items-center px-4 relative z-50">
+        <div class="flex items-center space-x-4 flex-1">
+            <h1 class="text-lg font-semibold">CMS Test Environment</h1>
+            <div class="flex space-x-2 ml-8">
+                <button id="btn-cms" onclick="showView('cms')" class="px-4 py-2 text-sm font-medium rounded-md bg-blue-600 text-white">
+                    🔧 Administration
+                </button>
+                <button id="btn-preview" onclick="showView('preview')" class="px-4 py-2 text-sm font-medium rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300">
+                    👁️ Aperçu du site
+                </button>
+                <button id="btn-split" onclick="showView('split')" class="px-4 py-2 text-sm font-medium rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300">
+                    ⚡ Vue partagée
+                </button>
+            </div>
+        </div>
+        <div class="text-sm text-gray-500">
+            Port: 3002 | <a href="http://localhost:3002" class="text-blue-600 hover:underline">localhost:3002</a>
+        </div>
+    </div>
+
+    <!-- Single View Container -->
+    <div id="single-view" class="absolute top-16 left-0 right-0 bottom-0">
+        <div id="cms-container" class="iframe-container active">
+            <iframe src="/admin/" title="CMS Administration"></iframe>
+        </div>
+        <div id="preview-container" class="iframe-container">
+            <iframe src="/preview.html" title="Site Preview"></iframe>
+        </div>
+    </div>
+
+    <!-- Split View Container -->
+    <div id="split-view" class="absolute top-16 left-0 right-0 bottom-0 hidden">
+        <div class="flex h-full">
+            <div class="w-1/2 border-r border-gray-300">
+                <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <span class="text-sm font-medium text-gray-700">🔧 Administration</span>
+                </div>
+                <iframe src="/admin/" class="w-full" style="height: calc(100% - 36px);" title="CMS Administration"></iframe>
+            </div>
+            <div class="w-1/2">
+                <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                    <span class="text-sm font-medium text-gray-700">👁️ Aperçu temps réel</span>
+                </div>
+                <iframe src="/preview.html" class="w-full" style="height: calc(100% - 36px);" title="Site Preview"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentView = 'cms';
+
+        function showView(view) {
+            // Update button states
+            document.querySelectorAll('button[id^="btn-"]').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700', 'hover:bg-gray-300');
+            });
+
+            const activeBtn = document.getElementById(`btn-${view}`);
+            activeBtn.classList.remove('bg-gray-200', 'text-gray-700', 'hover:bg-gray-300');
+            activeBtn.classList.add('bg-blue-600', 'text-white');
+
+            // Show/hide views
+            if (view === 'split') {
+                document.getElementById('single-view').classList.add('hidden');
+                document.getElementById('split-view').classList.remove('hidden');
+            } else {
+                document.getElementById('single-view').classList.remove('hidden');
+                document.getElementById('split-view').classList.add('hidden');
+
+                // Show appropriate iframe
+                document.querySelectorAll('.iframe-container').forEach(container => {
+                    container.classList.remove('active');
+                });
+
+                if (view === 'cms') {
+                    document.getElementById('cms-container').classList.add('active');
+                } else if (view === 'preview') {
+                    document.getElementById('preview-container').classList.add('active');
+                }
+            }
+
+            currentView = view;
+        }
+
+        // Initialize with CMS view
+        showView('cms');
+    </script>
+</body>
+</html>

@@ -85,11 +85,15 @@ export interface EditorState {
   clearBlocks: () => void;
   
   // Theme Actions
+  setTheme: (theme: Theme) => void;
   setThemeVariant: (variant: 'ultra-pro' | 'premium' | 'minimal') => void;
   updateColors: (colors: Partial<ColorScheme>) => void;
   updateTypography: (typography: Partial<TypographySystem>) => void;
   updateSpacing: (spacing: Partial<LayoutSystem>) => void;
   setCustomCSS: (css: string) => void;
+  
+  // Data Actions
+  setPages: (pages: Page[]) => void;
   
   // UI Actions
   setDragging: (isDragging: boolean) => void;
@@ -346,6 +350,15 @@ export const useEditorStore = create<EditorState>()(
         }
       }),
 
+      setPages: (pages) => set((state) => {
+        state.pages = pages;
+        // Update current page blocks if needed
+        const currentPage = pages.find(p => p.id === state.currentPageId);
+        if (currentPage) {
+          state.blocks = [...currentPage.blocks];
+        }
+      }),
+      
       initializePages: (pages) => set((state) => {
         state.pages = pages;
         state.currentPageId = pages[0]?.id || 'home';
@@ -457,6 +470,10 @@ export const useEditorStore = create<EditorState>()(
       }),
 
       // Theme Actions
+      setTheme: (theme) => set((state) => {
+        state.theme = theme;
+      }),
+      
       setThemeVariant: (variant) => set((state) => {
         state.theme.variant = variant;
       }),

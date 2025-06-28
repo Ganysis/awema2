@@ -61,7 +61,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       const contents = await ContentService.bulkUpdate(
         params.projectId,
         body,
-        authResult.user.id
+        authResult.user!.id
       );
       
       return NextResponse.json({
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
         projectId: params.projectId,
         ...data,
       },
-      authResult.user.id
+      authResult.user!.id
     );
 
     return NextResponse.json({

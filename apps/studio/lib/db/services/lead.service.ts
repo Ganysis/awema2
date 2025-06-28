@@ -44,7 +44,10 @@ export class LeadService {
    */
   static async create(data: CreateLeadInput): Promise<Lead> {
     const lead = await prisma.lead.create({
-      data,
+      data: {
+        ...data,
+        metadata: data.metadata ? JSON.stringify(data.metadata) : null,
+      },
       include: {
         project: {
           select: {
@@ -187,10 +190,10 @@ export class LeadService {
 
     if (filters.search) {
       where.OR = [
-        { name: { contains: filters.search, mode: 'insensitive' } },
-        { email: { contains: filters.search, mode: 'insensitive' } },
-        { phone: { contains: filters.search, mode: 'insensitive' } },
-        { message: { contains: filters.search, mode: 'insensitive' } },
+        { name: { contains: filters.search, mode: 'insensitive' } as any },
+        { email: { contains: filters.search, mode: 'insensitive' } as any },
+        { phone: { contains: filters.search, mode: 'insensitive' } as any },
+        { message: { contains: filters.search, mode: 'insensitive' } as any },
       ];
     }
 

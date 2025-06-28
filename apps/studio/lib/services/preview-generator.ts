@@ -2,12 +2,27 @@ import { TemplateComposer, ColorGenerator, TypographyGenerator, SpacingGenerator
 import type { EditorBlock, Theme } from '../store/editor-store';
 import type { DefaultBlock } from '@awema/shared';
 import { blockRegistry } from '../blocks/block-registry';
+import { NetlifyMediaService } from '../services/netlify-media.service';
 
 export class PreviewGenerator {
   private composer: TemplateComposer;
+  private mediaService: NetlifyMediaService | null = null;
+  private projectId: string | null = null;
 
   constructor() {
     this.composer = new TemplateComposer();
+  }
+
+  async setProjectId(projectId: string) {
+    this.projectId = projectId;
+    this.mediaService = new NetlifyMediaService();
+    // Load images from localStorage
+    try {
+      await this.mediaService.loadFromLocalStorage(projectId);
+      console.log('Loaded images for preview:', this.mediaService.getProjectImages().length);
+    } catch (error) {
+      console.log('No images to load for preview');
+    }
   }
 
   generatePreview(
@@ -214,12 +229,15 @@ export class PreviewGenerator {
       });
     }
     
-    // Merge all defaults with block props (block props take precedence)
-    const mergedProps = { ...propDefaults, ...defaultProps, ...block.props };
+    // Transform image URLs in props
+    const transformedProps = this.transformImageUrls(block.props);
+    
+    // Merge all defaults with transformed props (transformed props take precedence)
+    const mergedProps = { ...propDefaults, ...defaultProps, ...transformedProps };
     
     // Apply background styling if present
-    if (block.props.backgroundColor || block.props.backgroundPattern) {
-      mergedProps._customStyles = this.generateBackgroundStyles(block.props);
+    if (transformedProps.backgroundColor || transformedProps.backgroundPattern) {
+      mergedProps._customStyles = this.generateBackgroundStyles(transformedProps);
     }
     
     return {
@@ -322,6 +340,50 @@ export class PreviewGenerator {
       .join('&');
     
     return `<link href="https://fonts.googleapis.com/css2?${fontParams}&display=swap" rel="stylesheet">`;
+  }
+
+  private transformImageUrls(props: Record<string, any>): Record<string, any> {
+    if (!this.mediaService || !this.projectId) {
+      return props;
+    }
+
+    // Get already loaded images - they should be loaded by the hook
+    const images = this.mediaService.getProjectImages();
+
+    // Deep clone props to avoid mutations
+    const transformed = JSON.parse(JSON.stringify(props));
+
+    // Transform all string values that look like image paths
+    const transformValue = (value: any): any => {
+      if (typeof value === 'string' && value.startsWith('/images/')) {
+        console.log('Found image path:', value);
+        // Find the image by path
+        const image = images.find(img => img.path === value);
+        if (image) {
+          // Return the blob URL for preview
+          const blobUrl = this.mediaService.getPreviewUrl(image.id);
+          console.log('Transformed to blob URL:', blobUrl);
+          return blobUrl || value;
+        }
+        console.log('Image not found in storage');
+      } else if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        // Recursively transform object properties
+        Object.keys(value).forEach(key => {
+          value[key] = transformValue(value[key]);
+        });
+      } else if (Array.isArray(value)) {
+        // Transform array items
+        return value.map(item => transformValue(item));
+      }
+      return value;
+    };
+
+    // Transform all properties
+    Object.keys(transformed).forEach(key => {
+      transformed[key] = transformValue(transformed[key]);
+    });
+
+    return transformed;
   }
 }
 

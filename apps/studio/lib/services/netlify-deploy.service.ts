@@ -1,5 +1,6 @@
 import { NetlifyAPI } from 'netlify';
 import { StaticExportService } from './static-export-simplified';
+import { DNSConfigService } from './dns-config.service';
 import type { Page, EditorBlock } from '@/lib/store/editor-store';
 
 export interface DeployOptions {
@@ -124,6 +125,20 @@ export class NetlifyDeployService {
         files[file.path] = file.content;
       });
 
+      // Ajouter les instructions DNS si un domaine personnalisé est défini
+      if (options.customDomain) {
+        const dnsConfig = DNSConfigService.generateDNSConfiguration(
+          options.customDomain,
+          options.siteName
+        );
+        
+        // Ajouter le fichier d'instructions DNS
+        files['DNS-CONFIGURATION.md'] = DNSConfigService.generateDNSInstructionsFile(dnsConfig);
+        
+        // Ajouter aussi dans le dossier admin pour faciliter l'accès
+        files['admin/DNS-CONFIGURATION.md'] = DNSConfigService.generateDNSInstructionsFile(dnsConfig);
+      }
+
       // Étape 6: Déployer les fichiers
       onProgress?.({
         stage: 'deploying',
@@ -132,7 +147,7 @@ export class NetlifyDeployService {
       });
 
       const deploy = await this.netlifyClient.createSiteDeploy({
-        siteId: site.id,
+        siteId: site.id!,
         body: {
           files,
           draft: false,
@@ -149,8 +164,8 @@ export class NetlifyDeployService {
 
       // Vérifier le statut du déploiement
       let deployStatus = await this.netlifyClient.getSiteDeploy({
-        siteId: site.id,
-        deployId: deploy.id
+        siteId: site.id!,
+        deployId: deploy.id!
       });
 
       // Attendre que le déploiement soit terminé

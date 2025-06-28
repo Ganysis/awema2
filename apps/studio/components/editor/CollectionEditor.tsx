@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PlusIcon, TrashIcon, Bars3Icon } from '@heroicons/react/24/outline';
+import { ImagePickerWithDetails } from './ImagePickerWithDetails';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useSortable } from '@dnd-kit/sortable';
@@ -20,6 +21,7 @@ interface CollectionEditorProps {
   };
   maxItems?: number;
   itemLabel?: (item: any, index: number) => string;
+  projectId?: string;
 }
 
 interface SortableItemProps {
@@ -30,9 +32,10 @@ interface SortableItemProps {
   onUpdate: (key: string, value: any) => void;
   onRemove: () => void;
   itemLabel?: (item: any, index: number) => string;
+  projectId?: string;
 }
 
-function SortableItem({ id, item, index, itemSchema, onUpdate, onRemove, itemLabel }: SortableItemProps) {
+function SortableItem({ id, item, index, itemSchema, onUpdate, onRemove, itemLabel, projectId }: SortableItemProps) {
   const {
     attributes,
     listeners,
@@ -161,12 +164,13 @@ function SortableItem({ id, item, index, itemSchema, onUpdate, onRemove, itemLab
               </select>
             )}
             {schema.type === 'image' && (
-              <input
-                type="text"
-                value={item[key] || ''}
-                onChange={(e) => onUpdate(key, e.target.value)}
-                placeholder="Image URL"
-                className="property-input"
+              <ImagePickerWithDetails
+                value={item[key]}
+                onChange={(val) => onUpdate(key, val)}
+                projectId={projectId}
+                showAlt={key === 'imageAlt' || schema.label?.toLowerCase().includes('alt')}
+                showTitle={schema.label?.toLowerCase().includes('title')}
+                placeholder={schema.label || "Image URL"}
               />
             )}
             {schema.type === 'url' && (
@@ -198,6 +202,7 @@ function SortableItem({ id, item, index, itemSchema, onUpdate, onRemove, itemLab
           </div>
         ))}
       </div>
+
     </div>
   );
 }
@@ -207,7 +212,8 @@ export function CollectionEditor({
   onChange, 
   itemSchema, 
   maxItems = 10,
-  itemLabel 
+  itemLabel,
+  projectId 
 }: CollectionEditorProps) {
   const [localItems, setLocalItems] = useState(items.map((item, index) => ({
     ...item,
@@ -281,6 +287,7 @@ export function CollectionEditor({
               itemLabel={itemLabel}
               onUpdate={(key: string, value: any) => updateItem(index, key, value)}
               onRemove={() => removeItem(index)}
+              projectId={projectId}
             />
           ))}
         </SortableContext>

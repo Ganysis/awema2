@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ProjectService } from '@/lib/db/services';
 import { NetlifyDeployService } from '@/lib/services/netlify-deploy.service';
+import { DNSConfigService } from '@/lib/services/dns-config.service';
 
 export async function POST(request: NextRequest) {
   try {
@@ -58,10 +59,17 @@ export async function POST(request: NextRequest) {
       }
     );
 
+    // Générer la configuration DNS si un domaine personnalisé est défini
+    let dnsConfig = null;
+    if (customDomain) {
+      dnsConfig = DNSConfigService.generateDNSConfiguration(customDomain, siteName);
+    }
+
     return NextResponse.json({
       success: true,
       siteUrl: result.siteUrl,
-      deployId: result.deployId
+      deployId: result.deployId,
+      dnsConfig
     });
 
   } catch (error: any) {

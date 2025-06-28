@@ -239,9 +239,9 @@ export class ProjectService {
 
     if (filters.search) {
       where.OR = [
-        { name: { contains: filters.search, mode: 'insensitive' } },
-        { description: { contains: filters.search, mode: 'insensitive' } },
-        { slug: { contains: filters.search, mode: 'insensitive' } },
+        { name: { contains: filters.search, mode: 'insensitive' } as any },
+        { description: { contains: filters.search, mode: 'insensitive' } as any },
+        { slug: { contains: filters.search, mode: 'insensitive' } as any },
       ];
     }
 
@@ -351,7 +351,12 @@ export class ProjectService {
    * Duplicate project
    */
   static async duplicate(id: string, newName: string, userId?: string): Promise<Project> {
-    const original = await this.findById(id, true);
+    const original = await prisma.project.findUnique({
+      where: { id },
+      include: {
+        contents: true,
+      },
+    });
     
     if (!original) {
       throw new Error('Project not found');
@@ -361,15 +366,15 @@ export class ProjectService {
     const duplicate = await this.create({
       name: newName,
       slug: `${original.slug}-copy-${Date.now()}`,
-      description: original.description,
+      description: original.description || undefined,
       template: original.template,
       clientId: original.clientId,
       createdBy: userId,
-      seoTitle: original.seoTitle,
-      seoDescription: original.seoDescription,
-      seoKeywords: original.seoKeywords,
-      features: original.features as Record<string, any>,
-      settings: original.settings as Record<string, any>,
+      seoTitle: original.seoTitle || undefined,
+      seoDescription: original.seoDescription || undefined,
+      seoKeywords: original.seoKeywords || undefined,
+      features: typeof original.features === 'string' ? JSON.parse(original.features) : original.features,
+      settings: typeof original.settings === 'string' ? JSON.parse(original.settings) : original.settings,
     });
 
     // Copy contents

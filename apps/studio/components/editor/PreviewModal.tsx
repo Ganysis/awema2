@@ -6,17 +6,29 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 
 interface PreviewModalProps {
   onClose: () => void;
+  projectId?: string;
 }
 
-export function PreviewModal({ onClose }: PreviewModalProps) {
+export function PreviewModal({ onClose, projectId }: PreviewModalProps) {
   const [previewHtml, setPreviewHtml] = useState('');
-  const { generateSitePreview } = useEditorStore();
+  const { blocks, theme, globalHeader, globalFooter } = useEditorStore();
   
   useEffect(() => {
-    generateSitePreview().then(html => {
+    // Generate preview with image transformation
+    const generatePreview = async () => {
+      const { previewGenerator } = await import('@/lib/services/preview-generator');
+      
+      // Set projectId if available for image transformation
+      if (projectId) {
+        await previewGenerator.setProjectId(projectId);
+      }
+      
+      const html = previewGenerator.generatePreview(blocks, theme, globalHeader, globalFooter);
       setPreviewHtml(html);
-    });
-  }, [generateSitePreview]);
+    };
+    
+    generatePreview();
+  }, [blocks, theme, globalHeader, globalFooter, projectId]);
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">

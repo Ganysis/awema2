@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - CMS</title>
+    <script>
+        // Rediriger vers la version améliorée
+        window.location.href = '/admin/cms-admin-enhanced.html';
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .cms-editor { min-height: 100vh; }
+        .property-input { @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500; }
+        .btn { @apply px-4 py-2 text-sm font-medium rounded-md transition-colors; }
+        .btn-primary { @apply bg-blue-600 text-white hover:bg-blue-700; }
+        .btn-secondary { @apply bg-gray-200 text-gray-700 hover:bg-gray-300; }
+        .editable:hover { @apply bg-yellow-50 cursor-pointer; }
+        .editable.editing { @apply bg-blue-50 ring-2 ring-blue-500; }
+    </style>
+</head>
+<body>
+    <div id="cms-root" class="cms-editor">
+        <!-- Login Form -->
+        <div id="login-form" class="min-h-screen flex items-center justify-center bg-gray-50 hidden">
+            <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+                <h2 class="text-2xl font-bold mb-6 text-center">Administration</h2>
+                <form onsubmit="handleLogin(event)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" required class="property-input" />
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
+                        <input type="password" id="password" required class="property-input" />
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full">Se connecter</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Admin Interface -->
+        <div id="admin-interface" class="hidden">
+            <!-- Header -->
+            <header class="bg-white border-b border-gray-200 px-4 h-16 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-lg font-semibold">Administration CMS</h1>
+                    <span id="save-status" class="text-sm text-gray-500"></span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="openPreview()" class="btn btn-secondary">
+                        <span>👁️ Aperçu</span>
+                    </button>
+                    <button onclick="saveChanges()" class="btn btn-primary">
+                        <span>💾 Sauvegarder</span>
+                    </button>
+                    <button onclick="logout()" class="btn btn-secondary">
+                        Déconnexion
+                    </button>
+                </div>
+            </header>
+
+            <div class="flex h-[calc(100vh-4rem)]">
+                <!-- Sidebar -->
+                <aside class="w-64 bg-gray-50 border-r border-gray-200 overflow-y-auto">
+                    <div class="p-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Navigation</h3>
+                        <ul id="page-nav" class="space-y-1">
+                            <!-- Pages will be inserted here -->
+                        </ul>
+                        
+                        <div class="mt-6">
+                            <h3 class="text-sm font-semibold text-gray-700 mb-2">Informations</h3>
+                            <button onclick="showBusinessInfo()" class="w-full text-left px-3 py-2 text-sm rounded hover:bg-gray-200">
+                                🏢 Infos entreprise
+                            </button>
+                            
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Content -->
+                <main class="flex-1 overflow-y-auto bg-white p-6">
+                    <div id="content-area">
+                        <!-- Dynamic content will be loaded here -->
+                    </div>
+                </main>
+
+                <!-- Properties Panel -->
+                <aside id="properties-panel" class="w-80 bg-gray-50 border-l border-gray-200 p-4 overflow-y-auto hidden">
+                    <h3 class="text-sm font-semibold text-gray-700 mb-4">Propriétés</h3>
+                    <div id="properties-content">
+                        <!-- Properties will be loaded here -->
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load CMS Data -->
+    <script>
+        // Initial site data will be injected here during export
+        window.CMS_INITIAL_DATA = {
+  "pages": [
+    {
+      "id": "home",
+      "name": "Accueil",
+      "slug": "/",
+      "meta": {
+        "title": "Plomberie Dupont - Expert plombier à Paris",
+        "description": "Plomberie Dupont, votre expert en plomberie depuis 1990. Dépannage, installation, rénovation."
+      },
+      "blocks": [
+        {
+          "id": "hero-1",
+          "type": "hero-centered",
+          "isVisible": true,
+          "props": {
+            "title": "Expert Plombier à Paris depuis 1990",
+            "subtitle": "Dépannage rapide, installation et rénovation. Intervention 24/7 sur Paris et région parisienne.",
+            "buttonText": "Demander un devis gratuit",
+            "buttonLink": "/contact",
+            "backgroundImage": "/images/hero-plumber.jpg"
+          }
+        },
+        {
+          "id": "services-1",
+          "type": "services-grid-cards",
+          "isVisible": true,
+          "props": {
+            "title": "Nos Services de Plomberie",
+            "subtitle": "Une expertise complète pour tous vos besoins",
+            "services": [
+              {
+                "title": "Dépannage Urgent",
+                "description": "Intervention rapide 24/7 pour fuites, débouchage et urgences.",
+                "icon": "🚨",
+                "link": "/services/depannage"
+              },
+              {
+                "title": "Installation Sanitaire",
+                "description": "Installation de salles de bain, WC, chauffe-eau et robinetterie.",
+                "icon": "🔧",
+                "link": "/services/installation"
+              },
+              {
+                "title": "Rénovation",
+                "description": "Rénovation complète de salle de bain et mise aux normes.",
+                "icon": "🏗️",
+                "link": "/services/renovation"
+              },
+              {
+                "title": "Entretien",
+                "description": "Contrats d'entretien pour chaudières et installations.",
+                "icon": "🔍",
+                "link": "/services/entretien"
+              }
+            ]
+          }
+        },
+        {
+          "id": "features-1",
+          "type": "features-clean",
+          "isVisible": true,
+          "props": {
+            "title": "Pourquoi nous choisir ?",
+            "features": [
+              {
+                "title": "30 ans d'expérience",
+                "description": "Une expertise reconnue depuis 1990",
+                "icon": "⭐"
+              },
+              {
+                "title": "Devis gratuit",
+                "description": "Estimation transparente sans engagement",
+                "icon": "📋"
+              },
+              {
+                "title": "Garantie 2 ans",
+                "description": "Toutes nos interventions sont garanties",
+                "icon": "✅"
+              },
+              {
+                "title": "Disponible 24/7",
+                "description": "Urgences plomberie jour et nuit",
+                "icon": "🕐"
+              }
+            ]
+          }
+        },
+        {
+          "id": "testimonials-1",
+          "type": "testimonials-carousel",
+          "isVisible": true,
+          "props": {
+            "title": "Ils nous font confiance",
+            "testimonials": [
+              {
+                "name": "Marie Dubois",
+                "role": "Cliente depuis 2018",
+                "content": "Service impeccable ! Intervention rapide pour une fuite d'eau. Je recommande vivement.",
+                "rating": 5
+              },
+              {
+                "name": "Jean Martin",
+                "role": "Client professionnel",
+                "content": "Nous faisons appel à leurs services pour l'entretien de nos bureaux. Toujours ponctuel et efficace.",
+                "rating": 5
+              },
+              {
+                "name": "Sophie Laurent",
+                "role": "Propriétaire",
+                "content": "Rénovation complète de ma salle de bain. Travail soigné et dans les délais.",
+                "rating": 5
+              }
+            ]
+          }
+        },
+        {
+          "id": "cta-1",
+          "type": "cta-clean",
+          "isVisible": true,
+          "props": {
+            "title": "Besoin d'un plombier ?",
+            "subtitle": "Contactez-nous pour un devis gratuit",
+            "buttonText": "Appeler maintenant",
+            "buttonLink": "tel:0123456789",
+            "secondaryButtonText": "Demander un devis",
+            "secondaryButtonLink": "/contact"
+          }
+        }
+      ]
+    },
+    {
+      "id": "services",
+      "name": "Services",
+      "slug": "/services",
+      "meta": {
+        "title": "Nos Services de Plomberie - Plomberie Dupont",
+        "description": "Découvrez tous nos services : dépannage, installation, rénovation et entretien."
+      },
+      "blocks": [
+        {
+          "id": "services-hero",
+          "type": "hero-centered",
+          "isVisible": true,
+          "props": {
+            "title": "Nos Services",
+            "subtitle": "Une gamme complète de prestations pour tous vos besoins en plomberie"
+          }
+        },
+        {
+          "id": "services-list",
+          "type": "services-list-detailed",
+          "isVisible": true,
+          "props": {
+            "title": "Services détaillés",
+            "services": [
+              {
+                "title": "Dépannage Urgent 24/7",
+                "description": "Fuite d'eau, canalisation bouchée, panne de chauffe-eau... Nous intervenons rapidement pour toutes vos urgences plomberie.",
+                "features": [
+                  "Intervention sous 1h",
+                  "Disponible 24/7",
+                  "Devis gratuit"
+                ],
+                "price": "À partir de 80€",
+                "image": "/images/emergency.jpg"
+              },
+              {
+                "title": "Installation Sanitaire",
+                "description": "Installation complète de salle de bain, pose de WC, installation de chauffe-eau et robinetterie.",
+                "features": [
+                  "Matériel de qualité",
+                  "Installation aux normes",
+                  "Garantie 2 ans"
+                ],
+                "price": "Sur devis",
+                "image": "/images/installation.jpg"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "name": "Contact",
+      "slug": "/contact",
+      "meta": {
+        "title": "Contactez-nous - Plomberie Dupont",
+        "description": "Contactez Plomberie Dupont pour un devis gratuit ou une urgence."
+      },
+      "blocks": [
+        {
+          "id": "contact-1",
+          "type": "contact-form-map",
+          "isVisible": true,
+          "props": {
+            "title": "Contactez-nous",
+            "subtitle": "Nous sommes à votre écoute pour tous vos projets",
+            "description": "Remplissez le formulaire ci-dessous ou appelez-nous directement.",
+            "showMap": true,
+            "mapAddress": "123 Rue de la Paix, 75001 Paris",
+            "formFields": [
+              {
+                "name": "name",
+                "label": "Nom",
+                "type": "text",
+                "required": true
+              },
+              {
+                "name": "email",
+                "label": "Email",
+                "type": "email",
+                "required": true
+              },
+              {
+                "name": "phone",
+                "label": "Téléphone",
+                "type": "tel",
+                "required": true
+              },
+              {
+                "name": "message",
+                "label": "Message",
+                "type": "textarea",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "faq-1",
+          "type": "faq-accordion",
+          "isVisible": true,
+          "props": {
+            "title": "Questions fréquentes",
+            "questions": [
+              {
+                "question": "Intervenez-vous le week-end ?",
+                "answer": "Oui, nous sommes disponibles 24/7 y compris les week-ends et jours fériés pour les urgences."
+              },
+              {
+                "question": "Quels sont vos tarifs ?",
+                "answer": "Nos tarifs dépendent de l'intervention. Nous proposons toujours un devis gratuit avant toute intervention."
+              },
+              {
+                "question": "Dans quelles zones intervenez-vous ?",
+                "answer": "Nous intervenons sur tout Paris et la région parisienne dans un rayon de 30km."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "tarifs",
+      "name": "Tarifs",
+      "slug": "/tarifs",
+      "meta": {
+        "title": "Nos Tarifs - Plomberie Dupont",
+        "description": "Découvrez nos tarifs transparents pour toutes nos prestations de plomberie."
+      },
+      "blocks": [
+        {
+          "id": "pricing-1",
+          "type": "pricing-clean",
+          "isVisible": true,
+          "props": {
+            "title": "Nos Tarifs",
+            "subtitle": "Des prix transparents et sans surprise",
+            "plans": [
+              {
+                "name": "Dépannage",
+                "price": "80€",
+                "period": "intervention",
+                "features": [
+                  "Diagnostic gratuit",
+                  "Intervention sous 1h",
+                  "Petites réparations incluses",
+                  "Garantie 6 mois"
+                ],
+                "buttonText": "Appeler",
+                "buttonLink": "tel:0123456789",
+                "featured": false
+              },
+              {
+                "name": "Installation",
+                "price": "Sur devis",
+                "period": "",
+                "features": [
+                  "Étude personnalisée",
+                  "Matériel de qualité",
+                  "Installation aux normes",
+                  "Garantie 2 ans",
+                  "SAV inclus"
+                ],
+                "buttonText": "Demander un devis",
+                "buttonLink": "/contact",
+                "featured": true
+              },
+              {
+                "name": "Contrat entretien",
+                "price": "150€",
+                "period": "an",
+                "features": [
+                  "2 visites par an",
+                  "Contrôle complet",
+                  "Pièces incluses",
+                  "Priorité intervention"
+                ],
+                "buttonText": "Souscrire",
+                "buttonLink": "/contact",
+                "featured": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "businessInfo": {
+    "companyName": "Plomberie Dupont & Fils",
+    "phone": "01 23 45 67 89",
+    "email": "contact@plomberie-dupont.fr",
+    "address": "123 Rue de la Paix",
+    "city": "Paris",
+    "postalCode": "75001",
+    "description": "Votre expert en plomberie depuis 1990. Intervention rapide, travail soigné, prix transparents.",
+    "openingHours": {
+      "monday": "8h00 - 19h00",
+      "tuesday": "8h00 - 19h00",
+      "wednesday": "8h00 - 19h00",
+      "thursday": "8h00 - 19h00",
+      "friday": "8h00 - 19h00",
+      "saturday": "9h00 - 18h00",
+      "sunday": "Urgences uniquement"
+    },
+    "socialLinks": {
+      "facebook": "https://facebook.com/plomberiedupont",
+      "instagram": "https://instagram.com/plomberiedupont"
+    }
+  },
+  "globalHeader": {
+    "id": "header-global",
+    "type": "header-pro",
+    "props": {
+      "logo": "Plomberie Dupont",
+      "menuItems": [
+        {
+          "label": "Accueil",
+          "href": "/"
+        },
+        {
+          "label": "Services",
+          "href": "/services"
+        },
+        {
+          "label": "Tarifs",
+          "href": "/tarifs"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ],
+      "ctaText": "Urgence 24/7",
+      "ctaHref": "tel:0123456789"
+    }
+  },
+  "globalFooter": {
+    "id": "footer-global",
+    "type": "footer-pro",
+    "props": {
+      "companyName": "Plomberie Dupont & Fils",
+      "description": "Votre expert plombier à Paris depuis 1990",
+      "quickLinks": [
+        {
+          "label": "Services",
+          "href": "/services"
+        },
+        {
+          "label": "Tarifs",
+          "href": "/tarifs"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        },
+        {
+          "label": "Mentions légales",
+          "href": "/mentions-legales"
+        }
+      ]
+    }
+  },
+  "theme": {
+    "colors": {
+      "primary": "#3B82F6",
+      "secondary": "#1E40AF",
+      "accent": "#F59E0B",
+      "background": "#FFFFFF",
+      "surface": "#F3F4F6",
+      "text": "#1F2937",
+      "textSecondary": "#6B7280"
+    },
+    "typography": {
+      "fontFamily": {
+        "heading": "Inter, sans-serif",
+        "body": "Inter, sans-serif"
+      }
+    }
+  }
+}; // {
+            pages: [],
+            businessInfo: {},
+            globalHeader: null,
+            globalFooter: null,
+            theme: { colors: {}, typography: {} }
+        };
+    </script>
+
+    <!-- CMS Core -->
+    
+    <!-- CMS Data -->
+    <script>
+        window.CMS_INITIAL_DATA = {
+  "pages": [
+    {
+      "id": "home",
+      "name": "Accueil",
+      "slug": "/",
+      "meta": {
+        "title": "Plomberie Dupont - Expert plombier à Paris",
+        "description": "Plomberie Dupont, votre expert en plomberie depuis 1990."
+      },
+      "blocks": [
+        {
+          "id": "hero-1",
+          "type": "hero-centered",
+          "isVisible": true,
+          "props": {
+            "title": "Expert Plombier à Paris depuis 1990",
+            "subtitle": "Dépannage rapide, installation et rénovation. Intervention 24/7.",
+            "buttonText": "Demander un devis gratuit",
+            "buttonLink": "/contact"
+          }
+        },
+        {
+          "id": "services-1",
+          "type": "services-grid-cards",
+          "isVisible": true,
+          "props": {
+            "title": "Nos Services de Plomberie",
+            "subtitle": "Une expertise complète pour tous vos besoins"
+          }
+        },
+        {
+          "id": "features-1",
+          "type": "features-clean",
+          "isVisible": true,
+          "props": {
+            "title": "Pourquoi nous choisir ?",
+            "subtitle": "Des avantages qui font la différence"
+          }
+        },
+        {
+          "id": "cta-1",
+          "type": "cta-clean",
+          "isVisible": true,
+          "props": {
+            "title": "Besoin d'un plombier ?",
+            "subtitle": "Contactez-nous pour un devis gratuit",
+            "buttonText": "Appeler maintenant",
+            "buttonLink": "tel:0123456789"
+          }
+        }
+      ]
+    },
+    {
+      "id": "services",
+      "name": "Services",
+      "slug": "/services",
+      "blocks": [
+        {
+          "id": "services-hero",
+          "type": "hero-centered",
+          "isVisible": true,
+          "props": {
+            "title": "Nos Services",
+            "subtitle": "Une gamme complète de prestations"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "name": "Contact",
+      "slug": "/contact",
+      "blocks": [
+        {
+          "id": "contact-1",
+          "type": "contact-form-map",
+          "isVisible": true,
+          "props": {
+            "title": "Contactez-nous",
+            "subtitle": "Nous sommes à votre écoute",
+            "description": "Remplissez le formulaire ou appelez-nous."
+          }
+        }
+      ]
+    }
+  ],
+  "businessInfo": {
+    "companyName": "Plomberie Dupont & Fils",
+    "phone": "01 23 45 67 89",
+    "email": "contact@plomberie-dupont.fr",
+    "address": "123 Rue de la Paix",
+    "city": "Paris",
+    "postalCode": "75001",
+    "description": "Votre expert en plomberie depuis 1990."
+  },
+  "theme": {
+    "colors": {
+      "primary": "#3B82F6",
+      "secondary": "#1E40AF"
+    }
+  }
+};
+    </script>
+
+    <script src="/admin/cms-core.js"></script>
+
+    <!-- CMS Admin Logic -->
+    <script>
+        let cms;
+        let currentPage = null;
+        let selectedBlock = null;
+        let hasUnsavedChanges = false;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            cms = new CMSCore(window.CMS_INITIAL_DATA);
+            
+            // Sauvegarder les données initiales dans le localStorage
+            localStorage.setItem('cms_site_data', JSON.stringify(window.CMS_INITIAL_DATA));
+            
+            if (cms.isAuthenticated()) {
+                showAdminInterface();
+            } else {
+                showLoginForm();
+            }
+        });
+
+        // Fonction pour ouvrir la preview
+        function openPreview() {
+            // Sauvegarder les données actuelles
+            localStorage.setItem('cms_site_data', JSON.stringify(cms.data));
+            // Ouvrir la preview dans une nouvelle fenêtre
+            window.open('/preview.html', 'preview', 'width=1200,height=800');
+        }
+
+        // Authentication
+        function showLoginForm() {
+            document.getElementById('login-form').classList.remove('hidden');
+            document.getElementById('admin-interface').classList.add('hidden');
+        }
+
+        function showAdminInterface() {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('admin-interface').classList.remove('hidden');
+            loadNavigation();
+            showFirstPage();
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            const success = await cms.login(email, password);
+            if (success) {
+                showAdminInterface();
+            } else {
+                alert('Identifiants incorrects');
+            }
+        }
+
+        function logout() {
+            if (hasUnsavedChanges && !confirm('Des modifications non sauvegardées seront perdues. Continuer ?')) {
+                return;
+            }
+            cms.logout();
+            showLoginForm();
+        }
+
+        // Navigation
+        function loadNavigation() {
+            const nav = document.getElementById('page-nav');
+            nav.innerHTML = '';
+            
+            cms.data.pages.forEach(page => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <button onclick="showPage('${page.slug}')" 
+                            class="w-full text-left px-3 py-2 text-sm rounded hover:bg-gray-200 ${currentPage?.slug === page.slug ? 'bg-gray-200' : ''}">
+                        📄 ${page.name}
+                    </button>
+                `;
+                nav.appendChild(li);
+            });
+        }
+
+        function showFirstPage() {
+            const pages = cms.data.pages;
+            if (pages.length > 0) {
+                showPage(pages[0].slug);
+            }
+        }
+
+        // Page Display
+        function showPage(slug) {
+            currentPage = cms.data.pages.find(p => p.slug === slug);
+            if (!currentPage) return;
+
+            const content = document.getElementById('content-area');
+            content.innerHTML = `
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold mb-2">${currentPage.name}</h2>
+                    <p class="text-gray-600">Cliquez sur un élément pour le modifier</p>
+                </div>
+                
+                <div class="space-y-6">
+                    ${currentPage.blocks.map(block => renderBlockEditor(block)).join('')}
+                </div>
+            `;
+
+            // Update navigation
+            loadNavigation();
+        }
+
+        // Block Rendering
+        function renderBlockEditor(block) {
+            const isVisible = block.isVisible !== false;
+            return `
+                <div class="border rounded-lg p-4 ${!isVisible ? 'opacity-50' : ''}" data-block-id="${block.id}">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-medium">${getBlockTitle(block)}</h3>
+                        <div class="space-x-2">
+                            <button onclick="toggleBlockVisibility('${block.id}')" class="text-sm text-gray-500 hover:text-gray-700">
+                                ${isVisible ? '👁️ Masquer' : '👁️‍🗨️ Afficher'}
+                            </button>
+                            <button onclick="editBlock('${block.id}')" class="text-sm text-blue-600 hover:text-blue-700">
+                                ✏️ Modifier
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-600">
+                        ${getBlockPreview(block)}
+                    </div>
+                </div>
+            `;
+        }
+
+        function getBlockTitle(block) {
+            const titles = {
+                'hero-centered': 'Héro - Centré',
+                'services-grid-cards': 'Services - Grille',
+                'contact-form-map': 'Contact - Formulaire',
+                'testimonials-carousel': 'Témoignages',
+                'gallery-clean': 'Galerie photos',
+                'faq-accordion': 'FAQ',
+                'pricing-clean': 'Tarifs',
+                'cta-clean': 'Appel à action',
+                // Add more as needed
+            };
+            return titles[block.type] || block.type;
+        }
+
+        function getBlockPreview(block) {
+            // Simple preview of block content
+            if (block.props.title) {
+                return `<strong>Titre:</strong> ${block.props.title}`;
+            }
+            if (block.props.heading) {
+                return `<strong>Titre:</strong> ${block.props.heading}`;
+            }
+            if (block.props.text) {
+                return `<strong>Texte:</strong> ${block.props.text.substring(0, 100)}...`;
+            }
+            return `Type: ${block.type}`;
+        }
+
+        // Block Editing
+        function editBlock(blockId) {
+            const block = currentPage.blocks.find(b => b.id === blockId);
+            if (!block) return;
+
+            selectedBlock = block;
+            showPropertiesPanel(block);
+        }
+
+        function showPropertiesPanel(block) {
+            const panel = document.getElementById('properties-panel');
+            const content = document.getElementById('properties-content');
+            
+            panel.classList.remove('hidden');
+            
+            // Generate property controls based on block type
+            content.innerHTML = generatePropertyControls(block);
+        }
+
+        function generatePropertyControls(block) {
+            let html = '';
+            
+            // Common properties
+            const commonProps = ['title', 'heading', 'subtitle', 'text', 'description', 'buttonText', 'buttonLink'];
+            
+            for (const prop of commonProps) {
+                if (block.props.hasOwnProperty(prop)) {
+                    html += `
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                ${prop.charAt(0).toUpperCase() + prop.slice(1)}
+                            </label>
+                            ${prop.includes('text') || prop.includes('description') 
+                                ? `<textarea onchange="updateBlockProp('${prop}', this.value)" class="property-input" rows="3">${block.props[prop] || ''}</textarea>`
+                                : `<input type="text" value="${block.props[prop] || ''}" onchange="updateBlockProp('${prop}', this.value)" class="property-input" />`
+                            }
+                        </div>
+                    `;
+                }
+            }
+            
+            return html || '<p class="text-gray-500">Aucune propriété modifiable</p>';
+        }
+
+        // Property Updates
+        function updateBlockProp(prop, value) {
+            if (!selectedBlock) return;
+            
+            selectedBlock.props[prop] = value;
+            hasUnsavedChanges = true;
+            updateSaveStatus();
+            
+            // Refresh the page display
+            showPage(currentPage.slug);
+        }
+
+        async function toggleBlockVisibility(blockId) {
+            
+            const block = currentPage.blocks.find(b => b.id === blockId);
+            if (block) {
+                block.isVisible = !block.isVisible;
+            }
+            hasUnsavedChanges = true;
+            updateSaveStatus();
+            showPage(currentPage.slug);
+        }
+
+        // Business Info
+        function showBusinessInfo() {
+            const info = cms.data.businessInfo || {};
+            const content = document.getElementById('content-area');
+            
+            content.innerHTML = `
+                <div class="max-w-2xl">
+                    <h2 class="text-2xl font-bold mb-6">Informations de l'entreprise</h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nom de l'entreprise</label>
+                            <input type="text" value="${info.companyName || ''}" 
+                                   onchange="updateBusinessInfo('companyName', this.value)" 
+                                   class="property-input" />
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+                            <input type="tel" value="${info.phone || ''}" 
+                                   onchange="updateBusinessInfo('phone', this.value)" 
+                                   class="property-input" />
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" value="${info.email || ''}" 
+                                   onchange="updateBusinessInfo('email', this.value)" 
+                                   class="property-input" />
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
+                            <input type="text" value="${info.address || ''}" 
+                                   onchange="updateBusinessInfo('address', this.value)" 
+                                   class="property-input" />
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Ville</label>
+                                <input type="text" value="${info.city || ''}" 
+                                       onchange="updateBusinessInfo('city', this.value)" 
+                                       class="property-input" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Code postal</label>
+                                <input type="text" value="${info.postalCode || ''}" 
+                                       onchange="updateBusinessInfo('postalCode', this.value)" 
+                                       class="property-input" />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <textarea rows="4" onchange="updateBusinessInfo('description', this.value)" 
+                                      class="property-input">${info.description || ''}</textarea>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function updateBusinessInfo(field, value) {
+            
+            if (!cms.data.businessInfo) cms.data.businessInfo = {};
+            cms.data.businessInfo[field] = value;
+            hasUnsavedChanges = true;
+            updateSaveStatus();
+        }
+
+        // Save functionality
+        async function saveChanges() {
+            updateSaveStatus('Sauvegarde en cours...');
+            
+            // Sauvegarder dans le localStorage pour la preview
+            localStorage.setItem('cms_site_data', JSON.stringify(cms.data));
+            
+            // Sauvegarder sur le serveur
+            const success = await cms.save();
+            
+            if (success) {
+                hasUnsavedChanges = false;
+                updateSaveStatus('Sauvegardé ✓');
+                setTimeout(() => updateSaveStatus(), 3000);
+            } else {
+                updateSaveStatus('Erreur de sauvegarde');
+            }
+        }
+
+        function updateSaveStatus(message = '') {
+            const status = document.getElementById('save-status');
+            if (message) {
+                status.textContent = message;
+            } else if (hasUnsavedChanges) {
+                status.textContent = 'Modifications non sauvegardées';
+                status.classList.add('text-orange-600');
+            } else {
+                status.textContent = '';
+                status.classList.remove('text-orange-600');
+            }
+        }
+
+        // Auto-save
+        setInterval(() => {
+            if (hasUnsavedChanges) {
+                saveChanges();
+            }
+        }, 30000); // Every 30 seconds
+
+        // Warn before leaving with unsaved changes
+        window.addEventListener('beforeunload', (e) => {
+            if (hasUnsavedChanges) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+    </script>
+</body>
+</html>

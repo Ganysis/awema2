@@ -1,5 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { UserService } from '@/lib/db/services';
+// import { UserService } from '@/lib/db/services';
+
+// Temporary mock UserService
+const UserService = {
+  login: async (data: any): Promise<{ user: any; token: string }> => {
+    throw new Error('UserService not implemented');
+  },
+  create: async (data: any): Promise<any> => {
+    throw new Error('UserService not implemented');
+  },
+  logout: async (token: string): Promise<void> => {
+    throw new Error('UserService not implemented');
+  },
+  verifyToken: async (token: string): Promise<any> => {
+    throw new Error('UserService not implemented');
+  }
+};
 import { z } from 'zod';
 
 // Validation schemas

@@ -20,7 +20,7 @@ export default function TestClientsPage() {
         try {
           const data = JSON.parse(text);
           setData(data);
-        } catch (e) {
+        } catch (e: any) {
           console.error('JSON parse error:', e);
           setError(`JSON parse error: ${e.message}\nRaw response: ${text}`);
         }

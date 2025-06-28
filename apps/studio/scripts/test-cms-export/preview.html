@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aperçu du site</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body>
+    <div id="site-preview">
+        <!-- Le contenu sera généré dynamiquement -->
+    </div>
+
+    <script>
+        // Récupérer les données du CMS depuis le localStorage ou l'API
+        let siteData = null;
+        let currentPage = '/';
+
+        // Fonction pour charger les données
+        function loadSiteData() {
+            // Essayer de récupérer les données sauvegardées
+            const savedData = localStorage.getItem('cms_site_data');
+            if (savedData) {
+                siteData = JSON.parse(savedData);
+            } else {
+                // Utiliser les données par défaut
+                siteData = window.CMS_INITIAL_DATA || {
+                    pages: [],
+                    businessInfo: {},
+                    theme: {}
+                };
+            }
+            renderPage();
+        }
+
+        // Fonction pour rendre une page
+        function renderPage() {
+            const page = siteData.pages.find(p => p.slug === currentPage);
+            if (!page) return;
+
+            let html = '';
+
+            // Header
+            if (siteData.globalHeader) {
+                html += renderHeader(siteData.globalHeader);
+            }
+
+            // Contenu de la page
+            html += '<main class="min-h-screen">';
+            page.blocks.forEach(block => {
+                if (block.isVisible !== false) {
+                    html += renderBlock(block);
+                }
+            });
+            html += '</main>';
+
+            // Footer
+            if (siteData.globalFooter) {
+                html += renderFooter(siteData.globalFooter);
+            }
+
+            document.getElementById('site-preview').innerHTML = html;
+        }
+
+        // Rendu du header
+        function renderHeader(header) {
+            const props = header.props || {};
+            return `
+                <header class="bg-white shadow-sm sticky top-0 z-50">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="flex justify-between items-center h-16">
+                            <div class="flex items-center">
+                                <h1 class="text-xl font-bold text-gray-900">${props.logo || 'Logo'}</h1>
+                            </div>
+                            <nav class="hidden md:flex space-x-8">
+                                ${(props.menuItems || []).map(item => `
+                                    <a href="${item.href}" onclick="navigateTo(event, '${item.href}')" 
+                                       class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">
+                                        ${item.label}
+                                    </a>
+                                `).join('')}
+                            </nav>
+                            ${props.ctaText ? `
+                                <a href="${props.ctaHref}" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
+                                    ${props.ctaText}
+                                </a>
+                            ` : ''}
+                        </div>
+                    </div>
+                </header>
+            `;
+        }
+
+        // Rendu du footer
+        function renderFooter(footer) {
+            const props = footer.props || {};
+            return `
+                <footer class="bg-gray-900 text-white">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">${props.companyName || 'Entreprise'}</h3>
+                                <p class="text-gray-400">${props.description || ''}</p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Liens rapides</h3>
+                                <ul class="space-y-2">
+                                    ${(props.quickLinks || []).map(link => `
+                                        <li>
+                                            <a href="${link.href}" onclick="navigateTo(event, '${link.href}')" 
+                                               class="text-gray-400 hover:text-white">
+                                                ${link.label}
+                                            </a>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                                <p class="text-gray-400">
+                                    ${siteData.businessInfo.phone || ''}<br>
+                                    ${siteData.businessInfo.email || ''}<br>
+                                    ${siteData.businessInfo.address || ''}<br>
+                                    ${siteData.businessInfo.city || ''} ${siteData.businessInfo.postalCode || ''}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            `;
+        }
+
+        // Rendu des blocs
+        function renderBlock(block) {
+            switch (block.type) {
+                case 'hero-centered':
+                    return renderHeroCentered(block.props);
+                case 'services-grid-cards':
+                    return renderServicesGrid(block.props);
+                case 'features-clean':
+                    return renderFeatures(block.props);
+                case 'testimonials-carousel':
+                    return renderTestimonials(block.props);
+                case 'cta-clean':
+                    return renderCTA(block.props);
+                case 'contact-form-map':
+                    return renderContact(block.props);
+                case 'pricing-clean':
+                    return renderPricing(block.props);
+                case 'faq-accordion':
+                    return renderFAQ(block.props);
+                default:
+                    return `<div class="p-8 bg-gray-100 text-center">Bloc ${block.type}</div>`;
+            }
+        }
+
+        // Rendu Hero Centered
+        function renderHeroCentered(props) {
+            return `
+                <section class="relative bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                            ${props.title || 'Titre'}
+                        </h1>
+                        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                            ${props.subtitle || 'Sous-titre'}
+                        </p>
+                        ${props.buttonText ? `
+                            <a href="${props.buttonLink || '#'}" 
+                               class="inline-block bg-blue-600 text-white px-8 py-3 rounded-md text-lg font-medium hover:bg-blue-700 transition">
+                                ${props.buttonText}
+                            </a>
+                        ` : ''}
+                    </div>
+                </section>
+            `;
+        }
+
+        // Rendu Services Grid
+        function renderServicesGrid(props) {
+            const services = props.services || [];
+            return `
+                <section class="py-16 bg-white">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="text-center mb-12">
+                            <h2 class="text-3xl font-bold text-gray-900 mb-4">${props.title || 'Services'}</h2>
+                            <p class="text-xl text-gray-600">${props.subtitle || ''}</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            ${services.map(service => `
+                                <div class="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition">
+                                    <div class="text-3xl mb-4">${service.icon || '🔧'}</div>
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-2">${service.title}</h3>
+                                    <p class="text-gray-600">${service.description}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        // Rendu Features
+        function renderFeatures(props) {
+            const features = props.features || [];
+            return `
+                <section class="py-16 bg-gray-50">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">${props.title || 'Caractéristiques'}</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            ${features.map(feature => `
+                                <div class="text-center">
+                                    <div class="text-4xl mb-4">${feature.icon || '✨'}</div>
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-2">${feature.title}</h3>
+                                    <p class="text-gray-600">${feature.description}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        // Rendu CTA
+        function renderCTA(props) {
+            return `
+                <section class="py-16 bg-blue-600">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <h2 class="text-3xl font-bold text-white mb-4">${props.title || 'Appel à action'}</h2>
+                        <p class="text-xl text-blue-100 mb-8">${props.subtitle || ''}</p>
+                        <div class="space-x-4">
+                            ${props.buttonText ? `
+                                <a href="${props.buttonLink || '#'}" 
+                                   class="inline-block bg-white text-blue-600 px-8 py-3 rounded-md text-lg font-medium hover:bg-gray-100 transition">
+                                    ${props.buttonText}
+                                </a>
+                            ` : ''}
+                            ${props.secondaryButtonText ? `
+                                <a href="${props.secondaryButtonLink || '#'}" 
+                                   class="inline-block border-2 border-white text-white px-8 py-3 rounded-md text-lg font-medium hover:bg-white hover:text-blue-600 transition">
+                                    ${props.secondaryButtonText}
+                                </a>
+                            ` : ''}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        // Rendu Testimonials
+        function renderTestimonials(props) {
+            const testimonials = props.testimonials || [];
+            return `
+                <section class="py-16 bg-gray-50">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">${props.title || 'Témoignages'}</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            ${testimonials.map(testimonial => `
+                                <div class="bg-white rounded-lg shadow p-6">
+                                    <div class="flex mb-4">
+                                        ${Array(testimonial.rating || 5).fill().map(() => '⭐').join('')}
+                                    </div>
+                                    <p class="text-gray-600 mb-4">"${testimonial.content}"</p>
+                                    <div>
+                                        <p class="font-semibold text-gray-900">${testimonial.name}</p>
+                                        <p class="text-sm text-gray-500">${testimonial.role}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        // Rendu Contact
+        function renderContact(props) {
+            return `
+                <section class="py-16 bg-white">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="text-center mb-12">
+                            <h2 class="text-3xl font-bold text-gray-900 mb-4">${props.title || 'Contact'}</h2>
+                            <p class="text-xl text-gray-600">${props.subtitle || ''}</p>
+                            ${props.description ? `<p class="mt-4 text-gray-600">${props.description}</p>` : ''}
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            <div>
+                                <form class="space-y-6">
+                                    ${(props.formFields || []).map(field => `
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">${field.label}</label>
+                                            ${field.type === 'textarea' 
+                                                ? `<textarea rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>`
+                                                : `<input type="${field.type}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />`
+                                            }
+                                        </div>
+                                    `).join('')}
+                                    <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-md font-medium hover:bg-blue-700">
+                                        Envoyer
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="bg-gray-100 rounded-lg h-96 flex items-center justify-center">
+                                <p class="text-gray-500">Carte Google Maps</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        // Rendu Pricing
+        function renderPricing(props) {
+            const plans = props.plans || [];
+            return `
+                <section class="py-16 bg-white">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="text-center mb-12">
+                            <h2 class="text-3xl font-bold text-gray-900 mb-4">${props.title || 'Tarifs'}</h2>
+                            <p class="text-xl text-gray-600">${props.subtitle || ''}</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            ${plans.map(plan => `
+                                <div class="bg-white rounded-lg shadow-lg overflow-hidden ${plan.featured ? 'ring-2 ring-blue-600' : ''}">
+                                    ${plan.featured ? '<div class="bg-blue-600 text-white text-center py-2 text-sm font-medium">Recommandé</div>' : ''}
+                                    <div class="p-6">
+                                        <h3 class="text-lg font-semibold text-gray-900 mb-4">${plan.name}</h3>
+                                        <div class="mb-6">
+                                            <span class="text-4xl font-bold text-gray-900">${plan.price}</span>
+                                            ${plan.period ? `<span class="text-gray-500">/${plan.period}</span>` : ''}
+                                        </div>
+                                        <ul class="space-y-3 mb-8">
+                                            ${(plan.features || []).map(feature => `
+                                                <li class="flex items-start">
+                                                    <span class="text-green-500 mr-2">✓</span>
+                                                    <span class="text-gray-600">${feature}</span>
+                                                </li>
+                                            `).join('')}
+                                        </ul>
+                                        <a href="${plan.buttonLink || '#'}" class="block w-full text-center px-4 py-2 ${plan.featured ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'} rounded-md font-medium transition">
+                                            ${plan.buttonText || 'Choisir'}
+                                        </a>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        // Rendu FAQ
+        function renderFAQ(props) {
+            const questions = props.questions || [];
+            return `
+                <section class="py-16 bg-gray-50">
+                    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">${props.title || 'Questions fréquentes'}</h2>
+                        <div class="space-y-4">
+                            ${questions.map((q, index) => `
+                                <div class="bg-white rounded-lg shadow">
+                                    <button onclick="toggleFAQ(${index})" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50">
+                                        <span class="font-medium text-gray-900">${q.question}</span>
+                                        <span class="text-gray-500">+</span>
+                                    </button>
+                                    <div id="faq-${index}" class="hidden px-6 pb-4">
+                                        <p class="text-gray-600">${q.answer}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        // Toggle FAQ
+        window.toggleFAQ = function(index) {
+            const element = document.getElementById(`faq-${index}`);
+            if (element) {
+                element.classList.toggle('hidden');
+            }
+        }
+
+        // Navigation interne
+        function navigateTo(event, href) {
+            event.preventDefault();
+            if (href.startsWith('/')) {
+                currentPage = href;
+                renderPage();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Écouter les changements depuis le CMS
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'cms_site_data') {
+                loadSiteData();
+            }
+        });
+
+        // Charger les données au démarrage
+        loadSiteData();
+
+        // Rafraîchir toutes les 2 secondes pour voir les changements
+        setInterval(() => {
+            const savedData = localStorage.getItem('cms_site_data');
+            if (savedData) {
+                const newData = JSON.parse(savedData);
+                if (JSON.stringify(newData) !== JSON.stringify(siteData)) {
+                    siteData = newData;
+                    renderPage();
+                }
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

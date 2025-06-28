@@ -1,0 +1,10 @@
+{
+  "name": "cms-test-server",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node test-cms-local.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

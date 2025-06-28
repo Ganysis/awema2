@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { useEditorStore } from '@/lib/store/editor-store';
-import { ExportModalWithZip } from './ExportModalWithZip';
+import { ExportModalWithCMS } from './ExportModalWithCMS';
 import { NetlifyDeployModal } from './NetlifyDeployModal';
+import { VersionHistoryModal } from './VersionHistoryModal';
 import { RandomSiteGenerator } from '@/lib/services/random-site-generator';
 import { 
   ArrowLeftIcon, 
@@ -15,7 +16,8 @@ import {
   CloudArrowUpIcon,
   Cog6ToothIcon,
   SparklesIcon,
-  GlobeAltIcon
+  GlobeAltIcon,
+  ClockIcon
 } from '@heroicons/react/24/outline';
 
 interface ToolbarProps {
@@ -27,6 +29,7 @@ interface ToolbarProps {
 export function Toolbar({ onPreview, saveStatus, projectId }: ToolbarProps) {
   const [showExportModal, setShowExportModal] = useState(false);
   const [showDeployModal, setShowDeployModal] = useState(false);
+  const [showVersionHistory, setShowVersionHistory] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const { 
     projectName,
@@ -148,6 +151,17 @@ export function Toolbar({ onPreview, saveStatus, projectId }: ToolbarProps) {
             <ArrowRightIcon className="w-5 h-5" />
           </button>
         </div>
+        
+        <div className="h-6 w-px bg-gray-300" />
+        
+        <button
+          onClick={() => setShowVersionHistory(true)}
+          className="p-2 rounded hover:bg-gray-100 flex items-center space-x-1"
+          title="Historique des versions"
+        >
+          <ClockIcon className="w-5 h-5" />
+          <span className="text-sm">Historique</span>
+        </button>
       </div>
       
       {/* Center Section - Save Status & Device Preview */}
@@ -250,13 +264,20 @@ export function Toolbar({ onPreview, saveStatus, projectId }: ToolbarProps) {
     </div>
     
     {showExportModal && (
-      <ExportModalWithZip onClose={() => setShowExportModal(false)} projectId={projectId} />
+      <ExportModalWithCMS onClose={() => setShowExportModal(false)} projectId={projectId} />
     )}
     
     {showDeployModal && projectId && (
       <NetlifyDeployModal 
         onClose={() => setShowDeployModal(false)} 
         projectId={projectId} 
+      />
+    )}
+    
+    {showVersionHistory && (
+      <VersionHistoryModal 
+        onClose={() => setShowVersionHistory(false)} 
+        projectId={projectId}
       />
     )}
     </>

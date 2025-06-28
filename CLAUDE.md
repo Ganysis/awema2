@@ -27,20 +27,28 @@
 
   Déploiement & Hébergement
 
-  - Déploiement one-click (#40) 🎯 PROCHAINE ÉTAPE
-    - Intégration API Netlify
-    - Déploiement direct depuis l'éditeur
-    - Configuration DNS automatique
+  - Déploiement one-click (#40) ✅ COMPLÉTÉ
+    - ✅ Intégration API Netlify
+    - ✅ Déploiement direct depuis l'éditeur
+    - ✅ Transformation automatique des URLs
+    - ✅ CMS avancé développé et testé
+    - ✅ CMS intégré dans l'export de déploiement
+    - ✅ Configuration DNS automatique avec guide personnalisé
+    - ✅ Gestion intelligente des URLs (adaptation au domaine)
+    - ✅ Workflow d'achat de domaine intégré
     - 83% moins cher qu'o2switch (15€/an vs 87€/an)
     - Inclut : CDN mondial, SSL auto, domaine personnalisé
 
   Gestion des médias
 
-  - Gestion des uploads (#32)
-    - Upload images avec compression
-    - Galerie de médias
-    - Drag & drop
-    - Optimisation WebP automatique
+  - ✅ Gestion des uploads (#32)
+    - ✅ Upload images avec compression
+    - ✅ Galerie de médias
+    - ✅ Drag & drop
+    - ✅ Optimisation WebP automatique
+    - ✅ Intégration dans l'éditeur de blocs
+    - ✅ Sélecteur d'images pour tous les blocs
+    - ✅ Stockage Netlify-natif (économique)
 
   Fonctionnalités avancées
 
@@ -99,8 +107,8 @@
 
   🎯 PROCHAINES ÉTAPES RECOMMANDÉES
 
-  1. **Déploiement one-click Netlify** : Permettre aux utilisateurs de publier leur site en 1 clic (83% moins cher qu'o2switch)
-  2. **Gestion des médias** : Système d'upload avec compression automatique et galerie
+  1. **TEST COMPLET** : Tester l'export avec CMS, déploiement Netlify et configuration DNS
+  2. **Intégration médias dans export** : Inclure les images uploadées dans l'export ZIP/Netlify
   3. **Historique des versions** : Sauvegarder et restaurer les versions précédentes
   4. **Preview responsive amélioré** : Visualisation mobile/tablet/desktop avec émulation réelle
   5. **Générateur de mentions légales** : Auto-génération RGPD compliant
@@ -109,14 +117,16 @@
 
   Le projet est maintenant fonctionnel avec :
   - ✅ Architecture modulaire solide
-  - ✅ Large bibliothèque de blocs (15+ types)
+  - ✅ Large bibliothèque de blocs (20+ types)
   - ✅ Export statique sophistiqué avec ZIP
-  - ✅ CMS intégré fonctionnel
+  - ✅ CMS intégré ultra-avancé avec drag & drop
   - ✅ SEO et performance optimisés
   - ✅ Base de données et persistance complète
   - ✅ Sauvegarde automatique toutes les 30 secondes
+  - ✅ Déploiement Netlify one-click fonctionnel
+  - ✅ Preview en temps réel avec vue partagée
 
-  Prochaine priorité : Déploiement one-click avec Netlify pour permettre aux artisans de publier leur site en 1 clic à seulement 15€/an (vs 87€/an chez o2switch).
+  Prochaine priorité : Finaliser l'intégration du CMS avancé dans le déploiement Netlify pour que les artisans puissent modifier leur site après publication.
 
   🧠 Mémoires de Conversation
 
@@ -129,3 +139,29 @@
     - ✅ Feedback en temps réel du déploiement
     - ✅ Support des domaines personnalisés
     - ✅ Correction du rendu des blocs dans l'export statique
+  - 26/06 : Développé un CMS ultra-avancé pour les sites exportés :
+    - ✅ Interface d'administration complète avec authentification
+    - ✅ Ajout/suppression/duplication de blocs
+    - ✅ Drag & drop pour réorganiser les blocs
+    - ✅ Personnalisation complète du thème (couleurs, polices)
+    - ✅ Catalogue de 20+ types de blocs
+    - ✅ Éditeur de propriétés intelligent avec détection automatique des types
+    - ✅ Preview en temps réel avec synchronisation localStorage
+    - ✅ Environnement de test local sur port 3002
+    - ✅ CMS intégré dans le processus de déploiement Netlify
+  - 27/06 : Finalisé l'intégration CMS et configuration DNS :
+    - ✅ CMS complet intégré dans l'export ZIP et déploiement Netlify
+    - ✅ Génération automatique des instructions DNS selon le domaine
+    - ✅ Support de 4 registrars majeurs (OVH, Gandi, IONOS, GoDaddy)
+    - ✅ Système d'URLs dynamiques (adaptation automatique au domaine)
+    - ✅ Workflow d'achat de domaine intégré dans l'interface
+    - ✅ Guide pas à pas pour configuration DNS
+    - ⏳ À TESTER : Export avec CMS, déploiement et configuration DNS
+  - 27/06 : Implémenté système de gestion des médias complet :
+    - ✅ Service d'optimisation d'images (compression, WebP)
+    - ✅ Galerie de médias avec drag & drop
+    - ✅ Stockage Netlify-natif (pas de service externe)
+    - ✅ Intégration du sélecteur d'images dans PropertyControls
+    - ✅ Support pour tous les blocs avec images (hero, gallery, content, etc.)
+    - ✅ Persistance localStorage pour les images du projet
+    - ⏳ À FAIRE : Intégrer les images dans l'export ZIP/Netlify

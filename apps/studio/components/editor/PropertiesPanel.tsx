@@ -5,7 +5,11 @@ import { getBlockById } from '@/lib/blocks/block-registry';
 import { PropertyControls } from './PropertyControls';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-export function PropertiesPanel() {
+interface PropertiesPanelProps {
+  projectId?: string;
+}
+
+export function PropertiesPanel({ projectId }: PropertiesPanelProps) {
   const { selectedBlockId, blocks, updateBlock, selectBlock } = useEditorStore();
   
   const selectedBlock = blocks.find(b => b.id === selectedBlockId);
@@ -58,6 +62,7 @@ export function PropertiesPanel() {
               props={blockDef.block.props}
               values={selectedBlock.props}
               onChange={handlePropChange}
+              projectId={projectId}
             />
           )}
           
