@@ -73,7 +73,9 @@ export interface EditorState {
   removePage: (pageId: string) => void;
   updatePage: (pageId: string, updates: Partial<Page>) => void;
   setCurrentPage: (pageId: string) => void;
+  setCurrentPageId: (pageId: string) => void;
   initializePages: (pages: Page[]) => void;
+  clearPageBlocks: (pageId: string) => void;
   
   // Block Actions
   addBlock: (block: EditorBlock) => void;
@@ -347,6 +349,33 @@ export const useEditorStore = create<EditorState>()(
           state.currentPageId = pageId;
           state.blocks = [...page.blocks];
           state.selectedBlockId = null;
+        }
+      }),
+      
+      setCurrentPageId: (pageId) => set((state) => {
+        const page = state.pages.find(p => p.id === pageId);
+        if (page) {
+          // Save current blocks to current page
+          const currentPage = state.pages.find(p => p.id === state.currentPageId);
+          if (currentPage) {
+            currentPage.blocks = [...state.blocks];
+          }
+          
+          // Switch to new page
+          state.currentPageId = pageId;
+          state.blocks = [...page.blocks];
+          state.selectedBlockId = null;
+        }
+      }),
+      
+      clearPageBlocks: (pageId) => set((state) => {
+        const page = state.pages.find(p => p.id === pageId);
+        if (page) {
+          page.blocks = [];
+          // If it's the current page, also clear the blocks state
+          if (pageId === state.currentPageId) {
+            state.blocks = [];
+          }
         }
       }),
 

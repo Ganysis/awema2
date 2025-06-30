@@ -22,6 +22,7 @@ import { BlockItem } from './BlockItem';
 import { EmptyState } from './EmptyState';
 import { LivePreview } from './LivePreview';
 import { CanvasWithLayout } from './CanvasWithLayout';
+import { DeviceFrame } from './DeviceFrame';
 
 export function Canvas() {
   const { 
@@ -45,13 +46,6 @@ export function Canvas() {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-  
-  // Device widths
-  const deviceWidths = {
-    mobile: 375,
-    tablet: 768,
-    desktop: 1280
-  };
   
   const handleDragStart = () => {
     setDragging(true);
@@ -107,16 +101,18 @@ export function Canvas() {
 
   return (
     <div className="flex-1 bg-gray-50 overflow-hidden flex flex-col">
-      {/* Device Frame */}
-      <div className="flex-1 overflow-auto p-8">
-        <div className="mx-auto transition-all duration-300" style={{
-          maxWidth: deviceWidths[previewDevice],
-          width: '100%'
-        }}>
-          <div className="bg-white rounded-lg shadow-xl overflow-hidden">
+      {/* Main Editor Area */}
+      <div className="flex-1 overflow-hidden">
+        <DeviceFrame device={previewDevice} showFrame={previewDevice !== 'desktop'}>
+          <div 
+            ref={containerRef}
+            className="w-full h-full bg-white overflow-auto"
+            onDrop={handleDrop}
+            onDragOver={handleDragOverNative}
+          >
             {/* Browser Chrome for Desktop */}
             {previewDevice === 'desktop' && (
-              <div className="h-10 bg-gray-100 border-b border-gray-200 flex items-center px-4">
+              <div className="h-10 bg-gray-100 border-b border-gray-200 flex items-center px-4 sticky top-0 z-10">
                 <div className="flex space-x-2">
                   <div className="w-3 h-3 rounded-full bg-red-400" />
                   <div className="w-3 h-3 rounded-full bg-yellow-400" />
@@ -131,62 +127,44 @@ export function Canvas() {
             )}
             
             {/* Canvas Content */}
-            <div 
-              ref={containerRef}
-              className="min-h-[600px] relative overflow-hidden"
-              onDrop={handleDrop}
-              onDragOver={handleDragOverNative}
-              style={{
-                // Add mobile/tablet frame styling
-                ...(previewDevice === 'mobile' && {
-                  borderRadius: '2rem',
-                  border: '8px solid #333'
-                }),
-                ...(previewDevice === 'tablet' && {
-                  borderRadius: '1rem',
-                  border: '12px solid #333'
-                })
-              }}
-            >
-              <CanvasWithLayout isPreviewMode={isPreviewMode}>
-                {isPreviewMode ? (
-                  <LivePreview />
-                ) : (
-                  <DndContext
-                    sensors={sensors}
-                    collisionDetection={closestCenter}
-                    onDragStart={handleDragStart}
-                    onDragEnd={handleDragEnd}
-                    onDragOver={handleDragOver}
+            <CanvasWithLayout isPreviewMode={isPreviewMode}>
+              {isPreviewMode ? (
+                <LivePreview />
+              ) : (
+                <DndContext
+                  sensors={sensors}
+                  collisionDetection={closestCenter}
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
+                  onDragOver={handleDragOver}
+                >
+                  <SortableContext
+                    items={blocks.map(b => b.id)}
+                    strategy={verticalListSortingStrategy}
                   >
-                    <SortableContext
-                      items={blocks.map(b => b.id)}
-                      strategy={verticalListSortingStrategy}
-                    >
-                      {blocks.length === 0 ? (
-                        <EmptyState />
-                      ) : (
-                        <div className="relative">
-                          {blocks.map((block) => (
-                            <BlockItem key={block.id} block={block} />
-                          ))}
-                        </div>
-                      )}
-                    </SortableContext>
-                    
-                    <DragOverlay>
-                      {isDragging && (
-                        <div className="bg-primary-100 border-2 border-primary-500 border-dashed rounded-lg p-8 opacity-50">
-                          <p className="text-primary-700 text-center">Drop here</p>
-                        </div>
-                      )}
-                    </DragOverlay>
-                  </DndContext>
-                )}
-              </CanvasWithLayout>
-            </div>
+                    {blocks.length === 0 ? (
+                      <EmptyState />
+                    ) : (
+                      <div className="relative">
+                        {blocks.map((block) => (
+                          <BlockItem key={block.id} block={block} />
+                        ))}
+                      </div>
+                    )}
+                  </SortableContext>
+                  
+                  <DragOverlay>
+                    {isDragging && (
+                      <div className="bg-primary-100 border-2 border-primary-500 border-dashed rounded-lg p-8 opacity-50">
+                        <p className="text-primary-700 text-center">Drop here</p>
+                      </div>
+                    )}
+                  </DragOverlay>
+                </DndContext>
+              )}
+            </CanvasWithLayout>
           </div>
-        </div>
+        </DeviceFrame>
       </div>
       
       {/* Status Bar */}

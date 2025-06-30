@@ -1376,7 +1376,7 @@ function getAdminInterfaceHTML() {
             <button onclick="openThemeModal()" class="btn btn-secondary">
                 🎨 Thème
             </button>
-            <button onclick="openPreview()" class="btn btn-secondary">
+            <button onclick="openPreview()" class="btn btn-secondary" title="Aperçu responsive">
                 👁️ Aperçu
             </button>
             <button onclick="saveChanges()" class="btn btn-primary">
@@ -2265,7 +2265,93 @@ function updateSaveStatus(message = '') {
 // Preview
 function openPreview() {
   localStorage.setItem('cms_site_data', JSON.stringify(cms.data));
-  window.open('/admin/preview.html', 'preview', 'width=1200,height=800');
+  
+  // Create responsive preview modal
+  const modal = document.createElement('div');
+  modal.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center';
+  modal.innerHTML = \`
+    <div class="bg-white rounded-lg shadow-xl w-full h-full max-w-7xl max-h-[90vh] m-4 flex flex-col">
+      <div class="p-4 border-b flex items-center justify-between">
+        <h3 class="text-lg font-semibold">👁️ Aperçu</h3>
+        <div class="flex items-center space-x-4">
+          <!-- Device Selector -->
+          <div class="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
+            <button onclick="setPreviewDevice('mobile')" id="device-mobile" class="p-2 rounded hover:bg-gray-200">
+              📱
+            </button>
+            <button onclick="setPreviewDevice('tablet')" id="device-tablet" class="p-2 rounded hover:bg-gray-200">
+              📱
+            </button>
+            <button onclick="setPreviewDevice('desktop')" id="device-desktop" class="p-2 rounded bg-white shadow-sm">
+              💻
+            </button>
+          </div>
+          <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700 text-xl">
+            ✕
+          </button>
+        </div>
+      </div>
+      <div class="flex-1 overflow-hidden bg-gray-100 p-8" id="preview-container">
+        <div id="device-frame" class="mx-auto transition-all duration-300">
+          <iframe src="/admin/preview.html" 
+                  id="preview-iframe"
+                  class="w-full h-full border-0" 
+                  title="Aperçu du site"></iframe>
+        </div>
+      </div>
+    </div>
+  \`;
+  document.body.appendChild(modal);
+  
+  // Set default device
+  window.currentPreviewDevice = 'desktop';
+  updateDeviceFrame();
+}
+
+function setPreviewDevice(device) {
+  window.currentPreviewDevice = device;
+  
+  // Update button states
+  document.querySelectorAll('[id^="device-"]').forEach(btn => {
+    btn.classList.remove('bg-white', 'shadow-sm');
+    btn.classList.add('hover:bg-gray-200');
+  });
+  document.getElementById(\`device-\${device}\`).classList.remove('hover:bg-gray-200');
+  document.getElementById(\`device-\${device}\`).classList.add('bg-white', 'shadow-sm');
+  
+  updateDeviceFrame();
+}
+
+function updateDeviceFrame() {
+  const frameContainer = document.getElementById('device-frame');
+  const iframe = document.getElementById('preview-iframe');
+  
+  // Remove existing classes
+  frameContainer.className = 'mx-auto transition-all duration-300';
+  
+  switch (window.currentPreviewDevice) {
+    case 'mobile':
+      frameContainer.style.width = '375px';
+      frameContainer.style.height = '812px';
+      frameContainer.style.maxHeight = 'calc(90vh - 200px)';
+      frameContainer.classList.add('border-8', 'border-gray-900', 'rounded-[2.5rem]', 'bg-gray-900', 'p-2');
+      iframe.classList.add('rounded-[2rem]');
+      break;
+    case 'tablet':
+      frameContainer.style.width = '768px';
+      frameContainer.style.height = '1024px';
+      frameContainer.style.maxHeight = 'calc(90vh - 200px)';
+      frameContainer.classList.add('border-12', 'border-gray-900', 'rounded-[2rem]', 'bg-gray-900', 'p-3');
+      iframe.classList.add('rounded-[1.5rem]');
+      break;
+    case 'desktop':
+      frameContainer.style.width = '100%';
+      frameContainer.style.height = '100%';
+      frameContainer.style.maxHeight = 'none';
+      frameContainer.classList.add('bg-white', 'shadow-2xl', 'rounded-lg', 'overflow-hidden');
+      iframe.classList.remove('rounded-[2rem]', 'rounded-[1.5rem]');
+      break;
+  }
 }
 
 function openVersionHistory() {
@@ -2379,6 +2465,27 @@ function generateCMSPreview(): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aperçu - CMS</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
+    <style>
+        /* Ensure proper scaling for different devices */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        /* Add responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+        }
+        
+        @media (max-width: 375px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div id="preview-root"></div>
@@ -2397,9 +2504,12 @@ function generateCMSPreview(): string {
                 });
             }
             
-            // Simple preview renderer
+            // Get current page from URL or default to home
+            const urlParams = new URLSearchParams(window.location.search);
+            const pageSlug = urlParams.get('page') || '/';
+            const currentPage = data.pages.find(p => p.slug === pageSlug) || data.pages[0];
+            
             const previewRoot = document.getElementById('preview-root');
-            const currentPage = data.pages.find(p => p.slug === '/') || data.pages[0];
             
             if (currentPage) {
                 let html = '';
@@ -2422,18 +2532,45 @@ function generateCMSPreview(): string {
                 }
                 
                 previewRoot.innerHTML = html;
+                
+                // Execute any block scripts
+                const scripts = previewRoot.querySelectorAll('script');
+                scripts.forEach(script => {
+                    const newScript = document.createElement('script');
+                    newScript.textContent = script.textContent;
+                    document.body.appendChild(newScript);
+                });
             }
         }
         
         function renderBlock(block) {
-            // Simple block renderer for preview
-            return '<div class="block-' + block.type + '">' + JSON.stringify(block.props) + '</div>';
+            // Get block renderer from global registry
+            if (window.blockRenderers && window.blockRenderers[block.type]) {
+                return window.blockRenderers[block.type](block.props || {});
+            }
+            
+            // Fallback to simple renderer
+            return '<div class="block-' + block.type + ' p-4 border border-gray-200 rounded-lg mb-4">' + 
+                   '<p class="text-sm text-gray-500">Bloc: ' + block.type + '</p>' +
+                   '<pre class="text-xs mt-2">' + JSON.stringify(block.props, null, 2) + '</pre>' +
+                   '</div>';
         }
         
         // Listen for updates
         window.addEventListener('storage', (e) => {
             if (e.key === 'cms_site_data') {
                 window.location.reload();
+            }
+        });
+        
+        // Handle navigation in preview
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (link && link.href && link.href.startsWith('/')) {
+                e.preventDefault();
+                const newUrl = new URL(window.location);
+                newUrl.searchParams.set('page', link.href);
+                window.location = newUrl;
             }
         });
     </script>

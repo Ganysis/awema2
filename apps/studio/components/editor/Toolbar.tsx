@@ -5,6 +5,7 @@ import { useEditorStore } from '@/lib/store/editor-store';
 import { ExportModalWithCMS } from './ExportModalWithCMS';
 import { NetlifyDeployModal } from './NetlifyDeployModal';
 import { VersionHistoryModal } from './VersionHistoryModal';
+import { LegalMentionsModal } from './LegalMentionsModal';
 import { RandomSiteGenerator } from '@/lib/services/random-site-generator';
 import { 
   ArrowLeftIcon, 
@@ -17,7 +18,8 @@ import {
   Cog6ToothIcon,
   SparklesIcon,
   GlobeAltIcon,
-  ClockIcon
+  ClockIcon,
+  ShieldCheckIcon
 } from '@heroicons/react/24/outline';
 
 interface ToolbarProps {
@@ -30,6 +32,7 @@ export function Toolbar({ onPreview, saveStatus, projectId }: ToolbarProps) {
   const [showExportModal, setShowExportModal] = useState(false);
   const [showDeployModal, setShowDeployModal] = useState(false);
   const [showVersionHistory, setShowVersionHistory] = useState(false);
+  const [showLegalMentions, setShowLegalMentions] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const { 
     projectName,
@@ -162,6 +165,17 @@ export function Toolbar({ onPreview, saveStatus, projectId }: ToolbarProps) {
           <ClockIcon className="w-5 h-5" />
           <span className="text-sm">Historique</span>
         </button>
+        
+        <div className="h-6 w-px bg-gray-300" />
+        
+        <button
+          onClick={() => setShowLegalMentions(true)}
+          className="p-2 rounded hover:bg-gray-100 flex items-center space-x-1"
+          title="Générateur de mentions légales RGPD"
+        >
+          <ShieldCheckIcon className="w-5 h-5" />
+          <span className="text-sm">Mentions légales</span>
+        </button>
       </div>
       
       {/* Center Section - Save Status & Device Preview */}
@@ -278,6 +292,12 @@ export function Toolbar({ onPreview, saveStatus, projectId }: ToolbarProps) {
       <VersionHistoryModal 
         onClose={() => setShowVersionHistory(false)} 
         projectId={projectId}
+      />
+    )}
+    
+    {showLegalMentions && (
+      <LegalMentionsModal 
+        onClose={() => setShowLegalMentions(false)} 
       />
     )}
     </>
