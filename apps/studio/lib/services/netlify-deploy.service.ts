@@ -172,8 +172,8 @@ export class NetlifyDeployService {
       while (deployStatus.state === 'uploading' || deployStatus.state === 'processing') {
         await new Promise(resolve => setTimeout(resolve, 2000));
         deployStatus = await this.netlifyClient.getSiteDeploy({
-          siteId: site.id,
-          deployId: deploy.id
+          siteId: site.id!,
+          deployId: deploy.id!
         });
       }
 
@@ -194,7 +194,7 @@ export class NetlifyDeployService {
 
       return {
         siteUrl: finalUrl,
-        deployId: deploy.id
+        deployId: deploy.id!
       };
 
     } catch (error: any) {
@@ -295,7 +295,7 @@ export class NetlifyDeployService {
            !url.startsWith('tel:') && 
            !url.startsWith('//') &&
            !url.startsWith('data:') &&
-           (url.startsWith('/') || url.match(/^[a-zA-Z0-9]/));
+           (url.startsWith('/') || /^[a-zA-Z0-9]/.test(url));
   }
 
   /**

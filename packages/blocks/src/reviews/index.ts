@@ -1,0 +1,1 @@
+export { reviewsBlock, ReviewsBlockComponent } from './reviews.block';

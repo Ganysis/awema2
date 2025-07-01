@@ -1,0 +1,1 @@
+export { reviewsBlock, renderReviews } from './reviews';

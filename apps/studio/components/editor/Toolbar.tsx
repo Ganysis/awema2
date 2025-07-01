@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useEditorStore } from '@/lib/store/editor-store';
-import { ExportModalWithCMS } from './ExportModalWithCMS';
+import { ExportModalWithSEO } from './ExportModalWithSEO';
 import { NetlifyDeployModal } from './NetlifyDeployModal';
 import { VersionHistoryModal } from './VersionHistoryModal';
 import { LegalMentionsModal } from './LegalMentionsModal';
@@ -278,7 +278,7 @@ export function Toolbar({ onPreview, saveStatus, projectId }: ToolbarProps) {
     </div>
     
     {showExportModal && (
-      <ExportModalWithCMS onClose={() => setShowExportModal(false)} projectId={projectId} />
+      <ExportModalWithSEO onClose={() => setShowExportModal(false)} projectId={projectId} />
     )}
     
     {showDeployModal && projectId && (

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/outline';
 import { ImagePickerModal } from './MediaGallery';
-import { useNetlifyMedia } from '@/lib/services/netlify-media.service';
+import { useNetlifyMedia } from '@/hooks/useNetlifyMedia';
 import type { SiteImage } from '@/lib/services/netlify-media.service';
 
 interface ImagePickerWithDetailsProps {

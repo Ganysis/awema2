@@ -19,19 +19,55 @@ export function PreviewModal({ onClose, projectId }: PreviewModalProps) {
   useEffect(() => {
     // Generate preview with image transformation
     const generatePreview = async () => {
-      const { previewGenerator } = await import('@/lib/services/preview-generator');
-      
-      // Set projectId if available for image transformation
-      if (projectId) {
-        await previewGenerator.setProjectId(projectId);
+      try {
+        const { previewGenerator } = await import('@/lib/services/preview-generator');
+        
+        // Set projectId if available for image transformation
+        if (projectId) {
+          await previewGenerator.setProjectId(projectId);
+        }
+        
+        const html = previewGenerator.generatePreview(blocks, theme, globalHeader, globalFooter);
+        setPreviewHtml(html);
+      } catch (error) {
+        console.error('Error generating preview:', error);
+        // Fallback: generate basic preview without the preview generator
+        setPreviewHtml(generateBasicPreview());
       }
-      
-      const html = previewGenerator.generatePreview(blocks, theme, globalHeader, globalFooter);
-      setPreviewHtml(html);
     };
     
     generatePreview();
   }, [blocks, theme, globalHeader, globalFooter, projectId]);
+
+  const generateBasicPreview = () => {
+    return `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Preview</title>
+        <style>
+          body { 
+            margin: 0; 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          }
+          .preview-error {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="preview-error">
+          <h2>Aperçu temporairement indisponible</h2>
+          <p>Veuillez rafraîchir la page pour réessayer.</p>
+        </div>
+      </body>
+      </html>
+    `;
+  };
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">

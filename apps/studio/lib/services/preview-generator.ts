@@ -1,8 +1,8 @@
 import { TemplateComposer, ColorGenerator, TypographyGenerator, SpacingGenerator } from '@awema/templates';
 import type { EditorBlock, Theme } from '../store/editor-store';
 import type { DefaultBlock } from '@awema/shared';
-import { blockRegistry } from '../blocks/block-registry';
-import { NetlifyMediaService } from '../services/netlify-media.service';
+import { blockRegistry, getBlockRenderFunction } from '../blocks/block-registry';
+import { NetlifyMediaService } from './netlify-media.service';
 
 export class PreviewGenerator {
   private composer: TemplateComposer;
@@ -33,45 +33,81 @@ export class PreviewGenerator {
   ): string {
     console.log('Generating preview with blocks:', blocks);
     
-    // Convert all blocks including header and footer
-    const allBlocks: DefaultBlock[] = [];
-    let currentOrder = 0;
-    
-    // Add header if exists
-    if (globalHeader) {
-      const headerBlock = this.convertBlockToTemplateBlock(globalHeader);
-      headerBlock.order = currentOrder++;
-      allBlocks.push(headerBlock);
-    }
-    
-    // Add page blocks
-    blocks.forEach((block) => {
-      const convertedBlock = this.convertBlockToTemplateBlock(block);
-      convertedBlock.order = currentOrder++;
-      allBlocks.push(convertedBlock);
-    });
-    
-    // Add footer if exists
-    if (globalFooter) {
-      const footerBlock = this.convertBlockToTemplateBlock(globalFooter);
-      footerBlock.order = currentOrder++;
-      allBlocks.push(footerBlock);
-    }
-
-    console.log('All blocks including header/footer:', allBlocks);
-
     try {
-      // Generate the page with the composer
-      const result = this.composer.composePage({
-        template: 'landing-page',
-        variant: theme.variant,
-        blocks: allBlocks,
-        customStyles: this.generateThemeStyles(theme)
+      // Collect CSS and JS from all blocks
+      const collectedCSS: string[] = [];
+      const collectedJS: string[] = [];
+      let allHTML = '';
+      
+      // Helper to render a block and collect its assets
+      const renderAndCollect = (block: EditorBlock) => {
+        try {
+          const renderFn = getBlockRenderFunction(block.type);
+          if (!renderFn) {
+            console.warn(`No render function found for block type: ${block.type}`);
+            return;
+          }
+          
+          // Convert to template block which includes defaults
+          const templateBlock = this.convertBlockToTemplateBlock(block);
+          
+          // Call the render function with merged props
+          const rendered = renderFn(templateBlock.props, []);
+          
+          if (rendered && typeof rendered === 'object') {
+            if (rendered.html) {
+              allHTML += rendered.html;
+            }
+            if (rendered.css) {
+              collectedCSS.push(rendered.css);
+            }
+            if (rendered.js) {
+              collectedJS.push(rendered.js);
+            }
+          }
+        } catch (error) {
+          console.error(`Error rendering block ${block.type}:`, error);
+        }
+      };
+      
+      // Render header if exists
+      if (globalHeader) {
+        renderAndCollect(globalHeader);
+      }
+      
+      // Render page blocks
+      blocks.forEach(block => {
+        renderAndCollect(block);
       });
+      
+      // Render footer if exists
+      if (globalFooter) {
+        renderAndCollect(globalFooter);
+      }
+
+      // Generate base CSS with resets and utilities
+      const baseCSS = this.generateBaseCSS();
+      
+      // Generate theme-specific styles
+      const themeStyles = this.generateThemeStyles(theme);
+      
+      // Combine all CSS
+      const blockStyles = collectedCSS.filter(css => css && css.trim()).join('\n\n');
+      const allCSS = `
+        ${baseCSS}
+        ${themeStyles}
+        ${blockStyles}
+      `;
+      
+      // Combine all JS
+      const allJS = collectedJS.filter(js => js && js.trim()).join('\n\n');
 
       // Create complete HTML document
       return this.createHTMLDocument({
-        ...result,
+        html: allHTML,
+        css: allCSS,
+        js: allJS,
+        criticalCSS: '',
         theme
       });
     } catch (error) {
@@ -116,38 +152,268 @@ export class PreviewGenerator {
 </html>`;
   }
 
+  private generateBaseCSS(): string {
+    return `
+      /* CSS Reset and Base Styles */
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+      
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      
+      html {
+        font-size: 16px;
+        -webkit-text-size-adjust: 100%;
+      }
+      
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        text-rendering: optimizeSpeed;
+        line-height: 1.5;
+      }
+      
+      img, picture, video, canvas, svg {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      
+      input, button, textarea, select {
+        font: inherit;
+      }
+      
+      p, h1, h2, h3, h4, h5, h6 {
+        overflow-wrap: break-word;
+      }
+      
+      /* Container */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      
+      /* Button Styles */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        text-decoration: none;
+        border-radius: var(--border-radius);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border: none;
+        text-align: center;
+        white-space: nowrap;
+      }
+      
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      
+      .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1.125rem;
+      }
+      
+      .btn-sm {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+      }
+      
+      /* Grid System */
+      .grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+      
+      .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+      .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      
+      @media (max-width: 768px) {
+        .md\\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .md\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      
+      /* Animations */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      
+      /* Utilities */
+      .text-center { text-align: center; }
+      .text-left { text-align: left; }
+      .text-right { text-align: right; }
+      
+      .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .relative { position: relative; }
+      .absolute { position: absolute; }
+      
+      .flex { display: flex; }
+      .items-center { align-items: center; }
+      .justify-center { justify-content: center; }
+      .justify-between { justify-content: space-between; }
+      .flex-wrap { flex-wrap: wrap; }
+      .gap-4 { gap: 1rem; }
+      .gap-6 { gap: 1.5rem; }
+      .gap-8 { gap: 2rem; }
+      
+      /* Section Spacing */
+      section {
+        padding: 4rem 0;
+      }
+      
+      @media (min-width: 768px) {
+        section {
+          padding: 5rem 0;
+        }
+      }
+      
+      /* Default link styles */
+      a {
+        color: var(--color-primary);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      
+      a:hover {
+        color: color-mix(in srgb, var(--color-primary) 85%, black);
+      }
+      
+      /* Form elements */
+      input, textarea, select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius);
+        background: var(--color-background);
+        color: var(--color-text);
+        font-size: 1rem;
+        line-height: 1.5;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+      
+      input:focus, textarea:focus, select:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+      }
+      
+      /* Typography utilities */
+      .text-primary { color: var(--color-primary); }
+      .text-secondary { color: var(--color-secondary); }
+      .text-accent { color: var(--color-accent); }
+      .text-muted { color: var(--color-text-muted); }
+      
+      .font-light { font-weight: 300; }
+      .font-normal { font-weight: 400; }
+      .font-medium { font-weight: 500; }
+      .font-semibold { font-weight: 600; }
+      .font-bold { font-weight: 700; }
+      
+      /* Background utilities */
+      .bg-primary { background-color: var(--color-primary); }
+      .bg-secondary { background-color: var(--color-secondary); }
+      .bg-accent { background-color: var(--color-accent); }
+      .bg-surface { background-color: var(--color-surface); }
+      
+      /* Responsive Text */
+      @media (max-width: 768px) {
+        h1 { font-size: 2rem; }
+        h2 { font-size: 1.75rem; }
+        h3 { font-size: 1.5rem; }
+      }
+    `;
+  }
+
   private generateThemeStyles(theme: Theme): string {
     let styles = '';
 
-    // Add CSS variables for colors
+    // Add CSS variables for colors with fallbacks
+    const colors = theme.colors || {};
     styles += `
       :root {
-        --color-primary: ${theme.colors.primary};
-        --color-secondary: ${theme.colors.secondary};
-        --color-accent: ${theme.colors.accent};
-        --color-background: ${theme.colors.background};
-        --color-text: ${theme.colors.text};
-        --color-text-muted: ${theme.colors.textMuted};
+        --color-primary: ${colors.primary || 'hsl(221, 83%, 53%)'};
+        --color-secondary: ${colors.secondary || 'hsl(271, 81%, 65%)'};
+        --color-accent: ${colors.accent || 'hsl(0, 84%, 60%)'};
+        --color-background: ${colors.background || 'hsl(0, 0%, 100%)'};
+        --color-text: ${colors.text || 'hsl(222, 47%, 11%)'};
+        --color-text-muted: ${colors.textMuted || 'hsl(215, 20%, 65%)'};
+        --color-text-secondary: ${colors.textSecondary || colors.textMuted || 'hsl(215, 20%, 65%)'};
+        --color-surface: ${colors.surface || 'hsl(210, 20%, 98%)'};
+        --color-border: ${colors.border || 'hsl(214, 32%, 91%)'};
+        --color-success: ${colors.success || 'hsl(142, 71%, 45%)'};
+        --color-warning: ${colors.warning || 'hsl(45, 93%, 47%)'};
+        --color-error: ${colors.error || 'hsl(0, 84%, 60%)'};
         
         /* Typography */
-        --font-heading: ${theme.typography.fontFamily.heading};
-        --font-body: ${theme.typography.fontFamily.body};
-        --font-size-base: ${theme.typography.fontSize.base};
-        --font-size-sm: ${theme.typography.fontSize.sm};
-        --font-size-lg: ${theme.typography.fontSize.lg};
-        --font-size-xl: ${theme.typography.fontSize.xl};
-        --font-size-2xl: ${theme.typography.fontSize['2xl']};
-        --font-size-3xl: ${theme.typography.fontSize['3xl']};
-        --line-height-base: ${theme.typography.lineHeight.normal};
-        --line-height-heading: ${theme.typography.lineHeight.tight};
+        --font-heading: ${theme.typography?.fontFamily?.heading || 'Inter, system-ui, sans-serif'};
+        --font-body: ${theme.typography?.fontFamily?.body || 'Inter, system-ui, sans-serif'};
+        --font-size-base: ${theme.typography?.fontSize?.base || '1rem'};
+        --font-size-sm: ${theme.typography?.fontSize?.sm || '0.875rem'};
+        --font-size-lg: ${theme.typography?.fontSize?.lg || '1.125rem'};
+        --font-size-xl: ${theme.typography?.fontSize?.xl || '1.25rem'};
+        --font-size-2xl: ${theme.typography?.fontSize?.['2xl'] || '1.5rem'};
+        --font-size-3xl: ${theme.typography?.fontSize?.['3xl'] || '1.875rem'};
+        --line-height-base: ${theme.typography?.lineHeight?.normal || '1.5'};
+        --line-height-heading: ${theme.typography?.lineHeight?.tight || '1.25'};
         
         /* Spacing */
-        --spacing-xs: ${theme.spacing.spacing['2']};
-        --spacing-sm: ${theme.spacing.spacing['4']};
-        --spacing-md: ${theme.spacing.spacing['6']};
-        --spacing-lg: ${theme.spacing.spacing['8']};
-        --spacing-xl: ${theme.spacing.spacing['12']};
-        --spacing-2xl: ${theme.spacing.spacing['16']};
+        --spacing-xs: ${theme.spacing?.spacing?.['2'] || '0.5rem'};
+        --spacing-sm: ${theme.spacing?.spacing?.['4'] || '1rem'};
+        --spacing-md: ${theme.spacing?.spacing?.['6'] || '1.5rem'};
+        --spacing-lg: ${theme.spacing?.spacing?.['8'] || '2rem'};
+        --spacing-xl: ${theme.spacing?.spacing?.['12'] || '3rem'};
+        --spacing-2xl: ${theme.spacing?.spacing?.['16'] || '4rem'};
         
         /* Border radius */
         --border-radius: 0.375rem;
@@ -204,6 +470,43 @@ export class PreviewGenerator {
         background-color: var(--color-primary);
         color: white;
       }
+      
+      /* Additional utility classes for better styling */
+      .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+      .shadow { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
+      .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+      .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+      .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+      
+      .rounded-sm { border-radius: 0.125rem; }
+      .rounded { border-radius: 0.25rem; }
+      .rounded-md { border-radius: 0.375rem; }
+      .rounded-lg { border-radius: 0.5rem; }
+      .rounded-xl { border-radius: 0.75rem; }
+      .rounded-2xl { border-radius: 1rem; }
+      .rounded-full { border-radius: 9999px; }
+      
+      /* Cards and surfaces */
+      .card {
+        background: var(--color-surface);
+        border-radius: var(--border-radius-lg);
+        padding: 1.5rem;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      }
+      
+      /* Icon styles */
+      .icon {
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        stroke-width: 2;
+        stroke: currentColor;
+        fill: none;
+      }
+      
+      .icon-sm { width: 1rem; height: 1rem; }
+      .icon-lg { width: 2rem; height: 2rem; }
+      .icon-xl { width: 3rem; height: 3rem; }
     `;
 
     // Add custom CSS if provided
@@ -361,7 +664,7 @@ export class PreviewGenerator {
         const image = images.find(img => img.path === value);
         if (image) {
           // Return the blob URL for preview
-          const blobUrl = this.mediaService.getPreviewUrl(image.id);
+          const blobUrl = this.mediaService?.getPreviewUrl(image.id);
           console.log('Transformed to blob URL:', blobUrl);
           return blobUrl || value;
         }

@@ -12,6 +12,19 @@ export interface EditorBlock {
   isSelected?: boolean;
 }
 
+export interface PageSEO {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  canonicalUrl?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  twitterCard?: string;
+  robots?: string;
+  structuredData?: Record<string, any>;
+}
+
 export interface Page {
   id: string;
   name: string;
@@ -22,6 +35,7 @@ export interface Page {
     description?: string;
     keywords?: string[];
   };
+  seo?: PageSEO;
 }
 
 export interface Theme {
@@ -76,6 +90,7 @@ export interface EditorState {
   setCurrentPageId: (pageId: string) => void;
   initializePages: (pages: Page[]) => void;
   clearPageBlocks: (pageId: string) => void;
+  updatePageSEO: (pageId: string, seo: PageSEO) => void;
   
   // Block Actions
   addBlock: (block: EditorBlock) => void;
@@ -336,6 +351,13 @@ export const useEditorStore = create<EditorState>()(
         }
       }),
 
+      updatePageSEO: (pageId, seo) => set((state) => {
+        const page = state.pages.find(p => p.id === pageId);
+        if (page) {
+          page.seo = { ...page.seo, ...seo };
+        }
+      }),
+
       setCurrentPage: (pageId) => set((state) => {
         const page = state.pages.find(p => p.id === pageId);
         if (page) {
@@ -408,7 +430,7 @@ export const useEditorStore = create<EditorState>()(
         
         // Add default values from prop definitions
         if (blockDef?.block?.props) {
-          blockDef.block.props.forEach(prop => {
+          blockDef.block.props.forEach((prop: any) => {
             if (prop.defaultValue !== undefined && !(prop.name in mergedProps)) {
               mergedProps[prop.name] = prop.defaultValue;
             }

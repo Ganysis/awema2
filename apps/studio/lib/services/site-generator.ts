@@ -215,7 +215,7 @@ export class SiteGenerator {
           title: 'Nos Services',
           subtitle: client.sloganSecondary || 'Des solutions adaptées à tous vos besoins',
           services: client.services.slice(0, 6).map(service => ({
-            icon: this.getServiceIcon(service.name, client.businessType),
+            icon: this.getServiceIcon(service.name, client.businessType || 'general'),
             title: service.name,
             description: service.description,
             link: `/services/${this.slugify(service.name)}`
@@ -266,7 +266,7 @@ export class SiteGenerator {
     }
     
     // Gallery (if selected) - using clean style
-    if (client.selectedPages.includes('gallery') && client.photos && client.photos.length > 3) {
+    if (client.selectedPages?.includes('gallery') && client.photos && client.photos.length > 3) {
       blocks.push({
         id: this.generateId(),
         type: 'gallery-clean',
@@ -297,7 +297,7 @@ export class SiteGenerator {
           { name: 'name', label: 'Votre Nom', type: 'text', required: true },
           { name: 'email', label: 'Email', type: 'email', required: true },
           { name: 'phone', label: 'Téléphone', type: 'tel', required: false },
-          { name: 'service', label: 'Service souhaité', type: 'select', options: client.services.map(s => s.name), required: true },
+          { name: 'service', label: 'Service souhaité', type: 'select', options: client.services?.map(s => s.name) || [], required: true },
           { name: 'message', label: 'Votre message', type: 'textarea', required: true }
         ],
         contactInfo: {
@@ -333,8 +333,10 @@ export class SiteGenerator {
             name: serviceName,
             description: `${serviceName} de qualité professionnelle`,
             images: [],
-            features: [],
-            price: { amount: 0, currency: '€' }
+            price: '0',
+            priceType: 'quote' as const,
+            duration: '',
+            guarantee: ''
           };
         }
         
@@ -352,7 +354,7 @@ export class SiteGenerator {
               subtitle: service.description || '',
               ctaText: 'Demander un devis',
               ctaLink: '#contact',
-              image: service.images?.[0] || this.getDefaultServiceImage(service.name, client.businessType),
+              image: service.images?.[0] || this.getDefaultServiceImage(service.name, client.businessType || 'general'),
               imageAlt: service.name
             },
             children: []
@@ -373,7 +375,12 @@ export class SiteGenerator {
             service = {
               id: this.generateId(),
               name: serviceName,
-              description: `${serviceName} de qualité professionnelle`
+              description: `${serviceName} de qualité professionnelle`,
+              images: [],
+              price: '0',
+              priceType: 'quote' as const,
+              duration: '',
+              guarantee: ''
             };
           }
           
@@ -423,7 +430,7 @@ export class SiteGenerator {
           ctaLink: `tel:${client.phone}`,
           secondaryCtaText: 'En savoir plus',
           secondaryCtaLink: '#details',
-          image: service.images?.[0] || this.getDefaultServiceImage(service.name, client.businessType),
+          image: service.images?.[0] || this.getDefaultServiceImage(service.name, client.businessType || 'general'),
           imageAlt: `${service.name} ${city}`
         },
         children: []
@@ -475,7 +482,7 @@ export class SiteGenerator {
         props: {
           title: `À propos de ${client.businessName}`,
           subtitle: `${this.getBusinessTypeLabel(client.businessType || 'plumber')} depuis ${new Date().getFullYear() - parseInt(client.yearsExperience || '10')}`,
-          image: client.logo || client.photos[0],
+          image: client.logo || client.photos?.[0] || '',
           imageAlt: client.businessName
         },
         children: []
@@ -494,7 +501,7 @@ export class SiteGenerator {
         props: {
           title: 'Nos Réalisations',
           subtitle: 'Découvrez l\'ensemble de nos projets',
-          images: client.photos.map((photo, index) => ({
+          images: client.photos?.map((photo, index) => ({
             url: photo,
             alt: `Réalisation ${index + 1} - ${client.businessName}`,
             title: `Projet ${index + 1}`
@@ -657,7 +664,7 @@ export class SiteGenerator {
       });
     }
     
-    if (client.interventionCities.length > 5) {
+    if (client.interventionCities && client.interventionCities.length > 5) {
       features.push({
         icon: 'location',
         title: `${client.interventionCities.length} villes`,
@@ -673,7 +680,7 @@ export class SiteGenerator {
       return 'Lun-Ven: 9h-18h, Sam: 9h-12h'; // Horaires par défaut
     }
     
-    const days = {
+    const days: Record<string, string> = {
       monday: 'Lun',
       tuesday: 'Mar',
       wednesday: 'Mer',

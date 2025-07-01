@@ -3,7 +3,7 @@
 import { useState, useCallback, useRef } from 'react';
 import { PhotoIcon, XMarkIcon, CloudArrowUpIcon } from '@heroicons/react/24/outline';
 import { MediaOptimizationService } from '@/lib/services/media-optimization.service';
-import { useNetlifyMedia } from '@/lib/services/netlify-media.service';
+import { useNetlifyMedia } from '@/hooks/useNetlifyMedia';
 
 interface MediaUploaderProps {
   projectId: string;

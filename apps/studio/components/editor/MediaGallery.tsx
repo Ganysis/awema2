@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { TrashIcon, PhotoIcon, CheckCircleIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { useNetlifyMedia } from '@/lib/services/netlify-media.service';
+import { useNetlifyMedia } from '@/hooks/useNetlifyMedia';
 import { MediaUploader } from './MediaUploader';
 import type { SiteImage } from '@/lib/services/netlify-media.service';
 

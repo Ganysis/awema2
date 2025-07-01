@@ -11,8 +11,11 @@ import {
   CheckCircleIcon,
   ExclamationCircleIcon,
   CogIcon,
-  LockClosedIcon
+  LockClosedIcon,
+  MagnifyingGlassIcon
 } from '@heroicons/react/24/outline';
+import { SEOSettings } from '../SEOSettings';
+import { SimplifiedExportOptions } from '@/lib/services/static-export-simplified';
 
 interface ExportModalProps {
   onClose: () => void;
@@ -33,6 +36,17 @@ export function ExportModalWithCMS({ onClose, projectId }: ExportModalProps) {
   const [generateServiceWorker, setGenerateServiceWorker] = useState(true);
   const [includeCms, setIncludeCms] = useState(false);
   const [cmsPassword, setCmsPassword] = useState('');
+  const [activeTab, setActiveTab] = useState<'general' | 'seo' | 'advanced'>('general');
+  
+  // SEO Options
+  const [seoOptions, setSeoOptions] = useState<SimplifiedExportOptions>({
+    enableAdvancedSEO: true,
+    generateSEOContent: true,
+    enableAnalytics: false,
+    enableSEOMonitoring: true,
+    enableImageOptimization: true,
+    generateAMP: false
+  });
   
   const { projectName } = useEditorStore();
 
@@ -56,7 +70,8 @@ export function ExportModalWithCMS({ onClose, projectId }: ExportModalProps) {
           generateManifest,
           generateServiceWorker,
           includeCms,
-          cmsPassword: includeCms ? cmsPassword : undefined
+          cmsPassword: includeCms ? cmsPassword : undefined,
+          ...seoOptions
         };
 
         // Appeler l'API d'export

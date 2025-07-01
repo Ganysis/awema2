@@ -256,7 +256,7 @@ export function VersionHistoryModal({ onClose, projectId }: VersionHistoryModalP
             <div className="mt-6 p-4 bg-blue-50 rounded-lg">
               <p className="text-sm text-blue-800">
                 <strong>Info :</strong> Les sauvegardes automatiques sont effectuées toutes les 30 secondes. 
-                Les versions manuelles sont conservées en priorité. Maximum {versionHistory?.options?.maxVersions || 50} versions.
+                Les versions manuelles sont conservées en priorité. Maximum 50 versions.
               </p>
             </div>
           </div>

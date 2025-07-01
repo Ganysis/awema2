@@ -33,11 +33,12 @@ export { simpleFooter, renderSimpleFooter } from './blocks/layout/footer';
 export { footerPro, renderFooterPro } from './blocks/layout/footer-pro';
 export { simpleHeader, renderSimpleHeader } from './blocks/layout/header';
 export { headerPro, renderHeaderPro } from './blocks/layout/header-pro';
+export { reviewsBlock, renderReviews } from './blocks/reviews';
 
 // Export utility generators
-export { ColorGenerator } from './utils/color-generator';
-export { TypographyGenerator } from './utils/typography-generator';
-export { SpacingGenerator } from './utils/spacing-generator';
+export { ColorGenerator, type ColorScheme } from './utils/color-generator';
+export { TypographyGenerator, type TypographySystem } from './utils/typography-generator';
+export { SpacingGenerator, type LayoutSystem } from './utils/spacing-generator';
 
 // Export utility functions
 export { renderIcon } from './utils/icons';

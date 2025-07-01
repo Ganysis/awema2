@@ -55,6 +55,8 @@ import {
   renderSimpleHeader,
   headerPro,
   renderHeaderPro,
+  reviewsBlock,
+  renderReviews,
   
   // Types
   type Block
@@ -252,6 +254,12 @@ export const blockRegistry: BlockDefinition[] = [
     name: 'Header Professionnel',
     description: 'En-tête professionnel avec navigation complète et sous-menus',
   },
+  {
+    block: reviewsBlock,
+    category: BlockCategory.TESTIMONIALS,
+    name: 'Avis clients',
+    description: 'Affichage des avis clients avec notation et schema.org pour SEO',
+  },
 ].filter(def => def && def.block); // Filter out any invalid entries
 
 // Helper functions
@@ -298,6 +306,7 @@ const renderFunctions: Record<string, any> = {
   'footer-pro': renderFooterPro,
   'simple-header': renderSimpleHeader,
   'header-pro': renderHeaderPro,
+  'reviews': renderReviews,
 };
 
 export function getBlockRenderFunction(blockId: string): ((props: any, variants?: string[]) => any) | undefined {

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { EditorWithSave } from '@/components/editor/EditorWithSave';
+import { EditorWithSEO } from '@/components/editor/EditorWithSEO';
 
 interface Project {
   id: string;
@@ -102,7 +102,7 @@ export default function EditorPage() {
 
       {/* Editor */}
       <div className="flex-1">
-        <EditorWithSave 
+        <EditorWithSEO 
           projectId={project.id}
           template={project.template}
           theme={project.features?.theme || 'premium'}

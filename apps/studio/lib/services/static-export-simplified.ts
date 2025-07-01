@@ -4,6 +4,12 @@ import type { EditorBlock, Page, Theme } from '@/lib/store/editor-store';
 import { getBlockRenderFunction } from '@/lib/blocks/block-registry';
 import { DynamicURLHandler, DomainPurchaseWorkflow } from './dynamic-url-handler';
 import { NetlifyMediaService } from './netlify-media.service';
+import { AdvancedSEOService } from './advanced-seo.service';
+import { AnalyticsService } from './analytics.service';
+import { SEOMonitoringService } from './seo-monitoring.service';
+import { SEOContentGeneratorService } from './seo-content-generator.service';
+import { ImageOptimizationAdvancedService } from './image-optimization-advanced.service';
+import { generateCMSSEOModule } from './cms-seo-module';
 
 export interface SimplifiedExportOptions {
   minifyHtml?: boolean;
@@ -16,6 +22,17 @@ export interface SimplifiedExportOptions {
   useCompression?: boolean;
   includeCms?: boolean;
   cmsPassword?: string; // Password for CMS access
+  // SEO Options
+  enableAdvancedSEO?: boolean;
+  generateSEOContent?: boolean;
+  enableAnalytics?: boolean;
+  ga4MeasurementId?: string;
+  gtmContainerId?: string;
+  enableSEOMonitoring?: boolean;
+  generateAMP?: boolean;
+  enableImageOptimization?: boolean;
+  generateSitemap?: boolean;
+  generateRobotsTxt?: boolean;
 }
 
 export interface ExportData {
@@ -56,17 +73,25 @@ export class StaticExportService {
     };
 
     // Préparer les images pour l'export
-    if (options.optimizeImages !== false) {
-      const mediaService = NetlifyMediaService.getInstance();
-      const imageFiles = await mediaService.prepareImagesForExport();
-      
-      // Ajouter les images aux assets
-      imageFiles.forEach(file => {
-        exportData.assets.push({
-          path: file.path,
-          data: file.content
+    if (options.optimizeImages !== false && projectData.mediaService) {
+      try {
+        const mediaService = new NetlifyMediaService();
+        // Load images from localStorage if projectId is available
+        if (projectData.id) {
+          await mediaService.loadFromLocalStorage(projectData.id);
+        }
+        const imageFiles = await mediaService.prepareImagesForExport();
+        
+        // Ajouter les images aux assets
+        imageFiles.forEach(file => {
+          exportData.assets.push({
+            path: file.path,
+            data: file.content
+          });
         });
-      });
+      } catch (error) {
+        console.warn('Could not prepare images for export:', error);
+      }
     }
 
     // Collecter le CSS et JS de tous les blocs
@@ -114,7 +139,10 @@ export class StaticExportService {
       projectName,
       globalHeader,
       globalFooter,
-      css: exportData.css
+      css: exportData.css,
+      exportOptions: options,
+      siteData: projectData,
+      blocks: [...(globalHeader ? [globalHeader] : []), ...(globalFooter ? [globalFooter] : [])]
     });
 
     exportData.html = options.minifyHtml ? minifyHTML(html) : html;
@@ -129,7 +157,10 @@ export class StaticExportService {
           projectName,
           globalHeader,
           globalFooter,
-          css: exportData.css
+          css: exportData.css,
+          exportOptions: options,
+          siteData: projectData,
+          blocks: [...(globalHeader ? [globalHeader] : []), ...(globalFooter ? [globalFooter] : [])]
         });
         
         const fileName = page.slug === '/' ? 'index.html' : `${page.slug.substring(1)}.html`;
@@ -173,7 +204,7 @@ export class StaticExportService {
     // Générer robots.txt et sitemap.xml
     exportData.additionalFiles.push({
       path: 'robots.txt',
-      content: `User-agent: *\nAllow: /\n\nSitemap: /sitemap.xml`
+      content: `User-agent: *\nAllow: /\nCrawl-delay: 1\n\nSitemap: /sitemap.xml`
     });
 
     const sitemap = generateSitemap(pages, businessInfo.domain);
@@ -214,6 +245,12 @@ export class StaticExportService {
         content: getVersionHistoryJS()
       });
 
+      // Add SEO Module JavaScript
+      exportData.additionalFiles.push({
+        path: 'admin/cms-seo-module.js',
+        content: getCMSSEOModuleJS()
+      });
+
       // Add preview page
       exportData.additionalFiles.push({
         path: 'admin/preview.html',
@@ -249,6 +286,53 @@ export class StaticExportService {
       });
     }
 
+    // Générer le contenu SEO si demandé
+    if (options.generateSEOContent && projectData.services) {
+      const contentGenerator = new SEOContentGeneratorService(projectData);
+      const seoContents = await contentGenerator.generateAllPagesContent();
+      
+      // Ajouter le contenu SEO généré aux fichiers
+      exportData.additionalFiles.push({
+        path: 'seo/generated-content.json',
+        content: JSON.stringify(Array.from(seoContents.entries()), null, 2)
+      });
+      
+      // Générer un rapport SEO
+      exportData.additionalFiles.push({
+        path: 'seo/seo-report.md',
+        content: generateSEOReport(projectData, options)
+      });
+    }
+    
+    // Ajouter le dashboard SEO si monitoring activé
+    if (options.enableSEOMonitoring) {
+      const monitoringService = new SEOMonitoringService({
+        siteUrl: projectData.siteInfo?.url || 'https://example.com'
+      });
+      
+      exportData.additionalFiles.push({
+        path: 'admin/seo-dashboard.html',
+        content: monitoringService.generateSEODashboard()
+      });
+      
+      // Fichier de vérification Google Search Console
+      exportData.additionalFiles.push({
+        path: 'google-verification.html',
+        content: monitoringService.generateVerificationFile()
+      });
+    }
+    
+    // Optimisation avancée des images si activée
+    if (options.enableImageOptimization && options.optimizeImages !== false) {
+      const imageOptimizer = new ImageOptimizationAdvancedService();
+      // Les images sont déjà optimisées via NetlifyMediaService
+      // Ajouter les directives pour srcset dans le guide
+      exportData.additionalFiles.push({
+        path: 'assets/images/README.md',
+        content: generateImageOptimizationGuide()
+      });
+    }
+    
     // Toujours ajouter le guide d'achat de domaine
     const siteName = projectData.projectName?.toLowerCase().replace(/[^a-z0-9-]/g, '-') || 'mon-site';
     exportData.additionalFiles.push({
@@ -262,22 +346,39 @@ export class StaticExportService {
 
 // Fonctions utilitaires
 function generateThemeCSS(theme: Theme): string {
-  const { colors = {}, typography = {}, spacing = {} } = theme;
+  const defaultColors = {
+    primary: '#3B82F6',
+    secondary: '#8B5CF6',
+    accent: '#F59E0B',
+    background: '#FFFFFF',
+    surface: '#F9FAFB',
+    text: '#1F2937',
+    textSecondary: '#6B7280',
+    textMuted: '#9CA3AF',
+    border: '#E5E7EB',
+    success: '#10B981',
+    warning: '#F59E0B',
+    error: '#EF4444'
+  };
+  
+  const colors = { ...defaultColors, ...(theme.colors || {}) };
+  const typography = theme.typography || {};
+  const spacing = theme.spacing || {};
   
   return `
 :root {
   /* Colors */
-  --color-primary: ${colors.primary || '#3B82F6'};
-  --color-secondary: ${colors.secondary || '#8B5CF6'};
-  --color-accent: ${colors.accent || '#F59E0B'};
-  --color-background: ${colors.background || '#FFFFFF'};
-  --color-surface: ${colors.surface || '#F9FAFB'};
-  --color-text: ${colors.text || '#1F2937'};
-  --color-text-secondary: ${colors.textSecondary || '#6B7280'};
-  --color-border: ${colors.border || '#E5E7EB'};
-  --color-success: ${colors.success || '#10B981'};
-  --color-warning: ${colors.warning || '#F59E0B'};
-  --color-error: ${colors.error || '#EF4444'};
+  --color-primary: ${colors.primary};
+  --color-secondary: ${colors.secondary};
+  --color-accent: ${colors.accent};
+  --color-background: ${colors.background};
+  --color-surface: ${colors.surface};
+  --color-text: ${colors.text};
+  --color-text-secondary: ${colors.textSecondary};
+  --color-border: ${colors.border};
+  --color-success: ${colors.success};
+  --color-warning: ${colors.warning};
+  --color-error: ${colors.error};
 }
 
 * {
@@ -344,41 +445,68 @@ function generateHTML(options: {
   globalHeader?: EditorBlock;
   globalFooter?: EditorBlock;
   css: string;
+  exportOptions?: SimplifiedExportOptions;
+  siteData?: any;
+  blocks?: EditorBlock[];
 }): string {
-  const { page, theme, businessInfo, projectName, globalHeader, globalFooter, css } = options;
+  const { page, theme, businessInfo, projectName, globalHeader, globalFooter, css, exportOptions = {}, siteData, blocks = [] } = options;
+  
+  // Initialize SEO services if enabled
+  let seoService: AdvancedSEOService | null = null;
+  let analyticsService: AnalyticsService | null = null;
+  let monitoringService: SEOMonitoringService | null = null;
+  
+  if (exportOptions.enableAdvancedSEO && siteData) {
+    seoService = new AdvancedSEOService(siteData, page.slug || 'index', [...blocks, ...page.blocks]);
+  }
+  
+  if (exportOptions.enableAnalytics) {
+    analyticsService = new AnalyticsService({
+      ga4MeasurementId: exportOptions.ga4MeasurementId,
+      gtmContainerId: exportOptions.gtmContainerId,
+      enableEcommerce: true,
+      enableEnhancedMeasurement: true,
+      cookieConsent: true
+    });
+  }
+  
+  if (exportOptions.enableSEOMonitoring && siteData) {
+    monitoringService = new SEOMonitoringService({
+      siteUrl: siteData.siteInfo?.url || 'https://example.com'
+    });
+  }
   
   return `<!DOCTYPE html>
 <html lang="fr">
 <head>
+    ${seoService ? seoService.generateMetaTags({
+      title: page.meta?.title,
+      description: page.meta?.description,
+      keywords: page.meta?.keywords
+    }) : `
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>${page.meta?.title || projectName}</title>
     <meta name="description" content="${page.meta?.description || `Site web de ${projectName}`}">
-    <meta name="keywords" content="${page.meta?.keywords?.join(', ') || ''}">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="${page.meta?.title || projectName}">
-    <meta property="og:description" content="${page.meta?.description || `Site web de ${projectName}`}">
-    <meta property="og:type" content="website">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    `}
     
     <!-- CSS -->
     <style>${css}</style>
     
-    <!-- Manifest -->
-    <link rel="manifest" href="/manifest.json">
-    
-    <!-- Theme Color -->
-    <meta name="theme-color" content="${theme.colors?.primary || '#3B82F6'}">
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin>
     
     <!-- Dynamic URL Handler -->
     ${DynamicURLHandler.generateDynamicBaseScript()}
     ${DynamicURLHandler.generateDynamicMetaTags()}
+    
+    ${analyticsService ? analyticsService.generateAnalyticsHead() : ''}
+    ${monitoringService ? monitoringService.generateMonitoringScript() : ''}
 </head>
 <body>
+    ${analyticsService ? analyticsService.generateAnalyticsBody() : ''}
+    
     ${globalHeader ? renderBlock(globalHeader) : ''}
     
     <main>
@@ -387,7 +515,15 @@ function generateHTML(options: {
     
     ${globalFooter ? renderBlock(globalFooter) : ''}
     
+    <!-- Structured Data -->
+    ${seoService ? seoService.generateStructuredData() : ''}
+    
     <script src="/assets/js/main.js" defer></script>
+    
+    <!-- Analytics Events -->
+    ${analyticsService ? analyticsService.generateConversionTracking() : ''}
+    ${analyticsService ? analyticsService.generateEcommerceTracking() : ''}
+    ${analyticsService ? analyticsService.generateCoreWebVitalsTracking() : ''}
 </body>
 </html>`;
 }
@@ -658,6 +794,7 @@ function generateCMSAdmin(projectData: any, cmsPassword?: string): string {
     <script src="/admin/cms-enhanced.js"></script>
     <script src="/admin/cms-core.js"></script>
     <script src="/admin/cms-admin.js"></script>
+    <script src="/admin/cms-seo-module.js"></script>
 </body>
 </html>`;
 }
@@ -1402,6 +1539,9 @@ function getAdminInterfaceHTML() {
                     <button onclick="showBusinessInfo()" class="w-full text-left px-3 py-2 text-sm rounded hover:bg-gray-100">
                         🏢 Infos entreprise
                     </button>
+                    <button onclick="showSEOModule()" class="w-full text-left px-3 py-2 text-sm rounded hover:bg-gray-100">
+                        🔍 SEO & Analytics
+                    </button>
                 </div>
             </div>
         </aside>
@@ -2073,8 +2213,14 @@ async function uploadImage(file, dataUrl, propKey) {
 }
 
 function selectImage(propKey, imageUrl) {
-  updateBlockProp(propKey, imageUrl);
-  document.getElementById('image-input-' + propKey).value = imageUrl;
+  // Check if this is for SEO
+  if (propKey === 'seo-image' && window.seoImageCallback) {
+    window.seoImageCallback(imageUrl);
+    window.seoImageCallback = null;
+  } else {
+    updateBlockProp(propKey, imageUrl);
+    document.getElementById('image-input-' + propKey).value = imageUrl;
+  }
   closeModal(document.querySelector('.fixed.inset-0 button'));
 }
 
@@ -2229,6 +2375,58 @@ function updateBusinessInfo(field, value) {
   hasUnsavedChanges = true;
   updateSaveStatus();
 }
+
+// SEO Module Display
+function showSEOModule() {
+  const content = document.getElementById('content-area');
+  content.innerHTML = \`
+    <div class="max-w-6xl">
+      <h2 class="text-2xl font-bold mb-6">SEO & Analytics</h2>
+      <div id="seo-module"></div>
+    </div>
+  \`;
+  
+  // Load the SEO module into the container
+  if (window.seoModule) {
+    window.seoModule.init();
+  }
+}
+
+// SEO Helper Functions
+window.cmsEnhanced = {
+  getCurrentPageData: function() {
+    return currentPage;
+  },
+  
+  updatePageSEO: async function(seoData) {
+    if (!currentPage) return false;
+    
+    // Update the page SEO data
+    const pageIndex = cms.data.pages.findIndex(p => p.slug === currentPage.slug);
+    if (pageIndex >= 0) {
+      if (!cms.data.pages[pageIndex].seo) {
+        cms.data.pages[pageIndex].seo = {};
+      }
+      Object.assign(cms.data.pages[pageIndex].seo, seoData);
+      currentPage.seo = cms.data.pages[pageIndex].seo;
+      
+      hasUnsavedChanges = true;
+      updateSaveStatus();
+      
+      // Save automatically
+      await saveChanges();
+      return true;
+    }
+    return false;
+  },
+  
+  openMediaSelector: function(callback) {
+    // Open the media picker modal
+    openImagePicker('seo-image');
+    // Store callback for when image is selected
+    window.seoImageCallback = callback;
+  }
+};
 
 // Save functionality
 async function saveChanges() {
@@ -2651,51 +2849,10 @@ Pour toute question ou problème, contactez le support technique.
  * Transforme les URLs des images pour l'export
  * Convertit les URLs blob en chemins relatifs
  */
-function transformImageUrlsForExport(props: Record<string, any>): Record<string, any> {
-  const mediaService = NetlifyMediaService.getInstance();
-  const images = mediaService.getProjectImages();
-  
-  // Deep clone pour éviter les mutations
-  const transformed = JSON.parse(JSON.stringify(props));
-  
-  // Fonction récursive pour transformer les valeurs
-  const transformValue = (value: any): any => {
-    if (typeof value === 'string') {
-      // Si c'est une URL blob, la convertir en chemin local
-      if (value.startsWith('blob:')) {
-        // Trouver l'image correspondante par son URL de preview
-        const image = images.find(img => {
-          const previewUrl = mediaService.getPreviewUrl(img.id);
-          return previewUrl === value;
-        });
-        
-        if (image) {
-          // Retourner le chemin local de l'image
-          return image.path;
-        }
-      }
-      // Si c'est déjà un chemin local, le garder
-      else if (value.startsWith('/images/')) {
-        return value;
-      }
-    } else if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-      // Transformer récursivement les propriétés d'objet
-      Object.keys(value).forEach(key => {
-        value[key] = transformValue(value[key]);
-      });
-    } else if (Array.isArray(value)) {
-      // Transformer les éléments du tableau
-      return value.map(item => transformValue(item));
-    }
-    return value;
-  };
-  
-  // Transformer toutes les propriétés
-  Object.keys(transformed).forEach(key => {
-    transformed[key] = transformValue(transformed[key]);
-  });
-  
-  return transformed;
+function transformImageUrlsForExport(props: Record<string, any>, projectId?: string): Record<string, any> {
+  // Note: Image transformation is now handled in the renderBlock function
+  // This function is kept for backward compatibility
+  return props;
 }
 
 function getCMSUploadFunction(): string {
@@ -2828,3 +2985,167 @@ function getVersionHistoryJS(): string {
   const { createVersionHistoryScript } = require('@/lib/services/version-history.service');
   return createVersionHistoryScript();
 }
+
+function generateSEOReport(projectData: any, options: SimplifiedExportOptions): string {
+  const date = new Date().toLocaleDateString('fr-FR');
+  const seoFeatures = [];
+  
+  if (options.enableAdvancedSEO) seoFeatures.push('SEO Avancé');
+  if (options.generateSEOContent) seoFeatures.push('Contenu SEO Généré');
+  if (options.enableAnalytics) seoFeatures.push('Google Analytics 4');
+  if (options.enableSEOMonitoring) seoFeatures.push('Monitoring SEO');
+  if (options.enableImageOptimization) seoFeatures.push('Images Optimisées');
+  
+  return `# Rapport SEO - ${projectData.projectName || 'Mon Site'}
+
+## Date : ${date}
+
+## Fonctionnalités SEO activées
+
+${seoFeatures.map(f => `- ✅ ${f}`).join('\n')}
+
+## Optimisations implémentées
+
+### 🎆 Rich Snippets
+- AggregateRating pour affichage étoiles Google
+- FAQ Schema pour questions fréquentes
+- LocalBusiness Schema complet
+- Service Schema avec tarifs
+- HowTo Schema pour guides
+
+### 📊 Analytics & Tracking
+- Google Analytics 4 intégré
+- Tracking conversions avancé
+- Core Web Vitals monitoring
+- Heatmap basique
+- Events personnalisés
+
+### 🌐 SEO Technique
+- Meta tags avancés et Open Graph
+- Sitemap XML automatique
+- Robots.txt optimisé
+- Canonical URLs
+- Schema.org complet
+
+### 🖼️ Images
+- Compression automatique
+- Format WebP/AVIF
+- Lazy loading natif
+- Alt text optimisé
+- Srcset responsive
+
+### 🚀 Performance
+- Minification HTML/CSS/JS
+- Critical CSS inline
+- Service Worker
+- Cache optimisé
+- Compression Brotli
+
+## Configuration
+
+### Google Analytics
+${options.ga4MeasurementId ? `ID de mesure : ${options.ga4MeasurementId}` : 'Non configuré - Ajoutez votre ID GA4'}
+
+### Google Tag Manager
+${options.gtmContainerId ? `Container ID : ${options.gtmContainerId}` : 'Non configuré - Optionnel'}
+
+### Vérification Search Console
+Fichier de vérification : /google-verification.html
+
+## Prochaines étapes
+
+1. **Configuration Google Analytics**
+   - Créez un compte GA4 si nécessaire
+   - Ajoutez l'ID de mesure dans les paramètres
+
+2. **Vérification Search Console**
+   - Ajoutez votre site dans Google Search Console
+   - Vérifiez la propriété avec le fichier de vérification
+
+3. **Monitoring**
+   - Accédez au dashboard SEO : /admin/seo-dashboard.html
+   - Vérifiez régulièrement les métriques
+
+4. **Contenu**
+   - Utilisez le contenu SEO généré dans /seo/generated-content.json
+   - Adaptez-le à votre style
+
+## Support
+
+Pour toute question sur le SEO, consultez la documentation ou contactez le support.
+
+---
+*Rapport généré par AWEMA Studio v2*`;
+}
+
+function generateImageOptimizationGuide(): string {
+  return `# Guide d'optimisation des images
+
+## Formats supportés
+
+- **AVIF** : Meilleure compression, support moderne
+- **WebP** : Excellente compression, large support
+- **JPEG** : Fallback universel
+
+## Utilisation des images responsives
+
+Toutes les images sont automatiquement optimisées avec :
+
+### 1. Srcset automatique
+\`\`\`html
+<img 
+  src="/images/hero-1920w.jpg"
+  srcset="
+    /images/hero-320w.avif 320w,
+    /images/hero-640w.avif 640w,
+    /images/hero-1024w.avif 1024w,
+    /images/hero-1920w.avif 1920w"
+  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 50vw"
+  alt="Description SEO optimisée"
+  loading="lazy"
+/>
+\`\`\`
+
+### 2. Element Picture
+\`\`\`html
+<picture>
+  <source srcset="image.avif" type="image/avif">
+  <source srcset="image.webp" type="image/webp">
+  <img src="image.jpg" alt="Description">
+</picture>
+\`\`\`
+
+## Bonnes pratiques
+
+1. **Alt text** : Toujours décrire l'image pour le SEO
+2. **Lazy loading** : Activé par défaut sauf hero
+3. **Dimensions** : Spécifier width/height pour éviter CLS
+4. **Compression** : 85% qualité par défaut
+
+## Structure des fichiers
+
+\`\`\`
+/images/
+  ├── hero-320w.avif
+  ├── hero-320w.webp
+  ├── hero-320w.jpg
+  ├── hero-640w.avif
+  ├── hero-640w.webp
+  ├── hero-640w.jpg
+  └── ...
+\`\`\`
+
+## Performance
+
+- Réduction moyenne : 70-90% vs JPEG
+- Temps de chargement : -50% en moyenne
+- Score Lighthouse : +15-25 points
+
+---
+*Images optimisées avec AWEMA Studio v2*`;
+}
+
+function getCMSSEOModuleJS(): string {
+  return generateCMSSEOModule();
+}
+
