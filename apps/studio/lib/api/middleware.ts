@@ -1,9 +1,19 @@
 import { NextRequest } from 'next/server';
 // import { UserService } from '@/lib/db/services';
-// Temporary mock UserService
+// Temporary mock UserService for development
 const UserService = {
   verifyToken: async (token: string) => {
-    return null; // Mock implementation
+    // En mode dev, on accepte n'importe quel token
+    if (process.env.NODE_ENV === 'development') {
+      return {
+        id: 'dev-user-1',
+        email: 'admin@awema.studio',
+        name: 'Admin Dev',
+        role: 'ADMIN',
+        isActive: true,
+      };
+    }
+    return null;
   }
 };
 import { User } from '@prisma/client';

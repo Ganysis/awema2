@@ -92,13 +92,33 @@ export default function DashboardPage() {
             <h1 className="text-xl font-semibold text-gray-900">
               Dashboard AWEMA
             </h1>
-            <Link
-              href="/dashboard/new"
-              className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-            >
-              <PlusIcon className="w-5 h-5 mr-2" />
-              Nouveau Client
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link
+                href="/dashboard/leads"
+                className="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                Pipeline
+              </Link>
+              <Link
+                href="/dashboard/forms"
+                className="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Formulaires
+              </Link>
+              <Link
+                href="/dashboard/new"
+                className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+              >
+                <PlusIcon className="w-5 h-5 mr-2" />
+                Nouveau Client
+              </Link>
+            </div>
           </div>
         </div>
       </header>
@@ -124,9 +144,9 @@ export default function DashboardPage() {
             </p>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-sm font-medium text-gray-600">Total Leads</p>
-            <p className="text-3xl font-bold text-primary-600 mt-2">
-              {clients.reduce((sum, c) => sum + (c._count?.leads || 0), 0)}
+            <p className="text-sm font-medium text-gray-600">Nouveaux Leads</p>
+            <p className="text-3xl font-bold text-purple-600 mt-2">
+              {clients.filter(c => c.status === 'NEW').length}
             </p>
           </div>
         </div>

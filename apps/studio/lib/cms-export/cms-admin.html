@@ -49,6 +49,9 @@
                     <button onclick="saveChanges()" class="btn btn-primary">
                         <span>💾 Sauvegarder</span>
                     </button>
+                    <button onclick="showVersionHistory()" class="btn btn-secondary">
+                        <span>📚 Historique</span>
+                    </button>
                     <button onclick="logout()" class="btn btn-secondary">
                         Déconnexion
                     </button>
@@ -106,6 +109,9 @@
         };
     </script>
 
+    <!-- Version History Service -->
+    <script src="/admin/version-history.js"></script>
+    
     <!-- CMS Core -->
     <script src="/admin/cms-core.js"></script>
 
@@ -434,6 +440,97 @@
                 e.returnValue = '';
             }
         });
+
+        // Version History Functions
+        function showVersionHistory() {
+            const versions = cms.getVersions();
+            const content = document.getElementById('content-area');
+            
+            content.innerHTML = `
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold mb-2">Historique des versions</h2>
+                    <p class="text-gray-600">Gérez et restaurez les versions précédentes de votre site</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-4 border-b flex justify-between items-center">
+                        <div>
+                            <span class="text-sm text-gray-600">${versions.length} version(s) sauvegardée(s)</span>
+                        </div>
+                        <div class="space-x-2">
+                            <button onclick="saveManualVersion()" class="btn btn-primary btn-sm">
+                                💾 Sauvegarder une version
+                            </button>
+                            <button onclick="clearVersionHistory()" class="btn btn-danger btn-sm">
+                                🗑️ Effacer tout
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="divide-y">
+                        ${versions.length === 0 ? 
+                            '<p class="p-8 text-center text-gray-500">Aucune version sauvegardée</p>' :
+                            versions.map(version => `
+                                <div class="p-4 hover:bg-gray-50 flex items-center justify-between">
+                                    <div>
+                                        <div class="font-medium">${version.label}</div>
+                                        <div class="text-sm text-gray-600">
+                                            ${version.date} 
+                                            ${version.type === 'auto' ? '🔄 Auto' : '💾 Manuel'}
+                                            ${version.description ? `- ${version.description}` : ''}
+                                        </div>
+                                    </div>
+                                    <div class="space-x-2">
+                                        <button onclick="restoreVersion('${version.id}')" class="btn btn-sm">
+                                            ⏪ Restaurer
+                                        </button>
+                                        <button onclick="deleteVersion('${version.id}')" class="btn btn-sm btn-danger">
+                                            🗑️
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')
+                        }
+                    </div>
+                </div>
+            `;
+        }
+
+        function saveManualVersion() {
+            const description = prompt('Description de cette version :');
+            if (description !== null) {
+                cms.saveVersion(description || 'Version manuelle');
+                showVersionHistory();
+            }
+        }
+
+        function restoreVersion(versionId) {
+            if (confirm('Êtes-vous sûr de vouloir restaurer cette version ?')) {
+                if (cms.restoreVersion(versionId)) {
+                    alert('Version restaurée avec succès !');
+                    location.reload(); // Recharger pour voir les changements
+                } else {
+                    alert('Erreur lors de la restauration');
+                }
+            }
+        }
+
+        function deleteVersion(versionId) {
+            if (confirm('Supprimer cette version ?')) {
+                const versionHistory = cms.getVersionHistory();
+                if (versionHistory) {
+                    versionHistory.deleteVersion(versionId);
+                    showVersionHistory();
+                }
+            }
+        }
+
+        function clearVersionHistory() {
+            if (confirm('Êtes-vous sûr de vouloir supprimer tout l\'historique des versions ?')) {
+                cms.clearVersionHistory();
+                showVersionHistory();
+            }
+        }
     </script>
 </body>
 </html>

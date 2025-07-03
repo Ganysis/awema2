@@ -75,6 +75,7 @@ model Client {
   status      ClientStatus @default(ACTIVE)
   notes       String?
   tags        String?      // JSON array stored as string
+  message     String?      // Message from initial form submission
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -85,6 +86,7 @@ model Client {
   projects    Project[]
   leads       Lead[]
   invoices    Invoice[]
+  formLinks   FormLink[]
   
   @@index([email])
   @@index([status])
@@ -95,6 +97,10 @@ enum ClientStatus {
   ACTIVE
   INACTIVE
   SUSPENDED
+  NEW
+  CONTACTED
+  QUALIFIED
+  CONVERTED
 }
 
 // ========== PROJECT MANAGEMENT ==========
@@ -372,4 +378,78 @@ enum InvoiceStatus {
   PAID
   OVERDUE
   CANCELLED
+}
+
+// ========== FORM LINKS ==========
+
+model FormLink {
+  id        String   @id @default(cuid())
+  uniqueId  String   @unique @default(cuid())
+  
+  // Relation to client (optional, can be created after form submission)
+  clientId  String?
+  client    Client?  @relation(fields: [clientId], references: [id])
+  
+  // Form configuration
+  name      String   // Internal name for tracking
+  description String? // Notes about why this form was created
+  
+  // Status and validity
+  status    FormLinkStatus @default(ACTIVE)
+  expiresAt DateTime?
+  maxUses   Int?     @default(1) // null = unlimited
+  
+  // Tracking
+  views     Int      @default(0)
+  started   Int      @default(0) // Number of times form was started
+  completed Int      @default(0) // Number of times form was completed
+  
+  // Form data
+  formData  String?  // JSON of partially/fully completed form
+  completedAt DateTime?
+  
+  // Metadata
+  metadata  String?  // JSON for custom data
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  
+  // Relations
+  formSubmissions FormSubmission[]
+  
+  @@index([uniqueId])
+  @@index([status])
+  @@index([clientId])
+  @@map("form_links")
+}
+
+enum FormLinkStatus {
+  ACTIVE
+  COMPLETED
+  EXPIRED
+  CANCELLED
+}
+
+model FormSubmission {
+  id        String   @id @default(cuid())
+  formLinkId String
+  formLink  FormLink @relation(fields: [formLinkId], references: [id], onDelete: Cascade)
+  
+  // Submission data
+  data      String   // Full JSON form data
+  step      Int      // Which step they reached
+  completed Boolean  @default(false)
+  
+  // Tracking
+  ip        String?
+  userAgent String?
+  sessionId String?  // To track partial submissions
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([formLinkId])
+  @@index([sessionId])
+  @@map("form_submissions")
 }

@@ -33,30 +33,72 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10');
     const search = searchParams.get('search') || undefined;
     const status = searchParams.get('status') || undefined;
-    const projectId = searchParams.get('projectId') || undefined;
-    const clientId = searchParams.get('clientId') || undefined;
 
-    const result = await LeadService.list({
-      skip: (page - 1) * limit,
-      take: limit,
-      filters: {
-        search,
-        status: status as any,
-        projectId,
-        clientId,
-      },
-    });
+    // Pour le dashboard leads, on récupère les clients comme leads
+    const { PrismaClient } = await import('@prisma/client');
+    const prisma = new PrismaClient();
 
-    return NextResponse.json({
-      success: true,
-      data: result.leads,
-      pagination: {
-        page,
-        limit,
-        total: result.total,
-        pages: result.pages,
-      },
-    });
+    try {
+      const where: any = {};
+      
+      if (search) {
+        where.OR = [
+          { name: { contains: search, mode: 'insensitive' } },
+          { email: { contains: search, mode: 'insensitive' } },
+          { companyName: { contains: search, mode: 'insensitive' } },
+        ];
+      }
+
+      if (status && status !== 'all') {
+        where.status = status.toUpperCase();
+      }
+
+      const [clients, total] = await Promise.all([
+        prisma.client.findMany({
+          where,
+          include: {
+            projects: {
+              select: {
+                id: true,
+                name: true,
+              },
+              take: 1,
+            },
+          },
+          orderBy: { createdAt: 'desc' },
+          skip: (page - 1) * limit,
+          take: limit,
+        }),
+        prisma.client.count({ where }),
+      ]);
+
+      // Formater les données comme des leads
+      const leads = clients.map(client => ({
+        id: client.id,
+        name: client.name,
+        email: client.email,
+        phone: client.phone || '',
+        company: client.companyName || '',
+        message: client.message,
+        createdAt: client.createdAt.toISOString(),
+        status: client.status.toLowerCase(),
+        source: 'form',
+        project: client.projects[0],
+      }));
+
+      return NextResponse.json({
+        success: true,
+        data: leads,
+        pagination: {
+          page,
+          limit,
+          total,
+          pages: Math.ceil(total / limit),
+        },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
   } catch (error: any) {
     console.error('List leads error:', error);
     return NextResponse.json(

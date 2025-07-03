@@ -53,11 +53,27 @@ export class CMSCore {
   private data: CMSSiteData;
   private apiEndpoint: string;
   private authToken: string | null = null;
+  private versionHistory: any; // Will be initialized with the version history service
 
   constructor(initialData: CMSSiteData, apiEndpoint: string = '/api/cms') {
     this.data = initialData;
     this.apiEndpoint = apiEndpoint;
     this.loadAuthToken();
+    this.initializeVersionHistory();
+  }
+
+  // Initialize version history
+  private initializeVersionHistory() {
+    if (typeof window !== 'undefined' && (window as any).VersionHistoryService) {
+      this.versionHistory = new (window as any).VersionHistoryService({
+        storageKey: 'cms-version-history',
+        maxVersions: 30,
+        autoSaveInterval: 60000 // 1 minute for CMS
+      });
+
+      // Start auto-save
+      this.versionHistory.startAutoSave(() => this.data);
+    }
   }
 
   // Authentification
@@ -171,6 +187,11 @@ export class CMSCore {
         body: JSON.stringify(this.data)
       });
 
+      // Si la sauvegarde réussit, créer une version manuelle
+      if (response.ok && this.versionHistory) {
+        this.versionHistory.saveVersion(this.data, 'manual', 'Modifications sauvegardées');
+      }
+
       return response.ok;
     } catch (error) {
       console.error('Save error:', error);
@@ -181,5 +202,42 @@ export class CMSCore {
   // Export des données pour régénération du site
   exportData(): CMSSiteData {
     return JSON.parse(JSON.stringify(this.data));
+  }
+
+  // Version History Methods
+  getVersionHistory() {
+    return this.versionHistory;
+  }
+
+  saveVersion(description?: string) {
+    if (this.versionHistory) {
+      return this.versionHistory.saveVersion(this.data, 'manual', description);
+    }
+    return null;
+  }
+
+  restoreVersion(versionId: string) {
+    if (this.versionHistory) {
+      const restoredData = this.versionHistory.restoreVersion(versionId);
+      if (restoredData) {
+        this.data = restoredData;
+        this.save();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  getVersions() {
+    if (this.versionHistory) {
+      return this.versionHistory.getVersions();
+    }
+    return [];
+  }
+
+  clearVersionHistory() {
+    if (this.versionHistory) {
+      this.versionHistory.clearHistory();
+    }
   }
 }

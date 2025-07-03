@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useEditorStore } from '@/lib/store/editor-store';
 import { siteGenerator } from '@/lib/services/site-generator';
+import { DBVersionHistoryService } from '@/lib/services/version-history-db.service';
 import { Sidebar } from './Sidebar';
 import { Canvas } from './Canvas';
 import { PropertiesPanel } from './PropertiesPanel';
@@ -22,6 +23,7 @@ export function EditorWithSave({ projectId, template, theme = 'premium' }: Edito
   const [loading, setLoading] = useState(true);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const versionServiceRef = useRef<DBVersionHistoryService | null>(null);
   
   const { 
     isPreviewMode, 
@@ -58,26 +60,37 @@ export function EditorWithSave({ projectId, template, theme = 'premium' }: Edito
     setSaving(true);
     
     try {
+      const projectData = {
+        businessInfo,
+        projectName,
+        globalHeader,
+        globalFooter,
+        pages,
+        theme: currentTheme,
+      };
+
+      // Sauvegarder dans la base de données
       const response = await fetch(`/api/projects/${projectId}/save`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          data: {
-            businessInfo,
-            projectName,
-            globalHeader,
-            globalFooter,
-            pages,
-            theme: currentTheme,
-          },
-        }),
+        body: JSON.stringify({ data: projectData }),
       });
       
       if (response.ok) {
         setLastSaved(new Date());
         setSaveStatus('saved');
+        
+        // Créer une version manuelle
+        if (versionServiceRef.current) {
+          await versionServiceRef.current.saveVersion(
+            projectData,
+            'manual',
+            'Sauvegarde manuelle'
+          );
+        }
+        
         setTimeout(() => setSaveStatus('idle'), 2000);
       } else {
         setSaveStatus('error');
@@ -171,6 +184,31 @@ export function EditorWithSave({ projectId, template, theme = 'premium' }: Edito
       });
     }
   };
+
+  // Initialiser le service de versioning
+  useEffect(() => {
+    if (projectId) {
+      versionServiceRef.current = new DBVersionHistoryService({
+        projectId,
+        storageKey: `version-history-${projectId}`,
+        syncEnabled: true,
+      });
+
+      // Démarrer l'auto-save avec versioning
+      versionServiceRef.current.startAutoSave(() => ({
+        businessInfo,
+        projectName,
+        globalHeader,
+        globalFooter,
+        pages,
+        theme: currentTheme,
+      }));
+
+      return () => {
+        versionServiceRef.current?.stopAutoSave();
+      };
+    }
+  }, [projectId]);
 
   // Charger le projet au montage
   useEffect(() => {
