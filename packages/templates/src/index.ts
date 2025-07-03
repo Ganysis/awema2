@@ -14,6 +14,7 @@ export { contactUltraModern, renderContactUltraModern } from './blocks/contact/c
 export { testimonialsCarousel, renderTestimonialsCarousel } from './blocks/testimonials/carousel';
 export { textImageClean, renderTextImageClean } from './blocks/content/text-image-clean';
 export { textImageBlock, renderTextImageBlock } from './blocks/content/text-image';
+export { contentUltraModern, renderContentUltraModern } from './blocks/content/content-ultra-modern';
 export { featuresClean, renderFeaturesClean } from './blocks/features/features-clean';
 export { featuresMultiStyle, renderFeaturesMultiStyle } from './blocks/features/features-multi-style';
 export { featuresIconGrid, renderFeaturesIconGrid } from './blocks/features/icon-grid';
@@ -30,6 +31,7 @@ export { pricingClean, renderPricingClean } from './blocks/pricing/pricing-clean
 export { pricingTables, renderPricingTables } from './blocks/pricing/pricing-tables';
 export { ctaClean, renderCtaClean } from './blocks/cta/cta-clean';
 export { ctaSection, renderCtaSection } from './blocks/cta/cta-section';
+export { ctaUltraModern, renderCtaUltraModern } from './blocks/cta/cta-ultra-modern';
 export { simpleFooter, renderSimpleFooter } from './blocks/layout/footer';
 export { footerPro, renderFooterPro } from './blocks/layout/footer-pro';
 export { simpleHeader, renderSimpleHeader } from './blocks/layout/header';
