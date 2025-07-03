@@ -199,6 +199,19 @@ function SortableItem({ id, item, index, itemSchema, onUpdate, onRemove, itemLab
                 className="property-input"
               />
             )}
+            {schema.type === 'checkbox' && (
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={!!item[key]}
+                  onChange={(e) => onUpdate(key, e.target.checked)}
+                  className="w-4 h-4"
+                />
+                <span className="text-sm text-gray-600">
+                  {typeof item[key] === 'boolean' ? (item[key] ? 'Oui' : 'Non') : 'Non'}
+                </span>
+              </label>
+            )}
           </div>
         ))}
       </div>

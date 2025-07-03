@@ -112,21 +112,92 @@ export const contactUltraModern: Block = {
     },
     {
       name: 'fields',
-      type: PropType.STRING,
+      type: PropType.ARRAY,
       description: 'Champs du formulaire',
-      defaultValue: JSON.stringify([
-        { name: 'name', label: 'Nom complet', type: 'text', required: true, icon: 'user' },
-        { name: 'email', label: 'Email', type: 'email', required: true, icon: 'mail' },
-        { name: 'phone', label: 'Téléphone', type: 'tel', required: false, icon: 'phone' },
-        { name: 'subject', label: 'Objet', type: 'text', required: true, icon: 'message-circle' },
-        { name: 'message', label: 'Votre message', type: 'textarea', required: true, rows: 5, icon: 'edit' }
-      ]),
+      defaultValue: [
+        { name: 'name', label: 'Nom complet', type: 'text', required: true, icon: 'user', placeholder: 'Jean Dupont' },
+        { name: 'email', label: 'Email', type: 'email', required: true, icon: 'mail', placeholder: 'email@exemple.com' },
+        { name: 'phone', label: 'Téléphone', type: 'tel', required: false, icon: 'phone', placeholder: '06 12 34 56 78' },
+        { name: 'subject', label: 'Objet', type: 'text', required: true, icon: 'message-circle', placeholder: 'Objet de votre demande' },
+        { name: 'message', label: 'Votre message', type: 'textarea', required: true, rows: 5, icon: 'edit', placeholder: 'Décrivez votre projet...' }
+      ],
       required: true,
       editorConfig: {
-        control: EditorControl.TEXTAREA,
-        helpText: 'Format JSON: [{name, label, type, required, icon}, ...]',
+        control: EditorControl.MULTI_SELECT,
+        helpText: 'Ajoutez, supprimez et réorganisez les champs du formulaire',
         group: 'Configuration',
-        order: 7
+        order: 7,
+        collectionSchema: {
+          label: { 
+            type: 'text', 
+            label: 'Titre du champ', 
+            defaultValue: 'Nouveau champ',
+            placeholder: 'Ex: Votre nom complet'
+          },
+          name: { 
+            type: 'text', 
+            label: 'Identifiant technique', 
+            defaultValue: '',
+            placeholder: 'Généré automatiquement'
+          },
+          type: { 
+            type: 'select', 
+            label: 'Type de champ', 
+            defaultValue: 'text',
+            options: [
+              { value: 'text', label: 'Texte simple' },
+              { value: 'email', label: 'Adresse email' },
+              { value: 'tel', label: 'Numéro de téléphone' },
+              { value: 'number', label: 'Nombre' },
+              { value: 'textarea', label: 'Message (zone de texte)' },
+              { value: 'select', label: 'Choix dans une liste' },
+              { value: 'date', label: 'Date' }
+            ]
+          },
+          required: { 
+            type: 'checkbox', 
+            label: 'Champ obligatoire', 
+            defaultValue: false 
+          },
+          placeholder: { 
+            type: 'text', 
+            label: 'Texte d\'aide (placeholder)', 
+            defaultValue: '',
+            placeholder: 'Ex: Entrez votre nom...'
+          },
+          icon: {
+            type: 'select',
+            label: 'Icône du champ',
+            defaultValue: 'user',
+            options: [
+              { value: 'user', label: '👤 Personne' },
+              { value: 'mail', label: '✉️ Email' },
+              { value: 'phone', label: '📞 Téléphone' },
+              { value: 'message-circle', label: '💬 Message' },
+              { value: 'edit', label: '✏️ Édition' },
+              { value: 'calendar', label: '📅 Calendrier' },
+              { value: 'map-pin', label: '📍 Localisation' },
+              { value: 'briefcase', label: '💼 Entreprise' },
+              { value: 'home', label: '🏠 Domicile' }
+            ]
+          }
+        },
+        itemLabel: (item) => item.label || 'Champ sans titre',
+        generateName: (item) => {
+          // Génère automatiquement le name basé sur le label
+          if (!item.name && item.label) {
+            return item.label.toLowerCase()
+              .replace(/[éèêë]/g, 'e')
+              .replace(/[àâä]/g, 'a')
+              .replace(/[ùûü]/g, 'u')
+              .replace(/[îï]/g, 'i')
+              .replace(/[ôö]/g, 'o')
+              .replace(/[^a-z0-9]/g, '_')
+              .replace(/_+/g, '_')
+              .replace(/^_|_$/g, '');
+          }
+          return item.name || 'field_' + Math.random().toString(36).substr(2, 9);
+        }
       }
     },
     {
@@ -139,6 +210,62 @@ export const contactUltraModern: Block = {
         control: EditorControl.TEXT,
         group: 'Configuration',
         order: 8
+      }
+    },
+    {
+      name: 'showMap',
+      type: PropType.STRING,
+      description: 'Afficher une carte',
+      defaultValue: 'false',
+      required: false,
+      editorConfig: {
+        control: EditorControl.TOGGLE,
+        group: 'Carte',
+        order: 9
+      }
+    },
+    {
+      name: 'mapPosition',
+      type: PropType.STRING,
+      description: 'Position de la carte',
+      defaultValue: 'right',
+      required: false,
+      validation: {
+        options: [
+          { label: 'À droite', value: 'right' },
+          { label: 'À gauche', value: 'left' }
+        ]
+      },
+      editorConfig: {
+        control: EditorControl.SELECT,
+        group: 'Carte',
+        order: 10
+      }
+    },
+    {
+      name: 'mapAddress',
+      type: PropType.STRING,
+      description: 'Adresse pour la carte',
+      defaultValue: '123 Rue de la Paix, 75001 Paris',
+      required: false,
+      editorConfig: {
+        control: EditorControl.TEXT,
+        placeholder: 'Adresse complète',
+        group: 'Carte',
+        order: 11
+      }
+    },
+    {
+      name: 'mapCoordinates',
+      type: PropType.STRING,
+      description: 'Coordonnées GPS (lat, lng)',
+      defaultValue: JSON.stringify({ lat: 48.8566, lng: 2.3522 }),
+      required: false,
+      editorConfig: {
+        control: EditorControl.TEXT,
+        helpText: 'Format: {"lat": 48.8566, "lng": 2.3522}',
+        group: 'Carte',
+        order: 12
       }
     },
     {
@@ -192,6 +319,10 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
     recipientEmail = '',
     fields = [],
     submitText = 'Envoyer le message',
+    showMap = false,
+    mapPosition = 'right',
+    mapAddress = '123 Rue de la Paix, 75001 Paris',
+    mapCoordinates = { lat: 48.8566, lng: 2.3522 },
     showSocialLinks = true,
     socialLinks = []
   } = props;
@@ -199,10 +330,22 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
   // Parse fields if string
   const fieldsList = typeof fields === 'string' ? JSON.parse(fields) : fields;
   const socialLinksList = typeof socialLinks === 'string' ? JSON.parse(socialLinks) : socialLinks;
+  const mapCoords = typeof mapCoordinates === 'string' ? JSON.parse(mapCoordinates) : mapCoordinates;
 
   // Generate form HTML
-  const generateFormField = (field: any) => {
-    const fieldId = `field-${field.name}`;
+  const generateFormField = (field: any, index: number) => {
+    // Generate name if not provided
+    const fieldName = field.name || field.label?.toLowerCase()
+      .replace(/[éèêë]/g, 'e')
+      .replace(/[àâä]/g, 'a')
+      .replace(/[ùûü]/g, 'u')
+      .replace(/[îï]/g, 'i')
+      .replace(/[ôö]/g, 'o')
+      .replace(/[^a-z0-9]/g, '_')
+      .replace(/_+/g, '_')
+      .replace(/^_|_$/g, '') || `field_${index}`;
+    
+    const fieldId = `field-${fieldName}`;
     
     if (field.type === 'textarea') {
       return `
@@ -214,7 +357,7 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
           </label>
           <textarea
             id="${fieldId}"
-            name="${field.name}"
+            name="${fieldName}"
             class="form-textarea"
             rows="${field.rows || 4}"
             placeholder="${field.placeholder || ''}"
@@ -234,7 +377,7 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
         <input
           type="${field.type}"
           id="${fieldId}"
-          name="${field.name}"
+          name="${fieldName}"
           class="form-input"
           placeholder="${field.placeholder || ''}"
           ${field.required ? 'required' : ''}
@@ -285,13 +428,54 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
         <rect x="2" y="9" width="4" height="12"></rect>
         <circle cx="4" cy="4" r="2"></circle>
       </symbol>
+      <symbol id="icon-calendar" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="16" y1="2" x2="16" y2="6"></line>
+        <line x1="8" y1="2" x2="8" y2="6"></line>
+        <line x1="3" y1="10" x2="21" y2="10"></line>
+      </symbol>
+      <symbol id="icon-map-pin" viewBox="0 0 24 24">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </symbol>
+      <symbol id="icon-briefcase" viewBox="0 0 24 24">
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+      </symbol>
+      <symbol id="icon-home" viewBox="0 0 24 24">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </symbol>
     </svg>
 
     <section class="contact-ultra ${variant} ${gradientClass}" style="${backgroundStyle}">
       ${variant === 'particles' ? '<div class="particles-bg"></div>' : ''}
       
       <div class="container">
-        <div class="contact-wrapper">
+        ${showMap && !variant.includes('split-screen') ? `
+          <div class="contact-with-map ${mapPosition === 'left' ? 'map-left' : 'map-right'}">
+        ` : `
+          <div class="contact-wrapper">
+        `}
+          
+          ${showMap && mapPosition === 'left' ? `
+            <div class="contact-map-wrapper">
+              <div class="contact-map" id="contact-map-${Date.now()}" data-lat="${mapCoords.lat}" data-lng="${mapCoords.lng}">
+                <div class="map-loading">
+                  <div class="map-spinner"></div>
+                  <p>Chargement de la carte...</p>
+                </div>
+              </div>
+              <div class="map-info">
+                <svg class="map-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <p>${mapAddress}</p>
+              </div>
+            </div>
+          ` : ''}
+          
           <div class="contact-content">
             <div class="contact-header">
               ${title ? `<h2 class="contact-title">${title}</h2>` : ''}
@@ -312,7 +496,7 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
             
             <form class="contact-form" action="/api/contact" method="POST" data-recipient="${recipientEmail}">
               <div class="form-grid">
-                ${fieldsList.map((field: any) => generateFormField(field)).join('')}
+                ${fieldsList.map((field: any, index: number) => generateFormField(field, index)).join('')}
               </div>
               
               <button type="submit" class="submit-button">
@@ -326,7 +510,25 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
             </form>
           </div>
           
-          ${variant === 'split-screen' ? `
+          ${showMap && mapPosition === 'right' ? `
+            <div class="contact-map-wrapper">
+              <div class="contact-map" id="contact-map-${Date.now()}" data-lat="${mapCoords.lat}" data-lng="${mapCoords.lng}">
+                <div class="map-loading">
+                  <div class="map-spinner"></div>
+                  <p>Chargement de la carte...</p>
+                </div>
+              </div>
+              <div class="map-info">
+                <svg class="map-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <p>${mapAddress}</p>
+              </div>
+            </div>
+          ` : ''}
+          
+          ${variant === 'split-screen' && !showMap ? `
             <div class="contact-visual">
               <div class="visual-content">
                 <div class="visual-shape shape-1"></div>
@@ -533,6 +735,86 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
       transform: translateX(5px);
     }
     
+    /* Map Styles */
+    .contact-with-map {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: stretch;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .contact-with-map.map-left {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .contact-with-map .contact-content {
+      max-width: none;
+    }
+    
+    .contact-map-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .contact-map {
+      width: 100%;
+      height: 400px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      background: var(--color-background-alt, #f5f5f5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .map-loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-background, #fff);
+      color: var(--color-text-secondary, #666);
+    }
+    
+    .map-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid var(--color-border, #e0e0e0);
+      border-top-color: var(--color-primary, #007bff);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 16px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .map-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px;
+      background: var(--color-background, #fff);
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .map-icon {
+      color: var(--color-primary, #007bff);
+      flex-shrink: 0;
+    }
+    
+    .map-info p {
+      margin: 0;
+      font-family: var(--font-secondary);
+      color: var(--color-text, #111);
+    }
+    
     /* Form Message */
     .form-message {
       margin-top: 20px;
@@ -557,7 +839,7 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
     
     /* Gradient Backgrounds */
     .gradient-purple-blue {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, var(--color-primary, #667eea) 0%, var(--color-secondary, #764ba2) 100%);
     }
     
     .gradient-orange-pink {
@@ -574,7 +856,7 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
     
     /* Variant: Glassmorphism */
     .glassmorphism {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, var(--color-primary, #667eea) 0%, var(--color-secondary, #764ba2) 100%);
     }
     
     .glassmorphism .contact-content {
@@ -708,6 +990,32 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
     
     .neon-glow .submit-button {
       box-shadow: 0 0 20px var(--color-primary);
+    }
+    
+    /* Map in variants */
+    .glassmorphism .contact-map,
+    .gradient-wave .contact-map,
+    .floating-cards .contact-map,
+    .neon-glow .contact-map,
+    .minimal-luxe .contact-map,
+    .particles .contact-map,
+    .3d-perspective .contact-map {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .glassmorphism .map-info,
+    .particles .map-info,
+    .neon-glow .map-info {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+    
+    .glassmorphism .map-info p,
+    .particles .map-info p,
+    .neon-glow .map-info p {
+      color: white;
     }
     
     /* Variant: Minimal Luxe */
@@ -915,6 +1223,15 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
         font-size: 28px;
       }
       
+      .contact-with-map {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .contact-map {
+        height: 300px;
+      }
+      
       .split-screen .contact-wrapper {
         grid-template-columns: 1fr;
       }
@@ -1034,6 +1351,75 @@ export function renderContactUltraModern(props: Record<string, any>, _variants: 
         }
       }
     })();
+    
+    // Map functionality - Simplified version
+    ${showMap ? `
+    (function() {
+      // Load Google Maps
+      function loadMap() {
+        // Check if already loaded
+        if (window.google && window.google.maps) {
+          initMap();
+          return;
+        }
+        
+        // Check if script already exists
+        const existingScript = document.querySelector('script[src*="maps.googleapis.com"]');
+        if (existingScript) {
+          // Wait for it to load
+          existingScript.addEventListener('load', initMap);
+          // Check if already loaded
+          setTimeout(() => {
+            if (window.google && window.google.maps) {
+              initMap();
+            }
+          }, 100);
+          return;
+        }
+        
+        // Create script
+        const script = document.createElement('script');
+        script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCESD10stchdA2iIYB2iQqtfB1YNH1G4wc';
+        script.async = true;
+        script.onload = initMap;
+        document.head.appendChild(script);
+      }
+      
+      // Initialize map
+      function initMap() {
+        const mapEl = document.querySelector('.contact-ultra .contact-map');
+        if (!mapEl || mapEl.dataset.initialized === 'true') return;
+        
+        const lat = parseFloat(mapEl.dataset.lat || '48.8566');
+        const lng = parseFloat(mapEl.dataset.lng || '2.3522');
+        
+        // Hide loading
+        const loading = mapEl.querySelector('.map-loading');
+        if (loading) loading.style.display = 'none';
+        
+        // Create map
+        const map = new google.maps.Map(mapEl, {
+          center: { lat, lng },
+          zoom: 15
+        });
+        
+        // Add marker
+        new google.maps.Marker({
+          position: { lat, lng },
+          map: map
+        });
+        
+        mapEl.dataset.initialized = 'true';
+      }
+      
+      // Start loading
+      if (document.readyState === 'complete') {
+        loadMap();
+      } else {
+        window.addEventListener('load', loadMap);
+      }
+    })();
+    ` : ''}
   `;
 
   return {

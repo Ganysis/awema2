@@ -186,6 +186,43 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
           description: { type: 'textarea', label: 'Description', defaultValue: 'Feature description' }
         };
         itemLabel = (item: any, index: number) => item.title || `Feature ${index + 1}`;
+      } else if (prop.name === 'fields') {
+        // Form fields for contact forms
+        itemSchema = {
+          label: { type: 'text', label: 'Titre du champ', defaultValue: 'Nouveau champ' },
+          type: { 
+            type: 'select', 
+            label: 'Type de champ', 
+            defaultValue: 'text',
+            options: [
+              { value: 'text', label: 'Texte simple' },
+              { value: 'email', label: 'Adresse email' },
+              { value: 'tel', label: 'Numéro de téléphone' },
+              { value: 'number', label: 'Nombre' },
+              { value: 'textarea', label: 'Message (zone de texte)' },
+              { value: 'date', label: 'Date' }
+            ]
+          },
+          required: { type: 'checkbox', label: 'Champ obligatoire', defaultValue: false },
+          placeholder: { type: 'text', label: 'Texte d\'aide', defaultValue: '' },
+          icon: {
+            type: 'select',
+            label: 'Icône',
+            defaultValue: 'user',
+            options: [
+              { value: 'user', label: 'Personne' },
+              { value: 'mail', label: 'Email' },
+              { value: 'phone', label: 'Téléphone' },
+              { value: 'message-circle', label: 'Message' },
+              { value: 'edit', label: 'Édition' },
+              { value: 'calendar', label: 'Calendrier' },
+              { value: 'map-pin', label: 'Localisation' },
+              { value: 'briefcase', label: 'Entreprise' },
+              { value: 'home', label: 'Domicile' }
+            ]
+          }
+        };
+        itemLabel = (item: any, index: number) => item.label || `Champ ${index + 1}`;
       } else {
         // Generic array schema
         itemSchema = {
