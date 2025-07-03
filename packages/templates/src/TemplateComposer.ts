@@ -11,6 +11,7 @@ import { heroSplitScreen, renderHeroSplitScreen } from './blocks/hero/split-scre
 import { servicesGridCards, renderServicesGridCards } from './blocks/services/grid-cards';
 import { servicesListDetailed, renderServicesListDetailed } from './blocks/services/list-detailed';
 import { contactFormMap, renderContactFormMap } from './blocks/contact/form-map';
+import { contactUltraModern, renderContactUltraModern } from './blocks/contact/contact-ultra-modern';
 import { testimonialsCarousel, renderTestimonialsCarousel } from './blocks/testimonials/carousel';
 import { textImageClean, renderTextImageClean } from './blocks/content/text-image-clean';
 import { textImageBlock, renderTextImageBlock } from './blocks/content/text-image';
@@ -67,6 +68,7 @@ export class TemplateComposer {
     this.blocks.set('services-grid-cards', servicesGridCards);
     this.blocks.set('services-list-detailed', servicesListDetailed);
     this.blocks.set('contact-form-map', contactFormMap);
+    this.blocks.set('contact-ultra-modern', contactUltraModern);
     this.blocks.set('testimonials-carousel', testimonialsCarousel);
     this.blocks.set('text-image-clean', textImageClean);
     this.blocks.set('text-image-flexible', textImageBlock);
@@ -160,6 +162,9 @@ export class TemplateComposer {
         break;
       case 'contact-form-map':
         renderer = renderContactFormMap;
+        break;
+      case 'contact-ultra-modern':
+        renderer = renderContactUltraModern;
         break;
       case 'testimonials-carousel':
         renderer = renderTestimonialsCarousel;

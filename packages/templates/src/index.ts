@@ -10,6 +10,7 @@ export { heroSplitScreen, renderHeroSplitScreen } from './blocks/hero/split-scre
 export { servicesGridCards, renderServicesGridCards } from './blocks/services/grid-cards';
 export { servicesListDetailed, renderServicesListDetailed } from './blocks/services/list-detailed';
 export { contactFormMap, renderContactFormMap } from './blocks/contact/form-map';
+export { contactUltraModern, renderContactUltraModern } from './blocks/contact/contact-ultra-modern';
 export { testimonialsCarousel, renderTestimonialsCarousel } from './blocks/testimonials/carousel';
 export { textImageClean, renderTextImageClean } from './blocks/content/text-image-clean';
 export { textImageBlock, renderTextImageBlock } from './blocks/content/text-image';
