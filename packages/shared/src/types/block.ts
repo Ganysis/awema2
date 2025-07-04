@@ -50,6 +50,11 @@ export interface EditorConfig {
   helpText?: string;
   group?: string;
   order?: number;
+  condition?: {
+    prop: string;
+    value?: any;
+    values?: any[];
+  };
 }
 
 export enum BlockCategory {

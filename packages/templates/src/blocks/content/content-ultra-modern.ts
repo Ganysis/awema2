@@ -166,7 +166,8 @@ export const contentUltraModern: Block = {
         control: EditorControl.TEXTAREA,
         helpText: 'Supporte le HTML pour le formatage',
         group: 'Contenu',
-        order: 9
+        order: 9,
+        condition: { prop: 'contentType', values: ['text-image', 'stats', 'testimonial'] }
       }
     },
     {
@@ -178,7 +179,8 @@ export const contentUltraModern: Block = {
       editorConfig: {
         control: EditorControl.IMAGE_PICKER,
         group: 'Média',
-        order: 10
+        order: 10,
+        condition: { prop: 'contentType', values: ['text-image', 'testimonial'] }
       }
     },
     {
@@ -199,7 +201,8 @@ export const contentUltraModern: Block = {
       editorConfig: {
         control: EditorControl.SELECT,
         group: 'Média',
-        order: 11
+        order: 11,
+        condition: { prop: 'contentType', value: 'text-image' }
       }
     },
     {
@@ -216,13 +219,14 @@ export const contentUltraModern: Block = {
       editorConfig: {
         control: EditorControl.MULTI_SELECT,
         group: 'Contenu',
-        order: 12
+        order: 12,
+        condition: { prop: 'contentType', value: 'text-image' }
       }
     },
     {
       name: 'quote',
       type: PropType.OBJECT,
-      description: 'Citation (pour contentType = quote)',
+      description: 'Citation',
       defaultValue: {
         text: 'La qualité n\'est jamais un accident. C\'est toujours le résultat d\'un effort intelligent.',
         author: 'John Ruskin',
@@ -232,13 +236,14 @@ export const contentUltraModern: Block = {
       editorConfig: {
         control: EditorControl.MULTI_SELECT,
         group: 'Citation',
-        order: 13
+        order: 13,
+        condition: { prop: 'contentType', value: 'quote' }
       }
     },
     {
       name: 'comparison',
       type: PropType.OBJECT,
-      description: 'Données de comparaison (pour contentType = comparison)',
+      description: 'Données de comparaison',
       defaultValue: {
         beforeTitle: 'Avant',
         afterTitle: 'Après',
@@ -251,13 +256,14 @@ export const contentUltraModern: Block = {
       editorConfig: {
         control: EditorControl.MULTI_SELECT,
         group: 'Comparaison',
-        order: 14
+        order: 14,
+        condition: { prop: 'contentType', value: 'comparison' }
       }
     },
     {
       name: 'timeline',
       type: PropType.ARRAY,
-      description: 'Événements chronologiques (pour contentType = timeline)',
+      description: 'Événements chronologiques',
       defaultValue: [
         { year: '2008', title: 'Création', description: 'Fondation de notre entreprise' },
         { year: '2015', title: 'Expansion', description: 'Ouverture de 3 nouvelles agences' },
@@ -268,13 +274,14 @@ export const contentUltraModern: Block = {
       editorConfig: {
         control: EditorControl.MULTI_SELECT,
         group: 'Timeline',
-        order: 15
+        order: 15,
+        condition: { prop: 'contentType', value: 'timeline' }
       }
     },
     {
       name: 'stats',
       type: PropType.ARRAY,
-      description: 'Statistiques animées (pour contentType = stats)',
+      description: 'Statistiques animées',
       defaultValue: [
         { value: '500+', label: 'Projets réalisés', suffix: '', prefix: '' },
         { value: '98', label: 'Satisfaction client', suffix: '%', prefix: '' },
@@ -285,13 +292,14 @@ export const contentUltraModern: Block = {
       editorConfig: {
         control: EditorControl.MULTI_SELECT,
         group: 'Statistiques',
-        order: 16
+        order: 16,
+        condition: { prop: 'contentType', value: 'stats' }
       }
     },
     {
       name: 'tabs',
       type: PropType.ARRAY,
-      description: 'Onglets (pour contentType = tabs)',
+      description: 'Onglets',
       defaultValue: [
         { 
           title: 'Notre Mission', 
@@ -313,13 +321,14 @@ export const contentUltraModern: Block = {
       editorConfig: {
         control: EditorControl.MULTI_SELECT,
         group: 'Onglets',
-        order: 17
+        order: 17,
+        condition: { prop: 'contentType', value: 'tabs' }
       }
     },
     {
       name: 'accordion',
       type: PropType.ARRAY,
-      description: 'Questions/Réponses (pour contentType = accordion)',
+      description: 'Questions/Réponses',
       defaultValue: [
         { 
           question: 'Pourquoi nous choisir ?', 
@@ -338,7 +347,8 @@ export const contentUltraModern: Block = {
       editorConfig: {
         control: EditorControl.MULTI_SELECT,
         group: 'Accordion',
-        order: 18
+        order: 18,
+        condition: { prop: 'contentType', value: 'accordion' }
       }
     },
     {
@@ -1898,77 +1908,246 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
         padding: 60px 0;
       }
       
+      .content-ultra .container {
+        padding: 0 16px;
+      }
+      
       .content-wrapper {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 30px;
       }
       
       .content-image {
         order: -1;
+        margin-bottom: 20px;
       }
       
       .content-title {
         font-size: 28px;
+        line-height: 1.3;
+        margin-bottom: 16px;
       }
       
       .content-subtitle {
         font-size: 18px;
+        margin-bottom: 24px;
       }
       
+      .content-body {
+        font-size: 15px;
+        line-height: 1.7;
+      }
+      
+      /* Comparison responsive */
       .comparison-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
       }
       
       .comparison-divider {
-        display: none;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 10px;
+        margin: 20px 0;
       }
       
+      .divider-line {
+        height: 2px;
+        width: 100%;
+      }
+      
+      .comparison-item {
+        padding: 20px;
+      }
+      
+      /* Stats responsive */
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
+        gap: 20px;
       }
       
+      .stat-value {
+        font-size: 32px;
+      }
+      
+      .stat-label {
+        font-size: 14px;
+      }
+      
+      /* Timeline responsive */
+      .timeline-items {
+        padding-left: 30px;
+      }
+      
+      .timeline-marker {
+        left: -30px;
+        width: 24px;
+        height: 24px;
+      }
+      
+      .marker-year {
+        font-size: 8px;
+      }
+      
+      .timeline-content {
+        padding: 16px;
+        margin-left: 15px;
+      }
+      
+      .timeline-title {
+        font-size: 18px;
+      }
+      
+      .timeline-description {
+        font-size: 14px;
+      }
+      
+      /* Tabs responsive */
       .tabs-nav {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
       }
       
+      .tabs-nav::-webkit-scrollbar {
+        display: none;
+      }
+      
+      .tab-button {
+        white-space: nowrap;
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+      
+      .tab-content {
+        font-size: 15px;
+      }
+      
+      /* Accordion responsive */
+      .accordion-trigger {
+        padding: 16px 20px;
+        font-size: 16px;
+      }
+      
+      .accordion-content {
+        max-height: 1000px;
+      }
+      
+      .accordion-answer {
+        padding: 0 20px 16px;
+        font-size: 14px;
+      }
+      
+      /* Quote responsive */
+      .quote-text {
+        font-size: 24px;
+        line-height: 1.4;
+      }
+      
+      .quote-author {
+        font-size: 16px;
+      }
+      
+      .quote-role {
+        font-size: 13px;
+      }
+      
+      /* Testimonial responsive */
       .testimonial-wrapper {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 20px;
       }
       
       .testimonial-image {
-        max-width: 200px;
-        margin: 0 auto;
+        max-width: 150px;
+        margin: 0 auto 20px;
       }
       
+      .testimonial-content {
+        text-align: center;
+      }
+      
+      /* Split screen responsive */
       .split-screen .content-wrapper {
         grid-template-columns: 1fr;
       }
       
+      .split-screen .content-text {
+        padding: 32px 24px;
+        text-align: center;
+      }
+      
+      .split-screen .content-buttons {
+        justify-content: center;
+      }
+      
       .split-screen .content-image {
-        height: 300px;
+        height: 250px;
         order: -1;
       }
       
+      /* Variants padding adjustments */
       .glassmorphism .content-wrapper,
       .floating-cards .content-wrapper,
       .neon-glow .content-wrapper,
       .minimal-luxe .content-wrapper,
       .particles .content-wrapper,
-      .3d-perspective .content-wrapper {
+      .3d-perspective .content-wrapper,
+      .glassmorphism .content-quote-wrapper,
+      .floating-cards .content-quote-wrapper,
+      .neon-glow .content-quote-wrapper,
+      .minimal-luxe .content-quote-wrapper,
+      .particles .content-quote-wrapper,
+      .3d-perspective .content-quote-wrapper {
         padding: 32px 24px;
       }
       
+      .glassmorphism .comparison-item,
+      .floating-cards .comparison-item,
+      .neon-glow .comparison-item,
+      .minimal-luxe .comparison-item,
+      .particles .comparison-item,
+      .3d-perspective .comparison-item {
+        padding: 20px;
+      }
+      
+      /* Buttons responsive */
       .content-buttons {
         flex-direction: column;
         width: 100%;
+        gap: 12px;
+        margin-top: 32px;
       }
       
       .content-button {
         width: 100%;
         justify-content: center;
+        padding: 14px 24px;
+        font-size: 15px;
+      }
+      
+      /* Features list responsive */
+      .content-features {
+        margin-bottom: 32px;
+      }
+      
+      .content-feature {
+        font-size: 15px;
+        margin-bottom: 12px;
+      }
+      
+      /* 3D Perspective disable on mobile */
+      .3d-perspective .content-wrapper,
+      .3d-perspective .content-quote-wrapper,
+      .3d-perspective .comparison-item,
+      .3d-perspective .timeline-content,
+      .3d-perspective .accordion-item {
+        transform: none;
+      }
+      
+      /* Disable parallax on mobile */
+      .content-image img {
+        transform: none !important;
       }
     }
     
@@ -1977,20 +2156,112 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
         padding: 40px 0;
       }
       
+      .content-ultra .container {
+        padding: 0 12px;
+      }
+      
       .content-title {
         font-size: 24px;
+        margin-bottom: 12px;
       }
       
       .content-subtitle {
         font-size: 16px;
+        margin-bottom: 20px;
       }
       
+      .content-eyebrow {
+        font-size: 12px;
+        padding: 4px 12px;
+        margin-bottom: 16px;
+      }
+      
+      .content-body {
+        font-size: 14px;
+      }
+      
+      /* Stats grid single column on very small screens */
       .stats-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
       }
       
       .stat-value {
-        font-size: 36px;
+        font-size: 28px;
+      }
+      
+      .stat-label {
+        font-size: 13px;
+      }
+      
+      /* Timeline adjustments */
+      .timeline-items {
+        padding-left: 20px;
+      }
+      
+      .timeline-marker {
+        left: -20px;
+      }
+      
+      .timeline-content {
+        margin-left: 10px;
+      }
+      
+      /* Tabs smaller on mobile */
+      .tab-button {
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+      
+      /* Accordion smaller text */
+      .accordion-trigger {
+        font-size: 15px;
+        padding: 14px 16px;
+      }
+      
+      /* Quote smaller */
+      .quote-text {
+        font-size: 20px;
+      }
+      
+      /* Comparison adjustments */
+      .comparison-item {
+        padding: 16px;
+      }
+      
+      .comparison-title {
+        font-size: 20px;
+      }
+      
+      .comparison-point {
+        font-size: 14px;
+      }
+      
+      /* Buttons smaller */
+      .content-button {
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+      
+      /* Variants padding further reduced */
+      .glassmorphism .content-wrapper,
+      .floating-cards .content-wrapper,
+      .neon-glow .content-wrapper,
+      .minimal-luxe .content-wrapper,
+      .particles .content-wrapper,
+      .3d-perspective .content-wrapper {
+        padding: 24px 16px;
+      }
+      
+      /* Floating cards smaller shapes on mobile */
+      .floating-cards::before,
+      .floating-cards::after {
+        display: none;
+      }
+      
+      /* Minimal luxe adjustments */
+      .minimal-luxe .content-wrapper {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
       }
     }
   `;
@@ -2126,20 +2397,24 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
         }
       }
       
-      // Parallax effect for images
-      const parallaxImages = document.querySelectorAll('.content-image img');
-      
-      window.addEventListener('scroll', () => {
-        parallaxImages.forEach(img => {
-          const rect = img.getBoundingClientRect();
-          const speed = 0.5;
-          const yPos = rect.top * speed;
-          
-          if (rect.bottom > 0 && rect.top < window.innerHeight) {
-            img.style.transform = \`translateY(\${yPos}px)\`;
+      // Parallax effect for images (disabled on mobile)
+      if (window.innerWidth > 768) {
+        const parallaxImages = document.querySelectorAll('.content-image img');
+        
+        window.addEventListener('scroll', () => {
+          if (window.innerWidth > 768) {
+            parallaxImages.forEach(img => {
+              const rect = img.getBoundingClientRect();
+              const speed = 0.5;
+              const yPos = rect.top * speed;
+              
+              if (rect.bottom > 0 && rect.top < window.innerHeight) {
+                img.style.transform = \`translateY(\${yPos}px)\`;
+              }
+            });
           }
         });
-      });
+      }
     })();
   `;
 

@@ -23,8 +23,27 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
     
     return imageKeywords.some(keyword => propNameLower.includes(keyword));
   };
+  
+  // Filter props based on conditions (for content-ultra-modern contentType)
+  const filteredProps = props.filter(prop => {
+    // Check if prop has a condition
+    if (prop.editorConfig?.condition) {
+      const condition = prop.editorConfig.condition;
+      const dependencyValue = values[condition.prop];
+      
+      // Check if the condition is met
+      if (condition.value !== undefined) {
+        return dependencyValue === condition.value;
+      }
+      if (condition.values !== undefined) {
+        return condition.values.includes(dependencyValue);
+      }
+    }
+    return true;
+  });
+  
   // Group props by their group
-  const groupedProps = props.reduce((acc, prop) => {
+  const groupedProps = filteredProps.reduce((acc, prop) => {
     const group = prop.editorConfig?.group || 'General';
     if (!acc[group]) {
       acc[group] = [];
@@ -47,7 +66,161 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
     // Handle object types
     if (prop.type === PropType.OBJECT) {
       // Handle specific object types
-      if (prop.name === 'contactInfo') {
+      if (prop.name === 'quote') {
+        // Quote object for content ultra-modern
+        const quoteValue = value || {};
+        return (
+          <div className="space-y-3 p-3 bg-gray-50 rounded-lg">
+            <div>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Citation</label>
+              <textarea
+                value={quoteValue.text || ''}
+                onChange={(e) => onChange(prop.name, { ...quoteValue, text: e.target.value })}
+                className="property-input"
+                placeholder="La qualité n'est jamais un accident..."
+                rows={3}
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Auteur</label>
+              <input
+                type="text"
+                value={quoteValue.author || ''}
+                onChange={(e) => onChange(prop.name, { ...quoteValue, author: e.target.value })}
+                className="property-input"
+                placeholder="John Ruskin"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Rôle/Titre (optionnel)</label>
+              <input
+                type="text"
+                value={quoteValue.role || ''}
+                onChange={(e) => onChange(prop.name, { ...quoteValue, role: e.target.value })}
+                className="property-input"
+                placeholder="Écrivain et critique d'art"
+              />
+            </div>
+          </div>
+        );
+      } else if (prop.name === 'comparison') {
+        // Comparison object for content ultra-modern
+        const comparisonValue = value || {};
+        return (
+          <div className="space-y-3 p-3 bg-gray-50 rounded-lg">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Titre Avant</label>
+                <input
+                  type="text"
+                  value={comparisonValue.beforeTitle || ''}
+                  onChange={(e) => onChange(prop.name, { ...comparisonValue, beforeTitle: e.target.value })}
+                  className="property-input"
+                  placeholder="Avant"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Titre Après</label>
+                <input
+                  type="text"
+                  value={comparisonValue.afterTitle || ''}
+                  onChange={(e) => onChange(prop.name, { ...comparisonValue, afterTitle: e.target.value })}
+                  className="property-input"
+                  placeholder="Après"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Image Avant</label>
+                <ImagePickerWithDetails
+                  value={comparisonValue.beforeImage || ''}
+                  onChange={(val) => onChange(prop.name, { ...comparisonValue, beforeImage: val })}
+                  projectId={projectId}
+                  showAlt={false}
+                  showTitle={false}
+                  placeholder="Image avant"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Image Après</label>
+                <ImagePickerWithDetails
+                  value={comparisonValue.afterImage || ''}
+                  onChange={(val) => onChange(prop.name, { ...comparisonValue, afterImage: val })}
+                  projectId={projectId}
+                  showAlt={false}
+                  showTitle={false}
+                  placeholder="Image après"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Points Avant (1 par ligne)</label>
+                <textarea
+                  value={(comparisonValue.beforePoints || []).join('\n')}
+                  onChange={(e) => onChange(prop.name, { ...comparisonValue, beforePoints: e.target.value.split('\n').filter(p => p.trim()) })}
+                  className="property-input"
+                  placeholder="Ancien système\nPerformance limitée\nCoûts élevés"
+                  rows={3}
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Points Après (1 par ligne)</label>
+                <textarea
+                  value={(comparisonValue.afterPoints || []).join('\n')}
+                  onChange={(e) => onChange(prop.name, { ...comparisonValue, afterPoints: e.target.value.split('\n').filter(p => p.trim()) })}
+                  className="property-input"
+                  placeholder="Solution moderne\nPerformance optimale\nÉconomies garanties"
+                  rows={3}
+                />
+              </div>
+            </div>
+          </div>
+        );
+      } else if (prop.name === 'primaryButton' || prop.name === 'secondaryButton') {
+        // Button object
+        const buttonValue = value || {};
+        return (
+          <div className="space-y-3 p-3 bg-gray-50 rounded-lg">
+            <div>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Texte du bouton</label>
+              <input
+                type="text"
+                value={buttonValue.text || ''}
+                onChange={(e) => onChange(prop.name, { ...buttonValue, text: e.target.value })}
+                className="property-input"
+                placeholder="En savoir plus"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Lien</label>
+              <input
+                type="text"
+                value={buttonValue.link || ''}
+                onChange={(e) => onChange(prop.name, { ...buttonValue, link: e.target.value })}
+                className="property-input"
+                placeholder="/about"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Icône (optionnel)</label>
+              <select
+                value={buttonValue.icon || ''}
+                onChange={(e) => onChange(prop.name, { ...buttonValue, icon: e.target.value })}
+                className="property-input"
+              >
+                <option value="">Aucune</option>
+                <option value="arrow-right">→ Flèche droite</option>
+                <option value="external-link">↗ Lien externe</option>
+                <option value="phone">📞 Téléphone</option>
+                <option value="download">⬇ Télécharger</option>
+                <option value="check">✓ Check</option>
+              </select>
+            </div>
+          </div>
+        );
+      } else if (prop.name === 'contactInfo') {
         const contactInfo = value || {};
         return (
           <div className="space-y-3 p-3 bg-gray-50 rounded-lg">
@@ -223,6 +396,51 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
           }
         };
         itemLabel = (item: any, index: number) => item.label || `Champ ${index + 1}`;
+      } else if (prop.name === 'timeline') {
+        // Timeline items for content ultra-modern
+        itemSchema = {
+          year: { type: 'text', label: 'Année', defaultValue: '2024' },
+          title: { type: 'text', label: 'Titre', defaultValue: 'Événement' },
+          description: { type: 'textarea', label: 'Description', defaultValue: 'Description de l\'événement' }
+        };
+        itemLabel = (item: any, index: number) => item.year + ' - ' + item.title || `Événement ${index + 1}`;
+      } else if (prop.name === 'accordion') {
+        // Accordion items for content ultra-modern
+        itemSchema = {
+          question: { type: 'text', label: 'Question', defaultValue: 'Question ?' },
+          answer: { type: 'textarea', label: 'Réponse', defaultValue: 'Votre réponse ici...' }
+        };
+        itemLabel = (item: any, index: number) => item.question || `Question ${index + 1}`;
+      } else if (prop.name === 'tabs') {
+        // Tabs for content ultra-modern
+        itemSchema = {
+          title: { type: 'text', label: 'Titre de l\'onglet', defaultValue: 'Onglet' },
+          content: { type: 'textarea', label: 'Contenu', defaultValue: 'Contenu de l\'onglet' },
+          icon: { 
+            type: 'select', 
+            label: 'Icône (optionnel)',
+            defaultValue: '',
+            options: [
+              { value: '', label: 'Aucune' },
+              { value: 'target', label: 'Cible' },
+              { value: 'eye', label: 'Œil' },
+              { value: 'heart', label: 'Cœur' },
+              { value: 'star', label: 'Étoile' },
+              { value: 'check', label: 'Check' },
+              { value: 'shield', label: 'Bouclier' }
+            ]
+          }
+        };
+        itemLabel = (item: any, index: number) => item.title || `Onglet ${index + 1}`;
+      } else if (prop.name === 'stats') {
+        // Stats for content ultra-modern
+        itemSchema = {
+          value: { type: 'text', label: 'Valeur', defaultValue: '100' },
+          label: { type: 'text', label: 'Label', defaultValue: 'Statistique' },
+          prefix: { type: 'text', label: 'Préfixe (optionnel)', defaultValue: '' },
+          suffix: { type: 'text', label: 'Suffixe (optionnel)', defaultValue: '' }
+        };
+        itemLabel = (item: any, index: number) => item.value + ' ' + item.label || `Stat ${index + 1}`;
       } else {
         // Generic array schema
         itemSchema = {
