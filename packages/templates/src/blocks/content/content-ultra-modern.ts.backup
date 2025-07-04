@@ -556,11 +556,6 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
   }
 
   function renderComparison() {
-    const hasImage = image && imagePosition !== 'none';
-    const imageLeft = imagePosition === 'left';
-    const imageTop = imagePosition === 'top';
-    const imageBg = imagePosition === 'background';
-    
     return `
       <div class="content-comparison">
         <div class="comparison-header">
@@ -569,66 +564,54 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
           ${subtitle ? `<p class="content-subtitle">${subtitle}</p>` : ''}
         </div>
         
-        <div class="content-wrapper comparison-wrapper ${hasImage ? `has-image image-${imagePosition}` : 'no-image'} ${imageTop ? 'image-top' : ''} ${imageBg ? 'image-bg' : ''}">
-          ${imageBg && image ? `<div class="content-bg-image" style="background-image: url('${image}');"></div>` : ''}
+        <div class="comparison-grid">
+          <div class="comparison-item before">
+            <h3 class="comparison-title">${comparison.beforeTitle || 'Avant'}</h3>
+            ${comparison.beforeImage ? `
+              <div class="comparison-image">
+                <img src="${comparison.beforeImage}" alt="${comparison.beforeTitle}" />
+              </div>
+            ` : ''}
+            ${comparison.beforePoints?.length > 0 ? `
+              <ul class="comparison-points">
+                ${comparison.beforePoints.map((point: string) => `
+                  <li class="comparison-point negative">
+                    <svg class="point-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                    <span>${point}</span>
+                  </li>
+                `).join('')}
+              </ul>
+            ` : ''}
+          </div>
           
-          ${hasImage && !imageBg ? `
-            <div class="content-image ${imageLeft ? 'order-1' : 'order-2'}">
-              <img src="${image}" alt="Comparaison" loading="lazy" />
-            </div>
-          ` : ''}
+          <div class="comparison-divider">
+            <div class="divider-line"></div>
+            <div class="divider-icon">VS</div>
+            <div class="divider-line"></div>
+          </div>
           
-          <div class="comparison-content ${hasImage && !imageBg ? (imageLeft ? 'order-2' : 'order-1') : ''}">
-            <div class="comparison-grid">
-              <div class="comparison-item before">
-                <h3 class="comparison-title">${comparison.beforeTitle || 'Avant'}</h3>
-                ${comparison.beforeImage ? `
-                  <div class="comparison-image">
-                    <img src="${comparison.beforeImage}" alt="${comparison.beforeTitle}" />
-                  </div>
-                ` : ''}
-                ${comparison.beforePoints?.length > 0 ? `
-                  <ul class="comparison-points">
-                    ${comparison.beforePoints.map((point: string) => `
-                      <li class="comparison-point negative">
-                        <svg class="point-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <line x1="18" y1="6" x2="6" y2="18"></line>
-                          <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                        <span>${point}</span>
-                      </li>
-                    `).join('')}
-                  </ul>
-                ` : ''}
+          <div class="comparison-item after">
+            <h3 class="comparison-title">${comparison.afterTitle || 'Après'}</h3>
+            ${comparison.afterImage ? `
+              <div class="comparison-image">
+                <img src="${comparison.afterImage}" alt="${comparison.afterTitle}" />
               </div>
-              
-              <div class="comparison-divider">
-                <div class="divider-line"></div>
-                <div class="divider-icon">VS</div>
-                <div class="divider-line"></div>
-              </div>
-              
-              <div class="comparison-item after">
-                <h3 class="comparison-title">${comparison.afterTitle || 'Après'}</h3>
-                ${comparison.afterImage ? `
-                  <div class="comparison-image">
-                    <img src="${comparison.afterImage}" alt="${comparison.afterTitle}" />
-                  </div>
-                ` : ''}
-                ${comparison.afterPoints?.length > 0 ? `
-                  <ul class="comparison-points">
-                    ${comparison.afterPoints.map((point: string) => `
-                      <li class="comparison-point positive">
-                        <svg class="point-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>${point}</span>
-                      </li>
-                    `).join('')}
-                  </ul>
-                ` : ''}
-              </div>
-            </div>
+            ` : ''}
+            ${comparison.afterPoints?.length > 0 ? `
+              <ul class="comparison-points">
+                ${comparison.afterPoints.map((point: string) => `
+                  <li class="comparison-point positive">
+                    <svg class="point-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>${point}</span>
+                  </li>
+                `).join('')}
+              </ul>
+            ` : ''}
           </div>
         </div>
         
@@ -638,11 +621,6 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
   }
 
   function renderTimeline() {
-    const hasImage = image && imagePosition !== 'none';
-    const imageLeft = imagePosition === 'left';
-    const imageTop = imagePosition === 'top';
-    const imageBg = imagePosition === 'background';
-    
     return `
       <div class="content-timeline">
         <div class="timeline-header">
@@ -651,30 +629,18 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
           ${subtitle ? `<p class="content-subtitle">${subtitle}</p>` : ''}
         </div>
         
-        <div class="content-wrapper timeline-wrapper ${hasImage ? `has-image image-${imagePosition}` : 'no-image'} ${imageTop ? 'image-top' : ''} ${imageBg ? 'image-bg' : ''}">
-          ${imageBg && image ? `<div class="content-bg-image" style="background-image: url('${image}');"></div>` : ''}
-          
-          ${hasImage && !imageBg ? `
-            <div class="content-image ${imageLeft ? 'order-1' : 'order-2'}">
-              <img src="${image}" alt="Timeline" loading="lazy" />
+        <div class="timeline-items">
+          ${timelineList.map((item: any, index: number) => `
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="${index * 100}">
+              <div class="timeline-marker">
+                <span class="marker-year">${item.year}</span>
+              </div>
+              <div class="timeline-content">
+                <h3 class="timeline-title">${item.title}</h3>
+                <p class="timeline-description">${item.description}</p>
+              </div>
             </div>
-          ` : ''}
-          
-          <div class="timeline-content ${hasImage && !imageBg ? (imageLeft ? 'order-2' : 'order-1') : ''}">
-            <div class="timeline-items">
-              ${timelineList.map((item: any, index: number) => `
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="${index * 100}">
-                  <div class="timeline-marker">
-                    <span class="marker-year">${item.year}</span>
-                  </div>
-                  <div class="timeline-item-content">
-                    <h3 class="timeline-title">${item.title}</h3>
-                    <p class="timeline-description">${item.description}</p>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
+          `).join('')}
         </div>
         
         ${renderButtons()}
@@ -683,11 +649,6 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
   }
 
   function renderStats() {
-    const hasImage = image && imagePosition !== 'none';
-    const imageLeft = imagePosition === 'left';
-    const imageTop = imagePosition === 'top';
-    const imageBg = imagePosition === 'background';
-    
     return `
       <div class="content-stats">
         <div class="stats-header">
@@ -696,30 +657,18 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
           ${subtitle ? `<p class="content-subtitle">${subtitle}</p>` : ''}
         </div>
         
-        <div class="content-wrapper stats-wrapper ${hasImage ? `has-image image-${imagePosition}` : 'no-image'} ${imageTop ? 'image-top' : ''} ${imageBg ? 'image-bg' : ''}">
-          ${imageBg && image ? `<div class="content-bg-image" style="background-image: url('${image}');"></div>` : ''}
-          
-          ${hasImage && !imageBg ? `
-            <div class="content-image ${imageLeft ? 'order-1' : 'order-2'}">
-              <img src="${image}" alt="Statistiques" loading="lazy" />
+        <div class="stats-grid">
+          ${statsList.map((stat: any, index: number) => `
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="${index * 100}">
+              <div class="stat-value" data-value="${stat.value}">
+                ${stat.prefix || ''}<span class="stat-number">0</span>${stat.suffix || ''}
+              </div>
+              <div class="stat-label">${stat.label}</div>
             </div>
-          ` : ''}
-          
-          <div class="stats-content ${hasImage && !imageBg ? (imageLeft ? 'order-2' : 'order-1') : ''}">
-            <div class="stats-grid">
-              ${statsList.map((stat: any, index: number) => `
-                <div class="stat-item" data-aos="zoom-in" data-aos-delay="${index * 100}">
-                  <div class="stat-value" data-value="${stat.value}">
-                    ${stat.prefix || ''}<span class="stat-number">0</span>${stat.suffix || ''}
-                  </div>
-                  <div class="stat-label">${stat.label}</div>
-                </div>
-              `).join('')}
-            </div>
-            
-            ${content ? `<div class="content-body">${content}</div>` : ''}
-          </div>
+          `).join('')}
         </div>
+        
+        ${content ? `<div class="content-body">${content}</div>` : ''}
         
         ${renderButtons()}
       </div>
@@ -727,11 +676,6 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
   }
 
   function renderTabs() {
-    const hasImage = image && imagePosition !== 'none';
-    const imageLeft = imagePosition === 'left';
-    const imageTop = imagePosition === 'top';
-    const imageBg = imagePosition === 'background';
-    
     return `
       <div class="content-tabs">
         <div class="tabs-header">
@@ -740,38 +684,26 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
           ${subtitle ? `<p class="content-subtitle">${subtitle}</p>` : ''}
         </div>
         
-        <div class="content-wrapper tabs-wrapper ${hasImage ? `has-image image-${imagePosition}` : 'no-image'} ${imageTop ? 'image-top' : ''} ${imageBg ? 'image-bg' : ''}">
-          ${imageBg && image ? `<div class="content-bg-image" style="background-image: url('${image}');"></div>` : ''}
+        <div class="tabs-container">
+          <div class="tabs-nav">
+            ${tabsList.map((tab: any, index: number) => `
+              <button class="tab-button ${index === 0 ? 'active' : ''}" data-tab="${index}">
+                ${tab.icon ? `
+                  <svg class="tab-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <use href="#icon-${tab.icon}"/>
+                  </svg>
+                ` : ''}
+                <span>${tab.title}</span>
+              </button>
+            `).join('')}
+          </div>
           
-          ${hasImage && !imageBg ? `
-            <div class="content-image ${imageLeft ? 'order-1' : 'order-2'}">
-              <img src="${image}" alt="Tabs" loading="lazy" />
-            </div>
-          ` : ''}
-          
-          <div class="tabs-content-wrapper ${hasImage && !imageBg ? (imageLeft ? 'order-2' : 'order-1') : ''}">
-            <div class="tabs-container">
-              <div class="tabs-nav">
-                ${tabsList.map((tab: any, index: number) => `
-                  <button class="tab-button ${index === 0 ? 'active' : ''}" data-tab="${index}">
-                    ${tab.icon ? `
-                      <svg class="tab-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <use href="#icon-${tab.icon}"/>
-                      </svg>
-                    ` : ''}
-                    <span>${tab.title}</span>
-                  </button>
-                `).join('')}
+          <div class="tabs-content">
+            ${tabsList.map((tab: any, index: number) => `
+              <div class="tab-panel ${index === 0 ? 'active' : ''}" data-panel="${index}">
+                <div class="tab-content">${tab.content}</div>
               </div>
-              
-              <div class="tabs-content">
-                ${tabsList.map((tab: any, index: number) => `
-                  <div class="tab-panel ${index === 0 ? 'active' : ''}" data-panel="${index}">
-                    <div class="tab-content">${tab.content}</div>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
+            `).join('')}
           </div>
         </div>
         
@@ -781,11 +713,6 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
   }
 
   function renderAccordion() {
-    const hasImage = image && imagePosition !== 'none';
-    const imageLeft = imagePosition === 'left';
-    const imageTop = imagePosition === 'top';
-    const imageBg = imagePosition === 'background';
-    
     return `
       <div class="content-accordion">
         <div class="accordion-header">
@@ -794,32 +721,20 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
           ${subtitle ? `<p class="content-subtitle">${subtitle}</p>` : ''}
         </div>
         
-        <div class="content-wrapper accordion-wrapper ${hasImage ? `has-image image-${imagePosition}` : 'no-image'} ${imageTop ? 'image-top' : ''} ${imageBg ? 'image-bg' : ''}">
-          ${imageBg && image ? `<div class="content-bg-image" style="background-image: url('${image}');"></div>` : ''}
-          
-          ${hasImage && !imageBg ? `
-            <div class="content-image ${imageLeft ? 'order-1' : 'order-2'}">
-              <img src="${image}" alt="FAQ" loading="lazy" />
+        <div class="accordion-items">
+          ${accordionList.map((item: any, index: number) => `
+            <div class="accordion-item" data-aos="fade-up" data-aos-delay="${index * 50}">
+              <button class="accordion-trigger ${index === 0 ? 'active' : ''}">
+                <span class="accordion-question">${item.question}</span>
+                <svg class="accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+              <div class="accordion-content ${index === 0 ? 'active' : ''}">
+                <p class="accordion-answer">${item.answer}</p>
+              </div>
             </div>
-          ` : ''}
-          
-          <div class="accordion-content ${hasImage && !imageBg ? (imageLeft ? 'order-2' : 'order-1') : ''}">
-            <div class="accordion-items">
-              ${accordionList.map((item: any, index: number) => `
-                <div class="accordion-item" data-aos="fade-up" data-aos-delay="${index * 50}">
-                  <button class="accordion-trigger ${index === 0 ? 'active' : ''}">
-                    <span class="accordion-question">${item.question}</span>
-                    <svg class="accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  </button>
-                  <div class="accordion-content-panel ${index === 0 ? 'active' : ''}">
-                    <p class="accordion-answer">${item.answer}</p>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
+          `).join('')}
         </div>
         
         ${renderButtons()}
@@ -1401,7 +1316,7 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
       color: white;
     }
     
-    .timeline-item-content {
+    .timeline-content {
       background: var(--color-background-alt, #f8f9fa);
       padding: 20px;
       border-radius: 12px;
@@ -1603,13 +1518,13 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
       transform: rotate(180deg);
     }
     
-    .accordion-content-panel {
+    .accordion-content {
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease;
     }
     
-    .accordion-content-panel.active {
+    .accordion-content.active {
       max-height: 500px;
     }
     
@@ -2187,7 +2102,7 @@ export function renderContentUltraModern(props: Record<string, any>, _variants: 
         font-size: 16px;
       }
       
-      .accordion-content-panel {
+      .accordion-content {
         max-height: 1000px;
       }
       
