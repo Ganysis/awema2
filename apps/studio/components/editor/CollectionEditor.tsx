@@ -212,6 +212,14 @@ function SortableItem({ id, item, index, itemSchema, onUpdate, onRemove, itemLab
                 </span>
               </label>
             )}
+            {schema.type === 'date' && (
+              <input
+                type="date"
+                value={item[key] || ''}
+                onChange={(e) => onUpdate(key, e.target.value)}
+                className="property-input"
+              />
+            )}
           </div>
         ))}
       </div>

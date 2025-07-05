@@ -290,14 +290,20 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
   // Calculate statistics
   const totalReviews = reviews.length;
   const averageRating = totalReviews > 0 
-    ? (reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / totalReviews).toFixed(1)
+    ? (reviews.reduce((sum: number, r: any) => sum + (typeof r.rating === 'string' ? parseInt(r.rating, 10) : r.rating), 0) / totalReviews).toFixed(1)
     : '5.0';
   
   const ratingDistribution = [5, 4, 3, 2, 1].map(rating => ({
     rating,
-    count: reviews.filter((r: any) => r.rating === rating).length,
+    count: reviews.filter((r: any) => {
+      const rVal = typeof r.rating === 'string' ? parseInt(r.rating, 10) : r.rating;
+      return rVal === rating;
+    }).length,
     percentage: totalReviews > 0 
-      ? (reviews.filter((r: any) => r.rating === rating).length / totalReviews * 100).toFixed(0)
+      ? (reviews.filter((r: any) => {
+          const rVal = typeof r.rating === 'string' ? parseInt(r.rating, 10) : r.rating;
+          return rVal === rating;
+        }).length / totalReviews * 100).toFixed(0)
       : '0'
   }));
 
@@ -982,9 +988,10 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
     }
   `;
 
-  const renderStars = (rating: number) => {
+  const renderStars = (rating: number | string) => {
+    const ratingNum = typeof rating === 'string' ? parseInt(rating, 10) : rating;
     return Array.from({ length: 5 }, (_, i) => {
-      const filled = i < Math.floor(rating);
+      const filled = i < Math.floor(ratingNum);
       return `
         <svg class="review-star ${filled ? '' : 'empty'}" viewBox="0 0 20 20" fill="currentColor">
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -995,6 +1002,16 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
 
   const renderReviewCard = (review: any) => {
     const initials = review.author.split(' ').map((n: string) => n[0]).join('').toUpperCase();
+    
+    // Handle images - can be array or string with line breaks
+    let imagesList = [];
+    if (review.images) {
+      if (Array.isArray(review.images)) {
+        imagesList = review.images;
+      } else if (typeof review.images === 'string' && review.images.trim()) {
+        imagesList = review.images.split('\n').filter((img: string) => img.trim());
+      }
+    }
     
     return `
       <article class="review-card">
@@ -1018,10 +1035,10 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
         
         <p class="review-content">${review.content}</p>
         
-        ${review.images && review.images.length > 0 ? `
+        ${imagesList.length > 0 ? `
           <div class="review-images">
-            ${review.images.map((img: string, index: number) => `
-              <img src="${img}" alt="${review.author} - Photo ${index + 1}" class="review-image" onclick="openLightbox('${img}')" />
+            ${imagesList.map((img: string, index: number) => `
+              <img src="${img.trim()}" alt="${review.author} - Photo ${index + 1}" class="review-image" onclick="openLightbox('${img.trim()}')" />
             `).join('')}
           </div>
         ` : ''}
@@ -1178,10 +1195,16 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
       
       switch(currentFilter) {
         case '5':
-          filtered = filtered.filter(r => r.rating === 5);
+          filtered = filtered.filter(r => {
+            const rating = typeof r.rating === 'string' ? parseInt(r.rating, 10) : r.rating;
+            return rating === 5;
+          });
           break;
         case '4':
-          filtered = filtered.filter(r => r.rating === 4);
+          filtered = filtered.filter(r => {
+            const rating = typeof r.rating === 'string' ? parseInt(r.rating, 10) : r.rating;
+            return rating === 4;
+          });
           break;
         case 'recent':
           filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -1209,9 +1232,21 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
         // Utilisation de la fonction renderReviewCard définie plus haut
         const renderReviewCardInline = (review) => {
           const initials = review.author.split(' ').map(n => n[0]).join('').toUpperCase();
+          
+          // Handle images - can be array or string with line breaks
+          let imagesList = [];
+          if (review.images) {
+            if (Array.isArray(review.images)) {
+              imagesList = review.images;
+            } else if (typeof review.images === 'string' && review.images.trim()) {
+              imagesList = review.images.split('\\n').filter(img => img.trim());
+            }
+          }
+          
           const renderStarsInline = (rating) => {
+            const ratingNum = typeof rating === 'string' ? parseInt(rating, 10) : rating;
             return Array.from({ length: 5 }, (_, i) => {
-              const filled = i < Math.floor(rating);
+              const filled = i < Math.floor(ratingNum);
               return \`<svg class="review-star \${filled ? '' : 'empty'}" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>\`;
@@ -1240,10 +1275,10 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
               
               <p class="review-content">\${review.content}</p>
               
-              \${review.images && review.images.length > 0 ? \`
+              \${imagesList.length > 0 ? \`
                 <div class="review-images">
-                  \${review.images.map((img, index) => \`
-                    <img src="\${img}" alt="\${review.author} - Photo \${index + 1}" class="review-image" onclick="openLightbox('\${img}')" />
+                  \${imagesList.map((img, index) => \`
+                    <img src="\${img.trim()}" alt="\${review.author} - Photo \${index + 1}" class="review-image" onclick="openLightbox('\${img.trim()}')" />
                   \`).join('')}
                 </div>
               \` : ''}

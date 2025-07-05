@@ -351,6 +351,60 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
           highlight: { type: 'checkbox', label: 'Mettre en avant', defaultValue: false }
         };
         itemLabel = (item: any, index: number) => item.name || `Testimonial ${index + 1}`;
+      } else if (prop.name === 'reviews') {
+        // Reviews Ultra-Modern schema
+        itemSchema = {
+          author: { type: 'text', label: 'Nom du client', defaultValue: 'Jean Dupont' },
+          rating: { 
+            type: 'select', 
+            label: 'Note', 
+            defaultValue: '5',
+            options: [
+              { value: '5', label: '⭐⭐⭐⭐⭐ 5 étoiles' },
+              { value: '4', label: '⭐⭐⭐⭐ 4 étoiles' },
+              { value: '3', label: '⭐⭐⭐ 3 étoiles' },
+              { value: '2', label: '⭐⭐ 2 étoiles' },
+              { value: '1', label: '⭐ 1 étoile' }
+            ]
+          },
+          date: { type: 'date', label: 'Date de l\'avis', defaultValue: new Date().toISOString().split('T')[0] },
+          content: { type: 'textarea', label: 'Contenu de l\'avis', defaultValue: 'Excellent service ! Je recommande vivement.' },
+          avatar: { type: 'image', label: 'Photo du client (optionnel)', defaultValue: '' },
+          images: { 
+            type: 'textarea', 
+            label: 'Photos du travail (URLs, une par ligne)', 
+            defaultValue: '',
+            placeholder: '/photo1.jpg\n/photo2.jpg'
+          },
+          service: { 
+            type: 'select', 
+            label: 'Service', 
+            defaultValue: 'Général',
+            options: [
+              { value: 'Général', label: 'Service général' },
+              { value: 'Plomberie', label: 'Plomberie' },
+              { value: 'Électricité', label: 'Électricité' },
+              { value: 'Chauffage', label: 'Chauffage' },
+              { value: 'Climatisation', label: 'Climatisation' },
+              { value: 'Rénovation', label: 'Rénovation' },
+              { value: 'Peinture', label: 'Peinture' },
+              { value: 'Maçonnerie', label: 'Maçonnerie' }
+            ]
+          },
+          verified: { type: 'checkbox', label: 'Avis vérifié', defaultValue: true },
+          helpful: { type: 'number', label: 'Nombre de votes utiles', defaultValue: 0 },
+          source: { 
+            type: 'select', 
+            label: 'Source', 
+            defaultValue: 'site',
+            options: [
+              { value: 'site', label: '🌐 Site web' },
+              { value: 'google', label: '🔷 Google Reviews' },
+              { value: 'facebook', label: '📘 Facebook' }
+            ]
+          }
+        };
+        itemLabel = (item: any, index: number) => item.author || `Avis ${index + 1}`;
       } else if (prop.name === 'images') {
         // Check if this is for gallery-ultra-modern which has more fields
         const hasCategory = values.images?.[0]?.hasOwnProperty('category');
