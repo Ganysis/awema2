@@ -7,6 +7,7 @@ export { TemplateComposer } from './TemplateComposer';
 // Export blocks
 export { heroCentered, renderHeroCentered } from './blocks/hero/centered';
 export { heroSplitScreen, renderHeroSplitScreen } from './blocks/hero/split-screen';
+export { heroUltraModern, renderHeroUltraModern } from './blocks/hero/hero-ultra-modern';
 export { servicesGridCards, renderServicesGridCards } from './blocks/services/grid-cards';
 export { servicesListDetailed, renderServicesListDetailed } from './blocks/services/list-detailed';
 export { contactFormMap, renderContactFormMap } from './blocks/contact/form-map';

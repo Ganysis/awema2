@@ -3,3 +3,4 @@ export { featuresMultiStyle, renderFeaturesMultiStyle } from './features-multi-s
 export { featuresIconGrid, renderFeaturesIconGrid } from './icon-grid';
 export { processSteps, renderProcessSteps } from './process-steps';
 export { statsNumbers, renderStatsNumbers } from './stats-numbers';
+export { featuresUltraModern, renderFeaturesUltraModern } from './features-ultra-modern';

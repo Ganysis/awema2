@@ -3,6 +3,8 @@ import {
   renderHeroCentered,
   heroSplitScreen,
   renderHeroSplitScreen,
+  heroUltraModern,
+  renderHeroUltraModern,
   servicesGridCards,
   renderServicesGridCards,
   servicesListDetailed,
@@ -103,6 +105,12 @@ export const blockRegistry: BlockDefinition[] = [
     category: BlockCategory.HERO,
     name: 'Split Screen Hero',
     description: 'Hero section with content on left and image on right',
+  },
+  {
+    block: heroUltraModern,
+    category: BlockCategory.HERO,
+    name: 'Hero Ultra-Moderne',
+    description: 'Section héro avec animations 3D, vidéo background et 8 designs époustouflants',
   },
   {
     block: servicesGridCards,
@@ -304,6 +312,7 @@ export function getAllCategories(): BlockCategory[] {
 const renderFunctions: Record<string, any> = {
   'hero-centered': renderHeroCentered,
   'hero-split-screen': renderHeroSplitScreen,
+  'hero-ultra-modern': renderHeroUltraModern,
   'services-grid-cards': renderServicesGridCards,
   'services-list-detailed': renderServicesListDetailed,
   'contact-form-map': renderContactFormMap,

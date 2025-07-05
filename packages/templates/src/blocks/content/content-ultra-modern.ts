@@ -173,14 +173,14 @@ export const contentUltraModern: Block = {
     {
       name: 'image',
       type: PropType.STRING,
-      description: 'Image principale',
-      defaultValue: '/placeholder.jpg',
+      description: 'Image principale (optionnelle)',
+      defaultValue: '',
       required: false,
       editorConfig: {
         control: EditorControl.IMAGE_PICKER,
         group: 'Média',
         order: 10,
-        condition: { prop: 'contentType', values: ['text-image', 'testimonial'] }
+        helpText: 'Laissez vide pour ne pas afficher d\'image'
       }
     },
     {
@@ -191,18 +191,19 @@ export const contentUltraModern: Block = {
       required: false,
       validation: {
         options: [
-          { value: 'left', label: 'À gauche' },
-          { value: 'right', label: 'À droite' },
-          { value: 'top', label: 'En haut' },
-          { value: 'bottom', label: 'En bas' },
-          { value: 'background', label: 'En arrière-plan' }
+          { value: 'none', label: '❌ Pas d\'image' },
+          { value: 'left', label: '⬅️ À gauche' },
+          { value: 'right', label: '➡️ À droite' },
+          { value: 'top', label: '⬆️ En haut' },
+          { value: 'bottom', label: '⬇️ En bas' },
+          { value: 'background', label: '🖼️ Arrière-plan' }
         ]
       },
       editorConfig: {
-        control: EditorControl.SELECT,
+        control: EditorControl.RADIO,
         group: 'Média',
         order: 11,
-        condition: { prop: 'contentType', value: 'text-image' }
+        helpText: 'Choisissez où afficher l\'image dans la section'
       }
     },
     {

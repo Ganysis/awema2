@@ -342,21 +342,57 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
           role: { type: 'text', label: 'Role/Company', defaultValue: 'CEO' },
           content: { type: 'textarea', label: 'Testimonial', defaultValue: 'Great service!' },
           rating: { type: 'number', label: 'Rating (1-5)', defaultValue: 5 },
-          image: { type: 'image', label: 'Avatar (optional)' }
+          image: { type: 'image', label: 'Avatar (optional)' },
+          date: { type: 'text', label: 'Date', defaultValue: new Date().toISOString().split('T')[0] },
+          service: { type: 'text', label: 'Service/Catégorie', defaultValue: 'general' },
+          verified: { type: 'checkbox', label: 'Avis vérifié', defaultValue: true },
+          videoUrl: { type: 'url', label: 'URL Vidéo (YouTube)', defaultValue: '' },
+          videoThumbnail: { type: 'image', label: 'Thumbnail Vidéo', defaultValue: '' },
+          highlight: { type: 'checkbox', label: 'Mettre en avant', defaultValue: false }
         };
         itemLabel = (item: any, index: number) => item.name || `Testimonial ${index + 1}`;
       } else if (prop.name === 'images') {
-        itemSchema = {
-          url: { type: 'image', label: 'Image URL', defaultValue: '/placeholder.jpg' },
-          alt: { type: 'text', label: 'Alt Text (SEO)', defaultValue: 'Image' },
-          title: { type: 'text', label: 'Title (optionnel)', defaultValue: '' }
-        };
-        itemLabel = (item: any, index: number) => item.alt || item.title || `Image ${index + 1}`;
+        // Check if this is for gallery-ultra-modern which has more fields
+        const hasCategory = values.images?.[0]?.hasOwnProperty('category');
+        if (hasCategory) {
+          // Gallery Ultra-Modern schema
+          itemSchema = {
+            url: { type: 'image', label: 'Image URL', defaultValue: '/placeholder.jpg' },
+            thumbnail: { type: 'image', label: 'Miniature (optionnel)', defaultValue: '' },
+            title: { type: 'text', label: 'Titre', defaultValue: 'Image' },
+            category: { 
+              type: 'text', 
+              label: 'Catégorie (doit correspondre à un ID de filtre)', 
+              defaultValue: '', 
+              placeholder: 'Ex: interior, exterior',
+              helpText: 'Laissez vide pour "Toutes" uniquement'
+            },
+            description: { type: 'textarea', label: 'Description', defaultValue: '' },
+            tags: { type: 'textarea', label: 'Tags (un par ligne)', defaultValue: '' },
+            is360: { type: 'checkbox', label: 'Image 360°', defaultValue: false },
+            videoUrl: { type: 'url', label: 'URL Vidéo (YouTube/Vimeo)', defaultValue: '' },
+            width: { type: 'number', label: 'Largeur', defaultValue: 800 },
+            height: { type: 'number', label: 'Hauteur', defaultValue: 600 }
+          };
+        } else {
+          // Simple image schema
+          itemSchema = {
+            url: { type: 'image', label: 'Image URL', defaultValue: '/placeholder.jpg' },
+            alt: { type: 'text', label: 'Alt Text (SEO)', defaultValue: 'Image' },
+            title: { type: 'text', label: 'Title (optionnel)', defaultValue: '' }
+          };
+        }
+        itemLabel = (item: any, index: number) => item.title || item.alt || `Image ${index + 1}`;
       } else if (prop.name === 'features') {
         itemSchema = {
           icon: { type: 'icon', label: 'Icon' },
           title: { type: 'text', label: 'Feature Title', defaultValue: 'Feature' },
-          description: { type: 'textarea', label: 'Description', defaultValue: 'Feature description' }
+          description: { type: 'textarea', label: 'Description', defaultValue: 'Feature description' },
+          image: { type: 'image', label: 'Image (optionnel)', defaultValue: '' },
+          imageAlt: { type: 'text', label: 'Texte alternatif image', defaultValue: '' },
+          link: { type: 'url', label: 'Link (optionnel)', defaultValue: '' },
+          category: { type: 'text', label: 'Catégorie', defaultValue: 'general' },
+          highlight: { type: 'checkbox', label: 'Mettre en avant', defaultValue: false }
         };
         itemLabel = (item: any, index: number) => item.title || `Feature ${index + 1}`;
       } else if (prop.name === 'fields') {
@@ -441,6 +477,35 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
           suffix: { type: 'text', label: 'Suffixe (optionnel)', defaultValue: '' }
         };
         itemLabel = (item: any, index: number) => item.value + ' ' + item.label || `Stat ${index + 1}`;
+      } else if (prop.name === 'categories') {
+        // Gallery categories schema
+        itemSchema = {
+          id: { 
+            type: 'text', 
+            label: 'ID (doit correspondre aux catégories des images)', 
+            defaultValue: 'category-id',
+            placeholder: 'Ex: interior, exterior',
+            helpText: 'Utilisez "all" pour afficher toutes les images'
+          },
+          label: { type: 'text', label: 'Label affiché', defaultValue: 'Catégorie' },
+          icon: { 
+            type: 'select', 
+            label: 'Icône (optionnel)', 
+            defaultValue: '',
+            options: [
+              { value: '', label: 'Aucune' },
+              { value: 'grid', label: 'Grille' },
+              { value: 'home', label: 'Maison' },
+              { value: 'trees', label: 'Arbres' },
+              { value: 'hammer', label: 'Marteau' },
+              { value: 'building', label: 'Bâtiment' },
+              { value: 'camera', label: 'Appareil photo' },
+              { value: 'star', label: 'Étoile' },
+              { value: 'heart', label: 'Cœur' }
+            ]
+          }
+        };
+        itemLabel = (item: any, index: number) => item.label || `Catégorie ${index + 1}`;
       } else {
         // Generic array schema
         itemSchema = {
@@ -602,6 +667,28 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
               <span className="font-medium text-gray-700">{value}</span>
               <span>{prop.validation?.max || 100}</span>
             </div>
+          </div>
+        );
+
+      case EditorControl.RADIO:
+        return (
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {prop.validation?.options?.map(option => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => onChange(prop.name, option.value)}
+                className={`
+                  px-4 py-3 rounded-lg border-2 transition-all duration-200
+                  flex items-center justify-center gap-2 text-sm font-medium
+                  ${value === option.value 
+                    ? 'border-primary-600 bg-primary-50 text-primary-700' 
+                    : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50'}
+                `}
+              >
+                <span>{option.label}</span>
+              </button>
+            ))}
           </div>
         );
 
