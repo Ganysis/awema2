@@ -10,6 +10,7 @@ export { heroSplitScreen, renderHeroSplitScreen } from './blocks/hero/split-scre
 export { heroUltraModern, renderHeroUltraModern } from './blocks/hero/hero-ultra-modern';
 export { servicesGridCards, renderServicesGridCards } from './blocks/services/grid-cards';
 export { servicesListDetailed, renderServicesListDetailed } from './blocks/services/list-detailed';
+export { servicesUltraModern, renderServicesUltraModern } from './blocks/services/services-ultra-modern';
 export { contactFormMap, renderContactFormMap } from './blocks/contact/form-map';
 export { contactUltraModern, renderContactUltraModern } from './blocks/contact/contact-ultra-modern';
 export { testimonialsCarousel, renderTestimonialsCarousel } from './blocks/testimonials/carousel';
@@ -30,6 +31,8 @@ export { faqClean, renderFaqClean } from './blocks/faq/faq-clean';
 export { faqUltraModern, renderFaqUltraModern } from './blocks/faq/faq-ultra-modern';
 export { pricingClean, renderPricingClean } from './blocks/pricing/pricing-clean';
 export { pricingTables, renderPricingTables } from './blocks/pricing/pricing-tables';
+export { pricingUltraModern, renderPricingUltraModern } from './blocks/pricing/pricing-ultra-modern';
+export { pricingUltraModernSimple, renderPricingUltraModernSimple } from './blocks/pricing/pricing-ultra-modern-simple';
 export { ctaClean, renderCtaClean } from './blocks/cta/cta-clean';
 export { ctaSection, renderCtaSection } from './blocks/cta/cta-section';
 export { ctaUltraModern, renderCtaUltraModern } from './blocks/cta/cta-ultra-modern';
@@ -38,6 +41,7 @@ export { footerPro, renderFooterPro } from './blocks/layout/footer-pro';
 export { simpleHeader, renderSimpleHeader } from './blocks/layout/header';
 export { headerPro, renderHeaderPro } from './blocks/layout/header-pro';
 export { reviewsBlock, renderReviews } from './blocks/reviews';
+export { reviewsUltraModern, renderReviewsUltraModern } from './blocks/reviews/reviews-ultra-modern';
 
 // Export utility generators
 export { ColorGenerator, type ColorScheme } from './utils/color-generator';

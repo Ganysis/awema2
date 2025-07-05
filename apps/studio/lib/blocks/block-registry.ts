@@ -9,6 +9,8 @@ import {
   renderServicesGridCards,
   servicesListDetailed,
   renderServicesListDetailed,
+  servicesUltraModern,
+  renderServicesUltraModern,
   contactFormMap,
   renderContactFormMap,
   contactUltraModern,
@@ -49,6 +51,10 @@ import {
   renderPricingClean,
   pricingTables,
   renderPricingTables,
+  pricingUltraModern,
+  renderPricingUltraModern,
+  pricingUltraModernSimple,
+  renderPricingUltraModernSimple,
   ctaClean,
   renderCtaClean,
   ctaSection,
@@ -65,6 +71,8 @@ import {
   renderHeaderPro,
   reviewsBlock,
   renderReviews,
+  reviewsUltraModern,
+  renderReviewsUltraModern,
   
   // Types
   type Block
@@ -123,6 +131,12 @@ export const blockRegistry: BlockDefinition[] = [
     category: BlockCategory.FEATURES,
     name: 'Services Detailed List',
     description: 'Display services in a detailed list format with images',
+  },
+  {
+    block: servicesUltraModern,
+    category: BlockCategory.FEATURES,
+    name: 'Services Ultra-Moderne',
+    description: 'Section services avec animations 3D, filtres dynamiques et 8 designs époustouflants',
   },
   {
     block: contactFormMap,
@@ -245,6 +259,18 @@ export const blockRegistry: BlockDefinition[] = [
     description: 'Tables de prix avec multiples styles de présentation',
   },
   {
+    block: pricingUltraModern,
+    category: BlockCategory.PRICING,
+    name: 'Pricing Ultra-Moderne',
+    description: 'Tables de prix avec animations 3D, toggle mensuel/annuel et 8 designs époustouflants',
+  },
+  {
+    block: pricingUltraModernSimple,
+    category: BlockCategory.PRICING,
+    name: 'Pricing Ultra-Moderne Simple',
+    description: 'Tables de prix avec interface simplifiée et tous les champs visibles',
+  },
+  {
     block: ctaClean,
     category: BlockCategory.CTA,
     name: 'Appel à Action',
@@ -292,6 +318,12 @@ export const blockRegistry: BlockDefinition[] = [
     name: 'Avis clients',
     description: 'Affichage des avis clients avec notation et schema.org pour SEO',
   },
+  {
+    block: reviewsUltraModern,
+    category: BlockCategory.TESTIMONIALS,
+    name: 'Reviews Ultra-Moderne',
+    description: 'Avis clients avec intégration Google, design moderne et animations avancées',
+  },
 ].filter(def => def && def.block); // Filter out any invalid entries
 
 // Helper functions
@@ -315,6 +347,7 @@ const renderFunctions: Record<string, any> = {
   'hero-ultra-modern': renderHeroUltraModern,
   'services-grid-cards': renderServicesGridCards,
   'services-list-detailed': renderServicesListDetailed,
+  'services-ultra-modern': renderServicesUltraModern,
   'contact-form-map': renderContactFormMap,
   'contact-ultra-modern': renderContactUltraModern,
   'testimonials-carousel': renderTestimonialsCarousel,
@@ -335,6 +368,8 @@ const renderFunctions: Record<string, any> = {
   'faq-ultra-modern': renderFaqUltraModern,
   'pricing-clean': renderPricingClean,
   'pricing-tables': renderPricingTables,
+  'pricing-ultra-modern': renderPricingUltraModern,
+  'pricing-ultra-modern-simple': renderPricingUltraModernSimple,
   'cta-clean': renderCtaClean,
   'cta-section': renderCtaSection,
   'cta-ultra-modern': renderCtaUltraModern,
@@ -343,6 +378,7 @@ const renderFunctions: Record<string, any> = {
   'simple-header': renderSimpleHeader,
   'header-pro': renderHeaderPro,
   'reviews': renderReviews,
+  'reviews-ultra-modern': renderReviewsUltraModern,
 };
 
 export function getBlockRenderFunction(blockId: string): ((props: any, variants?: string[]) => any) | undefined {
