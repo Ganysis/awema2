@@ -216,6 +216,7 @@ export const reviewsUltraModern: Block = {
           date: '2024-01-15',
           content: 'Service exceptionnel ! L\'équipe est très professionnelle et à l\'écoute. Le travail a été réalisé dans les temps avec une qualité irréprochable.',
           avatar: '/avatars/marie.jpg',
+          images: ['/plomberie-1.jpg', '/plomberie-2.jpg'],
           service: 'Plomberie',
           verified: true,
           helpful: 12,
@@ -228,6 +229,7 @@ export const reviewsUltraModern: Block = {
           date: '2024-01-10',
           content: 'Je recommande vivement ! Très satisfait de la prestation. Prix corrects et travail de qualité.',
           avatar: '/avatars/jean.jpg',
+          images: ['/electricite-1.jpg'],
           service: 'Électricité',
           verified: true,
           helpful: 8,
@@ -240,6 +242,7 @@ export const reviewsUltraModern: Block = {
           date: '2024-01-05',
           content: 'Bon travail dans l\'ensemble. Équipe sympathique et professionnelle. Je referai appel à leurs services.',
           avatar: '/avatars/sophie.jpg',
+          images: [],
           service: 'Chauffage',
           verified: true,
           helpful: 5,
@@ -319,6 +322,21 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
       font-size: clamp(2rem, 4vw, 3.5rem);
       font-weight: 800;
       margin-bottom: 1rem;
+      color: #1a1a1a;
+    }
+    
+    .variant-glassmorphism .reviews-title,
+    .variant-gradient-wave .reviews-title,
+    .variant-neon-glow .reviews-title,
+    .variant-particles .reviews-title,
+    .variant-3d-perspective .reviews-title {
+      color: white;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .variant-minimal-luxe .reviews-title,
+    .variant-split-screen .reviews-title,
+    .variant-floating-cards .reviews-title {
       background: linear-gradient(135deg, var(--color-primary, #3b82f6) 0%, var(--color-secondary, #8b5cf6) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -560,6 +578,29 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
       opacity: 0.9;
     }
     
+    .review-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    
+    .review-image {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .review-image:hover {
+      transform: scale(1.05);
+      border-color: var(--color-primary, #3b82f6);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
     .review-footer {
       display: flex;
       align-items: center;
@@ -698,6 +739,32 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
     /* Variant Styles */
     .variant-glassmorphism {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+    }
+    
+    .variant-glassmorphism::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    
+    .variant-glassmorphism .review-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    
+    .variant-glassmorphism .review-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
     }
     
     .variant-gradient-wave {
@@ -803,6 +870,57 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
       transform: translateZ(50px) rotateY(5deg);
     }
     
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+      backdrop-filter: blur(10px);
+    }
+    
+    .lightbox.active {
+      display: flex;
+    }
+    
+    .lightbox-image {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      border-radius: 1rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+      font-size: 1.5rem;
+    }
+    
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+    
     /* Google Badge */
     .google-badge {
       display: inline-flex;
@@ -899,6 +1017,14 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
         </div>
         
         <p class="review-content">${review.content}</p>
+        
+        ${review.images && review.images.length > 0 ? `
+          <div class="review-images">
+            ${review.images.map((img: string, index: number) => `
+              <img src="${img}" alt="${review.author} - Photo ${index + 1}" class="review-image" onclick="openLightbox('${img}')" />
+            `).join('')}
+          </div>
+        ` : ''}
         
         <div class="review-footer">
           <div class="review-service">
@@ -999,10 +1125,38 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
           </div>
         ` : ''}
       </div>
+      
+      <!-- Lightbox -->
+      <div class="lightbox" id="reviews-lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img class="lightbox-image" id="lightbox-image" src="" alt="" />
+      </div>
     </section>
   `;
 
   const js = `
+    // Lightbox functions
+    function openLightbox(imageSrc) {
+      const lightbox = document.getElementById('reviews-lightbox');
+      const lightboxImage = document.getElementById('lightbox-image');
+      lightboxImage.src = imageSrc;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeLightbox() {
+      const lightbox = document.getElementById('reviews-lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    // Close lightbox on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+    
     // Reviews filters
     const filterButtons = document.querySelectorAll('.filter-button');
     const reviewsGrid = document.getElementById('reviews-grid');
@@ -1052,14 +1206,70 @@ export function renderReviewsUltraModern(props: Record<string, any>, _variants: 
       
       // Rendu des nouvelles reviews
       setTimeout(() => {
-        reviewsGrid.innerHTML = reviews.map(review => {
+        // Utilisation de la fonction renderReviewCard définie plus haut
+        const renderReviewCardInline = (review) => {
           const initials = review.author.split(' ').map(n => n[0]).join('').toUpperCase();
+          const renderStarsInline = (rating) => {
+            return Array.from({ length: 5 }, (_, i) => {
+              const filled = i < Math.floor(rating);
+              return \`<svg class="review-star \${filled ? '' : 'empty'}" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>\`;
+            }).join('');
+          };
+          
           return \`
             <article class="review-card">
-              <!-- Contenu de la review -->
+              <div class="review-header">
+                \${review.avatar ? \`
+                  <img src="\${review.avatar}" alt="\${review.author}" class="review-avatar" />
+                \` : \`
+                  <div class="review-avatar placeholder">\${initials}</div>
+                \`}
+                <div class="review-info">
+                  <h4 class="review-author">\${review.author}</h4>
+                  <div class="review-meta">
+                    <div class="review-rating">
+                      \${renderStarsInline(review.rating)}
+                    </div>
+                    <time class="review-date">\${new Date(review.date).toLocaleDateString('fr-FR')}</time>
+                    \${review.verified ? '<span class="verified-badge">✓ Vérifié</span>' : ''}
+                  </div>
+                </div>
+              </div>
+              
+              <p class="review-content">\${review.content}</p>
+              
+              \${review.images && review.images.length > 0 ? \`
+                <div class="review-images">
+                  \${review.images.map((img, index) => \`
+                    <img src="\${img}" alt="\${review.author} - Photo \${index + 1}" class="review-image" onclick="openLightbox('\${img}')" />
+                  \`).join('')}
+                </div>
+              \` : ''}
+              
+              <div class="review-footer">
+                <div class="review-service">
+                  <span>\${review.service || 'Service général'}</span>
+                </div>
+                <div class="review-actions">
+                  \${review.helpful ? \`
+                    <span class="review-helpful">
+                      👍 \${review.helpful} utile\${review.helpful > 1 ? 's' : ''}
+                    </span>
+                  \` : ''}
+                  \${review.source ? \`
+                    <span class="review-source">
+                      \${review.source === 'google' ? '🔷 Google' : '🌐 Site'}
+                    </span>
+                  \` : ''}
+                </div>
+              </div>
             </article>
           \`;
-        }).join('');
+        };
+        
+        reviewsGrid.innerHTML = reviews.map(renderReviewCardInline).join('');
         
         // Animation d'entrée
         const newCards = reviewsGrid.querySelectorAll('.review-card');
