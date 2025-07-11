@@ -312,7 +312,7 @@ export function EditorWithSEO({ projectId, template, theme = 'premium' }: Editor
 
   return (
     <div className="h-screen flex flex-col bg-gray-50">
-      <Toolbar onPreview={() => setShowPreview(true)} />
+      <Toolbar onPreview={() => setShowPreview(true)} projectId={projectId} />
       
       {/* Tab Navigation */}
       <div className="bg-white border-b">

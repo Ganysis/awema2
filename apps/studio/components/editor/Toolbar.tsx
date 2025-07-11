@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useEditorStore } from '@/lib/store/editor-store';
 import { ExportModalWithSEO } from './ExportModalWithSEO';
-import { NetlifyDeployModal } from './NetlifyDeployModal';
+import { NetlifyDeployModalWithCMS } from './NetlifyDeployModalWithCMS';
 import { VersionHistoryModal } from './VersionHistoryModal';
 import { LegalMentionsModal } from './LegalMentionsModal';
 import { RandomSiteGenerator } from '@/lib/services/random-site-generator';
@@ -282,7 +282,7 @@ export function Toolbar({ onPreview, saveStatus, projectId }: ToolbarProps) {
     )}
     
     {showDeployModal && projectId && (
-      <NetlifyDeployModal 
+      <NetlifyDeployModalWithCMS 
         onClose={() => setShowDeployModal(false)} 
         projectId={projectId} 
       />

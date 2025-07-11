@@ -1,4 +1,4 @@
-import { NetlifyAPI } from 'netlify';
+import { NetlifyAPI } from '@netlify/api';
 import { StaticExportService } from './static-export-simplified';
 import { DNSConfigService } from './dns-config.service';
 import type { Page, EditorBlock } from '@/lib/store/editor-store';
@@ -8,6 +8,13 @@ export interface DeployOptions {
   siteName: string;
   customDomain?: string;
   netlifyToken: string;
+  includeCms?: boolean;
+  cmsLevel?: 'none' | 'basic' | 'full';
+  cmsAdminEmail?: string;
+  cmsPassword?: string;
+  cmsPlan?: 'starter' | 'pro' | 'premium';
+  supabaseUrl?: string;
+  supabaseAnonKey?: string;
 }
 
 export interface DeployProgress {
@@ -65,7 +72,13 @@ export class NetlifyDeployService {
         generateServiceWorker: true,
         includeSourceMap: false,
         useCompression: true,
-        includeCms: false,
+        includeCms: options.includeCms ?? true,
+        cmsLevel: options.cmsLevel || 'basic',
+        cmsPassword: options.cmsPassword || 'admin123',
+        cmsAdminEmail: options.cmsAdminEmail,
+        cmsPlan: options.cmsPlan || 'starter',
+        supabaseUrl: options.supabaseUrl,
+        supabaseAnonKey: options.supabaseAnonKey,
       };
 
       const exportData = await StaticExportService.exportSite(
@@ -146,14 +159,69 @@ export class NetlifyDeployService {
         progress: 70
       });
 
-      const deploy = await this.netlifyClient.createSiteDeploy({
-        siteId: site.id!,
-        body: {
-          files,
-          draft: false,
-          branch: 'main'
+      // Debug: vérifier la taille des fichiers
+      const totalSize = Object.values(files).reduce((acc, content) => acc + content.length, 0);
+      console.log(`[Netlify Deploy] Nombre de fichiers: ${Object.keys(files).length}`);
+      console.log(`[Netlify Deploy] Taille totale: ${(totalSize / 1024 / 1024).toFixed(2)} MB`);
+      
+      // Debug: afficher les premiers fichiers
+      const fileList = Object.keys(files).slice(0, 10);
+      console.log('[Netlify Deploy] Fichiers à déployer:', fileList);
+      
+      // Vérifier que nous avons bien des fichiers
+      if (Object.keys(files).length === 0) {
+        throw new Error('Aucun fichier à déployer!');
+      }
+
+      // Créer le déploiement avec les fichiers
+      console.log('[Netlify Deploy] Création du déploiement pour le site:', site.id);
+      
+      let deploy;
+      try {
+        deploy = await this.netlifyClient.createSiteDeploy({
+          siteId: site.id!,
+          body: {
+            files,
+            draft: false,
+            branch: 'main'
+          }
+        });
+        
+        console.log('[Netlify Deploy] Déploiement créé:', deploy.id);
+      } catch (deployError: any) {
+        console.error('[Netlify Deploy] Erreur lors de la création du déploiement:', deployError);
+        
+        // Si l'erreur est liée à la taille, essayer avec moins de fichiers
+        if (deployError.message?.includes('too large') || deployError.message?.includes('413')) {
+          console.log('[Netlify Deploy] Tentative avec méthode alternative...');
+          
+          // Essayer de déployer uniquement les fichiers essentiels
+          const essentialFiles: Record<string, string> = {
+            'index.html': files['index.html'],
+            '_redirects': '/* /index.html 200'
+          };
+          
+          if (files['assets/css/styles.css']) {
+            essentialFiles['assets/css/styles.css'] = files['assets/css/styles.css'];
+          }
+          if (files['assets/js/main.js']) {
+            essentialFiles['assets/js/main.js'] = files['assets/js/main.js'];
+          }
+          
+          deploy = await this.netlifyClient.createSiteDeploy({
+            siteId: site.id!,
+            body: {
+              files: essentialFiles,
+              draft: false,
+              branch: 'main'
+            }
+          });
+          
+          console.log('[Netlify Deploy] Déploiement alternatif créé:', deploy.id);
         }
-      });
+        
+        throw deployError;
+      }
 
       // Étape 7: Attendre que le déploiement soit terminé
       onProgress?.({

@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-07-10T20:30:58.056Z",
+  "siteId": "9458906f-ab9c-49c2-861d-cc7f2b2a265f",
+  "siteName": "test-security-1752179445661",
+  "siteUrl": "https://test-security-1752179445661.netlify.app",
+  "adminUrl": "https://test-security-1752179445661.netlify.app/admin",
+  "credentials": {
+    "email": "admin@test-security-1752179445661.fr",
+    "password": "A>an>D{k1*m_!j(R"
+  }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test AWEMA Deploy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .success {
+            color: #4CAF50;
+            font-size: 48px;
+            margin: 20px 0;
+        }
+        .info {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success">✅</div>
+        <h1>Test de Déploiement AWEMA Réussi!</h1>
+        <p>Ce site a été déployé avec succès sur Netlify.</p>
+        <div class="info">
+            <p><strong>Timestamp:</strong> <span id="timestamp"></span></p>
+            <p><strong>Date:</strong> <span id="date"></span></p>
+            <p><strong>Version:</strong> 1.0.0</p>
+        </div>
+        <p>Si vous voyez cette page, le déploiement fonctionne correctement! 🎉</p>
+    </div>
+    <script>
+        document.getElementById('timestamp').textContent = Date.now();
+        document.getElementById('date').textContent = new Date().toLocaleString('fr-FR');
+    </script>
+</body>
+</html>

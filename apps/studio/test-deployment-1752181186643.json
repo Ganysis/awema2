@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-07-10T20:59:58.322Z",
+  "siteId": "f33a0519-b3bd-48de-a71b-29823944da8c",
+  "siteName": "test-security-1752181186643",
+  "siteUrl": "https://test-security-1752181186643.netlify.app",
+  "adminUrl": "https://test-security-1752181186643.netlify.app/admin",
+  "credentials": {
+    "email": "admin@admin.fr",
+    "password": "admin"
+  }
+}

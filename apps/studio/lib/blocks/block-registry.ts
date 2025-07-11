@@ -342,6 +342,7 @@ export function getAllCategories(): BlockCategory[] {
 
 // Map of block IDs to their render functions
 const renderFunctions: Record<string, any> = {
+  'hero': renderHeroCentered, // Default hero mapping
   'hero-centered': renderHeroCentered,
   'hero-split-screen': renderHeroSplitScreen,
   'hero-ultra-modern': renderHeroUltraModern,
@@ -354,6 +355,7 @@ const renderFunctions: Record<string, any> = {
   'text-image-clean': renderTextImageClean,
   'text-image-flexible': renderTextImageBlock,
   'content-ultra-modern': renderContentUltraModern,
+  'features': renderFeaturesClean, // Default features mapping
   'features-clean': renderFeaturesClean,
   'features-multi-style': renderFeaturesMultiStyle,
   'features-icon-grid': renderFeaturesIconGrid,

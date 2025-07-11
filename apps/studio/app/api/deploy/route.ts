@@ -1,124 +1,107 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ProjectService } from '@/lib/db/services';
-import { NetlifyDeployService } from '@/lib/services/netlify-deploy.service';
-import { DNSConfigService } from '@/lib/services/dns-config.service';
+import { autoDeployService } from '@/lib/services/auto-deploy.service';
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { 
-      projectId, 
-      netlifyToken, 
-      siteName, 
-      customDomain 
-    } = body;
-
-    // Validation des paramètres
-    if (!projectId || !netlifyToken || !siteName) {
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: 'Paramètres manquants: projectId, netlifyToken et siteName sont requis' 
-        },
-        { status: 400 }
-      );
-    }
-
-    // Récupérer le projet
-    const project = await ProjectService.findById(projectId);
+    console.log('[API Deploy] Réception d\'une demande de déploiement');
     
-    if (!project) {
+    // Vérifier que le service est configuré
+    if (!autoDeployService) {
+      console.error('[API Deploy] Service non configuré!');
       return NextResponse.json(
-        { success: false, error: 'Projet non trouvé' },
-        { status: 404 }
+        { error: 'Service de déploiement non configuré. Vérifiez les variables d\'environnement NETLIFY_AUTH_TOKEN et NEXT_PUBLIC_SUPABASE_URL' },
+        { status: 503 }
       );
     }
 
-    // Récupérer les données du projet
-    let projectData;
-    if (project.data) {
-      projectData = typeof project.data === 'string' ? JSON.parse(project.data) : project.data;
-    } else {
+    // Récupérer les données de la requête
+    const body = await request.json();
+    const { siteId, siteName, projectData, plan, customDomain, adminEmail } = body;
+
+    // Valider les données requises
+    if (!siteId || !siteName || !projectData || !plan) {
       return NextResponse.json(
-        { success: false, error: 'Aucune donnée trouvée pour ce projet' },
+        { error: 'Données manquantes: siteId, siteName, projectData et plan sont requis' },
         { status: 400 }
       );
     }
 
-    // Créer le service Netlify
-    const netlifyService = new NetlifyDeployService(netlifyToken);
-
-    // Effectuer le déploiement
-    const result = await netlifyService.deployProject(
-      projectData,
-      {
-        projectId,
-        siteName,
-        customDomain,
-        netlifyToken
-      }
-    );
-
-    // Générer la configuration DNS si un domaine personnalisé est défini
-    let dnsConfig = null;
-    if (customDomain) {
-      dnsConfig = DNSConfigService.generateDNSConfiguration(customDomain, siteName);
+    // Valider le plan
+    if (!['starter', 'pro', 'premium'].includes(plan)) {
+      return NextResponse.json(
+        { error: 'Plan invalide. Utilisez: starter, pro ou premium' },
+        { status: 400 }
+      );
     }
 
-    return NextResponse.json({
-      success: true,
-      siteUrl: result.siteUrl,
-      deployId: result.deployId,
-      dnsConfig
+    // Log des données reçues
+    console.log('[API Deploy] Données reçues:', {
+      siteId,
+      siteName,
+      plan,
+      customDomain,
+      adminEmail,
+      hasProjectData: !!projectData,
+      projectDataKeys: projectData ? Object.keys(projectData) : []
+    });
+    
+    // Lancer le déploiement
+    const result = await autoDeployService.deployOneClick({
+      siteId,
+      siteName,
+      projectData,
+      plan,
+      customDomain,
+      adminEmail
     });
 
+    // Retourner le résultat
+    if (result.success) {
+      return NextResponse.json(result, { status: 200 });
+    } else {
+      return NextResponse.json(
+        { error: result.error || 'Erreur lors du déploiement' },
+        { status: 500 }
+      );
+    }
+
   } catch (error: any) {
-    console.error('Erreur de déploiement:', error);
+    console.error('[API Deploy] Erreur complète:', error);
+    console.error('[API Deploy] Stack trace:', error.stack);
     return NextResponse.json(
-      { 
-        success: false, 
-        error: error.message || 'Le déploiement a échoué' 
-      },
+      { error: error.message || 'Erreur serveur lors du déploiement' },
       { status: 500 }
     );
   }
 }
 
-// Endpoint pour obtenir le statut d'un déploiement
+// Route pour vérifier le statut d'un déploiement
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const deployId = searchParams.get('deployId');
-    const siteId = searchParams.get('siteId');
-    const netlifyToken = searchParams.get('token');
 
-    if (!deployId || !siteId || !netlifyToken) {
+    if (!deployId) {
       return NextResponse.json(
-        { 
-          success: false, 
-          error: 'Paramètres manquants: deployId, siteId et token sont requis' 
-        },
+        { error: 'deployId requis' },
         { status: 400 }
       );
     }
 
-    const netlifyService = new NetlifyDeployService(netlifyToken);
-    
-    // Pour l'instant, on retourne juste un statut de succès
-    // Dans une version plus complète, on pourrait vérifier le statut réel du déploiement
-    return NextResponse.json({
-      success: true,
-      status: 'ready',
-      message: 'Déploiement terminé'
-    });
+    if (!autoDeployService) {
+      return NextResponse.json(
+        { error: 'Service de déploiement non configuré' },
+        { status: 503 }
+      );
+    }
 
-  } catch (error: any) {
-    console.error('Erreur lors de la vérification du statut:', error);
+    const status = await autoDeployService.checkDeploymentStatus(deployId);
+    return NextResponse.json(status, { status: 200 });
+
+  } catch (error) {
+    console.error('Erreur API statut:', error);
     return NextResponse.json(
-      { 
-        success: false, 
-        error: error.message || 'Impossible de vérifier le statut' 
-      },
+      { error: 'Erreur lors de la vérification du statut' },
       { status: 500 }
     );
   }

@@ -10,6 +10,7 @@ import { SEOMonitoringService } from './seo-monitoring.service';
 import { SEOContentGeneratorService } from './seo-content-generator.service';
 import { ImageOptimizationAdvancedService } from './image-optimization-advanced.service';
 import { generateCMSSEOModule } from './cms-seo-module';
+import { CMSExportIntegration } from './cms-export-integration';
 
 export interface SimplifiedExportOptions {
   minifyHtml?: boolean;
@@ -22,6 +23,14 @@ export interface SimplifiedExportOptions {
   useCompression?: boolean;
   includeCms?: boolean;
   cmsPassword?: string; // Password for CMS access
+  cmsLevel?: 'none' | 'basic' | 'full';
+  cmsAdminEmail?: string;
+  cmsPlan?: 'starter' | 'pro' | 'premium';
+  supabaseUrl?: string;
+  supabaseAnonKey?: string;
+  cmsSiteId?: string;
+  cmsSiteName?: string;
+  cmsSubdomain?: string;
   // SEO Options
   enableAdvancedSEO?: boolean;
   generateSEOContent?: boolean;
@@ -94,6 +103,65 @@ export class StaticExportService {
       }
     }
 
+    // Intégrer le CMS si demandé
+    let cmsConfig: any = null;
+    if (options.includeCms && options.cmsLevel !== 'none') {
+      console.log('[Export] CMS demandé:', { 
+        includeCms: options.includeCms, 
+        cmsLevel: options.cmsLevel,
+        hasSupabaseUrl: !!options.supabaseUrl,
+        hasSupabaseKey: !!options.supabaseAnonKey
+      });
+      
+      try {
+        const cmsIntegration = new CMSExportIntegration({
+          supabaseUrl: options.supabaseUrl,
+          supabaseAnonKey: options.supabaseAnonKey
+        });
+
+        // Utiliser la config existante si fournie, sinon créer une nouvelle
+        if (options.cmsSiteId && options.cmsAdminEmail && options.cmsPassword) {
+          // Utiliser la configuration existante (site déjà créé dans Supabase)
+          cmsConfig = {
+            siteId: options.cmsSiteId,
+            siteName: options.cmsSiteName || projectName,
+            subdomain: options.cmsSubdomain || options.cmsSiteName || 'site',
+            plan: options.cmsPlan || 'starter',
+            adminEmail: options.cmsAdminEmail,
+            adminPassword: options.cmsPassword,
+            domain: undefined
+          };
+          console.log('[Export] Utilisation de la config CMS existante:', cmsConfig.siteId);
+        } else if (options.supabaseUrl && options.supabaseAnonKey) {
+          // Créer un nouveau site dans Supabase
+          cmsConfig = await cmsIntegration.createSite(projectData, {
+            plan: options.cmsPlan || 'starter',
+            adminEmail: options.cmsAdminEmail,
+            adminPassword: options.cmsPassword
+          });
+          console.log('[Export] Nouvelle config CMS créée:', !!cmsConfig);
+        } else {
+          console.log('[Export] Pas de config Supabase, CMS en mode standalone');
+        }
+
+        // Générer les fichiers CMS
+        const cmsFiles = cmsIntegration.generateCMSFiles(cmsConfig, {
+          includeCms: true,
+          cmsLevel: options.cmsLevel || 'basic',
+          supabaseUrl: options.supabaseUrl,
+          supabaseAnonKey: options.supabaseAnonKey
+        });
+
+        console.log('[Export] Fichiers CMS générés:', cmsFiles.length);
+        cmsFiles.forEach(f => console.log(`   - ${f.path}`));
+
+        // Ajouter les fichiers CMS aux fichiers additionnels
+        exportData.additionalFiles.push(...cmsFiles);
+      } catch (error) {
+        console.error('Error integrating CMS:', error);
+      }
+    }
+
     // Collecter le CSS et JS de tous les blocs
     const collectedCSS: string[] = [];
     const collectedJS: string[] = [];
@@ -132,7 +200,7 @@ export class StaticExportService {
       throw new Error('No pages found in project');
     }
 
-    const html = generateHTML({
+    let html = generateHTML({
       page: homePage,
       theme,
       businessInfo,
@@ -145,12 +213,18 @@ export class StaticExportService {
       blocks: [...(globalHeader ? [globalHeader] : []), ...(globalFooter ? [globalFooter] : [])]
     });
 
+    // Injecter les attributs CMS si configuré
+    if (cmsConfig && options.includeCms) {
+      const cmsIntegration = new CMSExportIntegration();
+      html = cmsIntegration.injectCMSAttributes(html, homePage.id || 'home', cmsConfig);
+    }
+
     exportData.html = options.minifyHtml ? minifyHTML(html) : html;
 
     // Générer les autres pages
     pages.forEach((page: Page) => {
       if (page.slug !== '/') {
-        const pageHtml = generateHTML({
+        let pageHtml = generateHTML({
           page,
           theme,
           businessInfo,
@@ -162,6 +236,12 @@ export class StaticExportService {
           siteData: projectData,
           blocks: [...(globalHeader ? [globalHeader] : []), ...(globalFooter ? [globalFooter] : [])]
         });
+        
+        // Injecter les attributs CMS si configuré
+        if (cmsConfig && options.includeCms) {
+          const cmsIntegration = new CMSExportIntegration();
+          pageHtml = cmsIntegration.injectCMSAttributes(pageHtml, page.id || page.slug || 'page', cmsConfig);
+        }
         
         const fileName = page.slug === '/' ? 'index.html' : `${page.slug.substring(1)}.html`;
         exportData.additionalFiles.push({
@@ -213,78 +293,16 @@ export class StaticExportService {
       content: sitemap
     });
 
-    // Include CMS if requested
-    if (options.includeCms) {
-      // Add CMS files
-      exportData.additionalFiles.push({
-        path: 'admin/index.html',
-        content: generateCMSAdmin(projectData, options.cmsPassword)
-      });
-
-      // Add CMS core JavaScript
-      exportData.additionalFiles.push({
-        path: 'admin/cms-core.js',
-        content: getCMSCoreJS()
-      });
-
-      // Add CMS enhanced JavaScript
-      exportData.additionalFiles.push({
-        path: 'admin/cms-enhanced.js',
-        content: getCMSEnhancedJS()
-      });
-
-      // Add CMS admin JavaScript
-      exportData.additionalFiles.push({
-        path: 'admin/cms-admin.js',
-        content: getCMSAdminJS()
-      });
-      
-      // Add Version History JavaScript
-      exportData.additionalFiles.push({
-        path: 'admin/version-history.js',
-        content: getVersionHistoryJS()
-      });
-
-      // Add SEO Module JavaScript
-      exportData.additionalFiles.push({
-        path: 'admin/cms-seo-module.js',
-        content: getCMSSEOModuleJS()
-      });
-
-      // Add preview page
-      exportData.additionalFiles.push({
-        path: 'admin/preview.html',
-        content: generateCMSPreview()
-      });
-
-      // Add Netlify Functions for CMS
-      exportData.additionalFiles.push({
-        path: 'netlify/functions/cms-auth.js',
-        content: getCMSAuthFunction()
-      });
-
-      exportData.additionalFiles.push({
-        path: 'netlify/functions/cms-save.js',
-        content: getCMSSaveFunction()
-      });
-
-      exportData.additionalFiles.push({
-        path: 'netlify/functions/cms-upload.js',
-        content: getCMSUploadFunction()
-      });
-
-      // Add netlify.toml for functions
+    // Ajouter la configuration Netlify si CMS activé
+    if (options.includeCms && cmsConfig) {
       exportData.additionalFiles.push({
         path: 'netlify.toml',
-        content: generateNetlifyConfig()
-      });
-
-      // Add CMS README
-      exportData.additionalFiles.push({
-        path: 'admin/README.md',
-        content: generateCMSReadme(options.cmsPassword)
+        content: generateNetlifyConfigWithCMS(options.supabaseUrl)
       });
     }
+
+    // L'ancien CMS est remplacé par le nouveau CMS Supabase intégré plus haut
+
 
     // Générer le contenu SEO si demandé
     if (options.generateSEOContent && projectData.services) {
@@ -3147,5 +3165,93 @@ Toutes les images sont automatiquement optimisées avec :
 
 function getCMSSEOModuleJS(): string {
   return generateCMSSEOModule();
+}
+
+/**
+ * Génère la configuration Netlify avec support CMS
+ */
+function generateNetlifyConfigWithCMS(supabaseUrl?: string): string {
+  const supabaseDomain = supabaseUrl ? new URL(supabaseUrl).hostname : 'YOUR_PROJECT.supabase.co';
+  
+  return `[build]
+  publish = "."
+
+# Forcer HTTPS sur tout le site
+[[redirects]]
+  from = "http://:domain/*"
+  to = "https://:domain/:splat"
+  status = 301
+  force = true
+
+# Forcer HTTPS pour les sous-domaines Netlify
+[[redirects]]
+  from = "http://:project.netlify.app/*"
+  to = "https://:project.netlify.app/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+    # HSTS - Force HTTPS pendant 1 an
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    # Headers pour permettre le CMS
+    Content-Security-Policy = "default-src 'self' https://${supabaseDomain} https://cdn.jsdelivr.net; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://${supabaseDomain} wss://${supabaseDomain}; font-src 'self' https://cdnjs.cloudflare.com;"
+    # CORS pour Supabase
+    Access-Control-Allow-Origin = "https://${supabaseDomain}"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "authorization, x-client-info, apikey, content-type"
+    # Force HTTPS pour le CMS
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # Sécurité additionnelle pour le CMS
+    X-Frame-Options = "SAMEORIGIN"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/"
+  status = 301
+
+[[redirects]]
+  from = "/cms"
+  to = "/admin/"
+  status = 301
+
+# Compression
+[[plugins]]
+  package = "@netlify/plugin-compress"
+
+# Optimisation des images
+[[plugins]]
+  package = "netlify-plugin-image-optim"
+`;
 }
 
