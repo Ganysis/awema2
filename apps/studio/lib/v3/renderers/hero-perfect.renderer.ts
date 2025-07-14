@@ -8,6 +8,25 @@ import { heroDataSchema, heroDefaults, type HeroData } from '../schemas/blocks/h
 import { logger } from '../core/logger';
 import { BaseRendererV3 } from './base.renderer';
 import { BlockProp, PropType, EditorControl } from '@awema/shared';
+import { 
+  designTokens, 
+  baseStyles, 
+  microInteractions,
+  generateCSS as generateDesignSystemCSS 
+} from '../design-system';
+import { 
+  animations, 
+  generateAnimationCSS,
+  blockAnimations 
+} from '../design-system/animations';
+import { 
+  ariaAttributes,
+  generateAccessibilityCSS 
+} from '../design-system/accessibility';
+import { 
+  performanceConfig,
+  generatePerformanceCSS 
+} from '../design-system/performance';
 
 export class HeroRendererV3Perfect extends BaseRendererV3<HeroData> {
   type = 'hero-ultra-modern';
@@ -41,14 +60,10 @@ export class HeroRendererV3Perfect extends BaseRendererV3<HeroData> {
         defaultValue: 'gradient-wave',
         description: 'Choisissez le style visuel du hero',
         options: [
-          'gradient-wave',
-          'glassmorphism', 
-          'parallax-particles',
-          'video-background',
-          'split-screen-modern',
-          'floating-elements',
-          'neon-glow',
-          '3d-perspective'
+          { value: 'modern', label: '🎨 Moderne - Gradient dynamique' },
+          { value: 'minimal', label: '⚡ Minimaliste - Épuré et rapide' },
+          { value: 'bold', label: '🔥 Audacieux - Impact visuel fort' },
+          { value: 'elegant', label: '✨ Élégant - Glassmorphism subtil' }
         ],
         editorConfig: {
           control: EditorControl.RADIO,
@@ -323,8 +338,14 @@ export class HeroRendererV3Perfect extends BaseRendererV3<HeroData> {
   getDefaultCSS(): string {
     return `
 /* ========================================
-   HERO V3 PERFECT - Styles magnifiques
+   HERO V3 PERFECT - Design System Unifié
    ======================================== */
+
+/* Import du design system */
+${generateDesignSystemCSS()}
+${generateAnimationCSS()}
+${generateAccessibilityCSS()}
+${generatePerformanceCSS()}
 
 .hero {
   position: relative;
@@ -335,18 +356,15 @@ export class HeroRendererV3Perfect extends BaseRendererV3<HeroData> {
   isolation: isolate;
 }
 
-/* Container responsive parfait */
+/* Container avec tokens du design system */
 .hero__container {
+  ${baseStyles.container}
   position: relative;
-  z-index: 10;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  z-index: ${designTokens.zIndex.above};
 }
 
 /* ========================================
-   VARIANTES MAGNIFIQUES
+   VARIANTES VISUELLES UNIFIÉES
    ======================================== */
 
 /* 1. Gradient Animé Luxe */

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Local V3 Perfect - Démo complète</title>
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1f2937;
+    }
+    
+    /* Header de test */
+    .test-header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    
+    .test-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .test-header p {
+      font-size: 1.125rem;
+      opacity: 0.9;
+    }
+    
+    /* Sections */
+    .test-section {
+      padding: 4rem 2rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .test-section:nth-child(even) {
+      background: #f9fafb;
+    }
+    
+    .test-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: #1f2937;
+    }
+    
+    .test-section p {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 2rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Blocs de démonstration */
+    .demo-block {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .demo-block h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #1f2937;
+    }
+    
+    .demo-block ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    
+    .demo-block li {
+      padding: 1rem;
+      background: #f3f4f6;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .demo-block .icon {
+      font-size: 1.5rem;
+    }
+    
+    /* Preview images */
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .preview-card {
+      background: white;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+    
+    .preview-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .preview-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+    
+    .preview-card-content {
+      padding: 1.5rem;
+    }
+    
+    .preview-card h4 {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      color: #1f2937;
+    }
+    
+    .preview-card p {
+      font-size: 0.875rem;
+      color: #6b7280;
+      text-align: left;
+    }
+    
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .cta-section p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: white;
+      color: #6366f1;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <header class="test-header">
+    <h1>🚀 AWEMA Studio V3 Perfect</h1>
+    <p>Tous les blocs sont prêts ! Design magnifique et ergonomie parfaite.</p>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="test-section">
+    <h2>🎯 Hero V3 Perfect</h2>
+    <p>8 variantes spectaculaires pour des pages d'accueil qui captivent</p>
+    
+    <div class="demo-block">
+      <h3>Variantes disponibles</h3>
+      <ul>
+        <li><span class="icon">📱</span> Split Modern - Écran divisé responsive</li>
+        <li><span class="icon">🎬</span> Fullscreen Video - Vidéo immersive</li>
+        <li><span class="icon">✨</span> Particles Interactive - Particules animées</li>
+        <li><span class="icon">🌈</span> Gradient Animated - Dégradés vivants</li>
+        <li><span class="icon">🎮</span> 3D Perspective - Effets de profondeur</li>
+        <li><span class="icon">🪟</span> Glassmorphism - Effet verre dépoli</li>
+        <li><span class="icon">🏔️</span> Parallax Layers - Couches parallaxe</li>
+        <li><span class="icon">🔷</span> Geometric Shapes - Formes géométriques</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="test-section">
+    <h2>✨ Features V3 Perfect</h2>
+    <p>6 mises en page innovantes pour présenter vos atouts</p>
+    
+    <div class="demo-block">
+      <h3>Variantes disponibles</h3>
+      <ul>
+        <li><span class="icon">🏢</span> Grid Modern - Grille moderne</li>
+        <li><span class="icon">🍱</span> Bento Box - Style Bento</li>
+        <li><span class="icon">🎠</span> Carousel 3D - Carrousel 3D</li>
+        <li><span class="icon">📅</span> Timeline Vertical - Chronologie</li>
+        <li><span class="icon">🃏</span> Cards Hover - Cartes interactives</li>
+        <li><span class="icon">📋</span> List Detailed - Liste détaillée</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="test-section">
+    <h2>🛠️ Services V3 Perfect</h2>
+    <p>8 designs pour mettre en valeur vos services</p>
+    
+    <div class="preview-grid">
+      <div class="preview-card">
+        <div class="preview-card-content">
+          <h4>Cards Hover 3D</h4>
+          <p>Cartes avec effet 3D au survol, parfait pour des services premium</p>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-card-content">
+          <h4>Hexagon Grid</h4>
+          <p>Grille hexagonale moderne, idéale pour secteur tech</p>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-card-content">
+          <h4>Interactive Map</h4>
+          <p>Carte interactive pour services géolocalisés</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="test-section">
+    <h2>🖼️ Gallery V3 Perfect</h2>
+    <p>8 layouts créatifs avec lightbox et filtres</p>
+    
+    <div class="demo-block">
+      <h3>Fonctionnalités incluses</h3>
+      <ul>
+        <li><span class="icon">🔍</span> Lightbox professionnel 5 styles</li>
+        <li><span class="icon">🏷️</span> Filtres par catégorie animés</li>
+        <li><span class="icon">⚡</span> Lazy loading optimisé</li>
+        <li><span class="icon">🎥</span> Support vidéo et 360°</li>
+        <li><span class="icon">🔎</span> Zoom haute résolution</li>
+        <li><span class="icon">📱</span> Responsive adaptatif</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="test-section">
+    <h2>📝 Content V3 Perfect</h2>
+    <p>8 formats pour un contenu riche et engageant</p>
+    
+    <div class="demo-block">
+      <h3>Types de contenu</h3>
+      <ul>
+        <li><span class="icon">📰</span> Magazine Layout - Style éditorial</li>
+        <li><span class="icon">📖</span> Blog Modern - Avec sidebar</li>
+        <li><span class="icon">📚</span> Timeline Story - Histoire chronologique</li>
+        <li><span class="icon">🗂️</span> Cards Grid - Grille de cartes</li>
+        <li><span class="icon">🔀</span> Split Content - Contenu alterné</li>
+        <li><span class="icon">📑</span> Accordion Tabs - Onglets accordéon</li>
+        <li><span class="icon">📊</span> Comparison Table - Tableau comparatif</li>
+        <li><span class="icon">🎮</span> Interactive Story - Histoire interactive</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="test-section">
+    <h2>💬 Testimonials V3 Perfect</h2>
+    <p>8 façons de présenter les avis clients</p>
+    
+    <div class="demo-block">
+      <h3>Intégrations disponibles</h3>
+      <ul>
+        <li><span class="icon">🌟</span> Google Reviews - Import automatique</li>
+        <li><span class="icon">✅</span> Trustpilot - Synchronisation</li>
+        <li><span class="icon">👍</span> Facebook - Avis certifiés</li>
+        <li><span class="icon">📹</span> Vidéo testimonials - YouTube/Vimeo</li>
+        <li><span class="icon">📊</span> Statistiques - Notes moyennes</li>
+        <li><span class="icon">🗺️</span> Map interactive - Témoignages géolocalisés</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="test-section">
+    <h2>💰 Pricing V3 Perfect</h2>
+    <p>8 designs qui convertissent</p>
+    
+    <div class="preview-grid">
+      <div class="preview-card">
+        <div class="preview-card-content">
+          <h4>Slider Interactive</h4>
+          <p>Calculateur de prix dynamique avec économies affichées</p>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-card-content">
+          <h4>Cards Flip</h4>
+          <p>Cartes qui se retournent pour révéler les détails</p>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-card-content">
+          <h4>Table Comparison</h4>
+          <p>Tableau comparatif détaillé avec mise en avant</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="test-section">
+    <h2>❓ FAQ V3 Perfect</h2>
+    <p>8 styles interactifs pour répondre aux questions</p>
+    
+    <div class="demo-block">
+      <h3>Fonctionnalités avancées</h3>
+      <ul>
+        <li><span class="icon">🔍</span> Recherche instantanée</li>
+        <li><span class="icon">🏷️</span> Catégories filtrables</li>
+        <li><span class="icon">💬</span> Style chat avec bot</li>
+        <li><span class="icon">🎥</span> Support vidéo explicatives</li>
+        <li><span class="icon">📊</span> Analytics des questions</li>
+        <li><span class="icon">🔗</span> Liens profonds partageables</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="test-section">
+    <h2>🎯 CTA V3 Perfect</h2>
+    <p>8 call-to-action avec animations spectaculaires</p>
+    
+    <div class="demo-block">
+      <h3>Effets spéciaux inclus</h3>
+      <ul>
+        <li><span class="icon">🎊</span> Confetti au clic</li>
+        <li><span class="icon">⏱️</span> Countdown timer</li>
+        <li><span class="icon">🔊</span> Sons interactifs</li>
+        <li><span class="icon">🧲</span> Boutons magnétiques</li>
+        <li><span class="icon">🌊</span> Vagues animées</li>
+        <li><span class="icon">💫</span> Morphing shapes</li>
+        <li><span class="icon">🎬</span> Vidéo background</li>
+        <li><span class="icon">✨</span> Particules flottantes</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="test-section">
+    <h2>📞 Contact V3 Perfect</h2>
+    <p>8 interfaces de contact modernes et fonctionnelles</p>
+    
+    <div class="demo-block">
+      <h3>Intégrations disponibles</h3>
+      <ul>
+        <li><span class="icon">🗺️</span> Google Maps interactif</li>
+        <li><span class="icon">✉️</span> Validation formulaire temps réel</li>
+        <li><span class="icon">🕐</span> Horaires d'ouverture dynamiques</li>
+        <li><span class="icon">💬</span> Interface chat en direct</li>
+        <li><span class="icon">📱</span> Click-to-call mobile</li>
+        <li><span class="icon">🔌</span> Webhooks & intégrations API</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="cta-section">
+    <h2>🎉 Prêt à tester ?</h2>
+    <p>Tous les blocs V3 Perfect sont disponibles dans AWEMA Studio</p>
+    <a href="#" class="cta-button">Lancer AWEMA Studio</a>
+  </section>
+
+  <script>
+    // Animation simple au scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '0';
+          entry.target.style.transform = 'translateY(20px)';
+          
+          setTimeout(() => {
+            entry.target.style.transition = 'all 0.6s ease';
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, 100);
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.demo-block, .preview-card').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

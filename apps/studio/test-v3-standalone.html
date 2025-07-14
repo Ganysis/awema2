@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test V3 Blocks - Standalone</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f5f5f5;
+        }
+        .info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .status.success {
+            background: #10b981;
+            color: white;
+        }
+        .status.error {
+            background: #ef4444;
+            color: white;
+        }
+        .status.warning {
+            background: #f59e0b;
+            color: white;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h1>Test des Blocs V3 - État du Serveur</h1>
+        
+        <h2>Problème Actuel</h2>
+        <p><span class="status error">Erreur de Permissions</span></p>
+        <p>Le dossier <span class="code">.next</span> appartient à <span class="code">root</span> au lieu de l'utilisateur actuel, ce qui empêche le démarrage du serveur.</p>
+        
+        <h2>Solutions Possibles</h2>
+        <ol>
+            <li><strong>Solution 1 - Changer les permissions (recommandé)</strong>
+                <pre class="code">sudo chown -R $USER:$USER .next</pre>
+            </li>
+            <li><strong>Solution 2 - Supprimer et recréer</strong>
+                <pre class="code">sudo rm -rf .next && npm run dev</pre>
+            </li>
+            <li><strong>Solution 3 - Utiliser un port différent</strong>
+                <pre class="code">PORT=3001 npm run dev</pre>
+            </li>
+        </ol>
+        
+        <h2>État des Corrections V3</h2>
+        <p><span class="status success">Toutes les corrections ont été appliquées ✓</span></p>
+        <ul>
+            <li>✅ <strong>getBlockProps()</strong> ajouté à l'interface BlockRenderer</li>
+            <li>✅ <strong>BaseRendererV3</strong> créée avec implémentation automatique</li>
+            <li>✅ <strong>Tous les renderers V3</strong> étendent maintenant BaseRendererV3</li>
+            <li>✅ <strong>Imports corrigés</strong> dans tous les renderers</li>
+            <li>✅ <strong>Block registry mis à jour</strong> pour utiliser getBlockProps()</li>
+            <li>✅ <strong>Render functions V3</strong> retournent l'objet complet {html, css, js}</li>
+        </ul>
+        
+        <h2>Fonctionnalités V3 Disponibles</h2>
+        <ul>
+            <li><strong>Hero V3 Perfect</strong> - 8 variantes spectaculaires</li>
+            <li><strong>Features V3 Perfect</strong> - 6 layouts innovants</li>
+            <li><strong>Services V3 Perfect</strong> - 8 designs avec calculateur</li>
+            <li><strong>Gallery V3 Perfect</strong> - Lightbox 5 styles + zoom 10x</li>
+            <li><strong>Content V3 Perfect</strong> - 8 formats riches</li>
+            <li><strong>Testimonials V3 Perfect</strong> - Intégrations sociales</li>
+            <li><strong>Pricing V3 Perfect</strong> - Toggle période + calculateur</li>
+            <li><strong>FAQ V3 Perfect</strong> - Recherche + chatbot</li>
+            <li><strong>CTA V3 Perfect</strong> - Countdown + animations</li>
+            <li><strong>Contact V3 Perfect</strong> - Validation temps réel + map</li>
+        </ul>
+        
+        <h2>Prochaines Étapes</h2>
+        <p><span class="status warning">Action Requise</span></p>
+        <p>Pour lancer le serveur et tester les blocs V3, exécutez une des commandes ci-dessus pour résoudre le problème de permissions.</p>
+    </div>
+</body>
+</html>

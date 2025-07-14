@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-07-13T10:28:15.318Z",
+  "project": {
+    "name": "Projet Test V3",
+    "pages": 3,
+    "totalBlocks": 6
+  },
+  "results": {
+    "v3BlocksCreated": 6,
+    "pagesGenerated": 3,
+    "totalRenderTime": "98.80ms",
+    "executionTime": "0ms",
+    "errors": []
+  },
+  "files": [
+    {
+      "name": "index.html",
+      "blocks": 3
+    },
+    {
+      "name": "services.html",
+      "blocks": 2
+    },
+    {
+      "name": "contact.html",
+      "blocks": 1
+    }
+  ]
+}

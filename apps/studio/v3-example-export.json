@@ -1,0 +1,57 @@
+{
+  "project": {
+    "name": "Test V3",
+    "blocks": [
+      {
+        "meta": {
+          "id": "hero-1",
+          "type": "hero-ultra-modern",
+          "version": "3.0.0",
+          "created": "2025-07-12T21:32:42.954Z",
+          "modified": "2025-07-12T21:32:42.954Z",
+          "validationStatus": "valid"
+        },
+        "data": {
+          "variant": "glassmorphism",
+          "title": "Bienvenue sur V3",
+          "subtitle": "L'architecture parfaite",
+          "primaryButton": {
+            "text": "Commencer",
+            "link": "#start",
+            "variant": "primary"
+          }
+        }
+      }
+    ],
+    "theme": {
+      "colors": {
+        "primary": "#3b82f6",
+        "secondary": "#10b981"
+      }
+    }
+  },
+  "options": {
+    "format": "static",
+    "optimization": {
+      "minifyHTML": true,
+      "minifyCSS": true,
+      "minifyJS": true,
+      "optimizeImages": true,
+      "inlineCSS": false,
+      "inlineJS": false,
+      "criticalCSS": true
+    },
+    "features": {
+      "cms": true,
+      "analytics": true,
+      "seo": true,
+      "pwa": false,
+      "sitemap": true,
+      "robots": true
+    },
+    "deployment": {
+      "platform": "netlify",
+      "config": {}
+    }
+  }
+}

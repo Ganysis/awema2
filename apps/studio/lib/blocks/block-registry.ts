@@ -88,6 +88,7 @@ import { BlockCategory } from '@awema/shared';
 
 // Import des renderers V3 Perfect
 import { HeroRendererV3Perfect } from '../v3/renderers/hero-perfect.renderer';
+import { HeroRendererV3PerfectEnhanced } from '../v3/renderers/hero-perfect-enhanced.renderer';
 import { FeaturesRendererV3Perfect } from '../v3/renderers/features-perfect.renderer';
 import { ServicesRendererV3Perfect } from '../v3/renderers/services-perfect.renderer';
 import { GalleryRendererV3Perfect } from '../v3/renderers/gallery-perfect.renderer';
@@ -99,7 +100,7 @@ import { CTARendererV3Perfect } from '../v3/renderers/cta-perfect.renderer';
 import { ContactRendererV3Perfect } from '../v3/renderers/contact-perfect.renderer';
 
 // Créer les instances V3
-const heroV3 = new HeroRendererV3Perfect();
+const heroV3 = new HeroRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
 const featuresV3 = new FeaturesRendererV3Perfect();
 const servicesV3 = new ServicesRendererV3Perfect();
 const galleryV3 = new GalleryRendererV3Perfect();

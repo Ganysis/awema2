@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ V3 Perfect - Démonstration des 8 Variantes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Reset */
+        *, *::before, *::after { box-sizing: border-box; }
+        body { 
+            margin: 0; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #f9fafb;
+        }
+        
+        /* Navigation de démo */
+        .demo-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            padding: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .demo-nav.scrolled {
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-nav__container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .demo-nav__title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .demo-nav__variants {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .demo-nav__button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: #f3f4f6;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        
+        .demo-nav__button:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
+        }
+        
+        .demo-nav__button.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 15px -3px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Container pour les FAQ */
+        .faq-container {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+        
+        /* Info section */
+        .info-section {
+            padding: 4rem 2rem;
+            background: white;
+            text-align: center;
+            margin-bottom: 4rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .info-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        
+        .info-section p {
+            font-size: 1.125rem;
+            color: #6b7280;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-item {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-desc {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="demo-nav">
+        <div class="demo-nav__container">
+            <h1 class="demo-nav__title">🎯 FAQ V3 Perfect - 8 Variantes</h1>
+            <div class="demo-nav__variants">
+                <button class="demo-nav__button active" onclick="showVariant('accordion-modern')">Accordion Modern</button>
+                <button class="demo-nav__button" onclick="showVariant('chat-style')">Chat Style</button>
+                <button class="demo-nav__button" onclick="showVariant('timeline')">Timeline</button>
+                <button class="demo-nav__button" onclick="showVariant('cards-grid')">Cards Grid</button>
+                <button class="demo-nav__button" onclick="showVariant('tabs-horizontal')">Tabs Horizontal</button>
+                <button class="demo-nav__button" onclick="showVariant('floating-bubbles')">Floating Bubbles</button>
+                <button class="demo-nav__button" onclick="showVariant('masonry')">Masonry</button>
+                <button class="demo-nav__button" onclick="showVariant('video-style')">Video Style</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Container -->
+    <div class="faq-container">
+        <!-- Info section -->
+        <section class="info-section">
+            <h2>FAQ V3 Perfect</h2>
+            <p>
+                8 variantes spectaculaires pour vos questions fréquentes. Chaque variante est 
+                optimisée pour différents cas d'usage avec des animations fluides, une accessibilité 
+                parfaite et une ergonomie exceptionnelle.
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-title">8 Designs Uniques</div>
+                    <div class="feature-desc">Variantes adaptées à tous les styles</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Performance A++</div>
+                    <div class="feature-desc">Animations optimisées et chargement rapide</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">♿</div>
+                    <div class="feature-title">Accessibilité WCAG</div>
+                    <div class="feature-desc">Navigation clavier et lecteur d'écran</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">100% Responsive</div>
+                    <div class="feature-desc">Parfait sur tous les appareils</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ sera injectée ici -->
+        <div id="faq-demo"></div>
+    </div>
+
+    <!-- Script avec les données FAQ -->
+    <script>
+        // Données FAQ communes
+        const faqData = {
+            title: "Questions Fréquemment Posées",
+            subtitle: "Tout ce que vous devez savoir sur notre service",
+            items: [
+                {
+                    question: "Qu'est-ce que AWEMA V3 Perfect ?",
+                    answer: "AWEMA V3 Perfect est notre architecture de nouvelle génération qui offre des blocs magnifiques avec 8 variantes par bloc, une ergonomie parfaite dans l'éditeur, et des performances exceptionnelles. Chaque bloc est conçu pour être visuellement époustouflant tout en restant facile à utiliser.",
+                    icon: "🚀"
+                },
+                {
+                    question: "Comment choisir la bonne variante ?",
+                    answer: "Chaque variante est optimisée pour différents cas d'usage. Par exemple, 'Accordion Modern' est parfait pour les FAQ classiques, 'Chat Style' pour une expérience conversationnelle, 'Timeline' pour des guides étape par étape, et 'Video Style' pour des tutoriels visuels. L'éditeur vous permet de prévisualiser et changer de variante en un clic.",
+                    icon: "🎯"
+                },
+                {
+                    question: "Les animations sont-elles personnalisables ?",
+                    answer: "Oui ! Toutes les animations peuvent être personnalisées : type (fade, slide, zoom), durée, easing, et même désactivées si nécessaire. Nous offrons aussi des options d'animation au scroll et des effets de hover sophistiqués.",
+                    icon: "✨"
+                },
+                {
+                    question: "Le bloc est-il accessible ?",
+                    answer: "Absolument ! Tous nos blocs FAQ respectent les standards WCAG 2.1 niveau AA. Navigation clavier complète (flèches, Home/End), attributs ARIA appropriés, et support parfait des lecteurs d'écran. L'accessibilité est une priorité dans V3 Perfect.",
+                    icon: "♿"
+                },
+                {
+                    question: "Puis-je ajouter une recherche ?",
+                    answer: "Oui, la fonctionnalité de recherche est intégrée ! Activez-la simplement dans les options du bloc. Elle permet de filtrer les questions en temps réel avec mise en surbrillance des termes recherchés. Parfait pour les FAQ avec beaucoup de contenu.",
+                    icon: "🔍"
+                },
+                {
+                    question: "Comment fonctionne le SEO ?",
+                    answer: "Chaque bloc FAQ génère automatiquement le Schema.org FAQPage pour un SEO optimal. Les questions peuvent apparaître directement dans les résultats Google sous forme de FAQ enrichies. De plus, chaque question peut avoir une URL unique pour le partage.",
+                    icon: "📈"
+                }
+            ]
+        };
+
+        // Fonction pour afficher une variante
+        function showVariant(variant) {
+            // Mettre à jour les boutons
+            document.querySelectorAll('.demo-nav__button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Générer le HTML selon la variante
+            let html = '';
+            const container = document.getElementById('faq-demo');
+            
+            switch(variant) {
+                case 'accordion-modern':
+                    html = renderAccordionModern();
+                    break;
+                case 'chat-style':
+                    html = renderChatStyle();
+                    break;
+                case 'timeline':
+                    html = renderTimeline();
+                    break;
+                case 'cards-grid':
+                    html = renderCardsGrid();
+                    break;
+                case 'tabs-horizontal':
+                    html = renderTabsHorizontal();
+                    break;
+                case 'floating-bubbles':
+                    html = renderFloatingBubbles();
+                    break;
+                case 'masonry':
+                    html = renderMasonry();
+                    break;
+                case 'video-style':
+                    html = renderVideoStyle();
+                    break;
+            }
+            
+            container.innerHTML = html;
+            
+            // Réinitialiser les interactions
+            initFAQInteractions(variant);
+            
+            // Scroll vers la FAQ
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Renderers pour chaque variante
+        function renderAccordionModern() {
+            const items = faqData.items.map((item, index) => `
+                <div class="faq__item ${index === 0 ? 'active' : ''}">
+                    <button class="faq__question" aria-expanded="${index === 0 ? 'true' : 'false'}">
+                        <span>${item.question}</span>
+                        <span class="faq__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq__answer">
+                        <div class="faq__answer-content">${item.answer}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            return `
+                <section class="faq faq--accordion-modern">
+                    <div class="faq__container">
+                        <div class="faq__header">
+                            <h2 class="faq__title">${faqData.title}</h2>
+                            <p class="faq__subtitle">${faqData.subtitle}</p>
+                        </div>
+                        <div class="faq__list">${items}</div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderChatStyle() {
+            const items = faqData.items.map((item, index) => `
+                <div class="faq__item">
+                    <div class="faq__question">${item.question}</div>
+                    <div class="faq__answer">${item.answer}</div>
+                </div>
+            `).join('');
+
+            return `
+                <section class="faq faq--chat-style">
+                    <div class="faq__container">
+                        <div class="faq__header">
+                            <h2 class="faq__title">${faqData.title}</h2>
+                            <p class="faq__subtitle">${faqData.subtitle}</p>
+                        </div>
+                        <div class="faq__list">${items}</div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderTimeline() {
+            const items = faqData.items.map((item, index) => `
+                <div class="faq__item" data-number="${String(index + 1).padStart(2, '0')}">
+                    <div class="faq__question">${item.question}</div>
+                    <div class="faq__answer">${item.answer}</div>
+                </div>
+            `).join('');
+
+            return `
+                <section class="faq faq--timeline">
+                    <div class="faq__container">
+                        <div class="faq__header">
+                            <h2 class="faq__title">${faqData.title}</h2>
+                            <p class="faq__subtitle">${faqData.subtitle}</p>
+                        </div>
+                        <div class="faq__list">${items}</div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderCardsGrid() {
+            const items = faqData.items.map((item, index) => `
+                <div class="faq__item">
+                    <div class="faq__question">
+                        <div class="faq__question-icon">${item.icon || '❓'}</div>
+                        <span>${item.question}</span>
+                    </div>
+                    <div class="faq__answer">${item.answer}</div>
+                </div>
+            `).join('');
+
+            return `
+                <section class="faq faq--cards-grid">
+                    <div class="faq__container">
+                        <div class="faq__header">
+                            <h2 class="faq__title">${faqData.title}</h2>
+                            <p class="faq__subtitle">${faqData.subtitle}</p>
+                        </div>
+                        <div class="faq__list">${items}</div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderTabsHorizontal() {
+            const tabs = faqData.items.map((item, index) => `
+                <button class="faq__tab ${index === 0 ? 'active' : ''}" data-index="${index}">
+                    ${item.question}
+                </button>
+            `).join('');
+
+            const panels = faqData.items.map((item, index) => `
+                <div class="faq__panel ${index === 0 ? 'active' : ''}">
+                    <h3>${item.question}</h3>
+                    <p>${item.answer}</p>
+                </div>
+            `).join('');
+
+            return `
+                <section class="faq faq--tabs-horizontal">
+                    <div class="faq__container">
+                        <div class="faq__header">
+                            <h2 class="faq__title">${faqData.title}</h2>
+                            <p class="faq__subtitle">${faqData.subtitle}</p>
+                        </div>
+                        <div style="display: flex; gap: 3rem; align-items: flex-start; margin-top: 3rem;">
+                            <div class="faq__tabs">${tabs}</div>
+                            <div class="faq__content">${panels}</div>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderFloatingBubbles() {
+            const items = faqData.items.map((item, index) => `
+                <div class="faq__item">
+                    <div class="faq__bubble">
+                        <div class="faq__question">${item.question}</div>
+                        <div class="faq__answer">${item.answer}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            return `
+                <section class="faq faq--floating-bubbles">
+                    <div class="faq__container">
+                        <div class="faq__header">
+                            <h2 class="faq__title">${faqData.title}</h2>
+                            <p class="faq__subtitle">${faqData.subtitle}</p>
+                        </div>
+                        <div class="faq__list">${items}</div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderMasonry() {
+            const items = faqData.items.map((item, index) => `
+                <div class="faq__item">
+                    <div class="faq__question">
+                        <span class="faq__question-number">${index + 1}</span>
+                        <span>${item.question}</span>
+                    </div>
+                    <div class="faq__answer">${item.answer}</div>
+                </div>
+            `).join('');
+
+            return `
+                <section class="faq faq--masonry">
+                    <div class="faq__container">
+                        <div class="faq__header">
+                            <h2 class="faq__title">${faqData.title}</h2>
+                            <p class="faq__subtitle">${faqData.subtitle}</p>
+                        </div>
+                        <div class="faq__list">${items}</div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderVideoStyle() {
+            const items = faqData.items.map((item, index) => `
+                <div class="faq__item">
+                    <div class="faq__thumbnail">
+                        <div class="faq__play-icon">▶</div>
+                        <div class="faq__question">${item.question}</div>
+                        <div class="faq__duration">${Math.floor(Math.random() * 5 + 2)}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}</div>
+                    </div>
+                    <div class="faq__answer">
+                        <div class="faq__answer-content">${item.answer}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            return `
+                <section class="faq faq--video-style">
+                    <div class="faq__container">
+                        <div class="faq__header">
+                            <h2 class="faq__title">${faqData.title}</h2>
+                            <p class="faq__subtitle">${faqData.subtitle}</p>
+                        </div>
+                        <div class="faq__list">${items}</div>
+                    </div>
+                </section>
+            `;
+        }
+
+        // Initialiser les interactions FAQ
+        function initFAQInteractions(variant) {
+            switch(variant) {
+                case 'accordion-modern':
+                case 'timeline':
+                case 'cards-grid':
+                case 'masonry':
+                    initAccordion();
+                    break;
+                case 'chat-style':
+                    initChatStyle();
+                    break;
+                case 'tabs-horizontal':
+                    initTabs();
+                    break;
+                case 'floating-bubbles':
+                    initFloatingBubbles();
+                    break;
+                case 'video-style':
+                    initVideoStyle();
+                    break;
+            }
+        }
+
+        function initAccordion() {
+            const items = document.querySelectorAll('.faq__item');
+            const questions = document.querySelectorAll('.faq__question');
+            
+            questions.forEach((question, index) => {
+                question.addEventListener('click', () => {
+                    const item = items[index];
+                    const isActive = item.classList.contains('active');
+                    
+                    // Fermer tous les autres
+                    items.forEach(i => i.classList.remove('active'));
+                    
+                    // Toggle actuel
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        function initChatStyle() {
+            const items = document.querySelectorAll('.faq__item');
+            
+            items.forEach((item, index) => {
+                const question = item.querySelector('.faq__question');
+                
+                question.addEventListener('click', () => {
+                    setTimeout(() => {
+                        item.classList.add('active');
+                    }, index * 200);
+                });
+            });
+        }
+
+        function initTabs() {
+            const tabs = document.querySelectorAll('.faq__tab');
+            const panels = document.querySelectorAll('.faq__panel');
+            
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    panels.forEach(p => p.classList.remove('active'));
+                    if (panels[index]) {
+                        panels[index].classList.add('active');
+                    }
+                });
+            });
+        }
+
+        function initFloatingBubbles() {
+            const bubbles = document.querySelectorAll('.faq__bubble');
+            
+            bubbles.forEach(bubble => {
+                bubble.addEventListener('click', () => {
+                    const isActive = bubble.classList.contains('active');
+                    bubbles.forEach(b => b.classList.remove('active'));
+                    if (!isActive) {
+                        bubble.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        function initVideoStyle() {
+            const items = document.querySelectorAll('.faq__item');
+            
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    items.forEach(i => i.classList.remove('active'));
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.demo-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Charger la première variante au démarrage
+        showVariant('accordion-modern');
+    </script>
+
+    <!-- Styles FAQ du renderer -->
+    <style>
+/* ========================================
+   FAQ V3 PERFECT - Styles magnifiques
+   ======================================== */
+
+.faq {
+  position: relative;
+  padding: 6rem 0;
+  overflow: hidden;
+  background: var(--faq-bg, #ffffff);
+}
+
+.faq__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Header élégant */
+.faq__header {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq__title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.faq__subtitle {
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* ========================================
+   VARIANTES SPECTACULAIRES
+   ======================================== */
+
+/* 1. Accordion Modern - Design épuré avec animations fluides */
+.faq--accordion-modern .faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq--accordion-modern .faq__item {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq--accordion-modern .faq__item:hover {
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.faq--accordion-modern .faq__item.active {
+  box-shadow: 0 20px 60px -15px rgba(102, 126, 234, 0.2);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.faq--accordion-modern .faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  transition: all 0.3s;
+}
+
+.faq--accordion-modern .faq__question:hover {
+  color: #667eea;
+}
+
+.faq--accordion-modern .faq__icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+
+.faq--accordion-modern .faq__item.active .faq__icon {
+  transform: rotate(180deg);
+}
+
+.faq--accordion-modern .faq__answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.faq--accordion-modern .faq__item.active .faq__answer {
+  max-height: 500px;
+  transition: max-height 0.3s ease-in;
+}
+
+.faq--accordion-modern .faq__answer-content {
+  padding: 0 2rem 1.5rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* 2. Chat Style - Interface conversationnelle */
+.faq--chat-style .faq__list {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.faq--chat-style .faq__item {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq--chat-style .faq__question {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 1.5rem 1.5rem 0.25rem 1.5rem;
+  max-width: 70%;
+  font-weight: 500;
+  box-shadow: 0 4px 20px -5px rgba(102, 126, 234, 0.3);
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.faq--chat-style .faq__question::before {
+  content: '👤';
+  position: absolute;
+  right: -35px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+}
+
+.faq--chat-style .faq__question:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px -8px rgba(102, 126, 234, 0.4);
+}
+
+.faq--chat-style .faq__answer {
+  align-self: flex-start;
+  background: #f3f4f6;
+  padding: 1rem 1.5rem;
+  border-radius: 1.5rem 1.5rem 1.5rem 0.25rem;
+  max-width: 70%;
+  color: #4b5563;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s;
+  position: relative;
+}
+
+.faq--chat-style .faq__answer::before {
+  content: '🤖';
+  position: absolute;
+  left: -35px;
+  top: 1rem;
+  font-size: 1.5rem;
+}
+
+.faq--chat-style .faq__item.active .faq__answer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 3. Timeline FAQ - Style chronologique */
+.faq--timeline .faq__list {
+  position: relative;
+  padding-left: 3rem;
+}
+
+.faq--timeline .faq__list::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #667eea, #764ba2, #f093fb);
+  opacity: 0.3;
+}
+
+.faq--timeline .faq__item {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 2rem;
+}
+
+.faq--timeline .faq__item::before {
+  content: attr(data-number);
+  position: absolute;
+  left: -15px;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  background: white;
+  border: 3px solid #667eea;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #667eea;
+  font-size: 0.875rem;
+  transition: all 0.3s;
+}
+
+.faq--timeline .faq__item.active::before {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-color: #667eea;
+  transform: scale(1.2);
+}
+
+.faq--timeline .faq__question {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.faq--timeline .faq__question:hover {
+  color: #667eea;
+}
+
+.faq--timeline .faq__answer {
+  color: #6b7280;
+  line-height: 1.6;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.faq--timeline .faq__item.active .faq__answer {
+  max-height: 500px;
+  margin-top: 1rem;
+}
+
+/* 4. Cards Grid - Cartes interactives */
+.faq--cards-grid .faq__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.faq--cards-grid .faq__item {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.faq--cards-grid .faq__item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+
+.faq--cards-grid .faq__item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.15);
+}
+
+.faq--cards-grid .faq__item.active::before {
+  transform: scaleX(1);
+}
+
+.faq--cards-grid .faq__item.active {
+  box-shadow: 0 20px 60px -15px rgba(102, 126, 234, 0.3);
+}
+
+.faq--cards-grid .faq__question {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.faq--cards-grid .faq__question-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.faq--cards-grid .faq__answer {
+  color: #6b7280;
+  line-height: 1.6;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s;
+}
+
+.faq--cards-grid .faq__item.active .faq__answer {
+  max-height: 300px;
+}
+
+/* 5. Tabs Horizontal - Navigation par onglets */
+.faq--tabs-horizontal .faq__tabs {
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.faq--tabs-horizontal .faq__tab {
+  padding: 1rem 1.5rem;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 0.75rem;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  font-family: inherit;
+}
+
+.faq--tabs-horizontal .faq__tab:hover {
+  background: #e5e7eb;
+  color: #4b5563;
+}
+
+.faq--tabs-horizontal .faq__tab.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  box-shadow: 0 10px 30px -10px rgba(102, 126, 234, 0.4);
+}
+
+.faq--tabs-horizontal .faq__tab.active::after {
+  content: '';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent #764ba2;
+}
+
+.faq--tabs-horizontal .faq__content {
+  flex: 1;
+  background: white;
+  border-radius: 1.5rem;
+  padding: 3rem;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+}
+
+.faq--tabs-horizontal .faq__panel {
+  display: none;
+}
+
+.faq--tabs-horizontal .faq__panel.active {
+  display: block;
+  animation: faqFadeIn 0.4s ease-out;
+}
+
+.faq--tabs-horizontal .faq__panel h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.faq--tabs-horizontal .faq__panel p {
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* 6. Floating Bubbles - Bulles flottantes */
+.faq--floating-bubbles .faq__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  position: relative;
+  min-height: 500px;
+}
+
+.faq--floating-bubbles .faq__item {
+  position: relative;
+  animation: faqFloat 6s ease-in-out infinite;
+}
+
+.faq--floating-bubbles .faq__item:nth-child(2n) {
+  animation-delay: -2s;
+}
+
+.faq--floating-bubbles .faq__item:nth-child(3n) {
+  animation-delay: -4s;
+}
+
+@keyframes faqFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(2deg); }
+  66% { transform: translateY(5px) rotate(-2deg); }
+}
+
+.faq--floating-bubbles .faq__bubble {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 2rem;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  max-width: 400px;
+}
+
+.faq--floating-bubbles .faq__bubble:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px -10px rgba(102, 126, 234, 0.3);
+}
+
+.faq--floating-bubbles .faq__bubble.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.faq--floating-bubbles .faq__question {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.faq--floating-bubbles .faq__answer {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.faq--floating-bubbles .faq__bubble.active .faq__answer {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+.faq--floating-bubbles .faq__bubble.active .faq__question,
+.faq--floating-bubbles .faq__bubble.active .faq__answer {
+  color: white;
+}
+
+/* 7. Masonry Layout - Disposition créative */
+.faq--masonry .faq__list {
+  columns: 2;
+  column-gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .faq--masonry .faq__list {
+    columns: 1;
+  }
+}
+
+.faq--masonry .faq__item {
+  break-inside: avoid;
+  margin-bottom: 2rem;
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.faq--masonry .faq__item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
+}
+
+.faq--masonry .faq__item.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.faq--masonry .faq__question {
+  font-size: 1.125rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.faq--masonry .faq__question-number {
+  width: 30px;
+  height: 30px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #667eea;
+  flex-shrink: 0;
+}
+
+.faq--masonry .faq__item.active .faq__question-number {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.faq--masonry .faq__answer {
+  margin-top: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s;
+  line-height: 1.6;
+}
+
+.faq--masonry .faq__item.active .faq__answer {
+  max-height: 500px;
+  margin-top: 1rem;
+}
+
+.faq--masonry .faq__item.active .faq__question,
+.faq--masonry .faq__item.active .faq__answer {
+  color: white;
+}
+
+/* 8. Video FAQ - Style vidéo */
+.faq--video-style .faq__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.faq--video-style .faq__item {
+  position: relative;
+  background: #1a1a1a;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+  aspect-ratio: 16/9;
+}
+
+.faq--video-style .faq__item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+}
+
+.faq--video-style .faq__thumbnail {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.faq--video-style .faq__play-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s;
+}
+
+.faq--video-style .faq__item:hover .faq__play-icon {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.faq--video-style .faq__question {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.faq--video-style .faq__duration {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+}
+
+.faq--video-style .faq__answer {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  color: white;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.3s;
+}
+
+.faq--video-style .faq__item.active .faq__answer {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Animations communes */
+@keyframes faqFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .faq__header {
+    margin-bottom: 3rem;
+  }
+  
+  .faq--tabs-horizontal {
+    flex-direction: column;
+  }
+  
+  .faq--tabs-horizontal .faq__tabs {
+    flex: none;
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .faq--tabs-horizontal .faq__tab {
+    white-space: nowrap;
+  }
+  
+  .faq--tabs-horizontal .faq__tab.active::after {
+    display: none;
+  }
+  
+  .faq--chat-style .faq__question,
+  .faq--chat-style .faq__answer {
+    max-width: 85%;
+  }
+  
+  .faq--video-style .faq__list {
+    grid-template-columns: 1fr;
+  }
+}
+    </style>
+</body>
+</html>

@@ -1,0 +1,219 @@
+{
+  "businessInfo": {},
+  "projectName": "Mon Site Web",
+  "globalHeader": null,
+  "globalFooter": null,
+  "pages": [
+    {
+      "id": "home",
+      "name": "Accueil",
+      "slug": "/",
+      "blocks": [
+        {
+          "id": "86a87e39-3341-45f4-938c-846e37541d8f",
+          "type": "contact-ultra-modern",
+          "props": {
+            "variant": "glassmorphism",
+            "title": "Parlons de votre projet",
+            "subtitle": "Nous vous répondons sous 24h",
+            "submitText": "Envoyer le message",
+            "showSocialLinks": true,
+            "backgroundColor": "transparent",
+            "backgroundGradient": "",
+            "recipientEmail": "",
+            "fields": [
+              {
+                "name": "name",
+                "label": "Nom complet",
+                "type": "text",
+                "required": true,
+                "icon": "user",
+                "placeholder": "Jean Dupont"
+              },
+              {
+                "name": "email",
+                "label": "Email",
+                "type": "email",
+                "required": true,
+                "icon": "mail",
+                "placeholder": "email@exemple.com"
+              },
+              {
+                "name": "phone",
+                "label": "Téléphone",
+                "type": "tel",
+                "required": false,
+                "icon": "phone",
+                "placeholder": "06 12 34 56 78"
+              },
+              {
+                "name": "subject",
+                "label": "Objet",
+                "type": "text",
+                "required": true,
+                "icon": "message-circle",
+                "placeholder": "Objet de votre demande"
+              },
+              {
+                "name": "message",
+                "label": "Votre message",
+                "type": "textarea",
+                "required": true,
+                "rows": 5,
+                "icon": "edit",
+                "placeholder": "Décrivez votre projet..."
+              }
+            ],
+            "showMap": "false",
+            "mapPosition": "right",
+            "mapAddress": "123 Rue de la Paix, 75001 Paris",
+            "mapCoordinates": "{\"lat\":48.8566,\"lng\":2.3522}",
+            "socialLinks": "[{\"platform\":\"facebook\",\"url\":\"#\",\"icon\":\"facebook\"},{\"platform\":\"instagram\",\"url\":\"#\",\"icon\":\"instagram\"},{\"platform\":\"linkedin\",\"url\":\"#\",\"icon\":\"linkedin\"}]"
+          },
+          "children": []
+        }
+      ],
+      "meta": {
+        "title": "Accueil",
+        "description": ""
+      }
+    }
+  ],
+  "theme": {
+    "variant": "ultra-pro",
+    "colors": {
+      "primary": "hsl(221, 83%, 53%)",
+      "secondary": "hsl(271, 81%, 65%)",
+      "accent": "hsl(0, 84%, 60%)",
+      "background": "hsl(0, 0%, 100%)",
+      "surface": "hsl(210, 20%, 98%)",
+      "text": "hsl(222, 47%, 11%)",
+      "textSecondary": "hsl(215, 20%, 65%)",
+      "textMuted": "hsl(215, 20%, 65%)",
+      "border": "hsl(214, 32%, 91%)",
+      "success": "hsl(142, 71%, 45%)",
+      "warning": "hsl(45, 93%, 47%)",
+      "error": "hsl(0, 84%, 60%)"
+    },
+    "typography": {
+      "fontFamily": {
+        "heading": "Inter",
+        "body": "Inter",
+        "mono": "JetBrains Mono"
+      },
+      "fontSize": {
+        "xs": "0.75rem",
+        "sm": "0.875rem",
+        "base": "1rem",
+        "lg": "1.125rem",
+        "xl": "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "1.875rem",
+        "4xl": "2.25rem",
+        "5xl": "3rem",
+        "6xl": "3.75rem"
+      },
+      "fontWeight": {
+        "light": 300,
+        "normal": 400,
+        "medium": 500,
+        "semibold": 600,
+        "bold": 700,
+        "extrabold": 800
+      },
+      "lineHeight": {
+        "none": 1,
+        "tight": 1.25,
+        "snug": 1.375,
+        "normal": 1.5,
+        "relaxed": 1.625,
+        "loose": 2
+      },
+      "letterSpacing": {
+        "tighter": "-0.05em",
+        "tight": "-0.025em",
+        "normal": "0",
+        "wide": "0.025em",
+        "wider": "0.05em",
+        "widest": "0.1em"
+      }
+    },
+    "spacing": {
+      "spacing": {
+        "0": "0px",
+        "1": "0.25rem",
+        "2": "0.5rem",
+        "3": "0.75rem",
+        "4": "1rem",
+        "5": "1.25rem",
+        "6": "1.5rem",
+        "7": "1.75rem",
+        "8": "2rem",
+        "9": "2.25rem",
+        "10": "2.5rem",
+        "11": "2.75rem",
+        "12": "3rem",
+        "14": "3.5rem",
+        "16": "4rem",
+        "20": "5rem",
+        "24": "6rem",
+        "28": "7rem",
+        "32": "8rem",
+        "36": "9rem",
+        "40": "10rem",
+        "44": "11rem",
+        "48": "12rem",
+        "52": "13rem",
+        "56": "14rem",
+        "60": "15rem",
+        "64": "16rem",
+        "72": "18rem",
+        "80": "20rem",
+        "96": "24rem",
+        "px": "1px",
+        "0.5": "0.125rem",
+        "1.5": "0.375rem",
+        "2.5": "0.625rem",
+        "3.5": "0.875rem"
+      },
+      "containerSizes": {
+        "xs": "20rem",
+        "sm": "24rem",
+        "md": "28rem",
+        "lg": "32rem",
+        "xl": "36rem",
+        "2xl": "42rem",
+        "full": "100%"
+      },
+      "breakpoints": {
+        "sm": "640px",
+        "md": "768px",
+        "lg": "1024px",
+        "xl": "1280px",
+        "2xl": "1536px"
+      },
+      "borderRadius": {
+        "none": "0",
+        "sm": "0.125rem",
+        "base": "0.25rem",
+        "md": "0.375rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "2xl": "1rem",
+        "3xl": "1.5rem",
+        "full": "9999px"
+      },
+      "gridColumns": {
+        "1": "repeat(1, minmax(0, 1fr))",
+        "2": "repeat(2, minmax(0, 1fr))",
+        "3": "repeat(3, minmax(0, 1fr))",
+        "4": "repeat(4, minmax(0, 1fr))",
+        "5": "repeat(5, minmax(0, 1fr))",
+        "6": "repeat(6, minmax(0, 1fr))",
+        "8": "repeat(8, minmax(0, 1fr))",
+        "12": "repeat(12, minmax(0, 1fr))"
+      }
+    },
+    "customCSS": ""
+  }
+}

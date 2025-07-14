@@ -1,0 +1,19 @@
+{
+  "projectId": "cmd0qet6w0001j10tkkyd3t0o",
+  "siteName": "v3-perfect-demo-1752521591239",
+  "siteUrl": "https://v3-perfect-demo-1752521591239.netlify.app",
+  "netlifyDashboard": "https://v3-perfect-demo-1752521591239.netlify.app/admin",
+  "deployedAt": "2025-07-14T19:33:27.292Z",
+  "blocksV3": [
+    "HeroV3Perfect",
+    "FeaturesV3Perfect",
+    "ServicesV3Perfect",
+    "GalleryV3Perfect",
+    "ContentV3Perfect",
+    "TestimonialsV3Perfect",
+    "PricingV3Perfect",
+    "FAQV3Perfect",
+    "CTAV3Perfect",
+    "ContactV3Perfect"
+  ]
+}
