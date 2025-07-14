@@ -54,6 +54,8 @@ export class PreviewGenerator {
           // Call the render function with merged props
           const rendered = renderFn(templateBlock.props, []);
           
+          console.log(`Rendered result for ${block.type}:`, typeof rendered, rendered ? Object.keys(rendered) : 'null');
+          
           if (rendered) {
             if (typeof rendered === 'string') {
               // Si c'est une string, c'est du HTML direct
@@ -64,6 +66,7 @@ export class PreviewGenerator {
                 allHTML += rendered.html;
               }
               if (rendered.css) {
+                console.log(`CSS collected for ${block.type}:`, rendered.css.substring(0, 200) + '...');
                 collectedCSS.push(rendered.css);
               }
               if (rendered.js) {
@@ -83,6 +86,7 @@ export class PreviewGenerator {
       
       // Render page blocks
       blocks.forEach(block => {
+        console.log('Rendering block in preview:', block.type, block);
         renderAndCollect(block);
       });
       
@@ -109,13 +113,18 @@ export class PreviewGenerator {
       const allJS = collectedJS.filter(js => js && js.trim()).join('\n\n');
 
       // Create complete HTML document
-      return this.createHTMLDocument({
+      const finalHTML = this.createHTMLDocument({
         html: allHTML,
         css: allCSS,
         js: allJS,
         criticalCSS: '',
         theme
       });
+      
+      console.log('Final preview HTML length:', finalHTML.length);
+      console.log('CSS included:', allCSS.includes('hero--modern'));
+      
+      return finalHTML;
     } catch (error) {
       console.error('Error generating preview:', error);
       return this.createErrorDocument(error as Error);

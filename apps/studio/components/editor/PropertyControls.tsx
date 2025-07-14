@@ -673,6 +673,8 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
         );
 
       case EditorControl.SELECT:
+        // Get options from prop.options or prop.validation?.options
+        const selectOptions = prop.options || prop.validation?.options || [];
         return (
           <select
             value={value || ''}
@@ -681,11 +683,15 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
             required={prop.required}
           >
             {!prop.required && <option value="">Choose...</option>}
-            {prop.validation?.options?.map(option => (
-              <option key={option.value || option} value={option.value || option}>
-                {option.label || option}
-              </option>
-            ))}
+            {selectOptions.map(option => {
+              const optionValue = typeof option === 'string' ? option : option.value;
+              const optionLabel = typeof option === 'string' ? option : option.label;
+              return (
+                <option key={optionValue} value={optionValue}>
+                  {optionLabel}
+                </option>
+              );
+            })}
           </select>
         );
 
@@ -725,24 +731,30 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
         );
 
       case EditorControl.RADIO:
+        // Get options from prop.options or prop.validation?.options
+        const radioOptions = prop.options || prop.validation?.options || [];
         return (
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-            {prop.validation?.options?.map(option => (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() => onChange(prop.name, option.value)}
-                className={`
-                  px-4 py-3 rounded-lg border-2 transition-all duration-200
-                  flex items-center justify-center gap-2 text-sm font-medium
-                  ${value === option.value 
-                    ? 'border-primary-600 bg-primary-50 text-primary-700' 
-                    : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50'}
-                `}
-              >
-                <span>{option.label}</span>
-              </button>
-            ))}
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {radioOptions.map(option => {
+              const optionValue = typeof option === 'string' ? option : option.value;
+              const optionLabel = typeof option === 'string' ? option : option.label;
+              return (
+                <button
+                  key={optionValue}
+                  type="button"
+                  onClick={() => onChange(prop.name, optionValue)}
+                  className={`
+                    px-4 py-3 rounded-lg border-2 transition-all duration-200
+                    flex items-center justify-start gap-2 text-sm font-medium
+                    ${value === optionValue 
+                      ? 'border-primary-600 bg-primary-50 text-primary-700' 
+                      : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50'}
+                  `}
+                >
+                  <span>{optionLabel}</span>
+                </button>
+              );
+            })}
           </div>
         );
 
