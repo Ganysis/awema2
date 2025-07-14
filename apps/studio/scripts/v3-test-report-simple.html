@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test V3 - AWEMA Studio</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f9fafb;
+    }
+    .card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    h1 { color: #3b82f6; }
+    .success { color: #10b981; }
+    .error { color: #ef4444; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .stat {
+      background: #f3f4f6;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #3b82f6;
+    }
+    pre {
+      background: #f3f4f6;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+    }
+    .hero { padding: 4rem 0; } .hero__container { max-width: 1200px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🧪 Test V3 - AWEMA Studio</h1>
+    <p>Généré le 13/07/2025 10:26:28</p>
+    
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value success">26</div>
+        <div>Fichiers V3 présents</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">26</div>
+        <div>Total fichiers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value success">100%</div>
+        <div>Architecture complète</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <h2>📦 Bloc V3 de test</h2>
+    <pre>{
+  "id": "test-hero",
+  "type": "hero-ultra-modern",
+  "meta": {
+    "id": "test-hero",
+    "type": "hero-ultra-modern",
+    "version": "3.0.0",
+    "created": "2025-07-13T10:26:28.025Z",
+    "modified": "2025-07-13T10:26:28.025Z",
+    "validationStatus": "valid"
+  },
+  "data": {
+    "variant": "gradient-animated",
+    "title": "Test V3 Architecture",
+    "subtitle": "Architecture ultra-robuste avec logs détaillés",
+    "description": "Système de rendu déterministe qui ne faillit jamais",
+    "cta": {
+      "primary": {
+        "text": "Commencer",
+        "link": "#start"
+      },
+      "secondary": {
+        "text": "En savoir plus",
+        "link": "#learn"
+      }
+    }
+  }
+}</pre>
+  </div>
+  
+  <div class="card">
+    <h2>🎨 Rendu simulé</h2>
+    <section class="hero hero--gradient-animated">
+  <div class="hero__container">
+    <h1>Test V3 Architecture</h1>
+    <h2>Architecture ultra-robuste avec logs détaillés</h2>
+    <p>Système de rendu déterministe qui ne faillit jamais</p>
+    <div class="hero__cta">
+      <a href="#start" class="btn btn--primary">Commencer</a>
+      <a href="#learn" class="btn btn--secondary">En savoir plus</a>
+    </div>
+  </div>
+</section>
+  </div>
+  
+  <div class="card">
+    <h2>📊 Statistiques de rendu</h2>
+    <ul>
+      <li>HTML généré: 425 caractères</li>
+      <li>CSS généré: 82 caractères</li>
+      <li>Temps de rendu: 12.5ms</li>
+      <li class="success">✅ Aucune erreur</li>
+    </ul>
+  </div>
+</body>
+</html>

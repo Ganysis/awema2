@@ -38,8 +38,10 @@ export { ctaSection, renderCtaSection } from './blocks/cta/cta-section';
 export { ctaUltraModern, renderCtaUltraModern } from './blocks/cta/cta-ultra-modern';
 export { simpleFooter, renderSimpleFooter } from './blocks/layout/footer';
 export { footerPro, renderFooterPro } from './blocks/layout/footer-pro';
+export { footerUltraModern, renderFooterUltraModern } from './blocks/layout/footer-ultra-modern';
 export { simpleHeader, renderSimpleHeader } from './blocks/layout/header';
 export { headerPro, renderHeaderPro } from './blocks/layout/header-pro';
+export { headerUltraModern, renderHeaderUltraModern } from './blocks/layout/header-ultra-modern';
 export { reviewsBlock, renderReviews } from './blocks/reviews';
 export { reviewsUltraModern, renderReviewsUltraModern } from './blocks/reviews/reviews-ultra-modern';
 

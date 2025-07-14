@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Démo V3 Perfect - Tous les blocs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: #1f2937;
+      background: #f9fafb;
+    }
+    
+    .demo-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      padding: 1rem 2rem;
+    }
+    
+    .demo-nav__list {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      max-width: 1400px;
+      margin: 0 auto;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+    
+    .demo-nav__link {
+      color: #6b7280;
+      text-decoration: none;
+      white-space: nowrap;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .demo-nav__link:hover {
+      background: #f3f4f6;
+      color: #1f2937;
+    }
+    
+    .demo-nav__link.active {
+      background: #6366f1;
+      color: white;
+    }
+    
+    .demo-content {
+      margin-top: 80px;
+    }
+    
+    .demo-section {
+      margin-bottom: 4rem;
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .demo-section__header {
+      padding: 2rem;
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .demo-section__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+    
+    .demo-section__subtitle {
+      color: #6b7280;
+    }
+    
+    .demo-section__variants {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .demo-variant-btn {
+      padding: 0.5rem 1rem;
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.875rem;
+    }
+    
+    .demo-variant-btn:hover {
+      border-color: #6366f1;
+      color: #6366f1;
+    }
+    
+    .demo-variant-btn.active {
+      background: #6366f1;
+      color: white;
+      border-color: #6366f1;
+    }
+    
+    .demo-section__content {
+      min-height: 400px;
+      position: relative;
+    }
+    
+    /* Styles pour les blocs */
+    ${CSS_BLOCKS}
+  </style>
+</head>
+<body>
+  <nav class="demo-nav">
+    <ul class="demo-nav__list">
+      <li><a href="#hero" class="demo-nav__link">Hero</a></li>
+      <li><a href="#features" class="demo-nav__link">Features</a></li>
+      <li><a href="#services" class="demo-nav__link">Services</a></li>
+      <li><a href="#gallery" class="demo-nav__link">Gallery</a></li>
+      <li><a href="#content" class="demo-nav__link">Content</a></li>
+      <li><a href="#testimonials" class="demo-nav__link">Testimonials</a></li>
+      <li><a href="#pricing" class="demo-nav__link">Pricing</a></li>
+      <li><a href="#faq" class="demo-nav__link">FAQ</a></li>
+      <li><a href="#cta" class="demo-nav__link">CTA</a></li>
+      <li><a href="#contact" class="demo-nav__link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="demo-content">
+    <!-- Hero Section -->
+    <div id="hero" class="demo-section">
+      <div class="demo-section__header">
+        <h2 class="demo-section__title">Hero V3 Perfect</h2>
+        <p class="demo-section__subtitle">8 variantes spectaculaires pour captiver vos visiteurs</p>
+        <div class="demo-section__variants">
+          <button class="demo-variant-btn active" data-block="hero" data-variant="split-modern">Split Modern</button>
+          <button class="demo-variant-btn" data-block="hero" data-variant="fullscreen-video">Fullscreen Video</button>
+          <button class="demo-variant-btn" data-block="hero" data-variant="particles-interactive">Particles Interactive</button>
+          <button class="demo-variant-btn" data-block="hero" data-variant="gradient-animated">Gradient Animated</button>
+          <button class="demo-variant-btn" data-block="hero" data-variant="3d-perspective">3D Perspective</button>
+          <button class="demo-variant-btn" data-block="hero" data-variant="glassmorphism">Glassmorphism</button>
+          <button class="demo-variant-btn" data-block="hero" data-variant="parallax-layers">Parallax Layers</button>
+          <button class="demo-variant-btn" data-block="hero" data-variant="geometric-shapes">Geometric Shapes</button>
+        </div>
+      </div>
+      <div class="demo-section__content" id="hero-content"></div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features" class="demo-section">
+      <div class="demo-section__header">
+        <h2 class="demo-section__title">Features V3 Perfect</h2>
+        <p class="demo-section__subtitle">6 mises en page innovantes pour présenter vos atouts</p>
+        <div class="demo-section__variants">
+          <button class="demo-variant-btn active" data-block="features" data-variant="grid-modern">Grid Modern</button>
+          <button class="demo-variant-btn" data-block="features" data-variant="bento-box">Bento Box</button>
+          <button class="demo-variant-btn" data-block="features" data-variant="carousel-3d">Carousel 3D</button>
+          <button class="demo-variant-btn" data-block="features" data-variant="timeline-vertical">Timeline Vertical</button>
+          <button class="demo-variant-btn" data-block="features" data-variant="cards-hover">Cards Hover</button>
+          <button class="demo-variant-btn" data-block="features" data-variant="list-detailed">List Detailed</button>
+        </div>
+      </div>
+      <div class="demo-section__content" id="features-content"></div>
+    </div>
+
+    <!-- Services Section -->
+    <div id="services" class="demo-section">
+      <div class="demo-section__header">
+        <h2 class="demo-section__title">Services V3 Perfect</h2>
+        <p class="demo-section__subtitle">8 designs magnifiques pour vos services</p>
+        <div class="demo-section__variants">
+          <button class="demo-variant-btn active" data-block="services" data-variant="cards-hover-3d">Cards Hover 3D</button>
+          <button class="demo-variant-btn" data-block="services" data-variant="hexagon-grid">Hexagon Grid</button>
+          <button class="demo-variant-btn" data-block="services" data-variant="timeline">Timeline</button>
+          <button class="demo-variant-btn" data-block="services" data-variant="carousel-interactive">Carousel Interactive</button>
+          <button class="demo-variant-btn" data-block="services" data-variant="bento-box">Bento Box</button>
+          <button class="demo-variant-btn" data-block="services" data-variant="floating-icons">Floating Icons</button>
+          <button class="demo-variant-btn" data-block="services" data-variant="interactive-map">Interactive Map</button>
+          <button class="demo-variant-btn" data-block="services" data-variant="glassmorphism-cards">Glassmorphism Cards</button>
+        </div>
+      </div>
+      <div class="demo-section__content" id="services-content"></div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div id="gallery" class="demo-section">
+      <div class="demo-section__header">
+        <h2 class="demo-section__title">Gallery V3 Perfect</h2>
+        <p class="demo-section__subtitle">8 layouts créatifs pour vos images</p>
+        <div class="demo-section__variants">
+          <button class="demo-variant-btn active" data-block="gallery" data-variant="masonry-modern">Masonry Modern</button>
+          <button class="demo-variant-btn" data-block="gallery" data-variant="grid-hover">Grid Hover</button>
+          <button class="demo-variant-btn" data-block="gallery" data-variant="carousel-fullscreen">Carousel Fullscreen</button>
+          <button class="demo-variant-btn" data-block="gallery" data-variant="pinterest-style">Pinterest Style</button>
+          <button class="demo-variant-btn" data-block="gallery" data-variant="hexagon-mosaic">Hexagon Mosaic</button>
+          <button class="demo-variant-btn" data-block="gallery" data-variant="3d-flip">3D Flip</button>
+          <button class="demo-variant-btn" data-block="gallery" data-variant="timeline-story">Timeline Story</button>
+          <button class="demo-variant-btn" data-block="gallery" data-variant="scattered-polaroid">Scattered Polaroid</button>
+        </div>
+      </div>
+      <div class="demo-section__content" id="gallery-content"></div>
+    </div>
+
+    <!-- Content Section -->
+    <div id="content" class="demo-section">
+      <div class="demo-section__header">
+        <h2 class="demo-section__title">Content V3 Perfect</h2>
+        <p class="demo-section__subtitle">8 formats pour un contenu captivant</p>
+        <div class="demo-section__variants">
+          <button class="demo-variant-btn active" data-block="content" data-variant="magazine-layout">Magazine Layout</button>
+          <button class="demo-variant-btn" data-block="content" data-variant="blog-modern">Blog Modern</button>
+          <button class="demo-variant-btn" data-block="content" data-variant="timeline-story">Timeline Story</button>
+          <button class="demo-variant-btn" data-block="content" data-variant="cards-grid">Cards Grid</button>
+          <button class="demo-variant-btn" data-block="content" data-variant="split-content">Split Content</button>
+          <button class="demo-variant-btn" data-block="content" data-variant="accordion-tabs">Accordion Tabs</button>
+          <button class="demo-variant-btn" data-block="content" data-variant="comparison-table">Comparison Table</button>
+          <button class="demo-variant-btn" data-block="content" data-variant="interactive-story">Interactive Story</button>
+        </div>
+      </div>
+      <div class="demo-section__content" id="content-content"></div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div id="testimonials" class="demo-section">
+      <div class="demo-section__header">
+        <h2 class="demo-section__title">Testimonials V3 Perfect</h2>
+        <p class="demo-section__subtitle">8 façons de mettre en valeur vos témoignages</p>
+        <div class="demo-section__variants">
+          <button class="demo-variant-btn active" data-block="testimonials" data-variant="carousel-modern">Carousel Modern</button>
+          <button class="demo-variant-btn" data-block="testimonials" data-variant="grid-masonry">Grid Masonry</button>
+          <button class="demo-variant-btn" data-block="testimonials" data-variant="wall-infinite">Wall Infinite</button>
+          <button class="demo-variant-btn" data-block="testimonials" data-variant="cards-3d">Cards 3D</button>
+          <button class="demo-variant-btn" data-block="testimonials" data-variant="timeline-animated">Timeline Animated</button>
+          <button class="demo-variant-btn" data-block="testimonials" data-variant="video-spotlight">Video Spotlight</button>
+          <button class="demo-variant-btn" data-block="testimonials" data-variant="social-proof">Social Proof</button>
+          <button class="demo-variant-btn" data-block="testimonials" data-variant="interactive-map">Interactive Map</button>
+        </div>
+      </div>
+      <div class="demo-section__content" id="testimonials-content"></div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div id="pricing" class="demo-section">
+      <div class="demo-section__header">
+        <h2 class="demo-section__title">Pricing V3 Perfect</h2>
+        <p class="demo-section__subtitle">8 designs pour convertir vos visiteurs</p>
+        <div class="demo-section__variants">
+          <button class="demo-variant-btn active" data-block="pricing" data-variant="cards-modern">Cards Modern</button>
+          <button class="demo-variant-btn" data-block="pricing" data-variant="table-comparison">Table Comparison</button>
+          <button class="demo-variant-btn" data-block="pricing" data-variant="slider-interactive">Slider Interactive</button>
+          <button class="demo-variant-btn" data-block="pricing" data-variant="cards-flip">Cards Flip</button>
+          <button class="demo-variant-btn" data-block="pricing" data-variant="timeline">Timeline</button>
+          <button class="demo-variant-btn" data-block="pricing" data-variant="grid-bento">Grid Bento</button>
+          <button class="demo-variant-btn" data-block="pricing" data-variant="gradient-wave">Gradient Wave</button>
+          <button class="demo-variant-btn" data-block="pricing" data-variant="neumorphic">Neumorphic</button>
+        </div>
+      </div>
+      <div class="demo-section__content" id="pricing-content"></div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div id="faq" class="demo-section">
+      <div class="demo-section__header">
+        <h2 class="demo-section__title">FAQ V3 Perfect</h2>
+        <p class="demo-section__subtitle">8 styles pour répondre aux questions</p>
+        <div class="demo-section__variants">
+          <button class="demo-variant-btn active" data-block="faq" data-variant="accordion-modern">Accordion Modern</button>
+          <button class="demo-variant-btn" data-block="faq" data-variant="chat-style">Chat Style</button>
+          <button class="demo-variant-btn" data-block="faq" data-variant="timeline">Timeline</button>
+          <button class="demo-variant-btn" data-block="faq" data-variant="cards-grid">Cards Grid</button>
+          <button class="demo-variant-btn" data-block="faq" data-variant="tabs-horizontal">Tabs Horizontal</button>
+          <button class="demo-variant-btn" data-block="faq" data-variant="floating-bubbles">Floating Bubbles</button>
+          <button class="demo-variant-btn" data-block="faq" data-variant="masonry">Masonry</button>
+          <button class="demo-variant-btn" data-block="faq" data-variant="video-style">Video Style</button>
+        </div>
+      </div>
+      <div class="demo-section__content" id="faq-content"></div>
+    </div>
+
+    <!-- CTA Section -->
+    <div id="cta" class="demo-section">
+      <div class="demo-section__header">
+        <h2 class="demo-section__title">CTA V3 Perfect</h2>
+        <p class="demo-section__subtitle">8 call-to-action irrésistibles</p>
+        <div class="demo-section__variants">
+          <button class="demo-variant-btn active" data-block="cta" data-variant="gradient-wave">Gradient Wave</button>
+          <button class="demo-variant-btn" data-block="cta" data-variant="glassmorphism">Glassmorphism</button>
+          <button class="demo-variant-btn" data-block="cta" data-variant="split-screen">Split Screen</button>
+          <button class="demo-variant-btn" data-block="cta" data-variant="floating-cards">Floating Cards</button>
+          <button class="demo-variant-btn" data-block="cta" data-variant="neon-glow">Neon Glow</button>
+          <button class="demo-variant-btn" data-block="cta" data-variant="parallax-layers">Parallax Layers</button>
+          <button class="demo-variant-btn" data-block="cta" data-variant="morphing-shapes">Morphing Shapes</button>
+          <button class="demo-variant-btn" data-block="cta" data-variant="video-background">Video Background</button>
+        </div>
+      </div>
+      <div class="demo-section__content" id="cta-content"></div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="demo-section">
+      <div class="demo-section__header">
+        <h2 class="demo-section__title">Contact V3 Perfect</h2>
+        <p class="demo-section__subtitle">8 interfaces de contact modernes</p>
+        <div class="demo-section__variants">
+          <button class="demo-variant-btn active" data-block="contact" data-variant="split-modern">Split Modern</button>
+          <button class="demo-variant-btn" data-block="contact" data-variant="floating-cards">Floating Cards</button>
+          <button class="demo-variant-btn" data-block="contact" data-variant="glassmorphism">Glassmorphism</button>
+          <button class="demo-variant-btn" data-block="contact" data-variant="map-fullscreen">Map Fullscreen</button>
+          <button class="demo-variant-btn" data-block="contact" data-variant="minimal-centered">Minimal Centered</button>
+          <button class="demo-variant-btn" data-block="contact" data-variant="gradient-waves">Gradient Waves</button>
+          <button class="demo-variant-btn" data-block="contact" data-variant="sidebar-sticky">Sidebar Sticky</button>
+          <button class="demo-variant-btn" data-block="contact" data-variant="chat-style">Chat Style</button>
+        </div>
+      </div>
+      <div class="demo-section__content" id="contact-content"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    // Import des renderers V3
+    import { HeroRendererV3Perfect } from '../lib/v3/renderers/hero-perfect.renderer.js';
+    import { FeaturesRendererV3Perfect } from '../lib/v3/renderers/features-perfect.renderer.js';
+    import { ServicesRendererV3Perfect } from '../lib/v3/renderers/services-perfect.renderer.js';
+    import { GalleryRendererV3Perfect } from '../lib/v3/renderers/gallery-perfect.renderer.js';
+    import { ContentRendererV3Perfect } from '../lib/v3/renderers/content-perfect.renderer.js';
+    import { TestimonialsRendererV3Perfect } from '../lib/v3/renderers/testimonials-perfect.renderer.js';
+    import { PricingRendererV3Perfect } from '../lib/v3/renderers/pricing-perfect.renderer.js';
+    import { FAQRendererV3Perfect } from '../lib/v3/renderers/faq-perfect.renderer.js';
+    import { CTARendererV3Perfect } from '../lib/v3/renderers/cta-perfect.renderer.js';
+    import { ContactRendererV3Perfect } from '../lib/v3/renderers/contact-perfect.renderer.js';
+
+    // Initialisation des renderers
+    const renderers = {
+      hero: new HeroRendererV3Perfect(),
+      features: new FeaturesRendererV3Perfect(),
+      services: new ServicesRendererV3Perfect(),
+      gallery: new GalleryRendererV3Perfect(),
+      content: new ContentRendererV3Perfect(),
+      testimonials: new TestimonialsRendererV3Perfect(),
+      pricing: new PricingRendererV3Perfect(),
+      faq: new FAQRendererV3Perfect(),
+      cta: new CTARendererV3Perfect(),
+      contact: new ContactRendererV3Perfect()
+    };
+
+    // État actuel
+    const currentVariants = {
+      hero: 'split-modern',
+      features: 'grid-modern',
+      services: 'cards-hover-3d',
+      gallery: 'masonry-modern',
+      content: 'magazine-layout',
+      testimonials: 'carousel-modern',
+      pricing: 'cards-modern',
+      faq: 'accordion-modern',
+      cta: 'gradient-wave',
+      contact: 'split-modern'
+    };
+
+    // Fonction de rendu
+    function renderBlock(blockType, variant) {
+      const renderer = renderers[blockType];
+      const contentEl = document.getElementById(`${blockType}-content`);
+      
+      if (!renderer || !contentEl) return;
+      
+      // Obtenir les données par défaut et mettre à jour la variante
+      const defaultData = renderer.getDefaultData();
+      const data = {
+        ...defaultData,
+        variant: variant
+      };
+      
+      // Rendre le bloc
+      const result = renderer.render(data, { isExport: false });
+      
+      // Injecter le HTML
+      contentEl.innerHTML = result.html;
+      
+      // Exécuter le JavaScript
+      if (result.js) {
+        try {
+          const script = document.createElement('script');
+          script.textContent = result.js;
+          document.body.appendChild(script);
+        } catch (error) {
+          console.error('Erreur JS:', error);
+        }
+      }
+    }
+
+    // Gestion des boutons de variante
+    document.querySelectorAll('.demo-variant-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const blockType = btn.dataset.block;
+        const variant = btn.dataset.variant;
+        
+        // Mettre à jour l'état actif
+        document.querySelectorAll(`[data-block="${blockType}"]`).forEach(b => {
+          b.classList.remove('active');
+        });
+        btn.classList.add('active');
+        
+        // Mettre à jour la variante
+        currentVariants[blockType] = variant;
+        
+        // Re-rendre le bloc
+        renderBlock(blockType, variant);
+      });
+    });
+
+    // Navigation smooth scroll
+    document.querySelectorAll('.demo-nav__link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          
+          // Mettre à jour l'état actif
+          document.querySelectorAll('.demo-nav__link').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Observer pour la navigation active
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          document.querySelectorAll('.demo-nav__link').forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.demo-section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Rendu initial
+    Object.keys(currentVariants).forEach(blockType => {
+      renderBlock(blockType, currentVariants[blockType]);
+    });
+  </script>
+</body>
+</html>

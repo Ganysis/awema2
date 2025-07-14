@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Server</title>
+</head>
+<body>
+    <h1>Test Server Status</h1>
+    <p>Si vous voyez cette page, le serveur fonctionne!</p>
+    <p>Timestamp: <span id="time"></span></p>
+    <script>
+        document.getElementById('time').textContent = new Date().toISOString();
+    </script>
+</body>
+</html>

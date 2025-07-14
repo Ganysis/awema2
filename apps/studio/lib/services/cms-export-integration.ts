@@ -11,6 +11,7 @@ import crypto from 'crypto';
 import { generateBasicCMSFixed } from './cms-basic-fixed';
 import { NetlifyFunctionsGenerator } from './netlify-functions-generator';
 import { generateCMSWithNetlifyFunctions } from './cms-netlify-functions-adapter';
+import { getTableName } from '../config/supabase-tables.config';
 
 interface CMSConfig {
   siteId: string;
@@ -27,6 +28,7 @@ interface ExportOptions {
   cmsLevel: 'none' | 'basic' | 'full';
   supabaseUrl?: string;
   supabaseAnonKey?: string;
+  projectData?: any;
 }
 
 export class CMSExportIntegration {
@@ -70,7 +72,7 @@ export class CMSExportIntegration {
 
       // Créer le site dans Supabase
       const { data: site, error: siteError } = await this.supabase
-        .from('sites')
+        .from(getTableName('sites'))
         .insert({
           id: config.siteId,
           name: config.siteName,
@@ -139,18 +141,24 @@ export class CMSExportIntegration {
       return files;
     }
 
-    // Générer les Netlify Edge Functions si Supabase est configuré
-    if (options.supabaseUrl && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-      const { NetlifyEdgeFunctionsGenerator } = require('./netlify-edge-functions');
-      const edgeGen = new NetlifyEdgeFunctionsGenerator();
+    // Utiliser Supabase Direct (sans Netlify Functions)
+    if (options.supabaseUrl && options.supabaseAnonKey) {
+      const { CMSSupabaseDirect } = require('./cms-supabase-direct');
+      const cmsGen = new CMSSupabaseDirect();
       
-      const edgeFiles = edgeGen.generateFiles(
-        siteConfig?.siteId || crypto.randomUUID(),
-        options.supabaseUrl,
-        process.env.SUPABASE_SERVICE_ROLE_KEY
-      );
+      const siteId = siteConfig?.siteId || crypto.randomUUID();
       
-      files.push(...edgeFiles);
+      // Générer le netlify.toml minimal
+      files.push({
+        path: 'netlify.toml',
+        content: cmsGen.generateNetlifyToml()
+      });
+      
+      // Guide de configuration Supabase
+      files.push({
+        path: 'SUPABASE-SETUP.md',
+        content: cmsGen.generateSupabaseSetupGuide()
+      });
     }
 
     // Créer une config par défaut si pas de siteConfig
@@ -165,26 +173,51 @@ export class CMSExportIntegration {
     };
 
     // 1. Fichier de configuration CMS
-    files.push({
-      path: 'admin/config.js',
-      content: this.generateConfigFile(config, options)
-    });
+    if (options.supabaseUrl && options.supabaseAnonKey) {
+      const { CMSSupabaseDirect } = require('./cms-supabase-direct');
+      const cmsGen = new CMSSupabaseDirect();
+      files.push({
+        path: 'admin/config.js',
+        content: cmsGen.generateAdminConfig(options.supabaseUrl, options.supabaseAnonKey, config.siteId)
+      });
+    } else {
+      files.push({
+        path: 'admin/config.js',
+        content: this.generateConfigFile(config, options)
+      });
+    }
 
     // 2. Interface d'administration
-    files.push({
-      path: 'admin/index.html',
-      content: this.generateAdminHTML(config, options)
-    });
+    if (options.supabaseUrl && options.supabaseAnonKey) {
+      const { CMSSupabaseDirect } = require('./cms-supabase-direct');
+      const cmsGen = new CMSSupabaseDirect();
+      files.push({
+        path: 'admin/index.html',
+        content: cmsGen.generateAdminHTML(config.siteName)
+      });
+    } else {
+      files.push({
+        path: 'admin/index.html',
+        content: this.generateAdminHTML(config, options)
+      });
+    }
 
     // 3. Script CMS principal
-    const cmsScript = options.supabaseUrl && process.env.SUPABASE_SERVICE_ROLE_KEY
-      ? this.generateEdgeCMSScript() // Utiliser le CMS Edge si Supabase configuré
-      : this.generateCMSScript(options.cmsLevel);
-    
-    files.push({
-      path: 'admin/cms.js',
-      content: cmsScript
-    });
+    if (options.supabaseUrl && options.supabaseAnonKey) {
+      // Utiliser Supabase Direct
+      const { CMSSupabaseDirect } = require('./cms-supabase-direct');
+      const cmsGen = new CMSSupabaseDirect();
+      files.push({
+        path: 'admin/cms.js',
+        content: cmsGen.generateCMSScript(options.supabaseUrl, options.supabaseAnonKey, config.siteId)
+      });
+    } else {
+      // Fallback sur le CMS localStorage
+      files.push({
+        path: 'admin/cms.js',
+        content: this.generateCMSScript(options.cmsLevel || 'basic')
+      });
+    }
 
     // 4. Styles CMS
     files.push({
@@ -212,6 +245,15 @@ export class CMSExportIntegration {
       content: this.generateCMSInjector(options)
     });
 
+    // 8. Éditeur de pages pour le CMS
+    if (options.cmsLevel !== 'none') {
+      const { generatePageEditorScript } = require('./cms-page-editor');
+      files.push({
+        path: 'admin/page-editor.js',
+        content: generatePageEditorScript()
+      });
+    }
+
     return files;
   }
 
@@ -230,14 +272,13 @@ export class CMSExportIntegration {
     html = html.replace('</head>', `${metaTags}\n</head>`);
 
     // Ajouter le script d'injection CMS avant la fermeture du body
-    const apiUrl = '/.netlify/functions/cms-api';
     const cmsScript = `
     <script src="/assets/js/cms-injector.js" defer></script>
     <script>
       window.CMS_CONFIG = {
         siteId: '${siteConfig.siteId}',
         pageId: '${pageId}',
-        apiUrl: '${apiUrl}',
+        apiUrl: '/api/cms',
         isNetlifyFunction: true,
         mode: 'production'
       };
@@ -420,13 +461,6 @@ export class CMSExportIntegration {
    * Génère le fichier de configuration
    */
   private generateConfigFile(config: CMSConfig, options: ExportOptions): string {
-    // Utiliser les Netlify Functions locales au site (pas de CORS!)
-    const apiUrl = '/.netlify/functions/cms-api';
-    // URL du proxy pour contourner les problèmes CORS avec domaines personnalisés
-    const proxyUrl = process.env.NEXT_PUBLIC_BASE_URL 
-      ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/cms-proxy`
-      : 'https://studio.awema.fr/api/cms-proxy';
-    
     return `// Configuration CMS AWEMA
 window.AWEMA_CMS_CONFIG = {
   version: '2.0',
@@ -437,10 +471,8 @@ window.AWEMA_CMS_CONFIG = {
   domain: '${config.domain || (config.subdomain || 'site') + '.awema.site'}',
   adminEmail: '${config.adminEmail || 'admin@site.com'}',
   adminPassword: '${config.adminPassword || 'admin123'}',
-  proxyUrl: '${proxyUrl}',
   api: {
-    url: '${apiUrl}',
-    anonKey: 'not-needed-with-functions',
+    url: '/api/cms',
     isNetlifyFunction: true
   },
   features: ${JSON.stringify(this.getPlanFeatures(config.plan), null, 2)},
@@ -541,14 +573,6 @@ if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin
     return this.generateFullCMS();
   }
 
-  /**
-   * Génère le CMS pour Edge Functions
-   */
-  private generateEdgeCMSScript(): string {
-    const { NetlifyEdgeFunctionsGenerator } = require('./netlify-edge-functions');
-    const edgeGen = new NetlifyEdgeFunctionsGenerator();
-    return edgeGen.generateCMSForEdgeFunctions();
-  }
 
   /**
    * Génère le CMS basique

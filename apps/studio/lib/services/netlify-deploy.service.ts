@@ -79,6 +79,7 @@ export class NetlifyDeployService {
         cmsPlan: options.cmsPlan || 'starter',
         supabaseUrl: options.supabaseUrl,
         supabaseAnonKey: options.supabaseAnonKey,
+        forDeployment: true, // Use external CSS/JS files for deployment
       };
 
       const exportData = await StaticExportService.exportSite(
@@ -137,6 +138,16 @@ export class NetlifyDeployService {
       exportData.additionalFiles.forEach(file => {
         files[file.path] = file.content;
       });
+
+      // Ajouter les assets (images, favicon, etc.)
+      if (exportData.assets && exportData.assets.length > 0) {
+        console.log(`[Netlify Deploy] Ajout de ${exportData.assets.length} assets...`);
+        exportData.assets.forEach(asset => {
+          // Convertir le Buffer en base64 pour Netlify
+          const base64Content = asset.data.toString('base64');
+          files[asset.path] = base64Content;
+        });
+      }
 
       // Ajouter les instructions DNS si un domaine personnalisé est défini
       if (options.customDomain) {

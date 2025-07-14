@@ -17,6 +17,7 @@ export interface CreateProjectInput {
   seoKeywords?: string[] | string;
   features?: Record<string, any> | string;
   settings?: Record<string, any> | string;
+  data?: Record<string, any> | string;
 }
 
 export interface UpdateProjectInput extends Partial<CreateProjectInput> {
@@ -65,6 +66,9 @@ export class ProjectService {
       settings: data.settings ? 
         (typeof data.settings === 'string' ? data.settings : JSON.stringify(data.settings)) : 
         '{}',
+      data: data.data ? 
+        (typeof data.data === 'string' ? data.data : JSON.stringify(data.data)) : 
+        undefined,
     };
 
     const project = await prisma.project.create({
@@ -97,8 +101,8 @@ export class ProjectService {
   /**
    * Find project by ID
    */
-  static async findById(id: string, includeRelations = false) {
-    return prisma.project.findUnique({
+  static async findById(id: string, includeRelations = true) {
+    const project = await prisma.project.findUnique({
       where: { id },
       include: includeRelations ? {
         client: true,
@@ -126,6 +130,25 @@ export class ProjectService {
         },
       } : undefined,
     });
+
+    if (!project) return null;
+
+    // Parse JSON fields that are stored as strings in SQLite
+    return {
+      ...project,
+      features: project.features ? 
+        (typeof project.features === 'string' ? JSON.parse(project.features) : project.features) : 
+        {},
+      settings: project.settings ? 
+        (typeof project.settings === 'string' ? JSON.parse(project.settings) : project.settings) : 
+        {},
+      seoKeywords: project.seoKeywords ? 
+        (typeof project.seoKeywords === 'string' ? JSON.parse(project.seoKeywords) : project.seoKeywords) : 
+        [],
+      data: project.data ? 
+        (typeof project.data === 'string' ? JSON.parse(project.data) : project.data) : 
+        null,
+    };
   }
 
   /**

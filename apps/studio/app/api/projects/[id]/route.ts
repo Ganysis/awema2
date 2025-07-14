@@ -48,9 +48,17 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       );
     }
 
+    // Parse the data field if it's a string (SQLite stores JSON as string)
+    const projectData = {
+      ...project,
+      data: project.data ? 
+        (typeof project.data === 'string' ? JSON.parse(project.data) : project.data) : 
+        null
+    };
+
     return NextResponse.json({
       success: true,
-      data: project,
+      data: projectData,
     });
   } catch (error: any) {
     console.error('Get project error:', error);

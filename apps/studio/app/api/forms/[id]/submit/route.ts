@@ -94,7 +94,7 @@ export async function POST(
           companyName: formData.businessName,
           siret: formData.siret,
           status: 'NEW', // Reset status to NEW for new lead
-          message: formData.message || formData.additionalInfo,
+          // message: formData.message || formData.additionalInfo, // Removed - not in UpdateClientInput
         })
       } else {
         // Create new client
@@ -108,7 +108,7 @@ export async function POST(
           companyName: formData.businessName,
           siret: formData.siret,
           status: 'NEW',
-          message: formData.message || formData.additionalInfo,
+          // message: formData.message || formData.additionalInfo, // Removed - not in UpdateClientInput
         })
       }
       

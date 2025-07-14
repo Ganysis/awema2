@@ -2,6 +2,7 @@ import { NetlifyDeployCorrectService } from './netlify-deploy-correct.service';
 import { CMSExportIntegration } from './cms-export-integration';
 import { SupabaseAutoSetup } from './supabase-auto-setup';
 import crypto from 'crypto';
+import { getTableName } from '../config/supabase-tables.config';
 
 // Import dynamique pour éviter l'erreur si le module n'est pas installé
 let createClient: any;
@@ -234,7 +235,7 @@ export class AutoDeployService {
 
       // Récupérer les infos du site
       const { data: site, error } = await this.supabase
-        .from('sites')
+        .from(getTableName('sites'))
         .select('*')
         .eq('id', siteId)
         .single();
@@ -296,7 +297,7 @@ export class AutoDeployService {
 
       // Récupérer les données du site source
       const { data: sourceData, error: sourceError } = await this.supabase
-        .from('content')
+        .from(getTableName('content'))
         .select('*')
         .eq('site_id', sourceSiteId);
 
@@ -306,7 +307,7 @@ export class AutoDeployService {
 
       // Récupérer les infos du site source
       const { data: sourceSite } = await this.supabase
-        .from('sites')
+        .from(getTableName('sites'))
         .select('*')
         .eq('id', sourceSiteId)
         .single();
@@ -345,9 +346,32 @@ export class AutoDeployService {
     try {
       console.log('[AutoDeploy] Mise à jour dans Supabase:', { siteId, updates });
       
+      // D'abord récupérer la config existante
+      const { data: existingSite, error: fetchError } = await this.supabase
+        .from(getTableName('sites'))
+        .select('config')
+        .eq('id', siteId)
+        .single();
+      
+      if (fetchError) {
+        console.error('[AutoDeploy] Erreur récupération site:', fetchError);
+        return;
+      }
+      
+      // Fusionner avec la config existante
+      const updatedConfig = {
+        ...(existingSite?.config || {}),
+        ...updates,
+        updated_at: new Date().toISOString()
+      };
+      
+      // Mettre à jour uniquement le champ config
       const { error } = await this.supabase
-        .from('sites')
-        .update(updates)
+        .from(getTableName('sites'))
+        .update({ 
+          config: updatedConfig,
+          updated_at: new Date()
+        })
         .eq('id', siteId);
 
       if (error) {

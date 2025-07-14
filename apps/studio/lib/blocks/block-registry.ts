@@ -73,11 +73,334 @@ import {
   renderReviews,
   reviewsUltraModern,
   renderReviewsUltraModern,
+  headerUltraModern,
+  footerUltraModern,
   
   // Types
   type Block
 } from '@awema/templates';
+
+// Import des renderers Ultra-Modern locaux
+import { renderHeaderUltraModern } from './ultra-modern/header-ultra-modern-renderer';
+import { renderFooterUltraModern } from './ultra-modern/footer-ultra-modern-renderer';
+import { useEditorStore } from '@/lib/store/editor-store';
 import { BlockCategory } from '@awema/shared';
+
+// Import des renderers V3 Perfect
+import { HeroRendererV3Perfect } from '../v3/renderers/hero-perfect.renderer';
+import { FeaturesRendererV3Perfect } from '../v3/renderers/features-perfect.renderer';
+import { ServicesRendererV3Perfect } from '../v3/renderers/services-perfect.renderer';
+import { GalleryRendererV3Perfect } from '../v3/renderers/gallery-perfect.renderer';
+import { ContentRendererV3Perfect } from '../v3/renderers/content-perfect.renderer';
+import { TestimonialsRendererV3Perfect } from '../v3/renderers/testimonials-perfect.renderer';
+import { PricingRendererV3Perfect } from '../v3/renderers/pricing-perfect.renderer';
+import { FAQRendererV3Perfect } from '../v3/renderers/faq-perfect.renderer';
+import { CTARendererV3Perfect } from '../v3/renderers/cta-perfect.renderer';
+import { ContactRendererV3Perfect } from '../v3/renderers/contact-perfect.renderer';
+
+// Créer les instances V3
+const heroV3 = new HeroRendererV3Perfect();
+const featuresV3 = new FeaturesRendererV3Perfect();
+const servicesV3 = new ServicesRendererV3Perfect();
+const galleryV3 = new GalleryRendererV3Perfect();
+const contentV3 = new ContentRendererV3Perfect();
+const testimonialsV3 = new TestimonialsRendererV3Perfect();
+const pricingV3 = new PricingRendererV3Perfect();
+const faqV3 = new FAQRendererV3Perfect();
+const ctaV3 = new CTARendererV3Perfect();
+const contactV3 = new ContactRendererV3Perfect();
+
+// Créer les wrappers pour les renderers V3
+const renderHeroV3Perfect = (props: any, variants?: string[]) => {
+  // Récupérer le thème depuis le store si disponible
+  const theme = typeof window !== 'undefined' 
+    ? (window as any).__editorStore?.getState()?.theme 
+    : undefined;
+  
+  const context = { 
+    isExport: false,
+    theme,
+    device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
+  };
+  
+  const result = heroV3.render(props, context);
+  return result; // Retourner l'objet complet {html, css, js}
+};
+
+const renderFeaturesV3Perfect = (props: any, variants?: string[]) => {
+  // Récupérer le thème depuis le store si disponible
+  const theme = typeof window !== 'undefined' 
+    ? (window as any).__editorStore?.getState()?.theme 
+    : undefined;
+  
+  const context = { 
+    isExport: false,
+    theme,
+    device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
+  };
+  
+  const result = featuresV3.render(props, context);
+  return result; // Retourner l'objet complet {html, css, js}
+};
+
+const renderServicesV3Perfect = (props: any, variants?: string[]) => {
+  // Récupérer le thème depuis le store si disponible
+  const theme = typeof window !== 'undefined' 
+    ? (window as any).__editorStore?.getState()?.theme 
+    : undefined;
+  
+  const context = { 
+    isExport: false,
+    theme,
+    device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
+  };
+  
+  const result = servicesV3.render(props, context);
+  return result; // Retourner l'objet complet {html, css, js}
+};
+
+const renderGalleryV3Perfect = (props: any, variants?: string[]) => {
+  // Récupérer le thème depuis le store si disponible
+  const theme = typeof window !== 'undefined' 
+    ? (window as any).__editorStore?.getState()?.theme 
+    : undefined;
+  
+  const context = { 
+    isExport: false,
+    theme,
+    device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
+  };
+  
+  const result = galleryV3.render(props, context);
+  return result; // Retourner l'objet complet {html, css, js}
+};
+
+const renderContentV3Perfect = (props: any, variants?: string[]) => {
+  // Récupérer le thème depuis le store si disponible
+  const theme = typeof window !== 'undefined' 
+    ? (window as any).__editorStore?.getState()?.theme 
+    : undefined;
+  
+  const context = { 
+    isExport: false,
+    theme,
+    device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
+  };
+  
+  const result = contentV3.render(props, context);
+  return result; // Retourner l'objet complet {html, css, js}
+};
+
+const renderTestimonialsV3Perfect = (props: any, variants?: string[]) => {
+  // Récupérer le thème depuis le store si disponible
+  const theme = typeof window !== 'undefined' 
+    ? (window as any).__editorStore?.getState()?.theme 
+    : undefined;
+  
+  const context = { 
+    isExport: false,
+    theme,
+    device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
+  };
+  
+  const result = testimonialsV3.render(props, context);
+  return result; // Retourner l'objet complet {html, css, js}
+};
+
+const renderPricingV3Perfect = (props: any, variants?: string[]) => {
+  // Récupérer le thème depuis le store si disponible
+  const theme = typeof window !== 'undefined' 
+    ? (window as any).__editorStore?.getState()?.theme 
+    : undefined;
+  
+  const context = { 
+    isExport: false,
+    theme,
+    device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
+  };
+  
+  const result = pricingV3.render(props, context);
+  return result; // Retourner l'objet complet {html, css, js}
+};
+
+const renderFAQV3Perfect = (props: any, variants?: string[]) => {
+  // Récupérer le thème depuis le store si disponible
+  const theme = typeof window !== 'undefined' 
+    ? (window as any).__editorStore?.getState()?.theme 
+    : undefined;
+  
+  const context = { 
+    isExport: false,
+    theme,
+    device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
+  };
+  
+  const result = faqV3.render(props, context);
+  return result; // Retourner l'objet complet {html, css, js}
+};
+
+const renderCTAV3Perfect = (props: any, variants?: string[]) => {
+  // Récupérer le thème depuis le store si disponible
+  const theme = typeof window !== 'undefined' 
+    ? (window as any).__editorStore?.getState()?.theme 
+    : undefined;
+  
+  const context = { 
+    isExport: false,
+    theme,
+    device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
+  };
+  
+  const result = ctaV3.render(props, context);
+  return result; // Retourner l'objet complet {html, css, js}
+};
+
+const renderContactV3Perfect = (props: any, variants?: string[]) => {
+  // Récupérer le thème depuis le store si disponible
+  const theme = typeof window !== 'undefined' 
+    ? (window as any).__editorStore?.getState()?.theme 
+    : undefined;
+  
+  const context = { 
+    isExport: false,
+    theme,
+    device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
+  };
+  
+  const result = contactV3.render(props, context);
+  return result; // Retourner l'objet complet {html, css, js}
+};
+
+// Créer les blocs V3 pour le registry
+const heroV3Perfect: Block = {
+  id: 'hero-v3-perfect',
+  name: 'Hero V3 Perfect',
+  category: 'hero',
+  description: '8 variantes spectaculaires avec animations 3D',
+  tags: ['v3', 'hero', 'modern', 'animated'],
+  props: heroV3.getBlockProps(),
+  variants: [],
+  defaultProps: heroV3.getDefaultData(),
+  thumbnail: '',
+  performanceImpact: 'medium' as any
+};
+
+const featuresV3Perfect: Block = {
+  id: 'features-v3-perfect',
+  name: 'Features V3 Perfect',
+  category: 'features',
+  description: '6 layouts innovants avec animations',
+  tags: ['v3', 'features', 'modern', 'animated'],
+  props: featuresV3.getBlockProps(),
+  variants: [],
+  defaultProps: featuresV3.getDefaultData(),
+  thumbnail: '',
+  performanceImpact: 'medium' as any
+};
+
+const servicesV3Perfect: Block = {
+  id: 'services-v3-perfect',
+  name: 'Services V3 Perfect',
+  category: 'services',
+  description: '8 designs avec comparaisons et calculateur',
+  tags: ['v3', 'services', 'modern', 'interactive'],
+  props: servicesV3.getBlockProps(),
+  variants: [],
+  defaultProps: servicesV3.getDefaultData(),
+  thumbnail: '',
+  performanceImpact: 'medium' as any
+};
+
+const galleryV3Perfect: Block = {
+  id: 'gallery-v3-perfect',
+  name: 'Gallery V3 Perfect',
+  category: 'gallery',
+  description: '8 layouts + lightbox 5 styles + zoom 10x',
+  tags: ['v3', 'gallery', 'modern', 'interactive'],
+  props: galleryV3.getBlockProps(),
+  variants: [],
+  defaultProps: galleryV3.getDefaultData(),
+  thumbnail: '',
+  performanceImpact: 'medium' as any
+};
+
+const contentV3Perfect: Block = {
+  id: 'content-v3-perfect',
+  name: 'Content V3 Perfect',
+  category: 'content',
+  description: '8 formats avec table des matières auto',
+  tags: ['v3', 'content', 'modern', 'rich'],
+  props: contentV3.getBlockProps(),
+  variants: [],
+  defaultProps: contentV3.getDefaultData(),
+  thumbnail: '',
+  performanceImpact: 'low' as any
+};
+
+const testimonialsV3Perfect: Block = {
+  id: 'testimonials-v3-perfect',
+  name: 'Testimonials V3 Perfect',
+  category: 'testimonials',
+  description: 'Intégrations Google/Trustpilot + vidéos',
+  tags: ['v3', 'testimonials', 'modern', 'social'],
+  props: testimonialsV3.getBlockProps(),
+  variants: [],
+  defaultProps: testimonialsV3.getDefaultData(),
+  thumbnail: '',
+  performanceImpact: 'medium' as any
+};
+
+const pricingV3Perfect: Block = {
+  id: 'pricing-v3-perfect',
+  name: 'Pricing V3 Perfect',
+  category: 'pricing',
+  description: 'Toggle période + calculateur + 8 variantes',
+  tags: ['v3', 'pricing', 'modern', 'interactive'],
+  props: pricingV3.getBlockProps(),
+  variants: [],
+  defaultProps: pricingV3.getDefaultData(),
+  thumbnail: '',
+  performanceImpact: 'low' as any
+};
+
+const faqV3Perfect: Block = {
+  id: 'faq-v3-perfect',
+  name: 'FAQ V3 Perfect',
+  category: 'faq',
+  description: 'Recherche + chatbot simulé + 8 styles',
+  tags: ['v3', 'faq', 'modern', 'interactive'],
+  props: faqV3.getBlockProps(),
+  variants: [],
+  defaultProps: faqV3.getDefaultData(),
+  thumbnail: '',
+  performanceImpact: 'low' as any
+};
+
+const ctaV3Perfect: Block = {
+  id: 'cta-v3-perfect',
+  name: 'CTA V3 Perfect',
+  category: 'cta',
+  description: 'Countdown + confetti + sons + animations',
+  tags: ['v3', 'cta', 'modern', 'animated'],
+  props: ctaV3.getBlockProps(),
+  variants: [],
+  defaultProps: ctaV3.getDefaultData(),
+  thumbnail: '',
+  performanceImpact: 'medium' as any
+};
+
+const contactV3Perfect: Block = {
+  id: 'contact-v3-perfect',
+  name: 'Contact V3 Perfect',
+  category: 'contact',
+  description: 'Validation temps réel + map + webhooks',
+  tags: ['v3', 'contact', 'modern', 'form'],
+  props: contactV3.getBlockProps(),
+  variants: [],
+  defaultProps: contactV3.getDefaultData(),
+  thumbnail: '',
+  performanceImpact: 'medium' as any
+};
 
 // Map template block categories to shared BlockCategory enum
 const categoryMap: Record<string, BlockCategory> = {
@@ -301,6 +624,12 @@ export const blockRegistry: BlockDefinition[] = [
     description: 'Pied de page professionnel avec liens services, mentions légales et crédit Awema',
   },
   {
+    block: footerUltraModern,
+    category: BlockCategory.FOOTER,
+    name: 'Footer Ultra-Moderne',
+    description: 'Pied de page ultra-moderne avec 8 variantes, widgets dynamiques et intégrations avancées',
+  },
+  {
     block: simpleHeader,
     category: BlockCategory.CONTENT,
     name: 'Header Simple',
@@ -313,6 +642,12 @@ export const blockRegistry: BlockDefinition[] = [
     description: 'En-tête professionnel avec navigation complète et sous-menus',
   },
   {
+    block: headerUltraModern,
+    category: BlockCategory.HEADER,
+    name: 'Header Ultra-Moderne',
+    description: 'En-tête ultra-moderne avec 8 variantes visuelles, mega menus et fonctionnalités avancées',
+  },
+  {
     block: reviewsBlock,
     category: BlockCategory.TESTIMONIALS,
     name: 'Avis clients',
@@ -323,6 +658,67 @@ export const blockRegistry: BlockDefinition[] = [
     category: BlockCategory.TESTIMONIALS,
     name: 'Reviews Ultra-Moderne',
     description: 'Avis clients avec intégration Google, design moderne et animations avancées',
+  },
+  // V3 PERFECT BLOCKS
+  {
+    block: heroV3Perfect,
+    category: BlockCategory.HERO,
+    name: '🚀 Hero V3 PERFECT',
+    description: '8 variantes spectaculaires avec animations 3D, particles, vidéos - ZERO erreur garanti',
+  },
+  {
+    block: featuresV3Perfect,
+    category: BlockCategory.FEATURES,
+    name: '✨ Features V3 PERFECT',
+    description: '6 layouts innovants (Bento, 3D Carousel, Timeline) - Validation Zod stricte',
+  },
+  {
+    block: servicesV3Perfect,
+    category: BlockCategory.FEATURES,
+    name: '🛠️ Services V3 PERFECT',
+    description: '8 designs (Hexagon, Map, 3D Cards) avec comparaisons et calculateur - 100% fiable',
+  },
+  {
+    block: galleryV3Perfect,
+    category: BlockCategory.GALLERY,
+    name: '🖼️ Gallery V3 PERFECT',
+    description: '8 layouts (Masonry, 3D Flip, Polaroid) + lightbox 5 styles + zoom 10x',
+  },
+  {
+    block: contentV3Perfect,
+    category: BlockCategory.CONTENT,
+    name: '📝 Content V3 PERFECT',
+    description: '8 formats (Magazine, Timeline, Interactive) avec table des matières auto',
+  },
+  {
+    block: testimonialsV3Perfect,
+    category: BlockCategory.TESTIMONIALS,
+    name: '💬 Testimonials V3 PERFECT',
+    description: '8 designs + intégrations Google/Trustpilot + vidéos + map interactive',
+  },
+  {
+    block: pricingV3Perfect,
+    category: BlockCategory.PRICING,
+    name: '💰 Pricing V3 PERFECT',
+    description: '8 variantes (Slider, Flip, Neumorphic) + toggle période + calculateur',
+  },
+  {
+    block: faqV3Perfect,
+    category: BlockCategory.FAQ,
+    name: '❓ FAQ V3 PERFECT',
+    description: '8 styles (Chat, Bubbles, Video) + recherche + chatbot simulé',
+  },
+  {
+    block: ctaV3Perfect,
+    category: BlockCategory.CTA,
+    name: '🎯 CTA V3 PERFECT',
+    description: '8 designs spectaculaires + countdown + confetti + sons + boutons magnétiques',
+  },
+  {
+    block: contactV3Perfect,
+    category: BlockCategory.CONTACT,
+    name: '📞 Contact V3 PERFECT',
+    description: '8 interfaces (Chat, Map Full, Glass) + validation temps réel + webhooks',
   },
 ].filter(def => def && def.block); // Filter out any invalid entries
 
@@ -346,6 +742,8 @@ const renderFunctions: Record<string, any> = {
   'hero-centered': renderHeroCentered,
   'hero-split-screen': renderHeroSplitScreen,
   'hero-ultra-modern': renderHeroUltraModern,
+  'header-ultra-modern': renderHeaderUltraModern,
+  'footer-ultra-modern': renderFooterUltraModern,
   'services-grid-cards': renderServicesGridCards,
   'services-list-detailed': renderServicesListDetailed,
   'services-ultra-modern': renderServicesUltraModern,
@@ -381,6 +779,17 @@ const renderFunctions: Record<string, any> = {
   'header-pro': renderHeaderPro,
   'reviews': renderReviews,
   'reviews-ultra-modern': renderReviewsUltraModern,
+  // V3 PERFECT renderers
+  'hero-v3-perfect': renderHeroV3Perfect,
+  'features-v3-perfect': renderFeaturesV3Perfect,
+  'services-v3-perfect': renderServicesV3Perfect,
+  'gallery-v3-perfect': renderGalleryV3Perfect,
+  'content-v3-perfect': renderContentV3Perfect,
+  'testimonials-v3-perfect': renderTestimonialsV3Perfect,
+  'pricing-v3-perfect': renderPricingV3Perfect,
+  'faq-v3-perfect': renderFAQV3Perfect,
+  'cta-v3-perfect': renderCTAV3Perfect,
+  'contact-v3-perfect': renderContactV3Perfect,
 };
 
 export function getBlockRenderFunction(blockId: string): ((props: any, variants?: string[]) => any) | undefined {

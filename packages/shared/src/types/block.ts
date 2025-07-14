@@ -14,12 +14,15 @@ export interface Block {
 
 export interface BlockProp {
   name: string;
+  label?: string;
   type: PropType;
   required: boolean;
   defaultValue?: any;
   description: string;
   validation?: PropValidation;
   editorConfig?: EditorConfig;
+  options?: string[];
+  itemSchema?: BlockProp[];
 }
 
 export interface BlockVariant {
@@ -110,7 +113,8 @@ export enum EditorControl {
   TIME_PICKER = 'time_picker',
   SLIDER = 'slider',
   RADIO = 'radio',
-  CHECKBOX = 'checkbox'
+  CHECKBOX = 'checkbox',
+  COLLECTION = 'collection'
 }
 
 export enum DependencyType {

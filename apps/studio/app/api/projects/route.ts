@@ -87,9 +87,36 @@ export async function POST(request: NextRequest) {
     // Generate unique slug if not provided
     const slug = await ProjectService.generateUniqueSlug(data.name);
 
+    // Prepare initial project data with basic structure
+    const initialData = {
+      businessInfo: null,
+      projectName: data.name,
+      globalHeader: null,
+      globalFooter: null,
+      pages: [],
+      theme: {
+        variant: data.features?.theme || 'premium',
+        colors: {
+          primary: '#2563eb',
+          secondary: '#7c3aed',
+          accent: '#f59e0b',
+          background: '#ffffff',
+          surface: '#f9fafb',
+          text: '#111827',
+          textSecondary: '#6b7280',
+          textMuted: '#9ca3af',
+          border: '#e5e7eb',
+          success: '#10b981',
+          warning: '#f59e0b',
+          error: '#ef4444'
+        }
+      }
+    };
+
     const project = await ProjectService.create({
       ...data,
       slug,
+      data: initialData, // Add initial data structure
       // createdBy: authResult.user.id, // TODO: Add back when auth is fixed
     });
 

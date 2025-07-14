@@ -54,15 +54,21 @@ export class PreviewGenerator {
           // Call the render function with merged props
           const rendered = renderFn(templateBlock.props, []);
           
-          if (rendered && typeof rendered === 'object') {
-            if (rendered.html) {
-              allHTML += rendered.html;
-            }
-            if (rendered.css) {
-              collectedCSS.push(rendered.css);
-            }
-            if (rendered.js) {
-              collectedJS.push(rendered.js);
+          if (rendered) {
+            if (typeof rendered === 'string') {
+              // Si c'est une string, c'est du HTML direct
+              allHTML += rendered;
+            } else if (typeof rendered === 'object') {
+              // Si c'est un objet, extraire html, css, js
+              if (rendered.html) {
+                allHTML += rendered.html;
+              }
+              if (rendered.css) {
+                collectedCSS.push(rendered.css);
+              }
+              if (rendered.js) {
+                collectedJS.push(rendered.js);
+              }
             }
           }
         } catch (error) {

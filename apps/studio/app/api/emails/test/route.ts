@@ -90,6 +90,7 @@ export async function POST(req: Request) {
       status: 'ACTIVE' as const,
       notes: null,
       tags: null,
+      message: null, // Adding missing field
       createdAt: new Date(),
       updatedAt: new Date(),
       createdBy: null

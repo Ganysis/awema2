@@ -4,6 +4,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import { getTableName } from '../config/supabase-tables.config';
 
 export class SupabaseAutoSetup {
   private supabase: any;
@@ -33,7 +34,7 @@ export class SupabaseAutoSetup {
     try {
       // Vérifier si le super admin existe
       const { data: superAdmin } = await this.supabase
-        .from('cms_users')
+        .from(getTableName('users'))
         .select('id')
         .eq('email', this.superAdminEmail)
         .eq('role', 'super_admin')
@@ -52,7 +53,7 @@ export class SupabaseAutoSetup {
           
           // Fallback : insertion directe
           const { error: insertError } = await this.supabase
-            .from('cms_users')
+            .from(getTableName('users'))
             .insert({
               email: this.superAdminEmail,
               password_hash: await this.hashPassword(this.superAdminPassword),
@@ -90,7 +91,7 @@ export class SupabaseAutoSetup {
     try {
       // 1. Créer le site
       const { data: site, error: siteError } = await this.supabase
-        .from('cms_sites')
+        .from(getTableName('sites'))
         .upsert({
           id: siteId,
           domain: domain,
@@ -127,7 +128,7 @@ export class SupabaseAutoSetup {
         
         // Fallback : insertion directe
         const { error: insertError } = await this.supabase
-          .from('cms_users')
+          .from(getTableName('users'))
           .upsert({
             email: adminEmail,
             password_hash: await this.hashPassword(adminPassword),
@@ -147,7 +148,7 @@ export class SupabaseAutoSetup {
 
       // 3. Créer l'utilisateur standard pour le client (toujours admin@admin.fr)
       const { error: clientUserError } = await this.supabase
-        .from('cms_users')
+        .from(getTableName('users'))
         .upsert({
           email: 'admin@admin.fr',
           password_hash: await this.hashPassword('admin'),
