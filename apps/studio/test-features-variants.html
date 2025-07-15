@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Features Variants</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f3f4f6;
+    }
+    .test-section {
+      margin-bottom: 100px;
+      padding: 40px 0;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+    }
+    .test-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+    .test-subtitle {
+      text-align: center;
+      font-size: 1.25rem;
+      color: #6b7280;
+      margin-bottom: 3rem;
+    }
+    .variant-selector {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .variant-btn {
+      padding: 0.5rem 1.5rem;
+      margin: 0 0.5rem;
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .variant-btn.active {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center; margin-bottom: 3rem;">Test des Variantes Features V3</h1>
+
+  <!-- Test Section -->
+  <div class="test-section">
+    <h2 class="test-title">Sélectionnez une variante</h2>
+    <p class="test-subtitle">Testez toutes les dispositions avec tous les styles visuels</p>
+    
+    <div class="variant-selector">
+      <h3>Disposition :</h3>
+      <button class="variant-btn layout-btn active" data-layout="grid-modern">Grille moderne</button>
+      <button class="variant-btn layout-btn" data-layout="cards-hover">Cartes avec hover</button>
+      <button class="variant-btn layout-btn" data-layout="timeline-vertical">Timeline verticale</button>
+      <button class="variant-btn layout-btn" data-layout="carousel-3d">Carousel 3D</button>
+      <button class="variant-btn layout-btn" data-layout="tabs-animated">Onglets animés</button>
+      <button class="variant-btn layout-btn" data-layout="masonry-creative">Masonry créatif</button>
+      <button class="variant-btn layout-btn" data-layout="comparison-table">Tableau comparatif</button>
+      <button class="variant-btn layout-btn" data-layout="flip-cards">Cartes flip</button>
+    </div>
+    
+    <div class="variant-selector">
+      <h3>Style visuel :</h3>
+      <button class="variant-btn visual-btn active" data-visual="modern">🎨 Moderne</button>
+      <button class="variant-btn visual-btn" data-visual="minimal">⚡ Minimaliste</button>
+      <button class="variant-btn visual-btn" data-visual="bold">🔥 Audacieux</button>
+      <button class="variant-btn visual-btn" data-visual="elegant">✨ Élégant</button>
+    </div>
+    
+    <!-- Features container -->
+    <div id="features-container"></div>
+  </div>
+
+  <script>
+    // Configuration
+    const featuresData = {
+      title: 'Nos Services Exceptionnels',
+      subtitle: 'Des solutions innovantes pour votre entreprise',
+      description: 'Découvrez notre gamme complète de services professionnels',
+      variant: 'grid-modern',
+      visualVariant: 'modern',
+      columns: 3,
+      gap: 'md',
+      alignment: 'center',
+      showIcon: true,
+      iconStyle: 'filled',
+      cardStyle: 'elevated',
+      showLink: true,
+      animation: 'fade',
+      features: [
+        {
+          icon: '🚀',
+          title: 'Performance Optimale',
+          description: 'Des sites web ultra-rapides optimisés pour une expérience utilisateur exceptionnelle.',
+          linkUrl: '#',
+          linkText: 'En savoir plus',
+          category: 'performance',
+          highlight: true
+        },
+        {
+          icon: '🎨',
+          title: 'Design Moderne',
+          description: 'Interfaces élégantes et intuitives qui captivent vos visiteurs dès le premier regard.',
+          linkUrl: '#',
+          linkText: 'Voir les exemples',
+          category: 'design',
+          highlight: false
+        },
+        {
+          icon: '🔍',
+          title: 'SEO Avancé',
+          description: 'Optimisation complète pour un meilleur référencement sur les moteurs de recherche.',
+          linkUrl: '#',
+          linkText: 'Découvrir',
+          category: 'seo',
+          highlight: false
+        },
+        {
+          icon: '💻',
+          title: 'Développement Sur Mesure',
+          description: 'Solutions personnalisées adaptées parfaitement à vos besoins spécifiques.',
+          linkUrl: '#',
+          linkText: 'Nos technologies',
+          category: 'dev',
+          highlight: true
+        },
+        {
+          icon: '🛡️',
+          title: 'Sécurité Maximale',
+          description: 'Protection avancée de vos données avec les derniers standards de sécurité.',
+          linkUrl: '#',
+          linkText: 'En savoir plus',
+          category: 'security',
+          highlight: false
+        },
+        {
+          icon: '📱',
+          title: 'Mobile First',
+          description: 'Applications et sites parfaitement adaptés à tous les appareils mobiles.',
+          linkUrl: '#',
+          linkText: 'Voir la démo',
+          category: 'mobile',
+          highlight: false
+        }
+      ]
+    };
+
+    // Import the renderer
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.textContent = `
+      import { FeaturesRendererV3PerfectEnhanced } from './lib/v3/renderers/features-perfect-enhanced.renderer.js';
+      
+      window.featuresRenderer = new FeaturesRendererV3PerfectEnhanced();
+      window.dispatchEvent(new Event('rendererLoaded'));
+    `;
+    document.head.appendChild(script);
+
+    // Wait for renderer to load
+    window.addEventListener('rendererLoaded', () => {
+      renderFeatures();
+    });
+
+    // Mock renderer for testing (since we can't import ES modules directly)
+    if (!window.featuresRenderer) {
+      // Simulate the renderer
+      window.featuresRenderer = {
+        render: (data) => {
+          const html = generateHTML(data);
+          const css = generateCSS();
+          const js = generateJS(data);
+          return { html, css, js };
+        }
+      };
+      renderFeatures();
+    }
+
+    function renderFeatures() {
+      const container = document.getElementById('features-container');
+      const result = window.featuresRenderer.render(featuresData, {
+        isExport: false,
+        theme: {
+          colors: {
+            primary: '#667eea',
+            secondary: '#764ba2'
+          },
+          typography: {
+            fontFamily: {
+              heading: 'Inter, system-ui, sans-serif',
+              body: 'Inter, system-ui, sans-serif'
+            }
+          }
+        }
+      });
+
+      // Clear container
+      container.innerHTML = '';
+
+      // Add CSS
+      const style = document.createElement('style');
+      style.textContent = result.css;
+      container.appendChild(style);
+
+      // Add HTML
+      const div = document.createElement('div');
+      div.innerHTML = result.html;
+      container.appendChild(div);
+
+      // Add JS
+      if (result.js) {
+        const script = document.createElement('script');
+        script.textContent = result.js;
+        container.appendChild(script);
+      }
+    }
+
+    // Handle variant selection
+    document.querySelectorAll('.layout-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.layout-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        featuresData.variant = btn.dataset.layout;
+        renderFeatures();
+      });
+    });
+
+    document.querySelectorAll('.visual-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.visual-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        featuresData.visualVariant = btn.dataset.visual;
+        renderFeatures();
+      });
+    });
+
+    // Mock HTML generator
+    function generateHTML(data) {
+      return `<section class="features features--${data.variant} features--visual-${data.visualVariant}">
+        <div class="features__container">
+          <div class="features__header">
+            <h2 class="features__title">${data.title}</h2>
+            <p class="features__subtitle">${data.subtitle}</p>
+          </div>
+          ${renderFeaturesHTML(data)}
+        </div>
+      </section>`;
+    }
+
+    function renderFeaturesHTML(data) {
+      switch (data.variant) {
+        case 'timeline-vertical':
+          return `<div class="features__grid features__timeline">
+            ${data.features.map((f, i) => featureHTML(f, i)).join('')}
+          </div>`;
+        
+        case 'carousel-3d':
+          return `
+            <div class="features__grid">
+              ${data.features.map((f, i) => featureHTML(f, i)).join('')}
+            </div>
+            <div class="carousel-controls">
+              <button class="carousel-prev">←</button>
+              <button class="carousel-next">→</button>
+            </div>`;
+        
+        case 'tabs-animated':
+          return `
+            <div class="features__tabs">
+              ${data.features.map((f, i) => `
+                <button class="tab ${i === 0 ? 'active' : ''}" data-tab="${i}">
+                  <span>${f.icon}</span>
+                  <span>${f.title}</span>
+                </button>
+              `).join('')}
+            </div>
+            <div class="features__content">
+              ${data.features.map((f, i) => `
+                <div class="feature ${i === 0 ? 'active' : ''}" data-content="${i}">
+                  ${featureContent(f)}
+                </div>
+              `).join('')}
+            </div>`;
+        
+        case 'comparison-table':
+          return `
+            <div class="features__table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Fonctionnalité</th>
+                    <th>Basique</th>
+                    <th>Pro</th>
+                    <th>Premium</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${data.features.map(f => `
+                    <tr>
+                      <td>${f.title}</td>
+                      <td><span class="check">✓</span></td>
+                      <td><span class="check">✓</span></td>
+                      <td><span class="check">✓</span></td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>`;
+        
+        case 'flip-cards':
+          return `<div class="features__grid">
+            ${data.features.map((f, i) => `
+              <div class="feature" style="--index: ${i};">
+                <div class="feature__inner">
+                  <div class="feature__front">
+                    ${featureContent(f)}
+                  </div>
+                  <div class="feature__back">
+                    <h3>${f.title}</h3>
+                    <p>Informations détaillées sur ${f.title.toLowerCase()}</p>
+                    <a href="${f.linkUrl}" class="feature__link">En savoir plus →</a>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>`;
+        
+        default:
+          return `<div class="features__grid">
+            ${data.features.map((f, i) => featureHTML(f, i)).join('')}
+          </div>`;
+      }
+    }
+
+    function featureHTML(feature, index) {
+      return `
+        <div class="feature" style="--index: ${index};">
+          ${featureContent(feature)}
+        </div>
+      `;
+    }
+
+    function featureContent(feature) {
+      return `
+        <div class="feature__icon">${feature.icon}</div>
+        <h3 class="feature__title">${feature.title}</h3>
+        <p class="feature__description">${feature.description}</p>
+        <a href="${feature.linkUrl}" class="feature__link">
+          ${feature.linkText}
+          <span class="feature__link-icon">→</span>
+        </a>
+      `;
+    }
+
+    // Mock CSS generator
+    function generateCSS() {
+      // Return the CSS from the renderer
+      return window.featuresCSS || `/* Features CSS will be loaded here */`;
+    }
+
+    // Mock JS generator
+    function generateJS(data) {
+      // Return appropriate JS based on variant
+      return `/* Features JS will be loaded here */`;
+    }
+  </script>
+</body>
+</html>
