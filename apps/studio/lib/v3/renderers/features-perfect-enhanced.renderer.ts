@@ -31,8 +31,8 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
   }
 
   getBlockProps(): BlockProp[] {
-    // Define custom properties with better ergonomics
-    const customProps: BlockProp[] = [
+    // Start with basic properties that are always visible
+    const baseProps: BlockProp[] = [
       // Visual Style
       {
         name: 'visualVariant',
@@ -253,339 +253,281 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
           group: 'Affichage',
           order: 5
         }
-      },
-      
-      // Features Collection with dynamic schema based on variant
-      {
-        name: 'features',
-        label: 'Liste des features',
-        type: PropType.ARRAY,
-        required: true,
-        defaultValue: this.getDefaultData().features,
-        description: 'Gérez vos features',
-        editorConfig: {
-          control: EditorControl.COLLECTION,
-          group: 'Features',
-          order: 1,
-          itemLabel: (item: any) => item.title || 'Nouvelle feature',
-          collapsed: false,
-          schema: this.getFeatureSchema()
-        }
       }
     ];
 
-    return customProps;
+    // Add 6 feature slots with simple fields
+    for (let i = 1; i <= 6; i++) {
+      baseProps.push(
+        // Feature title
+        {
+          name: `feature${i}_title`,
+          label: `Feature ${i} - Titre`,
+          type: PropType.STRING,
+          required: false,
+          defaultValue: i <= 3 ? `Feature ${i}` : '',
+          description: `Titre de la feature ${i}`,
+          editorConfig: {
+            control: EditorControl.TEXT,
+            group: `Feature ${i}`,
+            order: 1
+          }
+        },
+        // Feature icon
+        {
+          name: `feature${i}_icon`,
+          label: `Feature ${i} - Icône`,
+          type: PropType.STRING,
+          required: false,
+          defaultValue: i <= 3 ? ['🚀', '🎨', '🔍', '💻', '🛡️', '📱'][i-1] : '',
+          description: `Icône de la feature ${i}`,
+          editorConfig: {
+            control: EditorControl.TEXT,
+            group: `Feature ${i}`,
+            order: 2,
+            placeholder: 'Emoji ou texte court'
+          }
+        },
+        // Feature description
+        {
+          name: `feature${i}_description`,
+          label: `Feature ${i} - Description`,
+          type: PropType.STRING,
+          required: false,
+          defaultValue: i <= 3 ? `Description de la feature ${i}` : '',
+          description: `Description détaillée de la feature ${i}`,
+          editorConfig: {
+            control: EditorControl.TEXTAREA,
+            group: `Feature ${i}`,
+            order: 3,
+            rows: 2
+          }
+        },
+        // Feature link
+        {
+          name: `feature${i}_link`,
+          label: `Feature ${i} - Lien`,
+          type: PropType.STRING,
+          required: false,
+          defaultValue: '#',
+          description: `URL du lien pour la feature ${i}`,
+          editorConfig: {
+            control: EditorControl.TEXT,
+            group: `Feature ${i}`,
+            order: 4,
+            placeholder: 'URL du lien'
+          }
+        },
+        // Feature link text
+        {
+          name: `feature${i}_linkText`,
+          label: `Feature ${i} - Texte du lien`,
+          type: PropType.STRING,
+          required: false,
+          defaultValue: 'En savoir plus',
+          description: `Texte du lien pour la feature ${i}`,
+          editorConfig: {
+            control: EditorControl.TEXT,
+            group: `Feature ${i}`,
+            order: 5
+          }
+        }
+      );
+      
+      // Add variant-specific fields
+      // Timeline fields
+      if (true) { // We'll show all fields and use them based on variant
+        baseProps.push(
+          {
+            name: `feature${i}_date`,
+            label: `Feature ${i} - Date/Étape (Timeline)`,
+            type: PropType.STRING,
+            required: false,
+            defaultValue: '',
+            description: `Date ou étape pour la timeline de la feature ${i}`,
+            editorConfig: {
+              control: EditorControl.TEXT,
+              group: `Feature ${i}`,
+              order: 6,
+              placeholder: 'Ex: Janvier 2024, Étape 1'
+            }
+          },
+          {
+            name: `feature${i}_status`,
+            label: `Feature ${i} - Statut (Timeline)`,
+            type: PropType.SELECT,
+            required: false,
+            defaultValue: 'completed',
+            description: `Statut de la feature ${i} dans la timeline`,
+            options: [
+              { value: 'completed', label: '✅ Complété' },
+              { value: 'in-progress', label: '🔄 En cours' },
+              { value: 'upcoming', label: '⏳ À venir' }
+            ],
+            editorConfig: {
+              control: EditorControl.SELECT,
+              group: `Feature ${i}`,
+              order: 7
+            }
+          }
+        );
+        
+        // Comparison table fields
+        baseProps.push(
+          {
+            name: `feature${i}_basic`,
+            label: `Feature ${i} - Plan Basique (Tableau)`,
+            type: PropType.BOOLEAN,
+            required: false,
+            defaultValue: true,
+            description: `Disponible dans le plan basique`,
+            editorConfig: {
+              control: EditorControl.TOGGLE,
+              group: `Feature ${i}`,
+              order: 8
+            }
+          },
+          {
+            name: `feature${i}_pro`,
+            label: `Feature ${i} - Plan Pro (Tableau)`,
+            type: PropType.BOOLEAN,
+            required: false,
+            defaultValue: true,
+            description: `Disponible dans le plan pro`,
+            editorConfig: {
+              control: EditorControl.TOGGLE,
+              group: `Feature ${i}`,
+              order: 9
+            }
+          },
+          {
+            name: `feature${i}_premium`,
+            label: `Feature ${i} - Plan Premium (Tableau)`,
+            type: PropType.BOOLEAN,
+            required: false,
+            defaultValue: true,
+            description: `Disponible dans le plan premium`,
+            editorConfig: {
+              control: EditorControl.TOGGLE,
+              group: `Feature ${i}`,
+              order: 10
+            }
+          }
+        );
+        
+        // Flip card fields
+        baseProps.push(
+          {
+            name: `feature${i}_backTitle`,
+            label: `Feature ${i} - Titre verso (Flip)`,
+            type: PropType.STRING,
+            required: false,
+            defaultValue: '',
+            description: `Titre au verso de la carte flip`,
+            editorConfig: {
+              control: EditorControl.TEXT,
+              group: `Feature ${i}`,
+              order: 11
+            }
+          },
+          {
+            name: `feature${i}_backDescription`,
+            label: `Feature ${i} - Description verso (Flip)`,
+            type: PropType.STRING,
+            required: false,
+            defaultValue: '',
+            description: `Description au verso de la carte flip`,
+            editorConfig: {
+              control: EditorControl.TEXTAREA,
+              group: `Feature ${i}`,
+              order: 12,
+              rows: 2
+            }
+          },
+          {
+            name: `feature${i}_backFeatures`,
+            label: `Feature ${i} - Points clés verso (Flip)`,
+            type: PropType.STRING,
+            required: false,
+            defaultValue: '',
+            description: `Points clés au verso de la carte flip`,
+            editorConfig: {
+              control: EditorControl.TEXTAREA,
+              group: `Feature ${i}`,
+              order: 13,
+              rows: 3,
+              placeholder: 'Un point par ligne'
+            }
+          }
+        );
+      }
+    }
+
+    return baseProps;
   }
 
-  private getFeatureSchema(): any[] {
-    // Base schema common to all variants
-    const baseSchema = [
-      {
-        name: 'icon',
-        label: 'Icône',
-        type: PropType.STRING,
-        defaultValue: '⭐',
-        editorConfig: {
-          control: EditorControl.ICON_PICKER,
-          placeholder: 'Emoji ou icône'
-        }
-      },
-      {
-        name: 'title',
-        label: 'Titre',
-        type: PropType.STRING,
-        required: true,
-        defaultValue: 'Nouvelle feature',
-        editorConfig: {
-          control: EditorControl.TEXT
-        }
-      },
-      {
-        name: 'description',
-        label: 'Description',
-        type: PropType.STRING,
-        required: true,
-        defaultValue: 'Description de la feature',
-        editorConfig: {
-          control: EditorControl.TEXTAREA,
-          rows: 3
-        }
+  // Helper method to extract features from flat data structure
+  private extractFeatures(data: any): any[] {
+    const features = [];
+    
+    // Extract up to 6 features from flat structure
+    for (let i = 1; i <= 6; i++) {
+      const title = data[`feature${i}_title`];
+      if (title) {
+        features.push({
+          icon: data[`feature${i}_icon`] || '🌟',
+          title,
+          description: data[`feature${i}_description`] || '',
+          linkUrl: data[`feature${i}_link`] || '#',
+          linkText: data[`feature${i}_linkText`] || 'En savoir plus',
+          // Timeline specific
+          date: data[`feature${i}_date`] || `Étape ${i}`,
+          status: data[`feature${i}_status`] || 'completed',
+          // Comparison table specific
+          plans: {
+            basic: data[`feature${i}_basic`] !== false,
+            pro: data[`feature${i}_pro`] !== false,
+            premium: data[`feature${i}_premium`] !== false
+          },
+          // Flip card specific
+          front: {
+            icon: data[`feature${i}_icon`] || '🌟',
+            title,
+            subtitle: data[`feature${i}_description`] || ''
+          },
+          back: {
+            title: data[`feature${i}_backTitle`] || title,
+            description: data[`feature${i}_backDescription`] || data[`feature${i}_description`] || '',
+            features: data[`feature${i}_backFeatures`] || '',
+            buttonText: data[`feature${i}_linkText`] || 'En savoir plus',
+            buttonUrl: data[`feature${i}_link`] || '#'
+          }
+        });
       }
-    ];
-
-    // Timeline specific fields
-    const timelineSchema = [
-      ...baseSchema,
-      {
-        name: 'date',
-        label: 'Date ou étape',
-        type: PropType.STRING,
-        required: false,
-        defaultValue: 'Étape 1',
-        editorConfig: {
-          control: EditorControl.TEXT,
-          placeholder: 'Ex: Janvier 2024, Étape 1, Phase A'
-        }
-      },
-      {
-        name: 'status',
-        label: 'Statut',
-        type: PropType.SELECT,
-        required: false,
-        defaultValue: 'completed',
-        options: [
-          { value: 'completed', label: '✅ Complété' },
-          { value: 'in-progress', label: '🔄 En cours' },
-          { value: 'upcoming', label: '⏳ À venir' }
-        ],
-        editorConfig: {
-          control: EditorControl.SELECT
-        }
-      }
-    ];
-
-    // Comparison table specific fields
-    const comparisonSchema = [
-      {
-        name: 'title',
-        label: 'Fonctionnalité',
-        type: PropType.STRING,
-        required: true,
-        defaultValue: 'Nouvelle fonctionnalité',
-        editorConfig: {
-          control: EditorControl.TEXT
-        }
-      },
-      {
-        name: 'description',
-        label: 'Description (tooltip)',
-        type: PropType.STRING,
-        required: false,
-        editorConfig: {
-          control: EditorControl.TEXT,
-          placeholder: 'Info-bulle au survol'
-        }
-      },
-      {
-        name: 'plans',
-        label: 'Disponibilité par plan',
-        type: PropType.OBJECT,
-        required: true,
-        defaultValue: {
-          basic: true,
-          pro: true,
-          premium: true
-        },
-        editorConfig: {
-          control: EditorControl.OBJECT,
-          schema: [
-            {
-              name: 'basic',
-              label: 'Plan Basique',
-              type: PropType.BOOLEAN,
-              defaultValue: true,
-              editorConfig: { control: EditorControl.TOGGLE }
-            },
-            {
-              name: 'pro',
-              label: 'Plan Pro',
-              type: PropType.BOOLEAN,
-              defaultValue: true,
-              editorConfig: { control: EditorControl.TOGGLE }
-            },
-            {
-              name: 'premium',
-              label: 'Plan Premium',
-              type: PropType.BOOLEAN,
-              defaultValue: true,
-              editorConfig: { control: EditorControl.TOGGLE }
-            }
-          ]
-        }
-      },
-      {
-        name: 'customValues',
-        label: 'Valeurs personnalisées (optionnel)',
-        type: PropType.OBJECT,
-        required: false,
-        editorConfig: {
-          control: EditorControl.OBJECT,
-          schema: [
-            {
-              name: 'basic',
-              label: 'Valeur Basique',
-              type: PropType.STRING,
-              editorConfig: { 
-                control: EditorControl.TEXT,
-                placeholder: 'Ex: 10 GB, 5 utilisateurs'
-              }
-            },
-            {
-              name: 'pro',
-              label: 'Valeur Pro',
-              type: PropType.STRING,
-              editorConfig: { 
-                control: EditorControl.TEXT,
-                placeholder: 'Ex: 100 GB, 50 utilisateurs'
-              }
-            },
-            {
-              name: 'premium',
-              label: 'Valeur Premium',
-              type: PropType.STRING,
-              editorConfig: { 
-                control: EditorControl.TEXT,
-                placeholder: 'Ex: Illimité'
-              }
-            }
-          ]
-        }
-      }
-    ];
-
-    // Flip cards specific fields
-    const flipCardSchema = [
-      {
-        name: 'front',
-        label: 'Face avant',
-        type: PropType.OBJECT,
-        required: true,
-        editorConfig: {
-          control: EditorControl.OBJECT,
-          schema: [
-            {
-              name: 'icon',
-              label: 'Icône',
-              type: PropType.STRING,
-              defaultValue: '⭐',
-              editorConfig: {
-                control: EditorControl.ICON_PICKER
-              }
-            },
-            {
-              name: 'title',
-              label: 'Titre',
-              type: PropType.STRING,
-              required: true,
-              defaultValue: 'Titre avant',
-              editorConfig: {
-                control: EditorControl.TEXT
-              }
-            },
-            {
-              name: 'subtitle',
-              label: 'Sous-titre',
-              type: PropType.STRING,
-              editorConfig: {
-                control: EditorControl.TEXT
-              }
-            }
-          ]
-        }
-      },
-      {
-        name: 'back',
-        label: 'Face arrière',
-        type: PropType.OBJECT,
-        required: true,
-        editorConfig: {
-          control: EditorControl.OBJECT,
-          schema: [
-            {
-              name: 'title',
-              label: 'Titre',
-              type: PropType.STRING,
-              required: true,
-              defaultValue: 'Titre arrière',
-              editorConfig: {
-                control: EditorControl.TEXT
-              }
-            },
-            {
-              name: 'description',
-              label: 'Description',
-              type: PropType.STRING,
-              required: true,
-              defaultValue: 'Description détaillée',
-              editorConfig: {
-                control: EditorControl.TEXTAREA,
-                rows: 4
-              }
-            },
-            {
-              name: 'features',
-              label: 'Points clés (un par ligne)',
-              type: PropType.STRING,
-              editorConfig: {
-                control: EditorControl.TEXTAREA,
-                rows: 3,
-                placeholder: '✓ Point 1\n✓ Point 2\n✓ Point 3'
-              }
-            },
-            {
-              name: 'buttonText',
-              label: 'Texte du bouton',
-              type: PropType.STRING,
-              defaultValue: 'En savoir plus',
-              editorConfig: {
-                control: EditorControl.TEXT
-              }
-            },
-            {
-              name: 'buttonUrl',
-              label: 'Lien du bouton',
-              type: PropType.STRING,
-              defaultValue: '#',
-              editorConfig: {
-                control: EditorControl.TEXT
-              }
-            }
-          ]
-        }
-      }
-    ];
-
-    // Add common fields to all variants except comparison table
-    const commonFields = [
-      {
-        name: 'linkUrl',
-        label: 'Lien (optionnel)',
-        type: PropType.STRING,
-        required: false,
-        defaultValue: '#',
-        editorConfig: {
-          control: EditorControl.TEXT,
-          placeholder: 'https://...'
-        }
-      },
-      {
-        name: 'linkText',
-        label: 'Texte du lien',
-        type: PropType.STRING,
-        required: false,
-        defaultValue: 'En savoir plus',
-        editorConfig: {
-          control: EditorControl.TEXT
-        }
-      }
-    ];
-
-    // Return default schema (will be dynamic in the future based on selected variant)
-    return [...baseSchema, ...commonFields];
+    }
+    
+    return features;
   }
 
   render(data: FeaturesData, context?: RenderContext): RenderResult {
     const startTime = performance.now();
     
-    // Normalize data from simplified format
-    const normalizedData = this.normalizeData(data);
+    // Extract features from flat data structure
+    const extractedFeatures = this.extractFeatures(data);
+    
+    // Create normalized data with extracted features
+    const normalizedData = {
+      ...data,
+      features: extractedFeatures,
+      visualVariant: data.visualVariant || 'modern'
+    };
     
     // Extract theme colors and typography
     const theme = context?.theme;
     const primaryColor = theme?.colors?.primary || '#667eea';
     const secondaryColor = theme?.colors?.secondary || '#764ba2';
-    const fontHeading = theme?.typography?.fontFamily?.heading || 'Inter, system-ui, sans-serif';
-    const fontBody = theme?.typography?.fontFamily?.body || 'Inter, system-ui, sans-serif';
+    const fontHeading = theme?.typography?.fonts?.heading || 'Inter, system-ui, sans-serif';
+    const fontBody = theme?.typography?.fonts?.body || 'Inter, system-ui, sans-serif';
     const visualVariant = normalizedData.visualVariant || 'modern';
     
     logger.info('FeaturesRendererV3PerfectEnhanced', 'render', '🎨 Début du rendu Features parfait', {
@@ -605,7 +547,6 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
 <section class="features features--${normalizedData.variant} features--visual-${visualVariant} ${normalizedData.animation === 'none' ? '' : 'features--animated'}">
   <div class="features__container">
     ${this.renderHeader(normalizedData)}
-    ${this.renderFilters(normalizedData)}
     ${this.renderFeatures(normalizedData)}
   </div>
 </section>`;
@@ -636,77 +577,59 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
     }
   }
 
-  private normalizeData(data: any): FeaturesData {
-    // Create a normalized version that matches the schema expectations
-    const normalized: any = {
-      ...data,
-      layout: {
-        columns: data.columns || 3,
-        gap: data.gap || 'md',
-        alignment: data.alignment || 'center',
-        containerWidth: 'normal'
-      },
-      display: {
-        showIcon: data.showIcon !== false,
-        iconStyle: data.iconStyle || 'filled',
-        iconSize: 'lg',
-        iconPosition: 'top',
-        showImage: false,
-        showLink: data.showLink !== false,
-        showCategory: false,
-        cardStyle: data.cardStyle || 'elevated',
-        cardHover: 'lift',
-        animation: data.animation || 'fade',
-        animationDelay: 100,
-        stagger: true
-      },
-      filtering: {
-        enabled: false
-      },
-      animation: {
-        enabled: data.animation !== 'none',
-        type: data.animation || 'fade'
-      }
-    };
-
-    // Normalize features to match expected structure
-    if (normalized.features && Array.isArray(normalized.features)) {
-      normalized.features = normalized.features.map((feature: any) => ({
-        ...feature,
-        link: feature.linkUrl ? {
-          url: feature.linkUrl,
-          text: feature.linkText || 'En savoir plus',
-          target: '_self',
-          style: 'link'
-        } : undefined,
-        image: feature.image ? {
-          src: feature.image,
-          alt: feature.imageAlt || feature.title || ''
-        } : undefined
-      }));
-    }
-
-    return normalized as FeaturesData;
-  }
-
-  private generateCSS(data: FeaturesData, theme?: any): string {
+  private generateCSS(data: any, theme?: any): string {
     const primaryColor = theme?.colors?.primary || '#667eea';
     const secondaryColor = theme?.colors?.secondary || '#764ba2';
-    const fontHeading = theme?.typography?.fontFamily?.heading || 'Inter, system-ui, sans-serif';
-    const fontBody = theme?.typography?.fontFamily?.body || 'Inter, system-ui, sans-serif';
+    const fontHeading = theme?.typography?.fonts?.heading || 'Inter, system-ui, sans-serif';
+    const fontBody = theme?.typography?.fonts?.body || 'Inter, system-ui, sans-serif';
+    const visualVariant = data.visualVariant || 'modern';
+    
+    // Visual variant styles
+    const variantStyles: any = {
+      modern: {
+        gradient: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`,
+        shadow: '0 10px 40px -10px rgba(0, 0, 0, 0.1)',
+        hoverShadow: '0 20px 60px -15px rgba(0, 0, 0, 0.15)',
+        borderRadius: '1.5rem'
+      },
+      minimal: {
+        gradient: 'none',
+        shadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+        hoverShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+        borderRadius: '0.5rem'
+      },
+      bold: {
+        gradient: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`,
+        shadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        hoverShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        borderRadius: '2rem'
+      },
+      elegant: {
+        gradient: `linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))`,
+        shadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
+        hoverShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.25)',
+        borderRadius: '1rem'
+      }
+    };
+    
+    const currentVariant = variantStyles[visualVariant];
     
     return `
+/* ========================================
+   FEATURES V3 PERFECT ENHANCED - Styles avec thème
+   ======================================== */
+
 /* Variables CSS du thème */
 :root {
   --features-primary: ${primaryColor};
   --features-secondary: ${secondaryColor};
   --features-font-heading: ${fontHeading};
   --features-font-body: ${fontBody};
+  --features-gradient: ${currentVariant.gradient};
+  --features-shadow: ${currentVariant.shadow};
+  --features-hover-shadow: ${currentVariant.hoverShadow};
+  --features-border-radius: ${currentVariant.borderRadius};
 }
-
-/* ========================================
-   FEATURES V3 PERFECT Enhanced - Styles magnifiques
-   ======================================== */
 
 .features {
   position: relative;
@@ -721,7 +644,7 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
   padding: 0 2rem;
 }
 
-/* Header magnifique */
+/* Header */
 .features__header {
   text-align: center;
   margin-bottom: 4rem;
@@ -736,233 +659,105 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 1rem;
-  opacity: 0;
-  animation: featuresFadeUp 0.8s ease-out 0.2s forwards;
+  color: var(--features-primary);
+}
+
+.features--visual-modern .features__title {
+  background: var(--features-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .features__subtitle {
   font-size: clamp(1.125rem, 2vw, 1.5rem);
   color: #6b7280;
   line-height: 1.6;
-  opacity: 0;
-  animation: featuresFadeUp 0.8s ease-out 0.4s forwards;
 }
 
-/* ========================================
-   VARIANTES VISUELLES
-   ======================================== */
-
-/* Modern - Gradient dynamique */
-.features--visual-modern {
-  background: linear-gradient(135deg, rgba(var(--features-primary-rgb, 102, 126, 234), 0.05) 0%, rgba(var(--features-secondary-rgb, 118, 75, 162), 0.05) 100%);
+/* Base grid styles */
+.features__grid {
+  display: grid;
+  grid-template-columns: ${data.columns ? `repeat(${data.columns}, 1fr)` : 'repeat(auto-fit, minmax(320px, 1fr))'};
+  gap: ${data.gap === 'sm' ? '1rem' : data.gap === 'lg' ? '3rem' : data.gap === 'xl' ? '4rem' : '2rem'};
 }
 
-.features--visual-modern .features__title {
-  background: linear-gradient(135deg, var(--features-primary), var(--features-secondary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.features--visual-modern .feature {
-  background: white;
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
-}
-
-.features--visual-modern .feature:hover {
-  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.15);
-}
-
-.features--visual-modern .feature__icon {
-  background: linear-gradient(135deg, var(--features-primary), var(--features-secondary));
-}
-
-/* Minimal - Épuré et rapide */
-.features--visual-minimal {
-  background: #fafafa;
-}
-
-.features--visual-minimal .features__title {
-  color: #111;
-}
-
-.features--visual-minimal .feature {
-  background: white;
-  border: 1px solid #e5e7eb;
-  box-shadow: none;
-}
-
-.features--visual-minimal .feature:hover {
-  border-color: var(--features-primary);
-  transform: translateY(-4px);
-}
-
-.features--visual-minimal .feature__icon {
-  background: transparent;
-  border: 2px solid var(--features-primary);
-  color: var(--features-primary);
-}
-
-/* Bold - Impact visuel fort */
-.features--visual-bold {
-  background: #111;
-  color: white;
-}
-
-.features--visual-bold .features__title {
-  background: linear-gradient(135deg, #fff, #ccc);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.features--visual-bold .features__subtitle {
-  color: #9ca3af;
-}
-
-.features--visual-bold .feature {
-  background: #1a1a1a;
-  border: 1px solid #333;
-}
-
-.features--visual-bold .feature:hover {
-  background: #222;
-  border-color: var(--features-primary);
-}
-
-.features--visual-bold .feature__icon {
-  background: var(--features-primary);
-  color: white;
-}
-
-.features--visual-bold .feature__title {
-  color: white;
-}
-
-.features--visual-bold .feature__description {
-  color: #9ca3af;
-}
-
-/* Elegant - Glassmorphism subtil */
-.features--visual-elegant {
-  background: #f8f9fa;
+/* Feature card base */
+.feature {
   position: relative;
+  background: white;
+  border-radius: var(--features-border-radius);
+  padding: 2.5rem;
+  box-shadow: var(--features-shadow);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: ${data.alignment || 'left'};
 }
 
-.features--visual-elegant::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="%23667eea" opacity="0.1"/></svg>');
-  background-size: 400px 400px;
-  opacity: 0.3;
-  pointer-events: none;
+.feature:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--features-hover-shadow);
 }
 
-.features--visual-elegant .features__title {
-  color: #212529;
-}
-
+/* Visual variants specific styles */
 .features--visual-elegant .feature {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.features--visual-elegant .feature:hover {
-  background: rgba(255, 255, 255, 0.9);
-  transform: translateY(-4px);
+.features--visual-minimal .feature {
+  border: 1px solid #e5e7eb;
 }
 
-.features--visual-elegant .feature__icon {
-  background: white;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+.features--visual-bold .feature {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Icons */
+.feature__icon {
+  width: ${data.iconStyle === 'filled' ? '80px' : '64px'};
+  height: ${data.iconStyle === 'filled' ? '80px' : '64px'};
+  margin-bottom: 1.5rem;
+  margin-left: ${data.alignment === 'center' ? 'auto' : '0'};
+  margin-right: ${data.alignment === 'center' ? 'auto' : '0'};
+  display: ${data.showIcon === false ? 'none' : 'flex'};
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  border-radius: ${data.iconStyle === 'filled' || data.iconStyle === 'gradient' ? '1rem' : '50%'};
+}
+
+.feature__icon--filled {
+  background: var(--features-gradient);
+  color: white;
+}
+
+.feature__icon--outline {
+  border: 3px solid var(--features-primary);
   color: var(--features-primary);
 }
 
-/* ========================================
-   ANIMATIONS
-   ======================================== */
-
-@keyframes featuresFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.feature__icon--gradient {
+  background: var(--features-gradient);
+  color: white;
 }
 
-@keyframes featuresSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.feature__icon--shadow {
+  background: white;
+  color: var(--features-primary);
+  box-shadow: 0 10px 30px -5px rgba(102, 126, 234, 0.4);
 }
 
-/* ========================================
-   LAYOUT DE BASE (toutes variantes)
-   ======================================== */
-
-/* Grid Modern - Cartes élégantes */
-.features--grid-modern .features__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
+.feature__icon--animated {
+  animation: featuresIconFloat 3s ease-in-out infinite;
 }
 
-.features--grid-modern .feature {
-  position: relative;
-  border-radius: 1.5rem;
-  padding: 2.5rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0;
-  animation: featuresSlideUp 0.6s ease-out forwards;
-  animation-delay: calc(var(--index) * 0.1s);
+@keyframes featuresIconFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-.features--grid-modern .feature:hover {
-  transform: translateY(-8px);
-}
-
-/* Feature elements communs */
-.feature__icon {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 1rem;
-  font-size: 2.5rem;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s;
-}
-
-.feature__icon::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.5) 50%, transparent 70%);
-  transform: translateX(-100%);
-  transition: transform 0.6s;
-}
-
-.feature:hover .feature__icon::before {
-  transform: translateX(100%);
-}
-
+/* Typography */
 .feature__title {
   font-family: var(--features-font-heading);
   font-size: 1.5rem;
@@ -979,8 +774,9 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
   margin-bottom: 1.5rem;
 }
 
+/* Links */
 .feature__link {
-  display: inline-flex;
+  display: ${data.showLink === false ? 'none' : 'inline-flex'};
   align-items: center;
   gap: 0.5rem;
   color: var(--features-primary);
@@ -994,210 +790,100 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
   color: var(--features-secondary);
 }
 
-/* Filters */
-.features__filters {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
+.feature__link-icon {
+  transition: transform 0.3s;
 }
 
-.features__filter {
-  padding: 0.5rem 1.25rem;
-  background: #f3f4f6;
-  border: 2px solid transparent;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
+.feature__link:hover .feature__link-icon {
+  transform: translateX(4px);
 }
 
-.features__filter:hover {
-  background: #e5e7eb;
-}
-
-.features__filter.active {
-  background: white;
-  border-color: var(--features-primary);
-  color: var(--features-primary);
-  box-shadow: 0 4px 15px -3px rgba(102, 126, 234, 0.2);
-}
-
-/* ========================================
-   AUTRES VARIANTES DE LAYOUT
-   ======================================== */
-
-/* Timeline Vertical */
-.features--timeline-vertical .features__timeline {
+/* Variant: Timeline */
+.features--timeline-vertical .features__grid {
   position: relative;
-  padding: 2rem 0;
+  max-width: 800px;
+  margin: 0 auto;
+  grid-template-columns: 1fr;
 }
 
-.features--timeline-vertical .features__timeline::before {
+.features--timeline-vertical .features__grid::before {
   content: '';
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 30px;
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(180deg, var(--features-primary) 0%, var(--features-secondary) 100%);
+  background: var(--features-gradient);
 }
 
 .features--timeline-vertical .feature {
+  margin-left: 80px;
   position: relative;
-  width: calc(50% - 3rem);
-  margin-bottom: 4rem;
-  opacity: 0;
-  animation: featuresSlideIn 0.8s ease-out forwards;
-  animation-delay: calc(var(--index) * 0.15s);
-}
-
-.features--timeline-vertical .feature:nth-child(odd) {
-  margin-left: 0;
-  text-align: right;
-  padding-right: 3rem;
-  --direction: -20px;
-}
-
-.features--timeline-vertical .feature:nth-child(even) {
-  margin-left: calc(50% + 3rem);
-  text-align: left;
-  padding-left: 3rem;
-  --direction: 20px;
-}
-
-.features--timeline-vertical .feature__date {
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--features-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
-}
-
-.features--timeline-vertical .feature__content {
-  background: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s;
-}
-
-.features--timeline-vertical .feature:hover .feature__content {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.15);
 }
 
 .features--timeline-vertical .feature__marker {
   position: absolute;
-  width: 24px;
-  height: 24px;
+  left: -50px;
+  top: 30px;
+  width: 20px;
+  height: 20px;
   background: white;
   border: 4px solid var(--features-primary);
   border-radius: 50%;
-  top: 1rem;
-  transition: all 0.3s;
 }
 
-.features--timeline-vertical .feature:hover .feature__marker {
-  transform: scale(1.2);
-  border-color: var(--features-secondary);
+.features--timeline-vertical .feature__date {
+  position: absolute;
+  left: -200px;
+  top: 30px;
+  width: 120px;
+  text-align: right;
+  font-weight: 600;
+  color: var(--features-primary);
 }
 
-.features--timeline-vertical .feature:nth-child(odd) .feature__marker {
-  right: -3rem;
-}
-
-.features--timeline-vertical .feature:nth-child(even) .feature__marker {
-  left: -3rem;
-}
-
-.features--timeline-vertical .feature--completed .feature__marker {
-  background: var(--features-primary);
-}
-
-.features--timeline-vertical .feature--in-progress .feature__marker {
-  background: #f59e0b;
-  border-color: #f59e0b;
-}
-
-.features--timeline-vertical .feature--upcoming .feature__marker {
-  background: #e5e7eb;
-  border-color: #e5e7eb;
-}
-
-@keyframes featuresSlideIn {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Carousel Modern */
+/* Variant: Carousel */
 .features--carousel-modern .features__carousel {
   position: relative;
   overflow: hidden;
-  padding: 2rem 0;
 }
 
 .features--carousel-modern .carousel__track {
   display: flex;
   gap: 2rem;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.5s ease;
 }
 
 .features--carousel-modern .carousel__slide {
   flex: 0 0 calc(33.333% - 1.333rem);
-  min-width: 320px;
-  border-radius: 1.5rem;
-  padding: 2.5rem;
-  transition: all 0.4s;
-}
-
-@media (max-width: 1024px) {
-  .features--carousel-modern .carousel__slide {
-    flex: 0 0 calc(50% - 1rem);
-  }
-}
-
-@media (max-width: 768px) {
-  .features--carousel-modern .carousel__slide {
-    flex: 0 0 100%;
-  }
+  min-width: 0;
 }
 
 .features--carousel-modern .carousel__nav {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 2rem;
   margin-top: 3rem;
 }
 
 .features--carousel-modern .carousel__btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: white;
-  border: 2px solid #e5e7eb;
-  color: #6b7280;
-  cursor: pointer;
-  transition: all 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--features-primary);
+  border-radius: 50%;
+  background: white;
+  color: var(--features-primary);
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .features--carousel-modern .carousel__btn:hover {
   background: var(--features-primary);
-  border-color: var(--features-primary);
   color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
 }
 
 .features--carousel-modern .carousel__btn:disabled {
@@ -1215,6 +901,7 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
   height: 8px;
   border-radius: 50%;
   background: #e5e7eb;
+  border: none;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -1225,7 +912,7 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
   background: var(--features-primary);
 }
 
-/* Tabs Animated */
+/* Variant: Tabs */
 .features--tabs-animated .features__tabs-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -1233,206 +920,107 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
 
 .features--tabs-animated .features__tabs {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-  background: #f3f4f6;
-  padding: 0.5rem;
-  border-radius: 1rem;
-  overflow-x: auto;
-  scrollbar-width: thin;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0;
 }
 
 .features--tabs-animated .tab {
-  padding: 0.75rem 1.5rem;
+  position: relative;
+  padding: 1rem 2rem;
   background: transparent;
   border: none;
-  border-radius: 0.75rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: #6b7280;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  transition: all 0.3s;
+  color: #6b7280;
 }
 
-.features--tabs-animated .tab__icon {
-  font-size: 1.25rem;
+.features--tabs-animated .tab::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--features-gradient);
+  transform: scaleX(0);
   transition: transform 0.3s;
 }
 
 .features--tabs-animated .tab:hover {
   color: var(--features-primary);
-  transform: translateY(-1px);
-}
-
-.features--tabs-animated .tab:hover .tab__icon {
-  transform: scale(1.1);
 }
 
 .features--tabs-animated .tab.active {
-  color: white;
-  background: linear-gradient(135deg, var(--features-primary), var(--features-secondary));
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  color: var(--features-primary);
 }
 
-.features--tabs-animated .features__content {
-  position: relative;
-  min-height: 400px;
+.features--tabs-animated .tab.active::after {
+  transform: scaleX(1);
 }
 
 .features--tabs-animated .tab__content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  opacity: 0;
-  transform: translateY(30px) scale(0.98);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
+  display: none;
+  animation: tabContentFade 0.5s ease-out;
 }
 
 .features--tabs-animated .tab__content.active {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
+  display: block;
 }
 
-.features--tabs-animated .tab__inner {
-  background: white;
-  border-radius: 1.5rem;
-  padding: 3rem;
-  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.15);
-  text-align: center;
+@keyframes tabContentFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.features--tabs-animated .feature__icon--large {
-  width: 100px;
-  height: 100px;
-  margin: 0 auto 2rem;
-  font-size: 3rem;
-  background: linear-gradient(135deg, rgba(var(--features-primary-rgb, 102, 126, 234), 0.1), rgba(var(--features-secondary-rgb, 118, 75, 162), 0.1));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 1.5rem;
-}
-
-/* Masonry Creative */
-.features--masonry-creative .features__grid {
-  column-count: 3;
-  column-gap: 2rem;
-}
-
-.features--masonry-creative .feature {
-  break-inside: avoid;
-  margin-bottom: 2rem;
-  border-radius: 1.5rem;
-  padding: 2rem;
-  transition: all 0.4s;
-  opacity: 0;
-  animation: featuresFadeIn 0.8s ease-out forwards;
-  animation-delay: calc(var(--index) * 0.1s);
-}
-
-.features--masonry-creative .feature:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
-}
-
-/* Comparison Table */
+/* Variant: Comparison Table */
 .features--comparison-table .features__table-wrapper {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  border-radius: 1.5rem;
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: var(--features-border-radius);
+  box-shadow: var(--features-shadow);
+  overflow: hidden;
 }
 
 .features--comparison-table .features__table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
-  min-width: 600px;
 }
 
 .features--comparison-table .features__table-header {
-  padding: 1.5rem 1.25rem;
-  text-align: center;
-  position: relative;
+  padding: 1.5rem;
+  text-align: left;
+  font-weight: 700;
+  background: #f9fafb;
+  border-bottom: 2px solid #e5e7eb;
 }
 
 .features--comparison-table .features__table-header--feature {
-  text-align: left;
-  background: #f9fafb;
-  font-weight: 700;
-  color: #111827;
-}
-
-.features--comparison-table .features__table-header--basic {
-  background: #e5e7eb;
-}
-
-.features--comparison-table .features__table-header--pro {
-  background: linear-gradient(135deg, var(--features-primary), var(--features-secondary));
+  background: var(--features-gradient);
   color: white;
-}
-
-.features--comparison-table .features__table-header--premium {
-  background: #111827;
-  color: white;
-}
-
-.features--comparison-table .plan-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.features--comparison-table .plan-name {
-  font-size: 1.125rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.features--comparison-table .features__table-row {
-  border-bottom: 1px solid #e5e7eb;
-  transition: background 0.2s;
-}
-
-.features--comparison-table .features__table-row:hover {
-  background: rgba(102, 126, 234, 0.02);
 }
 
 .features--comparison-table .features__table-cell {
-  padding: 1.25rem;
-  text-align: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.features--comparison-table .features__table-cell--feature {
-  text-align: left;
-  font-weight: 500;
-}
-
-.features--comparison-table .feature-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.features--comparison-table .feature-tooltip {
-  color: #9ca3af;
-  cursor: help;
-  display: inline-flex;
-  align-items: center;
+.features--comparison-table .features__table-row:hover {
+  background: #f9fafb;
 }
 
 .features--comparison-table .check {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -1445,34 +1033,28 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
   color: #ef4444;
 }
 
-.features--comparison-table .custom-value {
-  font-weight: 600;
-  color: var(--features-primary);
+/* Variant: Flip Cards */
+.features--flip-cards .features__grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-/* Flip Cards */
-.features--flip-cards .features__grid--flip {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-}
-
-.features--flip-cards .flip-card {
-  position: relative;
-  height: 400px;
-  perspective: 1200px;
-  cursor: pointer;
+.features--flip-cards .feature {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  height: 350px;
+  perspective: 1000px;
 }
 
 .features--flip-cards .feature__inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.features--flip-cards .flip-card:hover .feature__inner {
+.features--flip-cards .feature:hover .feature__inner {
   transform: rotateY(180deg);
 }
 
@@ -1482,286 +1064,155 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 1.5rem;
+  border-radius: var(--features-border-radius);
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  overflow: hidden;
 }
 
 .features--flip-cards .feature__front {
   background: white;
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
-}
-
-.features--flip-cards .feature__front .feature__icon {
-  width: 90px;
-  height: 90px;
-  margin-bottom: 1.5rem;
-  font-size: 3rem;
-  background: linear-gradient(135deg, rgba(var(--features-primary-rgb, 102, 126, 234), 0.1), rgba(var(--features-secondary-rgb, 118, 75, 162), 0.1));
-}
-
-.features--flip-cards .feature__front .feature__title {
-  font-size: 1.75rem;
-  margin-bottom: 1rem;
-}
-
-.features--flip-cards .feature__front .feature__subtitle {
-  color: #6b7280;
-  line-height: 1.6;
+  box-shadow: var(--features-shadow);
 }
 
 .features--flip-cards .feature__back {
-  background: linear-gradient(135deg, var(--features-primary) 0%, var(--features-secondary) 100%);
+  background: var(--features-gradient);
   color: white;
   transform: rotateY(180deg);
-  padding: 2rem;
 }
 
-.features--flip-cards .feature__back .feature__title {
+.features--flip-cards .feature__back .feature__title,
+.features--flip-cards .feature__back .feature__description,
+.features--flip-cards .feature__back .feature__link {
   color: white;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
 }
 
-.features--flip-cards .feature__back .feature__description {
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-}
-
-.features--flip-cards .feature__back .feature__list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 2rem 0;
-  text-align: left;
-  width: 100%;
-}
-
-.features--flip-cards .feature__back .feature__list li {
-  padding: 0.5rem 0;
-  color: rgba(255, 255, 255, 0.9);
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-
-.features--flip-cards .feature__back .feature__list li::before {
-  content: '✓';
-  color: white;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-.features--flip-cards .feature__back .feature__link--button {
-  color: var(--features-primary);
-  background: white;
+.features--flip-cards .feature__link--button {
+  margin-top: 1.5rem;
   padding: 0.75rem 2rem;
+  background: white;
+  color: var(--features-primary);
   border-radius: 9999px;
   font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s;
-  display: inline-block;
 }
 
-.features--flip-cards .feature__back .feature__link--button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+.features--flip-cards .feature__link--button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.3);
 }
 
-@keyframes featuresFadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-/* Cards Hover (deuxième variante de grid) */
+/* Variant: Cards Hover */
 .features--cards-hover .features__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
+  perspective: 1000px;
 }
 
 .features--cards-hover .feature {
-  position: relative;
-  background: white;
-  border-radius: 1.5rem;
-  padding: 2.5rem;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid #e5e7eb;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  cursor: pointer;
 }
 
 .features--cards-hover .feature::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--features-primary) 0%, var(--features-secondary) 100%);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s;
+  inset: 0;
+  background: var(--features-gradient);
+  border-radius: var(--features-border-radius);
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: -1;
 }
 
 .features--cards-hover .feature:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 60px -10px rgba(102, 126, 234, 0.3);
-  border-color: transparent;
+  transform: rotateY(15deg) rotateX(5deg) translateZ(20px);
 }
 
 .features--cards-hover .feature:hover::before {
-  transform: scaleX(1);
+  opacity: 1;
 }
 
-/* ========================================
-   VARIANTES VISUELLES (appliquées à toutes les dispositions)
-   ======================================== */
-
-/* Modern - avec les couleurs du thème */
-.features--visual-modern .feature {
-  background: white;
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+.features--cards-hover .feature:hover * {
+  color: white !important;
 }
 
-.features--visual-modern .feature__icon {
-  background: linear-gradient(135deg, var(--features-primary) 0%, var(--features-secondary) 100%);
+/* Variant: Masonry Creative */
+.features--masonry-creative .features__grid {
+  grid-auto-flow: dense;
+}
+
+.features--masonry-creative .feature:nth-child(3n+1) {
+  grid-row: span 2;
+  background: var(--features-gradient);
   color: white;
 }
 
-/* Minimal */
-.features--visual-minimal .feature {
-  background: transparent;
-  border: 2px solid #e5e7eb;
-  box-shadow: none;
-}
-
-.features--visual-minimal .feature:hover {
-  border-color: var(--features-primary);
-  background: rgba(102, 126, 234, 0.02);
-}
-
-.features--visual-minimal .feature__icon {
-  background: transparent;
-  border: 2px solid var(--features-primary);
-  color: var(--features-primary);
-}
-
-.features--visual-minimal .feature__title {
-  font-weight: 500;
-}
-
-/* Bold */
-.features--visual-bold {
-  background: #111;
+.features--masonry-creative .feature:nth-child(3n+1) .feature__title,
+.features--masonry-creative .feature:nth-child(3n+1) .feature__description,
+.features--masonry-creative .feature:nth-child(3n+1) .feature__link {
   color: white;
 }
 
-.features--visual-bold .features__title,
-.features--visual-bold .features__subtitle {
+.features--masonry-creative .feature:nth-child(4n+2) {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #f093fb, #f5576c);
   color: white;
 }
 
-.features--visual-bold .feature {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.features--visual-bold .feature:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--features-primary);
-}
-
-.features--visual-bold .feature__icon {
-  background: var(--features-primary);
+.features--masonry-creative .feature:nth-child(4n+2) .feature__title,
+.features--masonry-creative .feature:nth-child(4n+2) .feature__description,
+.features--masonry-creative .feature:nth-child(4n+2) .feature__link {
   color: white;
-  box-shadow: 0 10px 30px -5px rgba(102, 126, 234, 0.5);
 }
 
-.features--visual-bold .feature__title {
-  color: white;
-  font-weight: 700;
-}
-
-.features--visual-bold .feature__description {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.features--visual-bold .feature__link {
-  color: var(--features-primary);
-  font-weight: 700;
-}
-
-/* Elegant */
-.features--visual-elegant .feature {
-  background: rgba(248, 249, 250, 0.8);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.08);
-}
-
-.features--visual-elegant .feature:hover {
-  background: white;
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.12);
-}
-
-.features--visual-elegant .feature__icon {
-  background: transparent;
-  border: 1px solid var(--features-primary);
-  color: var(--features-primary);
-  position: relative;
-  overflow: visible;
-}
-
-.features--visual-elegant .feature__icon::after {
+.features--masonry-creative .feature::before {
   content: '';
   position: absolute;
-  inset: -5px;
-  background: linear-gradient(135deg, var(--features-primary) 0%, var(--features-secondary) 100%);
-  border-radius: inherit;
-  opacity: 0.2;
-  z-index: -1;
-  filter: blur(10px);
+  inset: -50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
 }
 
-.features--visual-elegant .feature__title {
-  font-weight: 300;
-  font-size: 1.75rem;
-  letter-spacing: -0.02em;
+.features--masonry-creative .feature:hover::before {
+  opacity: 1;
+  animation: featuresPulse 2s ease-in-out infinite;
 }
 
-/* ========================================
-   RESPONSIVE
-   ======================================== */
+@keyframes featuresPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
 
+/* Animations */
+.features--animated .feature {
+  opacity: 0;
+  animation: featuresFadeIn 0.6s ease-out forwards;
+  animation-delay: calc(var(--index) * 0.1s);
+}
+
+@keyframes featuresFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsive */
 @media (max-width: 1024px) {
-  .features--timeline-vertical .feature {
-    width: 100%;
-    margin-left: 0 !important;
-    text-align: left !important;
-    padding-left: 3rem !important;
-    padding-right: 0 !important;
+  .features--carousel-modern .carousel__slide {
+    flex: 0 0 calc(50% - 1rem);
   }
   
-  .features--timeline-vertical .features__timeline::before {
-    left: 0;
-    transform: none;
-  }
-  
-  .features--timeline-vertical .feature::after {
-    left: -10px !important;
-    right: auto !important;
-  }
-  
-  .features--masonry-creative .features__grid {
-    column-count: 2;
+  .features__grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
 }
 
@@ -1771,48 +1222,62 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
   }
   
   .features__grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
   }
   
-  .features--carousel-3d .features__grid {
-    height: 400px;
+  .features--carousel-modern .carousel__slide {
+    flex: 0 0 100%;
   }
   
-  .features--carousel-3d .feature {
-    width: 280px;
-    height: 380px;
+  .features--timeline-vertical .feature__date {
+    position: static;
+    margin-bottom: 0.5rem;
+    text-align: left;
   }
   
-  .features--masonry-creative .features__grid {
-    column-count: 1;
+  .features--comparison-table {
+    overflow-x: auto;
   }
   
-  .features--tabs-animated .features__tabs {
-    gap: 0.5rem;
-  }
-  
-  .features--tabs-animated .tab {
-    padding: 0.75rem 1.25rem;
-    font-size: 0.875rem;
+  .features--comparison-table .features__table {
+    min-width: 600px;
   }
 }
 
-/* ========================================
-   PERFORMANCE
-   ======================================== */
+/* Dark theme support */
+[data-theme="dark"] .features {
+  background: #0f0f0f;
+}
 
-@media (prefers-reduced-motion: reduce) {
-  .features *,
-  .features *::before,
-  .features *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
+[data-theme="dark"] .feature {
+  background: #1a1a1a;
+  color: #e5e7eb;
+}
+
+[data-theme="dark"] .feature__title {
+  color: #f9fafb;
+}
+
+[data-theme="dark"] .feature__description {
+  color: #9ca3af;
+}
+
+[data-theme="dark"] .features--comparison-table .features__table-wrapper {
+  background: #1a1a1a;
+}
+
+[data-theme="dark"] .features--comparison-table .features__table-header {
+  background: #0f0f0f;
+  border-color: #374151;
+}
+
+[data-theme="dark"] .features--comparison-table .features__table-cell {
+  border-color: #374151;
 }
 `;
   }
 
-  private renderHeader(data: FeaturesData): string {
+  private renderHeader(data: any): string {
     if (!data.title && !data.subtitle) return '';
 
     return `
@@ -1822,24 +1287,7 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
     </div>`;
   }
 
-  private renderFilters(data: FeaturesData): string {
-    if (!data.filtering?.enabled || !data.filtering.categories?.length) return '';
-
-    const filters = data.filtering.categories.map(cat => `
-      <button class="features__filter" data-category="${cat.id}">
-        ${cat.label}
-        ${data.filtering.showCount && cat.count ? `<span>(${cat.count})</span>` : ''}
-      </button>
-    `).join('');
-
-    return `
-    <div class="features__filters">
-      ${data.filtering.showAll ? `<button class="features__filter active" data-category="all">${data.filtering.allLabel}</button>` : ''}
-      ${filters}
-    </div>`;
-  }
-
-  private renderFeatures(data: FeaturesData): string {
+  private renderFeatures(data: any): string {
     switch (data.variant) {
       case 'timeline-vertical':
         return this.renderTimeline(data);
@@ -1856,8 +1304,8 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
     }
   }
 
-  private renderGrid(data: FeaturesData): string {
-    const features = data.features.map((feature, index) => `
+  private renderGrid(data: any): string {
+    const features = data.features.map((feature: any, index: number) => `
       <div class="feature" style="--index: ${index};" ${feature.category ? `data-category="${feature.category}"` : ''}>
         ${this.renderFeatureContent(feature, data)}
       </div>
@@ -1866,8 +1314,8 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
     return `<div class="features__grid">${features}</div>`;
   }
 
-  private renderTimeline(data: FeaturesData): string {
-    const features = data.features.map((feature: any, index) => {
+  private renderTimeline(data: any): string {
+    const features = data.features.map((feature: any, index: number) => {
       const date = feature.date || `Étape ${index + 1}`;
       const status = feature.status || 'completed';
       
@@ -1892,8 +1340,8 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
     return `<div class="features__grid features__timeline">${features}</div>`;
   }
 
-  private renderModernCarousel(data: FeaturesData): string {
-    const features = data.features.map((feature, index) => `
+  private renderModernCarousel(data: any): string {
+    const features = data.features.map((feature: any, index: number) => `
       <div class="feature carousel__slide" style="--index: ${index};">
         ${this.renderFeatureContent(feature, data)}
       </div>
@@ -1920,15 +1368,15 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
     </div>`;
   }
 
-  private renderTabs(data: FeaturesData): string {
-    const tabs = data.features.map((feature, index) => `
+  private renderTabs(data: any): string {
+    const tabs = data.features.map((feature: any, index: number) => `
       <button class="tab ${index === 0 ? 'active' : ''}" data-tab="${index}">
         ${feature.icon ? `<span class="tab__icon">${feature.icon}</span>` : ''}
         <span class="tab__title">${feature.title}</span>
       </button>
     `).join('');
 
-    const contents = data.features.map((feature, index) => `
+    const contents = data.features.map((feature: any, index: number) => `
       <div class="tab__content ${index === 0 ? 'active' : ''}" data-content="${index}">
         <div class="tab__inner">
           ${feature.icon ? `<div class="feature__icon feature__icon--large">${feature.icon}</div>` : ''}
@@ -1951,10 +1399,10 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
     </div>`;
   }
 
-  private renderComparisonTable(data: FeaturesData): string {
+  private renderComparisonTable(data: any): string {
     // Get unique plan names from features or use defaults
     const planNames = ['basic', 'pro', 'premium'];
-    const planLabels = {
+    const planLabels: any = {
       basic: 'Basique',
       pro: 'Pro',
       premium: 'Premium'
@@ -1996,7 +1444,7 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
                   ` : ''}
                 </div>
               </td>
-              ${planNames.map(plan => `
+              ${planNames.map((plan: string) => `
                 <td class="features__table-cell features__table-cell--${plan}">
                   ${customValues[plan] ? `
                     <span class="custom-value">${customValues[plan]}</span>
@@ -2022,8 +1470,8 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
     </div>`;
   }
 
-  private renderFlipCards(data: FeaturesData): string {
-    const features = data.features.map((feature: any, index) => {
+  private renderFlipCards(data: any): string {
+    const features = data.features.map((feature: any, index: number) => {
       // Handle both old and new data structures
       const front = feature.front || {
         icon: feature.icon,
@@ -2052,7 +1500,7 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
             ${back.description ? `<p class="feature__description">${back.description}</p>` : ''}
             ${back.features ? `
               <ul class="feature__list">
-                ${back.features.split('\n').filter(f => f.trim()).map(point => `
+                ${back.features.split('\n').filter((f: string) => f.trim()).map((point: string) => `
                   <li>${point}</li>
                 `).join('')}
               </ul>
@@ -2070,13 +1518,12 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
     return `<div class="features__grid features__grid--flip">${features}</div>`;
   }
 
-  private renderFeatureContent(feature: any, data: FeaturesData): string {
+  private renderFeatureContent(feature: any, data: any): string {
     const parts: string[] = [];
 
     // Icon
-    if (data.display?.showIcon && feature.icon) {
-      const iconValue = typeof feature.icon === 'object' ? feature.icon.value : feature.icon;
-      parts.push(`<div class="feature__icon">${iconValue}</div>`);
+    if (data.showIcon !== false && feature.icon) {
+      parts.push(`<div class="feature__icon">${feature.icon}</div>`);
     }
 
     // Title
@@ -2088,10 +1535,10 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
     }
 
     // Link
-    if (data.display?.showLink && feature.link) {
+    if (data.showLink !== false && feature.linkUrl) {
       parts.push(`
-        <a href="${feature.link.url}" class="feature__link">
-          ${feature.link.text}
+        <a href="${feature.linkUrl}" class="feature__link">
+          ${feature.linkText || 'En savoir plus'}
           <span class="feature__link-icon">→</span>
         </a>
       `);
@@ -2100,40 +1547,8 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
     return parts.join('\n');
   }
 
-  private generateJS(data: FeaturesData): string {
+  private generateJS(data: any): string {
     const js: string[] = [];
-
-    // Filters
-    if (data.filtering?.enabled) {
-      js.push(`
-// Features filtering
-(function() {
-  const filters = document.querySelectorAll('.features__filter');
-  const features = document.querySelectorAll('.feature[data-category]');
-  
-  filters.forEach(filter => {
-    filter.addEventListener('click', () => {
-      const category = filter.dataset.category;
-      
-      // Update active filter
-      filters.forEach(f => f.classList.remove('active'));
-      filter.classList.add('active');
-      
-      // Filter features
-      features.forEach(feature => {
-        if (category === 'all' || feature.dataset.category === category) {
-          feature.style.display = '';
-          feature.style.opacity = '0';
-          setTimeout(() => feature.style.opacity = '1', 10);
-        } else {
-          feature.style.opacity = '0';
-          setTimeout(() => feature.style.display = 'none', 300);
-        }
-      });
-    });
-  });
-})();`);
-    }
 
     // Modern Carousel functionality
     if (data.variant === 'carousel-modern') {
