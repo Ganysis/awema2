@@ -28,6 +28,14 @@ export const faqDataSchema = z.object({
     'video-style'        // Style FAQ vidéo
   ]).default('accordion-modern'),
 
+  // Variante de thème (nouveau)
+  themeVariant: z.enum([
+    'modern',    // Design épuré et contemporain
+    'minimal',   // Ultra épuré
+    'bold',      // Fort impact visuel
+    'elegant'    // Sophistiqué et raffiné
+  ]).default('modern'),
+
   // Contenu principal
   title: z.string().min(1).max(100).default('Questions Fréquentes'),
   subtitle: z.string().max(200).optional(),

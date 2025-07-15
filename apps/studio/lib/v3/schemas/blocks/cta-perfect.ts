@@ -40,6 +40,14 @@ export const ctaDataSchema = z.object({
     'video-background'   // Fond vidéo
   ]).default('gradient-wave'),
 
+  // Variante de thème (nouveau)
+  themeVariant: z.enum([
+    'modern',    // Design épuré et contemporain
+    'minimal',   // Ultra épuré
+    'bold',      // Fort impact visuel
+    'elegant'    // Sophistiqué et raffiné
+  ]).default('modern'),
+
   // Contenu principal
   title: z.string().min(1).max(100).default('Prêt à commencer ?'),
   subtitle: z.string().max(200).optional(),

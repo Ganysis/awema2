@@ -8,8 +8,41 @@ import { BaseRendererV3 } from './base.renderer';
 import { BlockProp, PropType, EditorControl } from '@awema/shared';
 
 export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
+  type = 'hero-v3-perfect';
+  version = '3.0.0';
+  
+  constructor() {
+    super();
+    console.log('🟡 HeroRendererV3PerfectEnhanced constructor called');
+  }
+  
   getDefaultData(): HeroData {
-    return heroDefaults;
+    return {
+      ...heroDefaults,
+      variant: 'modern' as any, // Override default variant
+      title: 'Titre Principal',
+      subtitle: 'Sous-titre descriptif',
+      primaryButton: { text: 'Action principale', link: '#' },
+      secondaryButton: { text: 'Action secondaire', link: '#' }
+    };
+  }
+  
+  getDefaultCSS(): string {
+    // Return empty string as CSS is generated in render method
+    return '';
+  }
+  
+  getRequiredAssets(): any[] {
+    return [];
+  }
+  
+  validate(data: unknown): z.SafeParseReturnType<HeroData, HeroData> {
+    // For now, just return success with the data
+    return { success: true, data: data as HeroData } as any;
+  }
+  
+  renderPreview(data: HeroData): string {
+    return this.render(data, { isExport: false }).html;
   }
 
   getBlockProps(): BlockProp[] {
@@ -40,7 +73,11 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
         required: false,
         defaultValue: 'center',
         description: 'Disposition du contenu',
-        options: ['center', 'left', 'split'],
+        options: [
+          { value: 'center', label: 'Centré' },
+          { value: 'left', label: 'Aligné à gauche (avec image optionnelle à droite)' },
+          { value: 'split', label: 'Split 50/50 (image requise)' }
+        ],
         editorConfig: {
           control: EditorControl.SELECT,
           group: 'Visuel',
@@ -116,10 +153,60 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
           group: 'Média',
           order: 1
         }
+      },
+      {
+        name: 'backgroundColor',
+        label: 'Couleur de fond',
+        type: PropType.STRING,
+        required: false,
+        description: 'Couleur de fond personnalisée (override le style de la variante)',
+        editorConfig: {
+          control: EditorControl.COLOR,
+          group: 'Visuel',
+          order: 3
+        }
+      },
+      {
+        name: 'overlayOpacity',
+        label: 'Opacité du filtre (%)',
+        type: PropType.NUMBER,
+        required: false,
+        defaultValue: 40,
+        description: 'Opacité du filtre sur l\'image de fond (0 à 100)',
+        editorConfig: {
+          control: EditorControl.INPUT,
+          group: 'Effets visuels',
+          order: 1,
+          placeholder: '40',
+          inputType: 'number',
+          min: 0,
+          max: 100,
+          step: 5
+        }
+      },
+      {
+        name: 'bgBlurAmount',
+        label: 'Flou de l\'image de fond (px)',
+        type: PropType.NUMBER,
+        required: false,
+        defaultValue: 8,
+        description: 'Niveau de flou de 0 (net) à 20 (très flou)',
+        editorConfig: {
+          control: EditorControl.INPUT,
+          group: 'Effets visuels',
+          order: 2,
+          placeholder: '8',
+          inputType: 'number',
+          min: 0,
+          max: 20,
+          step: 1
+        }
       }
     ];
   }
   render(data: HeroData, context?: RenderContext): RenderResult {
+    console.log('🟢 HeroRendererV3PerfectEnhanced.render called with data:', data);
+    
     const { 
       title = 'Titre Principal', 
       subtitle = 'Sous-titre descriptif',
@@ -127,14 +214,28 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
       secondaryButton,
       variant = 'modern',
       layout = 'center',
-      image
+      image,
+      backgroundColor,
+      overlayOpacity = 40,
+      bgBlurAmount = 8
     } = data;
 
+    console.log('🟢 Using variant:', variant, 'layout:', layout);
+    
     const isExport = context?.isExport ?? false;
+    const theme = context?.theme;
+    const primaryColor = theme?.colors?.primary || '#667eea';
+    const secondaryColor = theme?.colors?.secondary || '#764ba2';
+    const fontHeading = theme?.typography?.fontFamily?.heading || 'Inter, system-ui, sans-serif';
+    const fontBody = theme?.typography?.fontFamily?.body || 'Inter, system-ui, sans-serif';
+    
+    console.log('🟢 Theme in renderer:', theme);
+    console.log('🟢 Primary color:', primaryColor, 'Secondary:', secondaryColor);
+    console.log('🟢 Fonts - Heading:', fontHeading, 'Body:', fontBody);
 
     // HTML moderne avec structure optimisée
     const html = `
-<section class="hero hero--${variant} hero--${layout}" aria-label="Hero">
+<section class="hero hero--${variant} hero--${layout} ${image ? 'hero--has-image' : ''}" aria-label="Hero" ${backgroundColor ? `style="background-color: ${backgroundColor};"` : ''}>
   <!-- Background avec effets -->
   <div class="hero__background">
     ${variant === 'modern' ? `
@@ -148,9 +249,14 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
         </svg>
       </div>
     ` : ''}
-    ${image && variant === 'elegant' ? `
-      <div class="hero__image-bg" style="background-image: url('${image}')"></div>
-      <div class="hero__overlay"></div>
+    ${image && layout !== 'split' ? `
+      <div class="hero__image-bg" style="background-image: url('${image}'); filter: blur(${bgBlurAmount}px) brightness(0.8);"></div>
+      <div class="hero__overlay" style="opacity: ${overlayOpacity / 100}; background-color: ${
+        variant === 'modern' ? 'rgba(102, 126, 234, 0.9)' :
+        variant === 'minimal' ? 'rgba(250, 250, 250, 0.9)' :
+        variant === 'bold' ? 'rgba(17, 17, 17, 0.9)' :
+        'rgba(248, 249, 250, 0.9)'
+      }"></div>
     ` : ''}
   </div>
 
@@ -187,7 +293,7 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
       ` : ''}
     </div>
 
-    ${image && layout === 'split' ? `
+    ${image && (layout === 'split' || layout === 'left') ? `
       <div class="hero__media">
         <div class="hero__media-wrapper">
           <img src="${image}" alt="" class="hero__image" loading="lazy">
@@ -203,8 +309,15 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
   </div>
 </section>`;
 
-    // CSS moderne et optimisé
+    // CSS moderne et optimisé avec les couleurs du thème
     const css = `
+/* Variables CSS du thème */
+:root {
+  --hero-primary: ${primaryColor};
+  --hero-secondary: ${secondaryColor};
+  --hero-font-heading: ${fontHeading};
+  --hero-font-body: ${fontBody};
+}
 /* Hero V3 Perfect Enhanced - Design moderne */
 .hero {
   position: relative;
@@ -213,12 +326,14 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
   align-items: center;
   overflow: hidden;
   background: #ffffff;
+  font-family: var(--hero-font-body);
 }
 
 .hero__background {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
 }
 
 .hero__container {
@@ -233,8 +348,11 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
 }
 
 /* Variantes modernes */
+.hero--modern:not([style*="background-color"]) {
+  background: linear-gradient(135deg, var(--hero-primary) 0%, var(--hero-secondary) 100%);
+}
+
 .hero--modern {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
 }
 
@@ -252,20 +370,26 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
     repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px);
 }
 
-.hero--minimal {
+.hero--minimal:not([style*="background-color"]) {
   background: #fafafa;
+}
+
+.hero--minimal {
   color: #111;
 }
 
 .hero--minimal .hero__title {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--hero-primary) 0%, var(--hero-secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.hero--bold {
+.hero--bold:not([style*="background-color"]) {
   background: #111;
+}
+
+.hero--bold {
   color: white;
 }
 
@@ -275,27 +399,33 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
   left: 0;
   width: 100%;
   height: 120px;
-  color: #667eea;
+  color: var(--hero-primary);
+}
+
+.hero--elegant:not([style*="background-color"]) {
+  background: #f8f9fa;
 }
 
 .hero--elegant {
-  background: #f8f9fa;
   color: #212529;
 }
 
-.hero--elegant .hero__image-bg {
+/* Image de fond et overlay pour toutes les variantes */
+.hero__image-bg {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
-  filter: blur(8px) brightness(0.8);
+  /* Le filter est contrôlé par le style inline */
   transform: scale(1.1);
+  z-index: 1;
 }
 
-.hero--elegant .hero__overlay {
+.hero__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(248, 249, 250, 0.9);
+  z-index: 2;
+  /* La couleur et l'opacité sont contrôlées par le style inline */
 }
 
 /* Layout variations */
@@ -315,6 +445,13 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
 
 .hero--left .hero__container {
   grid-template-columns: 1fr;
+  text-align: left;
+}
+
+.hero--left.hero--has-image .hero__container {
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
 }
 
 .hero--split .hero__container {
@@ -328,6 +465,7 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
 }
 
 .hero__title {
+  font-family: var(--hero-font-heading);
   font-size: clamp(2.5rem, 8vw, 5rem);
   font-weight: 800;
   line-height: 1.1;
@@ -384,10 +522,20 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+.hero--modern .hero__btn--primary {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
 .hero__btn--primary:hover {
   background: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.hero--modern .hero__btn--primary:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .hero__btn--secondary {
@@ -400,6 +548,64 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
   background: currentColor;
   color: white;
   transform: translateY(-2px);
+}
+
+/* Specific fixes for each variant */
+.hero--modern .hero__btn--secondary:hover {
+  background: white;
+  color: var(--hero-primary);
+  border-color: white;
+}
+
+.hero--minimal .hero__btn--primary {
+  background: var(--hero-primary);
+  color: white;
+  border: none;
+}
+
+.hero--minimal .hero__btn--secondary {
+  background: transparent;
+  color: var(--hero-primary);
+  border: 2px solid var(--hero-primary);
+}
+
+.hero--minimal .hero__btn--secondary:hover {
+  background: var(--hero-primary);
+  color: white;
+}
+
+.hero--bold .hero__btn--primary {
+  background: var(--hero-primary);
+  color: white;
+  border: none;
+}
+
+.hero--bold .hero__btn--secondary {
+  color: white;
+  border-color: white;
+}
+
+.hero--bold .hero__btn--secondary:hover {
+  background: white;
+  color: #111;
+}
+
+.hero--elegant .hero__btn--primary {
+  background: var(--hero-primary);
+  color: white;
+  backdrop-filter: none;
+  border: none;
+}
+
+.hero--elegant .hero__btn--secondary {
+  background: transparent;
+  color: var(--hero-primary);
+  border: 2px solid var(--hero-primary);
+}
+
+.hero--elegant .hero__btn--secondary:hover {
+  background: var(--hero-primary);
+  color: white;
 }
 
 .hero__btn-icon {
@@ -554,12 +760,21 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
 })();
 ` : '';
 
+    console.log('🟢 Returning from enhanced renderer - CSS length:', css.length, 'HTML length:', html.length);
     return { html, css, js };
   }
 
   private escapeHtml(str: string): string {
-    const div = document.createElement('div');
-    div.textContent = str || '';
-    return div.innerHTML;
+    // Méthode d'échappement HTML sans dépendance au DOM
+    const escapeMap: Record<string, string> = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+      '/': '&#x2F;'
+    };
+    
+    return (str || '').replace(/[&<>"'\/]/g, (char) => escapeMap[char] || char);
   }
 }

@@ -74,6 +74,14 @@ export const galleryDataSchema = z.object({
     'mosaic-creative'
   ]).default('masonry-flow').describe('Style visuel de la galerie'),
   
+  // Visual variant (theme style)
+  visualVariant: z.enum([
+    'modern',
+    'minimal',
+    'bold',
+    'elegant'
+  ]).default('modern').describe('Style visuel du thème'),
+  
   // Configuration du titre
   title: z.string().default('Notre Galerie'),
   

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Hero Modern V3</title>
+    <style id="test-styles"></style>
+</head>
+<body>
+    <div id="test-container"></div>
+    
+    <script type="module">
+        // Import du renderer
+        import { HeroRendererV3PerfectEnhanced } from './lib/v3/renderers/hero-perfect-enhanced.renderer.js';
+        
+        console.log('=== TEST HERO V3 ENHANCED ===');
+        
+        // Créer une instance
+        const renderer = new HeroRendererV3PerfectEnhanced();
+        console.log('Renderer créé:', renderer);
+        
+        // Données de test
+        const testData = {
+            variant: 'modern',
+            layout: 'center',
+            title: 'Test Hero Modern',
+            subtitle: 'Vérification que le CSS est bien généré',
+            primaryButton: {
+                text: 'Action principale',
+                link: '#'
+            }
+        };
+        
+        // Contexte
+        const context = {
+            isExport: false,
+            device: 'desktop'
+        };
+        
+        console.log('Appel de render avec:', testData);
+        
+        try {
+            const result = renderer.render(testData, context);
+            console.log('Résultat:', result);
+            console.log('Type du résultat:', typeof result);
+            console.log('Clés du résultat:', Object.keys(result));
+            console.log('HTML présent:', !!result.html);
+            console.log('CSS présent:', !!result.css);
+            console.log('JS présent:', !!result.js);
+            console.log('Longueur CSS:', result.css?.length || 0);
+            
+            // Afficher le résultat
+            if (result.html) {
+                document.getElementById('test-container').innerHTML = result.html;
+            }
+            
+            if (result.css) {
+                document.getElementById('test-styles').textContent = result.css;
+                console.log('CSS injecté dans la page');
+                console.log('Contient hero--modern:', result.css.includes('hero--modern'));
+                console.log('Contient gradient:', result.css.includes('gradient'));
+            }
+            
+        } catch (error) {
+            console.error('Erreur lors du rendu:', error);
+        }
+    </script>
+</body>
+</html>

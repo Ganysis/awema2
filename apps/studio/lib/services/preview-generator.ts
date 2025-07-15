@@ -51,17 +51,35 @@ export class PreviewGenerator {
           // Convert to template block which includes defaults
           const templateBlock = this.convertBlockToTemplateBlock(block);
           
+          // For V3 blocks, we need to pass the theme in the context
+          // This is a temporary fix - ideally we should have a better way
+          if (block.type.includes('v3')) {
+            // Temporarily set the theme in window for V3 blocks
+            if (typeof window !== 'undefined') {
+              (window as any).__tempTheme = theme;
+            }
+          }
+          
           // Call the render function with merged props
-          const rendered = renderFn(templateBlock.props, []);
+          // Pass false for isExport since this is preview
+          const rendered = renderFn(templateBlock.props, [], false);
           
           console.log(`Rendered result for ${block.type}:`, typeof rendered, rendered ? Object.keys(rendered) : 'null');
           
           if (rendered) {
             if (typeof rendered === 'string') {
               // Si c'est une string, c'est du HTML direct
+              console.log(`String result from ${block.type}, treating as HTML`);
               allHTML += rendered;
             } else if (typeof rendered === 'object') {
               // Si c'est un objet, extraire html, css, js
+              console.log(`Object result from ${block.type}:`, {
+                hasHtml: !!rendered.html,
+                hasCss: !!rendered.css,
+                hasJs: !!rendered.js,
+                cssLength: rendered.css ? rendered.css.length : 0
+              });
+              
               if (rendered.html) {
                 allHTML += rendered.html;
               }
@@ -73,6 +91,8 @@ export class PreviewGenerator {
                 collectedJS.push(rendered.js);
               }
             }
+          } else {
+            console.log(`No result from ${block.type} renderer`);
           }
         } catch (error) {
           console.error(`Error rendering block ${block.type}:`, error);
@@ -103,6 +123,10 @@ export class PreviewGenerator {
       
       // Combine all CSS
       const blockStyles = collectedCSS.filter(css => css && css.trim()).join('\n\n');
+      console.log('Collected CSS count:', collectedCSS.length);
+      console.log('Block styles length:', blockStyles.length);
+      console.log('First 500 chars of block styles:', blockStyles.substring(0, 500));
+      
       const allCSS = `
         ${baseCSS}
         ${themeStyles}
@@ -122,7 +146,8 @@ export class PreviewGenerator {
       });
       
       console.log('Final preview HTML length:', finalHTML.length);
-      console.log('CSS included:', allCSS.includes('hero--modern'));
+      console.log('CSS included hero--modern:', allCSS.includes('hero--modern'));
+      console.log('CSS included gradient:', allCSS.includes('gradient'));
       
       return finalHTML;
     } catch (error) {
@@ -618,8 +643,8 @@ export class PreviewGenerator {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     ${fontsLink}` : ''}
     
-    <style>${criticalCSS}</style>
-    <style>${css}</style>
+    ${criticalCSS ? `<style id="critical-css">${criticalCSS}</style>` : ''}
+    <style id="main-css">${css}</style>
 </head>
 <body>
     ${html}

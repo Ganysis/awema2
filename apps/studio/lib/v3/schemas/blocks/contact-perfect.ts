@@ -81,6 +81,14 @@ export const contactDataSchema = z.object({
     'chat-style'         // Style messagerie
   ]).default('split-modern'),
 
+  // Variante de thème (nouveau)
+  themeVariant: z.enum([
+    'modern',    // Design épuré et contemporain
+    'minimal',   // Ultra épuré
+    'bold',      // Fort impact visuel
+    'elegant'    // Sophistiqué et raffiné
+  ]).default('modern'),
+
   // Titre et description
   title: z.string().min(1).max(200).default('Contactez-nous'),
   subtitle: z.string().max(300).optional(),

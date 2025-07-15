@@ -79,6 +79,14 @@ export const servicesDataSchema = z.object({
     'hexagon-tech'
   ]).default('grid-cards').describe('Style visuel du bloc services'),
   
+  // Visual variant (theme style)
+  visualVariant: z.enum([
+    'modern',
+    'minimal',
+    'bold',
+    'elegant'
+  ]).default('modern').describe('Style visuel du thème'),
+  
   // Configuration du titre
   title: z.string().default('Nos Services'),
   subtitle: z.string().optional(),

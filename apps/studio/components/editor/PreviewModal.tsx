@@ -20,7 +20,8 @@ export function PreviewModal({ onClose, projectId }: PreviewModalProps) {
     // Generate preview with image transformation
     const generatePreview = async () => {
       try {
-        const { previewGenerator } = await import('@/lib/services/preview-generator');
+        // Import direct pour éviter les erreurs de chunk
+        const previewGenerator = new (await import('@/lib/services/preview-generator')).PreviewGenerator();
         
         // Set projectId if available for image transformation
         if (projectId) {
@@ -28,6 +29,24 @@ export function PreviewModal({ onClose, projectId }: PreviewModalProps) {
         }
         
         const html = previewGenerator.generatePreview(blocks, theme, globalHeader, globalFooter);
+        
+        // Debug: vérifier le contenu généré
+        console.log('📄 Preview HTML generated, length:', html.length);
+        console.log('📄 Contains hero--modern class:', html.includes('hero--modern'));
+        console.log('📄 Contains gradient CSS:', html.includes('gradient'));
+        
+        // Debug: afficher un extrait du CSS dans la console
+        const styleMatch = html.match(/<style[^>]*>([\s\S]*?)<\/style>/g);
+        if (styleMatch) {
+          console.log('📄 Number of style tags:', styleMatch.length);
+          styleMatch.forEach((style, index) => {
+            const content = style.match(/<style[^>]*>([\s\S]*?)<\/style>/)?.[1] || '';
+            const id = style.match(/id="([^"]+)"/)?.[1] || 'no-id';
+            console.log(`📄 Style tag ${index + 1} (${id}):`, 
+              content.length > 0 ? `${content.length} chars - ${content.substring(0, 200)}...` : 'EMPTY');
+          });
+        }
+        
         setPreviewHtml(html);
       } catch (error) {
         console.error('Error generating preview:', error);

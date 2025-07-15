@@ -68,6 +68,14 @@ export const featuresDataSchema = z.object({
     'flip-cards'
   ]).default('grid-modern').describe('Style visuel du bloc features'),
   
+  // Visual variant (theme style)
+  visualVariant: z.enum([
+    'modern',
+    'minimal',
+    'bold',
+    'elegant'
+  ]).default('modern').describe('Style visuel du thème'),
+  
   // Configuration du titre
   title: z.string().default('Nos Services'),
   

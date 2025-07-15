@@ -90,52 +90,82 @@ import { BlockCategory } from '@awema/shared';
 import { HeroRendererV3Perfect } from '../v3/renderers/hero-perfect.renderer';
 import { HeroRendererV3PerfectEnhanced } from '../v3/renderers/hero-perfect-enhanced.renderer';
 import { FeaturesRendererV3Perfect } from '../v3/renderers/features-perfect.renderer';
+import { FeaturesRendererV3PerfectEnhanced } from '../v3/renderers/features-perfect-enhanced.renderer';
 import { ServicesRendererV3Perfect } from '../v3/renderers/services-perfect.renderer';
+import { ServicesRendererV3PerfectEnhanced } from '../v3/renderers/services-perfect-enhanced.renderer';
 import { GalleryRendererV3Perfect } from '../v3/renderers/gallery-perfect.renderer';
+import { GalleryRendererV3PerfectEnhanced } from '../v3/renderers/gallery-perfect-enhanced.renderer';
 import { ContentRendererV3Perfect } from '../v3/renderers/content-perfect.renderer';
+import { ContentRendererV3PerfectEnhanced } from '../v3/renderers/content-perfect-enhanced.renderer';
 import { TestimonialsRendererV3Perfect } from '../v3/renderers/testimonials-perfect.renderer';
+import { TestimonialsRendererV3PerfectEnhanced } from '../v3/renderers/testimonials-perfect-enhanced.renderer';
 import { PricingRendererV3Perfect } from '../v3/renderers/pricing-perfect.renderer';
+import { PricingRendererV3PerfectEnhanced } from '../v3/renderers/pricing-perfect-enhanced.renderer';
 import { FAQRendererV3Perfect } from '../v3/renderers/faq-perfect.renderer';
+import { FAQRendererV3PerfectEnhanced } from '../v3/renderers/faq-perfect-enhanced.renderer';
 import { CTARendererV3Perfect } from '../v3/renderers/cta-perfect.renderer';
+import { CTARendererV3PerfectEnhanced } from '../v3/renderers/cta-perfect-enhanced.renderer';
 import { ContactRendererV3Perfect } from '../v3/renderers/contact-perfect.renderer';
+import { ContactRendererV3PerfectEnhanced } from '../v3/renderers/contact-perfect-enhanced.renderer';
 
 // Créer les instances V3
 const heroV3 = new HeroRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
-const featuresV3 = new FeaturesRendererV3Perfect();
-const servicesV3 = new ServicesRendererV3Perfect();
-const galleryV3 = new GalleryRendererV3Perfect();
-const contentV3 = new ContentRendererV3Perfect();
-const testimonialsV3 = new TestimonialsRendererV3Perfect();
-const pricingV3 = new PricingRendererV3Perfect();
-const faqV3 = new FAQRendererV3Perfect();
-const ctaV3 = new CTARendererV3Perfect();
-const contactV3 = new ContactRendererV3Perfect();
+const featuresV3 = new FeaturesRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
+const servicesV3 = new ServicesRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
+const galleryV3 = new GalleryRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
+const contentV3 = new ContentRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
+const testimonialsV3 = new TestimonialsRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
+const pricingV3 = new PricingRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
+const faqV3 = new FAQRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
+const ctaV3 = new CTARendererV3PerfectEnhanced(); // Using enhanced version for better visuals
+const contactV3 = new ContactRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
 
 // Créer les wrappers pour les renderers V3
-const renderHeroV3Perfect = (props: any, variants?: string[]) => {
-  // Récupérer le thème depuis le store si disponible
-  const theme = typeof window !== 'undefined' 
-    ? (window as any).__editorStore?.getState()?.theme 
-    : undefined;
+const renderHeroV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
+  // Récupérer le thème depuis le store ou depuis le thème temporaire
+  let theme = undefined;
+  if (typeof window !== 'undefined') {
+    theme = (window as any).__tempTheme || (window as any).__editorStore?.getState()?.theme;
+  }
   
   const context = { 
-    isExport: false,
+    isExport,
     theme,
     device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
   };
   
-  const result = heroV3.render(props, context);
-  return result; // Retourner l'objet complet {html, css, js}
+  console.log('🔵 renderHeroV3Perfect called with props:', props, 'isExport:', isExport);
+  console.log('🔵 Theme:', theme);
+  
+  try {
+    const result = heroV3.render(props, context);
+    console.log('🔵 renderHeroV3Perfect result type:', typeof result);
+    console.log('🔵 renderHeroV3Perfect result keys:', result ? Object.keys(result) : 'null');
+    console.log('🔵 Has HTML:', !!result?.html, 'Length:', result?.html?.length || 0);
+    console.log('🔵 Has CSS:', !!result?.css, 'Length:', result?.css?.length || 0);
+    console.log('🔵 Has JS:', !!result?.js, 'Length:', result?.js?.length || 0);
+    
+    if (result?.css) {
+      console.log('🔵 CSS preview:', result.css.substring(0, 200) + '...');
+      console.log('🔵 CSS includes hero--modern:', result.css.includes('hero--modern'));
+    }
+    
+    return result; // Retourner l'objet complet {html, css, js}
+  } catch (error) {
+    console.error('🔴 Error in renderHeroV3Perfect:', error);
+    throw error;
+  }
 };
 
-const renderFeaturesV3Perfect = (props: any, variants?: string[]) => {
-  // Récupérer le thème depuis le store si disponible
-  const theme = typeof window !== 'undefined' 
-    ? (window as any).__editorStore?.getState()?.theme 
-    : undefined;
+const renderFeaturesV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
+  // Récupérer le thème depuis le store ou depuis le thème temporaire
+  let theme = undefined;
+  if (typeof window !== 'undefined') {
+    theme = (window as any).__tempTheme || (window as any).__editorStore?.getState()?.theme;
+  }
   
   const context = { 
-    isExport: false,
+    isExport,
     theme,
     device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
   };
@@ -144,14 +174,15 @@ const renderFeaturesV3Perfect = (props: any, variants?: string[]) => {
   return result; // Retourner l'objet complet {html, css, js}
 };
 
-const renderServicesV3Perfect = (props: any, variants?: string[]) => {
-  // Récupérer le thème depuis le store si disponible
-  const theme = typeof window !== 'undefined' 
-    ? (window as any).__editorStore?.getState()?.theme 
-    : undefined;
+const renderServicesV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
+  // Récupérer le thème depuis le store ou depuis le thème temporaire
+  let theme = undefined;
+  if (typeof window !== 'undefined') {
+    theme = (window as any).__tempTheme || (window as any).__editorStore?.getState()?.theme;
+  }
   
   const context = { 
-    isExport: false,
+    isExport,
     theme,
     device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
   };
@@ -160,14 +191,15 @@ const renderServicesV3Perfect = (props: any, variants?: string[]) => {
   return result; // Retourner l'objet complet {html, css, js}
 };
 
-const renderGalleryV3Perfect = (props: any, variants?: string[]) => {
-  // Récupérer le thème depuis le store si disponible
-  const theme = typeof window !== 'undefined' 
-    ? (window as any).__editorStore?.getState()?.theme 
-    : undefined;
+const renderGalleryV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
+  // Récupérer le thème depuis le store ou depuis le thème temporaire
+  let theme = undefined;
+  if (typeof window !== 'undefined') {
+    theme = (window as any).__tempTheme || (window as any).__editorStore?.getState()?.theme;
+  }
   
   const context = { 
-    isExport: false,
+    isExport,
     theme,
     device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
   };
@@ -176,14 +208,15 @@ const renderGalleryV3Perfect = (props: any, variants?: string[]) => {
   return result; // Retourner l'objet complet {html, css, js}
 };
 
-const renderContentV3Perfect = (props: any, variants?: string[]) => {
-  // Récupérer le thème depuis le store si disponible
-  const theme = typeof window !== 'undefined' 
-    ? (window as any).__editorStore?.getState()?.theme 
-    : undefined;
+const renderContentV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
+  // Récupérer le thème depuis le store ou depuis le thème temporaire
+  let theme = undefined;
+  if (typeof window !== 'undefined') {
+    theme = (window as any).__tempTheme || (window as any).__editorStore?.getState()?.theme;
+  }
   
   const context = { 
-    isExport: false,
+    isExport,
     theme,
     device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
   };
@@ -192,14 +225,15 @@ const renderContentV3Perfect = (props: any, variants?: string[]) => {
   return result; // Retourner l'objet complet {html, css, js}
 };
 
-const renderTestimonialsV3Perfect = (props: any, variants?: string[]) => {
-  // Récupérer le thème depuis le store si disponible
-  const theme = typeof window !== 'undefined' 
-    ? (window as any).__editorStore?.getState()?.theme 
-    : undefined;
+const renderTestimonialsV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
+  // Récupérer le thème depuis le store ou depuis le thème temporaire
+  let theme = undefined;
+  if (typeof window !== 'undefined') {
+    theme = (window as any).__tempTheme || (window as any).__editorStore?.getState()?.theme;
+  }
   
   const context = { 
-    isExport: false,
+    isExport,
     theme,
     device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
   };
@@ -208,14 +242,15 @@ const renderTestimonialsV3Perfect = (props: any, variants?: string[]) => {
   return result; // Retourner l'objet complet {html, css, js}
 };
 
-const renderPricingV3Perfect = (props: any, variants?: string[]) => {
-  // Récupérer le thème depuis le store si disponible
-  const theme = typeof window !== 'undefined' 
-    ? (window as any).__editorStore?.getState()?.theme 
-    : undefined;
+const renderPricingV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
+  // Récupérer le thème depuis le store ou depuis le thème temporaire
+  let theme = undefined;
+  if (typeof window !== 'undefined') {
+    theme = (window as any).__tempTheme || (window as any).__editorStore?.getState()?.theme;
+  }
   
   const context = { 
-    isExport: false,
+    isExport,
     theme,
     device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
   };
@@ -224,14 +259,15 @@ const renderPricingV3Perfect = (props: any, variants?: string[]) => {
   return result; // Retourner l'objet complet {html, css, js}
 };
 
-const renderFAQV3Perfect = (props: any, variants?: string[]) => {
-  // Récupérer le thème depuis le store si disponible
-  const theme = typeof window !== 'undefined' 
-    ? (window as any).__editorStore?.getState()?.theme 
-    : undefined;
+const renderFAQV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
+  // Récupérer le thème depuis le store ou depuis le thème temporaire
+  let theme = undefined;
+  if (typeof window !== 'undefined') {
+    theme = (window as any).__tempTheme || (window as any).__editorStore?.getState()?.theme;
+  }
   
   const context = { 
-    isExport: false,
+    isExport,
     theme,
     device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
   };
@@ -240,14 +276,15 @@ const renderFAQV3Perfect = (props: any, variants?: string[]) => {
   return result; // Retourner l'objet complet {html, css, js}
 };
 
-const renderCTAV3Perfect = (props: any, variants?: string[]) => {
-  // Récupérer le thème depuis le store si disponible
-  const theme = typeof window !== 'undefined' 
-    ? (window as any).__editorStore?.getState()?.theme 
-    : undefined;
+const renderCTAV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
+  // Récupérer le thème depuis le store ou depuis le thème temporaire
+  let theme = undefined;
+  if (typeof window !== 'undefined') {
+    theme = (window as any).__tempTheme || (window as any).__editorStore?.getState()?.theme;
+  }
   
   const context = { 
-    isExport: false,
+    isExport,
     theme,
     device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
   };
@@ -256,14 +293,15 @@ const renderCTAV3Perfect = (props: any, variants?: string[]) => {
   return result; // Retourner l'objet complet {html, css, js}
 };
 
-const renderContactV3Perfect = (props: any, variants?: string[]) => {
-  // Récupérer le thème depuis le store si disponible
-  const theme = typeof window !== 'undefined' 
-    ? (window as any).__editorStore?.getState()?.theme 
-    : undefined;
+const renderContactV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
+  // Récupérer le thème depuis le store ou depuis le thème temporaire
+  let theme = undefined;
+  if (typeof window !== 'undefined') {
+    theme = (window as any).__tempTheme || (window as any).__editorStore?.getState()?.theme;
+  }
   
   const context = { 
-    isExport: false,
+    isExport,
     theme,
     device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
   };
@@ -279,7 +317,7 @@ const heroV3Perfect: Block = {
   category: 'hero',
   description: '8 variantes spectaculaires avec animations 3D',
   tags: ['v3', 'hero', 'modern', 'animated'],
-  props: heroV3.getBlockProps(),
+  get props() { return heroV3.getBlockProps(); }, // Use getter to ensure fresh props each time
   variants: [],
   defaultProps: heroV3.getDefaultData(),
   thumbnail: '',
@@ -292,7 +330,7 @@ const featuresV3Perfect: Block = {
   category: 'features',
   description: '6 layouts innovants avec animations',
   tags: ['v3', 'features', 'modern', 'animated'],
-  props: featuresV3.getBlockProps(),
+  get props() { return featuresV3.getBlockProps(); }, // Use getter to ensure fresh props each time
   variants: [],
   defaultProps: featuresV3.getDefaultData(),
   thumbnail: '',
@@ -305,7 +343,7 @@ const servicesV3Perfect: Block = {
   category: 'services',
   description: '8 designs avec comparaisons et calculateur',
   tags: ['v3', 'services', 'modern', 'interactive'],
-  props: servicesV3.getBlockProps(),
+  get props() { return servicesV3.getBlockProps(); }, // Use getter to ensure fresh props each time
   variants: [],
   defaultProps: servicesV3.getDefaultData(),
   thumbnail: '',
@@ -318,7 +356,7 @@ const galleryV3Perfect: Block = {
   category: 'gallery',
   description: '8 layouts + lightbox 5 styles + zoom 10x',
   tags: ['v3', 'gallery', 'modern', 'interactive'],
-  props: galleryV3.getBlockProps(),
+  get props() { return galleryV3.getBlockProps(); }, // Use getter to ensure fresh props each time
   variants: [],
   defaultProps: galleryV3.getDefaultData(),
   thumbnail: '',
@@ -331,7 +369,7 @@ const contentV3Perfect: Block = {
   category: 'content',
   description: '8 formats avec table des matières auto',
   tags: ['v3', 'content', 'modern', 'rich'],
-  props: contentV3.getBlockProps(),
+  get props() { return contentV3.getBlockProps(); }, // Use getter to ensure fresh props each time
   variants: [],
   defaultProps: contentV3.getDefaultData(),
   thumbnail: '',
@@ -344,7 +382,7 @@ const testimonialsV3Perfect: Block = {
   category: 'testimonials',
   description: 'Intégrations Google/Trustpilot + vidéos',
   tags: ['v3', 'testimonials', 'modern', 'social'],
-  props: testimonialsV3.getBlockProps(),
+  get props() { return testimonialsV3.getBlockProps(); }, // Use getter to ensure fresh props each time
   variants: [],
   defaultProps: testimonialsV3.getDefaultData(),
   thumbnail: '',
@@ -383,7 +421,7 @@ const ctaV3Perfect: Block = {
   category: 'cta',
   description: 'Countdown + confetti + sons + animations',
   tags: ['v3', 'cta', 'modern', 'animated'],
-  props: ctaV3.getBlockProps(),
+  get props() { return ctaV3.getBlockProps(); }, // Use getter to ensure fresh props each time
   variants: [],
   defaultProps: ctaV3.getDefaultData(),
   thumbnail: '',
@@ -396,7 +434,7 @@ const contactV3Perfect: Block = {
   category: 'contact',
   description: 'Validation temps réel + map + webhooks',
   tags: ['v3', 'contact', 'modern', 'form'],
-  props: contactV3.getBlockProps(),
+  get props() { return contactV3.getBlockProps(); }, // Use getter to ensure fresh props each time
   variants: [],
   defaultProps: contactV3.getDefaultData(),
   thumbnail: '',
@@ -793,6 +831,6 @@ const renderFunctions: Record<string, any> = {
   'contact-v3-perfect': renderContactV3Perfect,
 };
 
-export function getBlockRenderFunction(blockId: string): ((props: any, variants?: string[]) => any) | undefined {
+export function getBlockRenderFunction(blockId: string): ((props: any, variants?: string[], isExport?: boolean) => any) | undefined {
   return renderFunctions[blockId];
 }
