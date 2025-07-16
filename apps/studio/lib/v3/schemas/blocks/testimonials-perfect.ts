@@ -70,7 +70,7 @@ export const testimonialsDataSchema = z.object({
         name: 'Sophie Martin',
         role: 'Directrice Marketing',
         company: 'TechCorp',
-        avatar: { url: '/images/avatar1.jpg', alt: 'Sophie Martin' },
+        avatar: { src: '/images/avatar1.jpg', alt: 'Sophie Martin' },
         verified: true
       },
       content: 'Service exceptionnel ! L\'équipe a transformé notre présence en ligne. Notre trafic a augmenté de 200% en 3 mois.',
@@ -221,7 +221,7 @@ export const testimonialsDefaults: TestimonialsData = {
         name: 'Sophie Martin',
         role: 'Directrice Marketing',
         company: 'TechCorp',
-        avatar: { url: '/images/avatar1.jpg', alt: 'Sophie Martin' },
+        avatar: { src: '/images/avatar1.jpg', alt: 'Sophie Martin' },
         verified: true
       },
       content: 'Service exceptionnel ! L\'équipe a transformé notre présence en ligne. Notre trafic a augmenté de 200% en 3 mois. Je recommande vivement.',
@@ -340,7 +340,7 @@ export const testimonialsPresets = {
           name: 'Philippe Moreau',
           role: 'Directeur Général',
           company: 'Groupe Industriel SA',
-          avatar: { url: '/images/philippe.jpg', alt: 'Philippe Moreau' }
+          avatar: { src: '/images/philippe.jpg', alt: 'Philippe Moreau' }
         },
         content: 'Une transformation digitale réussie grâce à leur expertise. ROI impressionnant.',
         rating: 5,
