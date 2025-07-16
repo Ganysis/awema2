@@ -990,6 +990,7 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
   border-radius: var(--features-border-radius);
   box-shadow: var(--features-shadow);
   overflow: hidden;
+  overflow-x: auto;
 }
 
 .features--comparison-table .features__table {
@@ -1008,21 +1009,42 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
 .features--comparison-table .features__table-header--feature {
   background: var(--features-gradient);
   color: white;
+  min-width: 250px;
+}
+
+.features--comparison-table .plan-header {
+  text-align: center;
+}
+
+.features--comparison-table .plan-name {
+  font-size: 1.125rem;
+  font-weight: 700;
 }
 
 .features--comparison-table .features__table-cell {
   padding: 1.5rem;
   border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+
+.features--comparison-table .features__table-cell--feature {
+  font-weight: 500;
 }
 
 .features--comparison-table .features__table-row:hover {
   background: #f9fafb;
+  transition: background 0.2s;
+}
+
+.features--comparison-table .features__table-row:last-child .features__table-cell {
+  border-bottom: none;
 }
 
 .features--comparison-table .check {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.5rem;
 }
 
 .features--comparison-table .check--yes {
@@ -1031,6 +1053,40 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
 
 .features--comparison-table .check--no {
   color: #ef4444;
+  opacity: 0.5;
+}
+
+/* Tooltip styles for comparison table */
+.features--comparison-table .feature-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.features--comparison-table .feature-name {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.features--comparison-table .feature-tooltip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  cursor: help;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.features--comparison-table .feature-tooltip:hover {
+  opacity: 1;
+}
+
+.features--comparison-table .feature-tooltip svg {
+  width: 16px;
+  height: 16px;
+  fill: #6b7280;
 }
 
 /* Variant: Flip Cards */
@@ -1435,13 +1491,6 @@ export class FeaturesRendererV3PerfectEnhanced extends BaseRendererV3<FeaturesDa
               <td class="features__table-cell features__table-cell--feature">
                 <div class="feature-info">
                   <span class="feature-name">${feature.title}</span>
-                  ${feature.description ? `
-                    <span class="feature-tooltip" title="${feature.description}">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 0a8 8 0 110 16A8 8 0 018 0zm0 12a1 1 0 100-2 1 1 0 000 2zm1-3.5v.5a1 1 0 11-2 0V6a1 1 0 011-1 2 2 0 10-2-2 1 1 0 01-2 0 4 4 0 114 4z"/>
-                      </svg>
-                    </span>
-                  ` : ''}
                 </div>
               </td>
               ${planNames.map((plan: string) => `

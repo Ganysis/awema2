@@ -300,3 +300,55 @@
       - Horaires, moyens de paiement, certifications
       - Back to top animé
       - Cookie notice RGPD
+
+  - 15/01/2025 : Refactoring des blocs V3 pour éliminer [object Object] :
+    - ✅ FEATURES V3 : Refactorisé complètement pour structure plate
+      - Éliminé tous les nested objects/arrays dans getBlockProps()
+      - Créé méthode extractFeatures() pour convertir les props plates en données structurées
+      - Corrigé les variantes cards-hover et masonry-creative
+      - Supprimé les tooltips SVG qui créaient des points noirs dans la variante table
+    - ✅ SERVICES V3 : Même refactoring avec structure plate
+      - Ajouté contrôles complets pour les prix (activer/désactiver, styles, périodes)
+      - Créé méthode extractServices() pour la conversion des données
+      - Implémenté toutes les 8 variantes avec CSS complet
+    - ✅ HERO V3 : Réduit l'espacement après le bloc
+      - Changé min-height de 100vh à 70vh
+      - Ajouté padding: 4rem 0 3rem
+      - Réduit l'espace du scroll indicator
+    
+    💡 GUIDE RAPIDE POUR MODIFIER LES BLOCS V3 :
+    1. **Structure plate obligatoire** : Pas de nested objects/arrays dans getBlockProps()
+    2. **Pattern à suivre** :
+       ```typescript
+       // Au lieu de :
+       features: { type: PropType.ARRAY, schema: [...] }
+       
+       // Faire :
+       feature1_title: { type: PropType.STRING }
+       feature1_description: { type: PropType.STRING }
+       feature1_icon: { type: PropType.STRING }
+       // etc...
+       ```
+    3. **Méthode d'extraction** : Créer une méthode privée pour convertir les props plates
+       ```typescript
+       private extractFeatures(data: any): any[] {
+         const features = [];
+         for (let i = 1; i <= 6; i++) {
+           const title = data[`feature${i}_title`];
+           if (title) {
+             features.push({
+               title,
+               description: data[`feature${i}_description`] || '',
+               icon: data[`feature${i}_icon`] || '🎯'
+             });
+           }
+         }
+         return features;
+       }
+       ```
+    4. **Dans render()** : Utiliser la méthode d'extraction
+       ```typescript
+       const features = this.extractFeatures(data);
+       ```
+    5. **Toujours ajouter `description`** : Chaque BlockProp doit avoir une description
+    6. **EditorControl approprié** : SELECT → RADIO pour les choix visuels importants

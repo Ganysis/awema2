@@ -69,10 +69,10 @@ Tous les 10 blocs V3 Perfect ont été créés avec succès :
 
 ### 10. **Contact V3 Perfect** ✅
 - **Fichiers** :
-  - Renderer : `lib/v3/renderers/contact-perfect.renderer.ts`
+  - Renderer : `lib/v3/renderers/contact-perfect-enhanced.renderer.ts`
   - Schema : `lib/v3/schemas/blocks/contact-perfect.ts`
-- **Variantes** : 8 (Split, Float, Glass, Map Full, Minimal, Gradient, Sidebar, Chat)
-- **Fonctionnalités** : Validation temps réel, map, horaires, webhooks
+- **Variantes** : 6 (Split Screen, Floating Cards, Glassmorphism, Gradient Waves, Sidebar Dark)
+- **Fonctionnalités** : Validation temps réel, carte avec adresse, horaires, API contact
 
 ## 📊 Statistiques finales
 
@@ -111,6 +111,39 @@ Utilisez la fonction export/deploy dans l'éditeur
 2. Vérifier l'export statique
 3. Tester le déploiement Netlify
 4. Valider les performances Lighthouse
+
+## ⚠️ NOTES IMPORTANTES POUR LA PRODUCTION
+
+### 📧 Configuration Email (Contact V3)
+Le bloc Contact V3 nécessite une configuration email pour fonctionner en production :
+
+1. **Choisir un service d'email** :
+   - SendGrid : `npm install @sendgrid/mail`
+   - Resend : `npm install resend`
+   - AWS SES : `npm install aws-sdk`
+   - Nodemailer : `npm install nodemailer`
+
+2. **Configurer les variables d'environnement** :
+   ```env
+   CONTACT_EMAIL=contact@votresite.com
+   SENDER_EMAIL=noreply@votresite.com
+   SENDGRID_API_KEY=votre_cle_api
+   ```
+
+3. **Modifier `/app/api/contact/route.ts`** :
+   - Décommenter le code d'envoi d'email
+   - Adapter selon votre service choisi
+   - Tester l'envoi en production
+
+4. **Sécurité** :
+   - Ajouter un captcha (reCAPTCHA, hCaptcha)
+   - Limiter le rate limiting
+   - Valider côté serveur
+
+### 🗺️ Configuration Maps
+- Google Maps Embed est utilisé par défaut (gratuit, pas d'API key nécessaire)
+- Utilise le champ d'adresse pour la recherche (ex: "123 rue de la Paix, 75001 Paris")
+- Responsive et accessible
 
 ---
 

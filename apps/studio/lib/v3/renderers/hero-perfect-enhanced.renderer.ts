@@ -321,12 +321,13 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
 /* Hero V3 Perfect Enhanced - Design moderne */
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
   overflow: hidden;
   background: #ffffff;
   font-family: var(--hero-font-body);
+  padding: 4rem 0 3rem;
 }
 
 .hero__background {
@@ -648,14 +649,14 @@ export class HeroRendererV3PerfectEnhanced extends BaseRendererV3<HeroData> {
 /* Scroll indicator */
 .hero__scroll-indicator {
   position: absolute;
-  bottom: 2rem;
+  bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
   width: 30px;
   height: 50px;
   border: 2px solid currentColor;
   border-radius: 15px;
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 .hero__scroll-line {
