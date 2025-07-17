@@ -66,11 +66,31 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
    PRICING V3 PERFECT ENHANCED - Styles avec thème
    ======================================== */
 
+/* Variables CSS utilitaires (non liées au thème) */
+.pricing {
+  --font-size-base: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+  --font-weight-light: 300;
+  --line-height-tight: 1.25;
+  --line-height-relaxed: 1.625;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+}
+
 .pricing {
   position: relative;
   padding: 6rem 0;
   overflow: hidden;
-  background: var(--background);
+  background: var(--color-background);
 }
 
 .pricing__container {
@@ -89,18 +109,18 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 }
 
 .pricing__title {
-  font-family: var(--font-heading);
+  font-family: var(--font-family-heading);
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 1rem;
-  color: var(--text);
+  color: var(--color-text-primary);
 }
 
 .pricing__subtitle {
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
   font-size: clamp(1.125rem, 2vw, 1.5rem);
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
   line-height: 1.6;
 }
 
@@ -111,17 +131,17 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 /* Style Moderne */
 .pricing[data-style-variant="modern"] {
   background: linear-gradient(135deg, 
-    color-mix(in srgb, var(--primary), transparent 95%) 0%, 
-    var(--background) 50%);
+    color-mix(in srgb, var(--color-primary), transparent 95%) 0%, 
+    var(--color-background) 50%);
 }
 
 .pricing[data-style-variant="modern"] .pricing__card {
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: 2rem;
   padding: 3rem 2rem;
   position: relative;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-border);
   overflow: hidden;
 }
 
@@ -132,7 +152,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
   transform: scaleX(0);
   transition: transform 0.3s;
 }
@@ -143,50 +163,50 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 
 .pricing[data-style-variant="modern"] .pricing__card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 60px -10px color-mix(in srgb, var(--primary), transparent 70%);
+  box-shadow: 0 20px 60px -10px color-mix(in srgb, var(--color-primary), transparent 70%);
 }
 
 .pricing[data-style-variant="modern"] .pricing__card--featured {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: var(--background);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: var(--color-background);
   transform: scale(1.05);
 }
 
 .pricing[data-style-variant="modern"] .pricing__price {
-  font-family: var(--font-heading);
+  font-family: var(--font-family-heading);
   font-size: 3.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .pricing[data-style-variant="modern"] .pricing__card--featured .pricing__price {
-  background: var(--background);
+  background: var(--color-background);
   -webkit-background-clip: text;
   background-clip: text;
 }
 
 .pricing[data-style-variant="modern"] .pricing__button {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: var(--background);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: var(--color-background);
   border: none;
   padding: 1rem 2rem;
   border-radius: 9999px;
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
   font-weight: 600;
   transition: all 0.3s;
 }
 
 .pricing[data-style-variant="modern"] .pricing__button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--primary), transparent 50%);
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--color-primary), transparent 50%);
 }
 
 /* Style Minimaliste */
 .pricing[data-style-variant="minimal"] {
-  background: var(--background);
+  background: var(--color-background);
   padding: 8rem 0;
 }
 
@@ -195,14 +215,14 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 }
 
 .pricing[data-style-variant="minimal"] .pricing__title {
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
   font-weight: 300;
   letter-spacing: -0.02em;
 }
 
 .pricing[data-style-variant="minimal"] .pricing__card {
   background: transparent;
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-border);
   border-radius: 0;
   padding: 4rem 2rem;
   transition: all 0.3s ease;
@@ -210,40 +230,40 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 }
 
 .pricing[data-style-variant="minimal"] .pricing__card:hover {
-  border-color: var(--text);
-  background: var(--surface);
+  border-color: var(--color-text-primary);
+  background: var(--color-surface);
 }
 
 .pricing[data-style-variant="minimal"] .pricing__name {
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
   margin-bottom: 2rem;
 }
 
 .pricing[data-style-variant="minimal"] .pricing__price {
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
   font-size: 4rem;
   font-weight: 200;
-  color: var(--text);
+  color: var(--color-text-primary);
   margin-bottom: 3rem;
 }
 
 .pricing[data-style-variant="minimal"] .pricing__divider {
   width: 60px;
   height: 1px;
-  background: var(--border);
+  background: var(--color-border);
   margin: 2rem auto;
 }
 
 .pricing[data-style-variant="minimal"] .pricing__button {
   background: transparent;
-  color: var(--text);
-  border: 1px solid var(--text);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-text-primary);
   padding: 0.75rem 2rem;
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
   font-weight: 400;
   transition: all 0.3s;
   text-transform: uppercase;
@@ -251,14 +271,14 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 }
 
 .pricing[data-style-variant="minimal"] .pricing__button:hover {
-  background: var(--text);
-  color: var(--background);
+  background: var(--color-text-primary);
+  color: var(--color-background);
 }
 
 /* Style Impact */
 .pricing[data-style-variant="bold"] {
-  background: var(--text);
-  color: var(--background);
+  background: var(--color-text-primary);
+  color: var(--color-background);
   padding: 8rem 0;
   position: relative;
 }
@@ -275,40 +295,40 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
       -45deg,
       transparent,
       transparent 20px,
-      color-mix(in srgb, var(--background), transparent 95%) 20px,
-      color-mix(in srgb, var(--background), transparent 95%) 40px
+      color-mix(in srgb, var(--color-background), transparent 95%) 20px,
+      color-mix(in srgb, var(--color-background), transparent 95%) 40px
     );
   pointer-events: none;
 }
 
 .pricing[data-style-variant="bold"] .pricing__title {
-  font-family: var(--font-heading);
+  font-family: var(--font-family-heading);
   font-size: clamp(3rem, 8vw, 5rem);
   font-weight: 900;
-  color: var(--background);
+  color: var(--color-background);
   text-transform: uppercase;
   letter-spacing: -0.03em;
 }
 
 .pricing[data-style-variant="bold"] .pricing__subtitle {
-  color: var(--primary);
+  color: var(--color-primary);
   font-weight: 600;
 }
 
 .pricing[data-style-variant="bold"] .pricing__card {
-  background: var(--background);
-  color: var(--text);
+  background: var(--color-background);
+  color: var(--color-text-primary);
   border-radius: 0;
   padding: 3rem;
   position: relative;
   transform: rotate(-2deg);
   transition: all 0.3s;
-  box-shadow: 10px 10px 0 var(--primary);
+  box-shadow: 10px 10px 0 var(--color-primary);
 }
 
 .pricing[data-style-variant="bold"] .pricing__card:nth-child(even) {
   transform: rotate(2deg);
-  box-shadow: -10px 10px 0 var(--secondary);
+  box-shadow: -10px 10px 0 var(--color-secondary);
 }
 
 .pricing[data-style-variant="bold"] .pricing__card:hover {
@@ -317,19 +337,19 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 }
 
 .pricing[data-style-variant="bold"] .pricing__price {
-  font-family: var(--font-heading);
+  font-family: var(--font-family-heading);
   font-size: 5rem;
   font-weight: 900;
-  color: var(--primary);
+  color: var(--color-primary);
   text-transform: uppercase;
 }
 
 .pricing[data-style-variant="bold"] .pricing__button {
-  background: var(--text);
-  color: var(--background);
+  background: var(--color-text-primary);
+  color: var(--color-background);
   border: none;
   padding: 1.5rem 3rem;
-  font-family: var(--font-heading);
+  font-family: var(--font-family-heading);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -337,13 +357,13 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 }
 
 .pricing[data-style-variant="bold"] .pricing__button:hover {
-  background: var(--primary);
+  background: var(--color-primary);
   transform: scale(1.1);
 }
 
 /* Style Élégant */
 .pricing[data-style-variant="elegant"] {
-  background: linear-gradient(180deg, var(--surface) 0%, var(--background) 100%);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-background) 100%);
   padding: 10rem 0;
   position: relative;
 }
@@ -358,14 +378,14 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   height: 800px;
   border-radius: 50%;
   background: radial-gradient(circle, 
-    color-mix(in srgb, var(--accent), transparent 90%), 
+    color-mix(in srgb, var(--color-accent), transparent 90%), 
     transparent);
   filter: blur(100px);
   pointer-events: none;
 }
 
 .pricing[data-style-variant="elegant"] .pricing__title {
-  font-family: var(--font-heading);
+  font-family: var(--font-family-heading);
   font-weight: 400;
   text-align: center;
   letter-spacing: 0.02em;
@@ -377,9 +397,9 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 }
 
 .pricing[data-style-variant="elegant"] .pricing__card {
-  background: color-mix(in srgb, var(--surface), transparent 50%);
+  background: color-mix(in srgb, var(--color-surface), transparent 50%);
   backdrop-filter: blur(20px);
-  border: 1px solid color-mix(in srgb, var(--border), transparent 50%);
+  border: 1px solid color-mix(in srgb, var(--color-border), transparent 50%);
   border-radius: 2rem;
   padding: 4rem 2rem;
   text-align: center;
@@ -395,7 +415,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+  background: linear-gradient(45deg, var(--color-primary), var(--color-secondary), var(--color-accent));
   border-radius: 2rem;
   opacity: 0;
   transition: opacity 0.4s;
@@ -407,33 +427,33 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 }
 
 .pricing[data-style-variant="elegant"] .pricing__card:hover {
-  background: var(--surface);
+  background: var(--color-surface);
   transform: translateY(-4px);
 }
 
 .pricing[data-style-variant="elegant"] .pricing__price {
-  font-family: var(--font-heading);
+  font-family: var(--font-family-heading);
   font-size: 3rem;
   font-weight: 300;
-  color: var(--text);
+  color: var(--color-text-primary);
   margin-bottom: 2rem;
 }
 
 .pricing[data-style-variant="elegant"] .pricing__button {
   background: transparent;
-  color: var(--text);
-  border: 2px solid var(--primary);
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-primary);
   padding: 1rem 2.5rem;
   border-radius: 9999px;
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
   font-weight: 500;
   transition: all 0.3s;
 }
 
 .pricing[data-style-variant="elegant"] .pricing__button:hover {
-  background: var(--primary);
-  color: var(--background);
-  border-color: var(--primary);
+  background: var(--color-primary);
+  color: var(--color-background);
+  border-color: var(--color-primary);
 }
 
 /* ========================================
@@ -450,28 +470,28 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 }
 
 .pricing__toggle-label {
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
   transition: color 0.3s;
 }
 
 .pricing__toggle-label.active {
-  color: var(--text);
+  color: var(--color-text-primary);
 }
 
 .pricing__toggle-switch {
   position: relative;
   width: 60px;
   height: 32px;
-  background: var(--border);
+  background: var(--color-border);
   border-radius: 9999px;
   cursor: pointer;
   transition: background 0.3s;
 }
 
 .pricing__toggle-switch.active {
-  background: var(--primary);
+  background: var(--color-primary);
 }
 
 .pricing__toggle-slider {
@@ -480,7 +500,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   left: 4px;
   width: 24px;
   height: 24px;
-  background: var(--background);
+  background: var(--color-background);
   border-radius: 50%;
   transition: transform 0.3s;
 }
@@ -492,29 +512,29 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 /* Badge économie avec thème */
 .pricing__save {
   display: inline-block;
-  background: var(--accent);
-  color: var(--background);
+  background: var(--color-accent);
+  color: var(--color-background);
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 600;
   margin-left: 0.5rem;
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
 }
 
 /* Nom du plan avec thème */
 .pricing__name {
-  font-family: var(--font-heading);
+  font-family: var(--font-family-heading);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text);
+  color: var(--color-text-primary);
   margin-bottom: 0.5rem;
 }
 
 /* Description avec thème */
 .pricing__description {
-  font-family: var(--font-body);
-  color: var(--text-secondary);
+  font-family: var(--font-family-body);
+  color: var(--color-text-secondary);
   margin-bottom: 2rem;
 }
 
@@ -525,13 +545,13 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 
 .pricing__currency {
   font-size: 1.5rem;
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
 }
 
 .pricing__period {
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
   font-size: 1rem;
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
 }
 
 /* Features avec thème */
@@ -546,14 +566,14 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 0;
-  font-family: var(--font-body);
-  color: var(--text);
+  font-family: var(--font-family-body);
+  color: var(--color-text-primary);
 }
 
 .pricing__feature-icon {
   width: 20px;
   height: 20px;
-  color: var(--primary);
+  color: var(--color-primary);
   flex-shrink: 0;
 }
 
@@ -563,7 +583,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 }
 
 .pricing__feature--disabled .pricing__feature-icon {
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
 }
 
 /* Badge featured avec thème */
@@ -571,19 +591,19 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   position: absolute;
   top: -0.5rem;
   right: 2rem;
-  background: var(--accent);
-  color: var(--background);
+  background: var(--color-accent);
+  color: var(--color-background);
   padding: 0.5rem 1.5rem;
   border-radius: 9999px;
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
   font-size: 0.875rem;
   font-weight: 600;
 }
 
 /* Garantie avec thème */
 .pricing__guarantee {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 1rem;
   padding: 2rem;
   margin-top: 3rem;
@@ -591,16 +611,16 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 }
 
 .pricing__guarantee-title {
-  font-family: var(--font-heading);
+  font-family: var(--font-family-heading);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text);
+  color: var(--color-text-primary);
   margin-bottom: 0.5rem;
 }
 
 .pricing__guarantee-text {
-  font-family: var(--font-body);
-  color: var(--text-secondary);
+  font-family: var(--font-family-body);
+  color: var(--color-text-secondary);
 }
 
 /* FAQ avec thème */
@@ -609,17 +629,17 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 }
 
 .pricing__faq-title {
-  font-family: var(--font-heading);
+  font-family: var(--font-family-heading);
   font-size: 2rem;
   font-weight: 700;
-  color: var(--text);
+  color: var(--color-text-primary);
   text-align: center;
   margin-bottom: 2rem;
 }
 
 .pricing__faq-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 1rem;
   margin-bottom: 1rem;
   overflow: hidden;
@@ -627,9 +647,9 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 
 .pricing__faq-question {
   padding: 1.5rem;
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
   font-weight: 600;
-  color: var(--text);
+  color: var(--color-text-primary);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -641,8 +661,8 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s, padding 0.3s;
-  font-family: var(--font-body);
-  color: var(--text-secondary);
+  font-family: var(--font-family-body);
+  color: var(--color-text-secondary);
 }
 
 .pricing__faq-item.active .pricing__faq-answer {
@@ -660,12 +680,12 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   
   .pricing[data-style-variant="bold"] .pricing__card {
     transform: none;
-    box-shadow: 0 10px 0 var(--primary);
+    box-shadow: 0 10px 0 var(--color-primary);
   }
   
   .pricing[data-style-variant="bold"] .pricing__card:nth-child(even) {
     transform: none;
-    box-shadow: 0 10px 0 var(--secondary);
+    box-shadow: 0 10px 0 var(--color-secondary);
   }
 }
 
@@ -1126,14 +1146,38 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
       const validData = validation.data;
       logger.info('PricingRendererV3PerfectEnhanced', 'render', 'Rendu Pricing avec layout:', validData.layout);
 
+      // Récupération complète des couleurs du thème
+      const theme = context?.theme;
+      const primaryColor = theme?.colors?.primary || '#667eea';
+      const secondaryColor = theme?.colors?.secondary || '#764ba2';
+      const textColor = theme?.colors?.text || '#1a202c';
+      const textSecondaryColor = theme?.colors?.textSecondary || '#718096';
+      const backgroundColor = theme?.colors?.background || '#ffffff';
+      const surfaceColor = theme?.colors?.surface || '#f7fafc';
+      const borderColor = theme?.colors?.border || '#e2e8f0';
+      const accentColor = theme?.colors?.accent || primaryColor;
+      const fontHeading = theme?.typography?.fontFamily?.heading || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      const fontBody = theme?.typography?.fontFamily?.body || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
       // Ajouter le style variant depuis les données
       const styleVariant = (data as any).variant || 'modern';
 
-      // Générer le HTML selon le layout
-      const html = this.renderLayout(validData, styleVariant);
+      // Générer le HTML selon le layout avec les couleurs du thème
+      const html = this.renderLayout(validData, styleVariant, {
+        primaryColor,
+        secondaryColor,
+        textColor,
+        textSecondaryColor,
+        backgroundColor,
+        surfaceColor,
+        borderColor,
+        accentColor,
+        fontHeading,
+        fontBody
+      });
       
-      // CSS avec variables personnalisées
-      const customCSS = this.generateCustomCSS(validData);
+      // CSS avec variables personnalisées du thème
+      const customCSS = this.generateCustomCSS(validData, context);
       
       return {
         html,
@@ -1152,7 +1196,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     }
   }
 
-  private renderLayout(data: PricingData, styleVariant: string): string {
+  private renderLayout(data: PricingData, styleVariant: string, themeColors: any): string {
     let content = '';
     
     switch(data.layout) {
@@ -1184,8 +1228,50 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
         content = this.renderCardsModern(data);
     }
 
+    // Fonction helper pour générer une couleur avec transparence
+    const colorWithAlpha = (color: string, alpha: number): string => {
+      // Si c'est déjà en rgba, on remplace juste l'alpha
+      if (color.startsWith('rgba')) {
+        return color.replace(/[\d.]+\)$/, `${alpha})`);
+      }
+      // Si c'est en hex, on convertit en rgba
+      if (color.startsWith('#')) {
+        const hex = color.slice(1);
+        const r = parseInt(hex.slice(0, 2), 16);
+        const g = parseInt(hex.slice(2, 4), 16);
+        const b = parseInt(hex.slice(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+      // Si c'est en rgb, on ajoute l'alpha
+      if (color.startsWith('rgb')) {
+        return color.replace('rgb', 'rgba').replace(')', `, ${alpha})`);
+      }
+      return color;
+    };
+
+    // Styles inline avec toutes les variables CSS du thème
+    const themeStyles = `
+      --color-primary: ${themeColors.primaryColor};
+      --color-primary-light: ${colorWithAlpha(themeColors.primaryColor, 0.1)};
+      --color-primary-dark: ${themeColors.primaryColor};
+      --color-secondary: ${themeColors.secondaryColor};
+      --color-text-primary: ${themeColors.textColor};
+      --color-text-secondary: ${themeColors.textSecondaryColor};
+      --color-background: ${themeColors.backgroundColor};
+      --color-surface: ${themeColors.surfaceColor};
+      --color-border: ${themeColors.borderColor};
+      --color-accent: ${themeColors.accentColor};
+      --font-family-heading: ${themeColors.fontHeading};
+      --font-family-body: ${themeColors.fontBody};
+      --pricing-primary: ${themeColors.primaryColor};
+      --pricing-secondary: ${themeColors.secondaryColor};
+      --pricing-accent: ${themeColors.accentColor};
+      --pricing-text: ${themeColors.textColor};
+      --pricing-bg: ${themeColors.backgroundColor};
+    `.trim();
+
     return `
-      <section class="pricing pricing--${data.layout}" data-style-variant="${styleVariant}" id="${data.id || 'pricing'}">
+      <section class="pricing pricing--${data.layout}" data-style-variant="${styleVariant}" id="${data.id || 'pricing'}" style="${themeStyles}">
         <div class="pricing__container">
           ${this.renderHeader(data)}
           ${this.renderToggle(data)}
@@ -1477,20 +1563,11 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `;
   }
 
-  private generateCustomCSS(data: PricingData): string {
+  private generateCustomCSS(data: PricingData, context?: RenderContext): string {
     let css = '\n/* Custom Pricing Styles */\n';
     
-    // Couleurs personnalisées
-    if (data.styles?.colors) {
-      const colors = data.styles.colors;
-      css += `.pricing {
-        --pricing-primary: ${colors.primary || '#667eea'};
-        --pricing-secondary: ${colors.secondary || '#764ba2'};
-        --pricing-accent: ${colors.accent || '#f093fb'};
-        --pricing-text: ${colors.text || '#4b5563'};
-        --pricing-bg: ${colors.background || '#ffffff'};
-      }\n`;
-    }
+    // Les couleurs du thème sont maintenant appliquées via les styles inline dans renderLayout
+    // Cette section reste vide car les couleurs sont gérées par les variables CSS du thème
 
     // Spacing
     if (data.styles?.spacing) {
