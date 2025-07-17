@@ -1454,7 +1454,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     }
   }
 
-  private renderLayout(data: PricingData, styleVariant: string, themeColors: any): string {
+  private renderLayout(data: PricingData, visualVariant: string, themeColors: any): string {
     let content = '';
     
     switch(data.layout) {
