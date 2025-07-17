@@ -6,12 +6,12 @@
 import { z } from 'zod';
 import { RenderResult, RenderContext } from '../types';
 import { BaseRendererV3 } from './base.renderer';
-import { BlockProp } from '@awema/shared';
+import { BlockProp, PropType, EditorControl } from '@awema/shared';
 import { faqDataSchema, faqDefaults, type FAQData } from '../schemas/blocks/faq-perfect';
 import { logger } from '../core/logger';
 
 export class FAQRendererV3PerfectEnhanced extends BaseRendererV3<FAQData> {
-  type = 'faq-ultra-modern';
+  type = 'faq-v3-perfect';
   version = '3.0.0';
 
   constructor() {
@@ -28,7 +28,312 @@ export class FAQRendererV3PerfectEnhanced extends BaseRendererV3<FAQData> {
   }
 
   getBlockProps(): BlockProp[] {
-    return super.getBlockProps();
+    return [
+      {
+        name: 'themeVariant',
+        label: 'Style visuel',
+        type: PropType.SELECT,
+        required: false,
+        defaultValue: 'modern',
+        description: 'Choisissez le style visuel du bloc FAQ',
+        options: [
+          { value: 'modern', label: '🎨 Moderne - Design épuré' },
+          { value: 'minimal', label: '⚡ Minimaliste - Ultra simple' },
+          { value: 'bold', label: '🔥 Audacieux - Fort impact' },
+          { value: 'elegant', label: '✨ Élégant - Sophistiqué' }
+        ],
+        editorConfig: {
+          control: EditorControl.RADIO,
+          group: 'Visuel',
+          order: 1
+        }
+      },
+      {
+        name: 'title',
+        label: 'Titre principal',
+        type: PropType.STRING,
+        required: true,
+        defaultValue: 'Questions Fréquentes',
+        description: 'Le titre principal de la section FAQ',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Contenu',
+          order: 1
+        }
+      },
+      {
+        name: 'subtitle',
+        label: 'Sous-titre',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Trouvez rapidement les réponses à vos questions',
+        description: 'Texte descriptif sous le titre',
+        editorConfig: {
+          control: EditorControl.TEXTAREA,
+          group: 'Contenu',
+          order: 2
+        }
+      },
+      {
+        name: 'items',
+        label: 'Questions et réponses',
+        type: PropType.ARRAY,
+        required: true,
+        defaultValue: faqDefaults.items,
+        description: 'Liste des questions et réponses',
+        editorConfig: {
+          control: EditorControl.COLLECTION,
+          group: 'Contenu',
+          order: 3,
+          schema: [
+            {
+              name: 'question',
+              label: 'Question',
+              type: PropType.STRING,
+              required: true,
+              editorConfig: {
+                control: EditorControl.TEXT
+              }
+            },
+            {
+              name: 'answer',
+              label: 'Réponse',
+              type: PropType.STRING,
+              required: true,
+              editorConfig: {
+                control: EditorControl.TEXTAREA,
+                rows: 4
+              }
+            },
+            {
+              name: 'category',
+              label: 'Catégorie',
+              type: PropType.STRING,
+              required: false,
+              editorConfig: {
+                control: EditorControl.TEXT,
+                placeholder: 'general'
+              }
+            }
+          ],
+          maxItems: 50,
+          minItems: 1,
+          addButtonText: 'Ajouter une question',
+          removeButtonText: 'Supprimer'
+        }
+      },
+      {
+        name: 'expandFirst',
+        label: 'Ouvrir la première question',
+        type: PropType.BOOLEAN,
+        required: false,
+        defaultValue: true,
+        description: 'Ouvrir automatiquement la première question au chargement',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Comportement',
+          order: 1
+        }
+      },
+      {
+        name: 'expandMultiple',
+        label: 'Expansion multiple',
+        type: PropType.BOOLEAN,
+        required: false,
+        defaultValue: false,
+        description: 'Permettre d\'ouvrir plusieurs questions en même temps',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Comportement',
+          order: 2
+        }
+      },
+      {
+        name: 'showNumbers',
+        label: 'Afficher les numéros',
+        type: PropType.BOOLEAN,
+        required: false,
+        defaultValue: false,
+        description: 'Afficher les numéros devant les questions (style Bold uniquement)',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Affichage',
+          order: 1,
+          condition: {
+            prop: 'themeVariant',
+            value: 'bold'
+          }
+        }
+      },
+      {
+        name: 'searchEnabled',
+        label: 'Activer la recherche',
+        type: PropType.BOOLEAN,
+        required: false,
+        defaultValue: false,
+        description: 'Ajouter un champ de recherche dans les questions',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Fonctionnalités',
+          order: 1
+        }
+      },
+      {
+        name: 'searchPlaceholder',
+        label: 'Placeholder de recherche',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Rechercher dans les questions...',
+        description: 'Texte du placeholder dans le champ de recherche',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Fonctionnalités',
+          order: 2,
+          condition: {
+            prop: 'searchEnabled',
+            value: true
+          }
+        }
+      },
+      {
+        name: 'showCategories',
+        label: 'Afficher les catégories',
+        type: PropType.BOOLEAN,
+        required: false,
+        defaultValue: false,
+        description: 'Afficher les filtres par catégorie',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Fonctionnalités',
+          order: 3
+        }
+      },
+      {
+        name: 'categories',
+        label: 'Catégories disponibles',
+        type: PropType.ARRAY,
+        required: false,
+        defaultValue: [
+          { id: 'general', name: 'Général' },
+          { id: 'billing', name: 'Facturation' },
+          { id: 'technical', name: 'Technique' }
+        ],
+        description: 'Liste des catégories pour filtrer les questions',
+        editorConfig: {
+          control: EditorControl.COLLECTION,
+          group: 'Fonctionnalités',
+          order: 4,
+          condition: {
+            prop: 'showCategories',
+            value: true
+          },
+          schema: [
+            {
+              name: 'id',
+              label: 'ID',
+              type: PropType.STRING,
+              required: true,
+              editorConfig: {
+                control: EditorControl.TEXT,
+                placeholder: 'general'
+              }
+            },
+            {
+              name: 'name',
+              label: 'Nom affiché',
+              type: PropType.STRING,
+              required: true,
+              editorConfig: {
+                control: EditorControl.TEXT,
+                placeholder: 'Général'
+              }
+            }
+          ],
+          maxItems: 10,
+          minItems: 1,
+          addButtonText: 'Ajouter une catégorie',
+          removeButtonText: 'Supprimer'
+        }
+      },
+      {
+        name: 'cta',
+        label: 'Call to Action',
+        type: PropType.OBJECT,
+        required: false,
+        defaultValue: {
+          enabled: false,
+          title: 'Vous ne trouvez pas votre réponse ?',
+          description: 'Notre équipe est là pour vous aider',
+          buttonText: 'Contactez-nous',
+          buttonLink: '/contact'
+        },
+        description: 'Ajouter une section d\'appel à l\'action en bas',
+        editorConfig: {
+          control: EditorControl.OBJECT,
+          group: 'Call to Action',
+          order: 1,
+          schema: [
+            {
+              name: 'enabled',
+              label: 'Activer le CTA',
+              type: PropType.BOOLEAN,
+              defaultValue: false,
+              editorConfig: {
+                control: EditorControl.TOGGLE
+              }
+            },
+            {
+              name: 'title',
+              label: 'Titre',
+              type: PropType.STRING,
+              editorConfig: {
+                control: EditorControl.TEXT,
+                condition: {
+                  prop: 'enabled',
+                  value: true
+                }
+              }
+            },
+            {
+              name: 'description',
+              label: 'Description',
+              type: PropType.STRING,
+              editorConfig: {
+                control: EditorControl.TEXTAREA,
+                condition: {
+                  prop: 'enabled',
+                  value: true
+                }
+              }
+            },
+            {
+              name: 'buttonText',
+              label: 'Texte du bouton',
+              type: PropType.STRING,
+              editorConfig: {
+                control: EditorControl.TEXT,
+                condition: {
+                  prop: 'enabled',
+                  value: true
+                }
+              }
+            },
+            {
+              name: 'buttonLink',
+              label: 'Lien du bouton',
+              type: PropType.STRING,
+              editorConfig: {
+                control: EditorControl.TEXT,
+                condition: {
+                  prop: 'enabled',
+                  value: true
+                }
+              }
+            }
+          ]
+        }
+      }
+    ];
   }
 
   getRequiredAssets(): string[] {
@@ -902,59 +1207,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const faq = validatedData.data;
     const themeVariant = data.themeVariant || 'modern';
 
+    // Recherche
+    const searchHtml = faq.searchEnabled ? `
+      <div class="faq__search-wrapper">
+        <input type="text" 
+               class="faq__search" 
+               placeholder="${this.escapeHtml(faq.searchPlaceholder || 'Rechercher...')}"
+               aria-label="Rechercher dans la FAQ">
+      </div>
+    ` : '';
+
     // Header
     const header = `
       <div class="faq__header">
         ${faq.title ? `<h2 class="faq__title">${this.escapeHtml(faq.title)}</h2>` : ''}
         ${faq.subtitle ? `<p class="faq__subtitle">${this.escapeHtml(faq.subtitle)}</p>` : ''}
-        ${faq.description ? `<p class="faq__description">${this.escapeHtml(faq.description)}</p>` : ''}
-        ${faq.search?.enabled ? `
-          <div class="faq__search-wrapper">
-            <input type="text" 
-                   class="faq__search" 
-                   placeholder="${this.escapeHtml(faq.search.placeholder)}"
-                   aria-label="Rechercher dans la FAQ">
-          </div>
-        ` : ''}
+        ${searchHtml}
       </div>
     `;
 
     // Items FAQ
-    const items = faq.items.map((item, index) => `
-      <div class="faq__item ${item.open ? 'active' : ''}" 
-           data-id="${item.id}"
-           data-category="${item.category || 'general'}"
-           data-tags="${item.tags?.join(',') || ''}">
-        <button class="faq__question" aria-expanded="${item.open ? 'true' : 'false'}">
-          ${faq.display.showNumber && themeVariant === 'bold' ? `<span class="faq__number">${String(index + 1).padStart(2, '0')}</span>` : ''}
-          <span class="faq__question-text">${this.escapeHtml(item.question)}</span>
-          ${faq.display.showIcon ? `
+    const items = faq.items.map((item, index) => {
+      const shouldOpen = index === 0 && faq.expandFirst;
+      
+      return `
+        <div class="faq__item ${shouldOpen ? 'active' : ''}" 
+             data-category="${item.category || 'general'}">
+          <button class="faq__question" aria-expanded="${shouldOpen ? 'true' : 'false'}">
+            ${faq.showNumbers && themeVariant === 'bold' ? `<span class="faq__number">${String(index + 1).padStart(2, '0')}</span>` : ''}
+            <span class="faq__question-text">${this.escapeHtml(item.question)}</span>
             <span class="faq__icon">
               ${this.getIcon(themeVariant)}
             </span>
-          ` : ''}
-        </button>
-        <div class="faq__answer">
-          <div class="faq__answer-content">
-            ${item.answer}
-            ${item.cta ? `
-              <a href="${item.cta.link}" class="faq__item-cta faq__item-cta--${item.cta.style}">
-                ${item.cta.text}
-              </a>
-            ` : ''}
+          </button>
+          <div class="faq__answer">
+            <div class="faq__answer-content">
+              ${item.answer}
+            </div>
           </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
+
+    // Catégories
+    const categoriesHtml = faq.showCategories && faq.categories ? this.renderCategories(faq) : '';
 
     const html = `
       <section class="faq faq--${themeVariant}" 
                id="faq"
-               data-expand-behavior="${faq.display.expandBehavior}"
-               data-search-min-chars="${faq.search?.minChars || 3}">
+               data-expand-behavior="${faq.expandMultiple ? 'multiple' : 'single'}"
+               data-search-min-chars="3">
         <div class="faq__container">
           ${header}
-          ${faq.categories?.enabled ? this.renderCategories(faq) : ''}
+          ${categoriesHtml}
           <div class="faq__list">${items}</div>
           ${faq.cta?.enabled ? this.renderCTA(faq.cta) : ''}
         </div>
@@ -972,19 +1277,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   private renderCategories(data: FAQData): string {
-    if (!data.categories?.enabled) return '';
+    if (!data.categories || data.categories.length === 0) return '';
     
     return `
       <nav class="faq__categories" role="tablist">
-        ${data.categories.items.map(cat => `
-          <button class="faq__category ${cat.id === data.categories?.defaultCategory ? 'active' : ''}" 
+        <button class="faq__category active" 
+                data-category="all"
+                role="tab"
+                aria-selected="true">
+          Toutes
+        </button>
+        ${data.categories.map(cat => `
+          <button class="faq__category" 
                   data-category="${cat.id}"
                   role="tab"
-                  aria-selected="${cat.id === data.categories?.defaultCategory ? 'true' : 'false'}">
-            ${cat.icon || ''} ${cat.label}
-            ${data.categories?.showCount && cat.count ? `
-              <span class="faq__category-count">${cat.count}</span>
-            ` : ''}
+                  aria-selected="false">
+            ${cat.name}
           </button>
         `).join('')}
       </nav>
@@ -992,18 +1300,37 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   private renderCTA(cta: any): string {
+    if (!cta || !cta.enabled) return '';
+    
     return `
       <div class="faq__cta">
         ${cta.title ? `<h3 class="faq__cta-title">${this.escapeHtml(cta.title)}</h3>` : ''}
         ${cta.description ? `<p class="faq__cta-description">${this.escapeHtml(cta.description)}</p>` : ''}
-        <a href="${cta.buttonLink}" class="faq__cta-button">
-          ${this.escapeHtml(cta.buttonText)}
-        </a>
+        ${cta.buttonText ? `
+          <a href="${cta.buttonLink || '#'}" class="faq__cta-button">
+            ${this.escapeHtml(cta.buttonText)}
+          </a>
+        ` : ''}
       </div>
     `;
   }
 
   private escapeHtml(str: string): string {
+    if (!str) return '';
+    
+    // Fallback if DOM is not available (during SSR or export)
+    if (typeof document === 'undefined') {
+      const escapeMap: Record<string, string> = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+        '/': '&#x2F;'
+      };
+      return str.replace(/[&<>"'\/]/g, (char) => escapeMap[char] || char);
+    }
+    
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
