@@ -28,23 +28,24 @@ export class FAQRendererV3PerfectEnhanced extends BaseRendererV3<FAQData> {
   }
 
   getBlockProps(): BlockProp[] {
+    console.log('🔴 FAQ getBlockProps called - returning props with schema');
     return [
       {
-        name: 'themeVariant',
+        name: 'visualVariant',
         label: 'Style visuel',
         type: PropType.SELECT,
         required: false,
         defaultValue: 'modern',
         description: 'Choisissez le style visuel du bloc FAQ',
         options: [
-          { value: 'modern', label: '🎨 Moderne - Design épuré' },
-          { value: 'minimal', label: '⚡ Minimaliste - Ultra simple' },
-          { value: 'bold', label: '🔥 Audacieux - Fort impact' },
-          { value: 'elegant', label: '✨ Élégant - Sophistiqué' }
+          { value: 'modern', label: '🎨 Moderne - Gradient dynamique' },
+          { value: 'minimal', label: '⚡ Minimaliste - Épuré et rapide' },
+          { value: 'bold', label: '🔥 Audacieux - Impact visuel fort' },
+          { value: 'elegant', label: '✨ Élégant - Glassmorphism subtil' }
         ],
         editorConfig: {
           control: EditorControl.RADIO,
-          group: 'Visuel',
+          group: 'Style',
           order: 1
         }
       },
@@ -80,46 +81,12 @@ export class FAQRendererV3PerfectEnhanced extends BaseRendererV3<FAQData> {
         type: PropType.ARRAY,
         required: true,
         defaultValue: faqDefaults.items,
-        description: 'Liste des questions et réponses',
+        description: 'Gérez vos questions/réponses facilement',
         editorConfig: {
           control: EditorControl.COLLECTION,
           group: 'Contenu',
           order: 3,
-          schema: [
-            {
-              name: 'question',
-              label: 'Question',
-              type: PropType.STRING,
-              required: true,
-              editorConfig: {
-                control: EditorControl.TEXT
-              }
-            },
-            {
-              name: 'answer',
-              label: 'Réponse',
-              type: PropType.STRING,
-              required: true,
-              editorConfig: {
-                control: EditorControl.TEXTAREA,
-                rows: 4
-              }
-            },
-            {
-              name: 'category',
-              label: 'Catégorie',
-              type: PropType.STRING,
-              required: false,
-              editorConfig: {
-                control: EditorControl.TEXT,
-                placeholder: 'general'
-              }
-            }
-          ],
-          maxItems: 50,
-          minItems: 1,
-          addButtonText: 'Ajouter une question',
-          removeButtonText: 'Supprimer'
+          helpText: 'Ajoutez jusqu\'à 50 questions dans votre FAQ'
         }
       },
       {
@@ -160,7 +127,7 @@ export class FAQRendererV3PerfectEnhanced extends BaseRendererV3<FAQData> {
           group: 'Affichage',
           order: 1,
           condition: {
-            prop: 'themeVariant',
+            prop: 'visualVariant',
             value: 'bold'
           }
         }
@@ -256,81 +223,96 @@ export class FAQRendererV3PerfectEnhanced extends BaseRendererV3<FAQData> {
         }
       },
       {
-        name: 'cta',
-        label: 'Call to Action',
-        type: PropType.OBJECT,
+        name: 'backgroundColor',
+        label: 'Couleur de fond',
+        type: PropType.STRING,
         required: false,
-        defaultValue: {
-          enabled: false,
-          title: 'Vous ne trouvez pas votre réponse ?',
-          description: 'Notre équipe est là pour vous aider',
-          buttonText: 'Contactez-nous',
-          buttonLink: '/contact'
-        },
+        description: 'Couleur de fond personnalisée',
+        editorConfig: {
+          control: EditorControl.COLOR_PICKER,
+          group: 'Visuel',
+          order: 3
+        }
+      },
+      {
+        name: 'ctaEnabled',
+        label: 'Activer le Call to Action',
+        type: PropType.BOOLEAN,
+        required: false,
+        defaultValue: false,
         description: 'Ajouter une section d\'appel à l\'action en bas',
         editorConfig: {
-          control: EditorControl.OBJECT,
+          control: EditorControl.TOGGLE,
           group: 'Call to Action',
-          order: 1,
-          schema: [
-            {
-              name: 'enabled',
-              label: 'Activer le CTA',
-              type: PropType.BOOLEAN,
-              defaultValue: false,
-              editorConfig: {
-                control: EditorControl.TOGGLE
-              }
-            },
-            {
-              name: 'title',
-              label: 'Titre',
-              type: PropType.STRING,
-              editorConfig: {
-                control: EditorControl.TEXT,
-                condition: {
-                  prop: 'enabled',
-                  value: true
-                }
-              }
-            },
-            {
-              name: 'description',
-              label: 'Description',
-              type: PropType.STRING,
-              editorConfig: {
-                control: EditorControl.TEXTAREA,
-                condition: {
-                  prop: 'enabled',
-                  value: true
-                }
-              }
-            },
-            {
-              name: 'buttonText',
-              label: 'Texte du bouton',
-              type: PropType.STRING,
-              editorConfig: {
-                control: EditorControl.TEXT,
-                condition: {
-                  prop: 'enabled',
-                  value: true
-                }
-              }
-            },
-            {
-              name: 'buttonLink',
-              label: 'Lien du bouton',
-              type: PropType.STRING,
-              editorConfig: {
-                control: EditorControl.TEXT,
-                condition: {
-                  prop: 'enabled',
-                  value: true
-                }
-              }
-            }
-          ]
+          order: 1
+        }
+      },
+      {
+        name: 'ctaTitle',
+        label: 'Titre du CTA',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Vous ne trouvez pas votre réponse ?',
+        description: 'Titre de la section CTA',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Call to Action',
+          order: 2,
+          condition: {
+            prop: 'ctaEnabled',
+            value: true
+          }
+        }
+      },
+      {
+        name: 'ctaDescription',
+        label: 'Description du CTA',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Notre équipe est là pour vous aider',
+        description: 'Texte descriptif du CTA',
+        editorConfig: {
+          control: EditorControl.TEXTAREA,
+          group: 'Call to Action',
+          order: 3,
+          condition: {
+            prop: 'ctaEnabled',
+            value: true
+          }
+        }
+      },
+      {
+        name: 'ctaButtonText',
+        label: 'Texte du bouton',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Contactez-nous',
+        description: 'Texte affiché sur le bouton',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Call to Action',
+          order: 4,
+          condition: {
+            prop: 'ctaEnabled',
+            value: true
+          }
+        }
+      },
+      {
+        name: 'ctaButtonLink',
+        label: 'Lien du bouton',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: '/contact',
+        description: 'URL de destination du bouton',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Call to Action',
+          order: 5,
+          condition: {
+            prop: 'ctaEnabled',
+            value: true
+          }
         }
       }
     ];
@@ -345,6 +327,26 @@ export class FAQRendererV3PerfectEnhanced extends BaseRendererV3<FAQData> {
 /* ========================================
    FAQ V3 PERFECT ENHANCED - Styles avec variantes
    ======================================== */
+
+/* Variables CSS utilitaires (non liées au thème) */
+.faq {
+  --font-size-base: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+  --font-weight-light: 300;
+  --line-height-tight: 1.25;
+  --line-height-relaxed: 1.625;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+}
 
 .faq {
   position: relative;
@@ -396,7 +398,7 @@ export class FAQRendererV3PerfectEnhanced extends BaseRendererV3<FAQData> {
 /* ========================================
    VARIANTE MODERN - Design épuré et contemporain
    ======================================== */
-.faq--modern {
+.faq--modern:not([style*="background-color"]) {
   background: var(--color-background);
 }
 
@@ -474,7 +476,7 @@ export class FAQRendererV3PerfectEnhanced extends BaseRendererV3<FAQData> {
 /* ========================================
    VARIANTE MINIMAL - Ultra épuré
    ======================================== */
-.faq--minimal {
+.faq--minimal:not([style*="background-color"]) {
   background: transparent;
 }
 
@@ -548,8 +550,11 @@ export class FAQRendererV3PerfectEnhanced extends BaseRendererV3<FAQData> {
 /* ========================================
    VARIANTE BOLD - Fort impact visuel
    ======================================== */
+.faq--bold:not([style*="background-color"]) {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+}
+
 .faq--bold {
-  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
   color: white;
 }
 
@@ -639,8 +644,11 @@ export class FAQRendererV3PerfectEnhanced extends BaseRendererV3<FAQData> {
    VARIANTE ELEGANT - Sophistiqué et raffiné
    ======================================== */
 .faq--elegant {
-  background: var(--color-background);
   position: relative;
+}
+
+.faq--elegant:not([style*="background-color"]) {
+  background: var(--color-background);
 }
 
 .faq--elegant::before {
@@ -824,6 +832,16 @@ export class FAQRendererV3PerfectEnhanced extends BaseRendererV3<FAQData> {
   background: var(--color-primary);
   color: white;
   border-color: var(--color-primary);
+}
+
+/* Icône des items */
+.faq__item-icon {
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* CTA Section */
@@ -1205,7 +1223,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const faq = validatedData.data;
-    const themeVariant = data.themeVariant || 'modern';
+    const visualVariant = data.visualVariant || 'modern';
+    
+    // Récupération complète des couleurs du thème
+    const theme = context?.theme;
+    const primaryColor = theme?.colors?.primary || '#667eea';
+    const secondaryColor = theme?.colors?.secondary || '#764ba2';
+    const textColor = theme?.colors?.text || '#1a202c';
+    const textSecondaryColor = theme?.colors?.textSecondary || '#718096';
+    const backgroundColor = theme?.colors?.background || '#ffffff';
+    const surfaceColor = theme?.colors?.surface || '#f7fafc';
+    const borderColor = theme?.colors?.border || '#e2e8f0';
+    const accentColor = theme?.colors?.accent || primaryColor;
+    const fontHeading = theme?.typography?.fontFamily?.heading || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    const fontBody = theme?.typography?.fontFamily?.body || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
     // Recherche
     const searchHtml = faq.searchEnabled ? `
@@ -1234,10 +1265,11 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="faq__item ${shouldOpen ? 'active' : ''}" 
              data-category="${item.category || 'general'}">
           <button class="faq__question" aria-expanded="${shouldOpen ? 'true' : 'false'}">
-            ${faq.showNumbers && themeVariant === 'bold' ? `<span class="faq__number">${String(index + 1).padStart(2, '0')}</span>` : ''}
+            ${faq.showNumbers && visualVariant === 'bold' ? `<span class="faq__number">${String(index + 1).padStart(2, '0')}</span>` : ''}
+            ${item.icon ? `<span class="faq__item-icon">${item.icon}</span>` : ''}
             <span class="faq__question-text">${this.escapeHtml(item.question)}</span>
             <span class="faq__icon">
-              ${this.getIcon(themeVariant)}
+              ${this.getIcon(visualVariant)}
             </span>
           </button>
           <div class="faq__answer">
@@ -1252,16 +1284,64 @@ document.addEventListener('DOMContentLoaded', () => {
     // Catégories
     const categoriesHtml = faq.showCategories && faq.categories ? this.renderCategories(faq) : '';
 
+    // Gestion du CTA avec les nouveaux champs séparés
+    const ctaHtml = data.ctaEnabled ? this.renderCTA({
+      enabled: true,
+      title: data.ctaTitle,
+      description: data.ctaDescription,
+      buttonText: data.ctaButtonText,
+      buttonLink: data.ctaButtonLink
+    }) : '';
+
+    // Fonction helper pour générer une couleur avec transparence
+    const colorWithAlpha = (color: string, alpha: number): string => {
+      // Si c'est déjà en rgba, on remplace juste l'alpha
+      if (color.startsWith('rgba')) {
+        return color.replace(/[\d.]+\)$/, `${alpha})`);
+      }
+      // Si c'est en hex, on convertit en rgba
+      if (color.startsWith('#')) {
+        const hex = color.slice(1);
+        const r = parseInt(hex.slice(0, 2), 16);
+        const g = parseInt(hex.slice(2, 4), 16);
+        const b = parseInt(hex.slice(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+      // Si c'est en rgb, on ajoute l'alpha
+      if (color.startsWith('rgb')) {
+        return color.replace('rgb', 'rgba').replace(')', `, ${alpha})`);
+      }
+      return color;
+    };
+
+    // Styles inline avec toutes les variables CSS du thème
+    const themeStyles = `
+      --color-primary: ${primaryColor};
+      --color-primary-light: ${colorWithAlpha(primaryColor, 0.1)};
+      --color-primary-dark: ${primaryColor};
+      --color-secondary: ${secondaryColor};
+      --color-text-primary: ${textColor};
+      --color-text-secondary: ${textSecondaryColor};
+      --color-background: ${backgroundColor};
+      --color-surface: ${surfaceColor};
+      --color-border: ${borderColor};
+      --color-accent: ${accentColor};
+      --font-family-heading: ${fontHeading};
+      --font-family-body: ${fontBody};
+      ${data.backgroundColor ? `background-color: ${data.backgroundColor};` : ''}
+    `.trim();
+
     const html = `
-      <section class="faq faq--${themeVariant}" 
+      <section class="faq faq--${visualVariant}" 
                id="faq"
                data-expand-behavior="${faq.expandMultiple ? 'multiple' : 'single'}"
-               data-search-min-chars="3">
+               data-search-min-chars="3"
+               style="${themeStyles}">
         <div class="faq__container">
           ${header}
           ${categoriesHtml}
           <div class="faq__list">${items}</div>
-          ${faq.cta?.enabled ? this.renderCTA(faq.cta) : ''}
+          ${ctaHtml}
         </div>
       </section>
     `;

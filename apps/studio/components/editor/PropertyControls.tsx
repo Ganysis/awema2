@@ -407,6 +407,15 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
           }
         };
         itemLabel = (item: any, index: number) => item.author || `Avis ${index + 1}`;
+      } else if (prop.name === 'items' && (values.__blockType?.includes('faq') || values.variant?.includes('accordion'))) {
+        // Schema pour FAQ items
+        itemSchema = {
+          question: { type: 'text', label: 'Question', defaultValue: '', required: true, placeholder: 'Ex: Quels sont vos horaires ?' },
+          answer: { type: 'textarea', label: 'Réponse', defaultValue: '', required: true, rows: 4, placeholder: 'Tapez votre réponse détaillée ici...' },
+          icon: { type: 'text', label: 'Icône (emoji)', defaultValue: '❓', placeholder: '🔧' },
+          category: { type: 'text', label: 'Catégorie', defaultValue: 'general', placeholder: 'general' }
+        };
+        itemLabel = (item: any, index: number) => item.question || `Question ${index + 1}`;
       } else if (prop.name === 'images') {
         // Vérifier le type de galerie
         const blockType = values.__blockType || '';

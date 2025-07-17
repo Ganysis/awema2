@@ -409,7 +409,7 @@ const faqV3Perfect: Block = {
   category: 'faq',
   description: 'Recherche + chatbot simulé + 8 styles',
   tags: ['v3', 'faq', 'modern', 'interactive'],
-  props: faqV3.getBlockProps(),
+  get props() { return faqV3.getBlockProps(); }, // Use getter to ensure fresh props each time
   variants: [],
   defaultProps: faqV3.getDefaultData(),
   thumbnail: '',

@@ -34,7 +34,15 @@ export const faqDataSchema = z.object({
     'minimal',   // Ultra épuré
     'bold',      // Fort impact visuel
     'elegant'    // Sophistiqué et raffiné
-  ]).default('modern'),
+  ]).default('modern').optional(),
+  
+  // Variante visuelle (nom correct pour V3)
+  visualVariant: z.enum([
+    'modern',    // Design épuré et contemporain
+    'minimal',   // Ultra épuré
+    'bold',      // Fort impact visuel
+    'elegant'    // Sophistiqué et raffiné
+  ]).default('modern').optional(),
 
   // Contenu principal
   title: z.string().min(1).max(100).default('Questions Fréquentes'),
@@ -126,14 +134,26 @@ export const faqDataSchema = z.object({
     touch: z.boolean().default(true)
   }).optional(),
 
-  // Call to Action
+  // Call to Action (ancienne structure pour compatibilité)
   cta: z.object({
     enabled: z.boolean().default(false),
-    text: z.string().max(100),
-    link: z.string(),
+    title: z.string().max(100).optional(),
+    description: z.string().max(500).optional(),
+    buttonText: z.string().max(100).optional(),
+    buttonLink: z.string().optional(),
     position: z.enum(['top', 'bottom']).default('bottom'),
     style: z.enum(['button', 'link', 'banner']).default('button')
   }).optional(),
+
+  // CTA fields séparés (nouvelle structure)
+  ctaEnabled: z.boolean().optional(),
+  ctaTitle: z.string().optional(),
+  ctaDescription: z.string().optional(),
+  ctaButtonText: z.string().optional(),
+  ctaButtonLink: z.string().optional(),
+
+  // Background color
+  backgroundColor: z.string().optional(),
 
   // Schema.org
   seo: z.object({
@@ -155,34 +175,40 @@ export const faqDefaults: FAQData = {
   subtitle: 'Trouvez rapidement les réponses à vos questions',
   items: [
     {
-      question: "Comment créer mon site web ?",
-      answer: "C'est simple ! Inscrivez-vous, choisissez un template, personnalisez-le avec notre éditeur visuel intuitif, puis publiez en un clic. Aucune compétence technique n'est requise.",
-      icon: "🚀"
+      question: "Quels sont vos délais d'intervention pour une urgence ?",
+      answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nous intervenons dans l'heure pour les urgences et sous 24-48h pour les demandes standards. Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
+      icon: "⚡",
+      category: "general"
     },
     {
-      question: "Quels sont les tarifs ?",
-      answer: "Nous proposons plusieurs formules adaptées à vos besoins : Starter à 19€/mois, Pro à 39€/mois et Premium à 59€/mois. Chaque formule inclut l'hébergement, le domaine et le support.",
-      icon: "💰"
+      question: "Comment obtenir un devis gratuit pour mes travaux ?",
+      answer: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Vous pouvez demander un devis gratuit directement sur notre site, par téléphone ou lors d'une visite. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.",
+      icon: "📋",
+      category: "billing"
     },
     {
-      question: "Puis-je utiliser mon propre domaine ?",
-      answer: "Oui ! Vous pouvez connecter votre domaine existant ou en acheter un nouveau directement depuis votre tableau de bord. La configuration est automatique.",
-      icon: "🌐"
+      question: "Quelles garanties offrez-vous sur vos prestations ?",
+      answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nous offrons une garantie décennale sur tous nos travaux, ainsi qu'une garantie de parfait achèvement d'un an. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Toutes nos interventions sont couvertes par notre assurance professionnelle.",
+      icon: "🛡️",
+      category: "general"
     },
     {
-      question: "Le site est-il optimisé pour le mobile ?",
-      answer: "Absolument ! Tous nos templates sont 100% responsive et s'adaptent parfaitement à tous les écrans : desktop, tablette et mobile.",
-      icon: "📱"
+      question: "Intervenez-vous le week-end et les jours fériés ?",
+      answer: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Oui, notre service d'urgence est disponible 7j/7, y compris les week-ends et jours fériés. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
+      icon: "📅",
+      category: "general"
     },
     {
-      question: "Comment fonctionne le support ?",
-      answer: "Notre équipe est disponible 7j/7 par chat, email et téléphone. Temps de réponse moyen : moins de 2 heures. Support premium disponible 24/7.",
-      icon: "🤝"
+      question: "Quels moyens de paiement acceptez-vous ?",
+      answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nous acceptons tous les moyens de paiement : CB, espèces, chèque, virement. Possibilité de paiement en plusieurs fois sans frais pour les gros travaux. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      icon: "💳",
+      category: "billing"
     },
     {
-      question: "Puis-je annuler à tout moment ?",
-      answer: "Oui, sans engagement ! Vous pouvez annuler votre abonnement à tout moment depuis votre espace client. Pas de frais cachés.",
-      icon: "✅"
+      question: "Comment savoir si vous intervenez dans ma zone ?",
+      answer: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nous intervenons dans un rayon de 50km autour de notre siège. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vérifiez votre éligibilité en entrant votre code postal sur notre site.",
+      icon: "📍",
+      category: "technical"
     }
   ],
   expandFirst: true,
