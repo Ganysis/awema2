@@ -3,6 +3,8 @@
 import { BlockProp, EditorControl, PropType } from '@awema/shared';
 import { CollectionEditor } from './CollectionEditor';
 import { ImagePickerWithDetails } from './ImagePickerWithDetails';
+import { VisualEditor } from './VisualEditor';
+import { GalleryEditor } from './GalleryEditor';
 
 interface PropertyControlsProps {
   props: BlockProp[];
@@ -406,35 +408,66 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
         };
         itemLabel = (item: any, index: number) => item.author || `Avis ${index + 1}`;
       } else if (prop.name === 'images') {
-        // Check if this is for gallery-ultra-modern which has more fields
-        const hasCategory = values.images?.[0]?.hasOwnProperty('category');
-        if (hasCategory) {
-          // Gallery Ultra-Modern schema
+        // Vérifier le type de galerie
+        const blockType = values.__blockType || '';
+        const isGallerySupreme = blockType.includes('gallery') && blockType.includes('supreme');
+        
+        if (isGallerySupreme || values.variant) {
+          // Gallery V3 Supreme - Interface ergonomique
           itemSchema = {
-            url: { type: 'image', label: 'Image URL', defaultValue: '/placeholder.jpg' },
-            thumbnail: { type: 'image', label: 'Miniature (optionnel)', defaultValue: '' },
-            title: { type: 'text', label: 'Titre', defaultValue: 'Image' },
+            src: { type: 'image', label: '🖼️ Image', defaultValue: '', required: true },
+            title: { type: 'text', label: '📝 Titre (tooltip)', defaultValue: '', placeholder: 'Ex: Vue panoramique du chantier' },
+            alt: { type: 'text', label: '🔍 Texte alternatif (SEO)', defaultValue: '', required: true, placeholder: 'Description pour l\'accessibilité' },
             category: { 
-              type: 'text', 
-              label: 'Catégorie (doit correspondre à un ID de filtre)', 
-              defaultValue: '', 
-              placeholder: 'Ex: interior, exterior',
-              helpText: 'Laissez vide pour "Toutes" uniquement'
+              type: 'select', 
+              label: '📁 Catégorie', 
+              defaultValue: '',
+              options: [
+                { value: '', label: 'Aucune catégorie' },
+                { value: 'interior', label: '🛋️ Intérieur' },
+                { value: 'exterior', label: '🏡 Extérieur' },
+                { value: 'kitchen', label: '🍳 Cuisine' },
+                { value: 'bathroom', label: '🚿 Salle de bain' },
+                { value: 'bedroom', label: '🛏️ Chambre' },
+                { value: 'living', label: '🛋️ Salon' },
+                { value: 'garden', label: '🌳 Jardin' },
+                { value: 'renovation', label: '🔨 Rénovation' },
+                { value: 'commercial', label: '🏢 Commercial' }
+              ]
             },
-            description: { type: 'textarea', label: 'Description', defaultValue: '' },
-            tags: { type: 'textarea', label: 'Tags (un par ligne)', defaultValue: '' },
-            is360: { type: 'checkbox', label: 'Image 360°', defaultValue: false },
-            videoUrl: { type: 'url', label: 'URL Vidéo (YouTube/Vimeo)', defaultValue: '' },
-            width: { type: 'number', label: 'Largeur', defaultValue: 800 },
-            height: { type: 'number', label: 'Hauteur', defaultValue: 600 }
+            description: { type: 'textarea', label: '📄 Description détaillée', defaultValue: '', rows: 2 }
           };
         } else {
-          // Simple image schema
-          itemSchema = {
-            url: { type: 'image', label: 'Image URL', defaultValue: '/placeholder.jpg' },
-            alt: { type: 'text', label: 'Alt Text (SEO)', defaultValue: 'Image' },
-            title: { type: 'text', label: 'Title (optionnel)', defaultValue: '' }
-          };
+          // Check if this is for gallery-ultra-modern which has more fields
+          const hasCategory = values.images?.[0]?.hasOwnProperty('category');
+          if (hasCategory) {
+            // Gallery Ultra-Modern schema
+            itemSchema = {
+              url: { type: 'image', label: 'Image URL', defaultValue: '/placeholder.jpg' },
+              thumbnail: { type: 'image', label: 'Miniature (optionnel)', defaultValue: '' },
+              title: { type: 'text', label: 'Titre', defaultValue: 'Image' },
+              category: { 
+                type: 'text', 
+                label: 'Catégorie (doit correspondre à un ID de filtre)', 
+                defaultValue: '', 
+                placeholder: 'Ex: interior, exterior',
+                helpText: 'Laissez vide pour "Toutes" uniquement'
+              },
+              description: { type: 'textarea', label: 'Description', defaultValue: '' },
+              tags: { type: 'textarea', label: 'Tags (un par ligne)', defaultValue: '' },
+              is360: { type: 'checkbox', label: 'Image 360°', defaultValue: false },
+              videoUrl: { type: 'url', label: 'URL Vidéo (YouTube/Vimeo)', defaultValue: '' },
+              width: { type: 'number', label: 'Largeur', defaultValue: 800 },
+              height: { type: 'number', label: 'Hauteur', defaultValue: 600 }
+            };
+          } else {
+            // Simple image schema
+            itemSchema = {
+              url: { type: 'image', label: 'Image URL', defaultValue: '/placeholder.jpg' },
+              alt: { type: 'text', label: 'Alt Text (SEO)', defaultValue: 'Image' },
+              title: { type: 'text', label: 'Title (optionnel)', defaultValue: '' }
+            };
+          }
         }
         itemLabel = (item: any, index: number) => item.title || item.alt || `Image ${index + 1}`;
       } else if (prop.name === 'features') {
@@ -531,7 +564,7 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
           suffix: { type: 'text', label: 'Suffixe (optionnel)', defaultValue: '' }
         };
         itemLabel = (item: any, index: number) => item.value + ' ' + item.label || `Stat ${index + 1}`;
-      } else if (prop.name === 'categories') {
+      } else if (prop.name === 'categories' || prop.name === 'customCategories') {
         // Gallery categories schema
         itemSchema = {
           id: { 
@@ -548,14 +581,17 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
             defaultValue: '',
             options: [
               { value: '', label: 'Aucune' },
-              { value: 'grid', label: 'Grille' },
-              { value: 'home', label: 'Maison' },
-              { value: 'trees', label: 'Arbres' },
-              { value: 'hammer', label: 'Marteau' },
-              { value: 'building', label: 'Bâtiment' },
-              { value: 'camera', label: 'Appareil photo' },
-              { value: 'star', label: 'Étoile' },
-              { value: 'heart', label: 'Cœur' }
+              { value: '🏠', label: '🏠 Maison' },
+              { value: '🛋️', label: '🛋️ Intérieur' },
+              { value: '🏡', label: '🏡 Extérieur' },
+              { value: '🍳', label: '🍳 Cuisine' },
+              { value: '🚿', label: '🚿 Salle de bain' },
+              { value: '🛏️', label: '🛏️ Chambre' },
+              { value: '🌳', label: '🌳 Jardin' },
+              { value: '🔨', label: '🔨 Rénovation' },
+              { value: '🏢', label: '🏢 Commercial' },
+              { value: '⭐', label: '⭐ Étoile' },
+              { value: '❤️', label: '❤️ Cœur' }
             ]
           }
         };
@@ -615,6 +651,18 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
         );
 
       case EditorControl.TEXTAREA:
+        // Vérifier si c'est un éditeur visuel
+        if (config?.visualEditor?.enabled) {
+          return (
+            <VisualEditor
+              value={value || ''}
+              onChange={(val) => onChange(prop.name, val)}
+              placeholder={config?.placeholder}
+              config={config.visualEditor}
+            />
+          );
+        }
+        
         return (
           <textarea
             value={value || ''}
@@ -729,6 +777,22 @@ export function PropertyControls({ props, values, onChange, projectId }: Propert
             </div>
           </div>
         );
+
+      case EditorControl.CUSTOM:
+        // Support pour les composants personnalisés
+        if (config?.customComponent === 'GalleryEditor') {
+          return (
+            <GalleryEditor
+              images={value || []}
+              onChange={(images) => onChange(prop.name, images)}
+              projectId={projectId}
+              categories={config?.categories}
+              maxImages={config?.maxItems || 50}
+            />
+          );
+        }
+        // Fallback pour d'autres composants custom
+        return <div>Custom component: {config?.customComponent}</div>;
 
       case EditorControl.RADIO:
         // Get options from prop.options or prop.validation?.options

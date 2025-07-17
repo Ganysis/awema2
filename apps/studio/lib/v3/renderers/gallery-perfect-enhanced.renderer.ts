@@ -23,6 +23,8 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
   }
 
   getDefaultData(): GalleryData {
+    // Retourner la structure de données attendue par le schéma
+    // mais on va utiliser une structure plate pour l'édition
     return {
       ...galleryDefaults,
       variant: 'masonry-flow' as any,
@@ -31,34 +33,339 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
   }
 
   getBlockProps(): BlockProp[] {
-    const baseProps = super.getBlockProps();
-    
-    // Filter out any existing variant properties to avoid duplicates
-    const filteredProps = baseProps.filter(prop => prop.name !== 'variant' && prop.name !== 'visualVariant');
-    
-    // Add visual variant property at the beginning
-    const visualVariantProp: BlockProp = {
-      name: 'visualVariant',
-      label: 'Style visuel',
-      type: PropType.SELECT,
-      required: false,
-      defaultValue: 'modern',
-      description: 'Choisissez le style visuel du bloc',
-      options: [
-        { value: 'modern', label: '🎨 Moderne - Gradient dynamique' },
-        { value: 'minimal', label: '⚡ Minimaliste - Épuré et rapide' },
-        { value: 'bold', label: '🔥 Audacieux - Impact visuel fort' },
-        { value: 'elegant', label: '✨ Élégant - Glassmorphism subtil' }
-      ],
-      editorConfig: {
-        control: EditorControl.RADIO,
-        group: 'Visuel',
-        order: 1
+    // Structure plate pour éviter [object Object]
+    const props: BlockProp[] = [
+      // Groupe Visuel
+      {
+        name: 'visualVariant',
+        label: 'Style visuel',
+        type: PropType.SELECT,
+        required: false,
+        defaultValue: 'modern',
+        description: 'Choisissez le style visuel du bloc',
+        options: [
+          { value: 'modern', label: '🎨 Moderne - Gradient dynamique' },
+          { value: 'minimal', label: '⚡ Minimaliste - Épuré et rapide' },
+          { value: 'bold', label: '🔥 Audacieux - Impact visuel fort' },
+          { value: 'elegant', label: '✨ Élégant - Glassmorphism subtil' }
+        ],
+        editorConfig: {
+          control: EditorControl.RADIO,
+          group: 'Visuel',
+          order: 1
+        }
+      },
+      {
+        name: 'variant',
+        label: 'Type de galerie',
+        type: PropType.SELECT,
+        required: false,
+        defaultValue: 'masonry-flow',
+        description: 'Choisissez le type d\'affichage de la galerie',
+        options: [
+          { value: 'masonry-flow', label: '🎭 Masonry - Disposition dynamique' },
+          { value: 'grid-uniform', label: '⬜ Grille - Disposition uniforme' },
+          { value: 'carousel-fullscreen', label: '🎠 Carrousel - Plein écran' },
+          { value: 'instagram-style', label: '📱 Instagram - Style moderne' }
+        ],
+        editorConfig: {
+          control: EditorControl.RADIO,
+          group: 'Visuel',
+          order: 2
+        }
+      },
+      
+      // Groupe Contenu
+      {
+        name: 'title',
+        label: 'Titre de la galerie',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Notre Galerie',
+        description: 'Titre principal de la galerie',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Contenu',
+          order: 1
+        }
+      },
+      {
+        name: 'subtitle',
+        label: 'Sous-titre',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Découvrez nos réalisations',
+        description: 'Sous-titre optionnel',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Contenu',
+          order: 2
+        }
+      },
+      
+      // Images - Structure plate pour l'ergonomie
+      // On va gérer jusqu'à 20 images
+      ...this.generateImageProps(20),
+      
+      // Options d'affichage
+      {
+        name: 'showOverlay',
+        label: 'Afficher les informations au survol',
+        type: PropType.BOOLEAN,
+        required: false,
+        defaultValue: true,
+        description: 'Affiche le titre et la description au survol',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Affichage',
+          order: 1
+        }
+      },
+      {
+        name: 'enableLightbox',
+        label: 'Activer la lightbox',
+        type: PropType.BOOLEAN,
+        required: false,
+        defaultValue: true,
+        description: 'Permet d\'ouvrir les images en grand',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Affichage',
+          order: 2
+        }
+      },
+      {
+        name: 'enableFiltering',
+        label: 'Activer les filtres',
+        type: PropType.BOOLEAN,
+        required: false,
+        defaultValue: false,
+        description: 'Permet de filtrer par catégorie',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Affichage',
+          order: 3
+        }
+      },
+      {
+        name: 'columns_desktop',
+        label: 'Colonnes (desktop)',
+        type: PropType.NUMBER,
+        required: false,
+        defaultValue: 3,
+        description: 'Nombre de colonnes sur desktop',
+        validation: { min: 1, max: 6 },
+        editorConfig: {
+          control: EditorControl.SLIDER,
+          group: 'Layout',
+          order: 1
+        }
+      },
+      {
+        name: 'columns_tablet',
+        label: 'Colonnes (tablette)',
+        type: PropType.NUMBER,
+        required: false,
+        defaultValue: 2,
+        description: 'Nombre de colonnes sur tablette',
+        validation: { min: 1, max: 4 },
+        editorConfig: {
+          control: EditorControl.SLIDER,
+          group: 'Layout',
+          order: 2
+        }
+      },
+      {
+        name: 'columns_mobile',
+        label: 'Colonnes (mobile)',
+        type: PropType.NUMBER,
+        required: false,
+        defaultValue: 1,
+        description: 'Nombre de colonnes sur mobile',
+        validation: { min: 1, max: 2 },
+        editorConfig: {
+          control: EditorControl.SLIDER,
+          group: 'Layout',
+          order: 3
+        }
+      },
+      {
+        name: 'gap',
+        label: 'Espacement',
+        type: PropType.SELECT,
+        required: false,
+        defaultValue: 'md',
+        description: 'Espace entre les images',
+        options: [
+          { value: 'none', label: 'Aucun' },
+          { value: 'xs', label: 'Très petit' },
+          { value: 'sm', label: 'Petit' },
+          { value: 'md', label: 'Moyen' },
+          { value: 'lg', label: 'Grand' },
+          { value: 'xl', label: 'Très grand' }
+        ],
+        editorConfig: {
+          control: EditorControl.SELECT,
+          group: 'Layout',
+          order: 4
+        }
       }
-    };
-
-    // Insert visual variant as first property
-    return [visualVariantProp, ...filteredProps];
+    ];
+    
+    return props;
+  }
+  
+  /**
+   * Génère les propriétés pour chaque image de manière plate
+   */
+  private generateImageProps(count: number): BlockProp[] {
+    const props: BlockProp[] = [];
+    
+    for (let i = 1; i <= count; i++) {
+      // Image principale
+      props.push({
+        name: `image${i}_src`,
+        label: `Image ${i}`,
+        type: PropType.STRING,
+        required: false,
+        defaultValue: i <= 6 ? this.getDefaultImage(i) : '',
+        description: `URL de l'image ${i}`,
+        editorConfig: {
+          control: EditorControl.IMAGE_PICKER,
+          group: `Images`,
+          order: (i - 1) * 5 + 1,
+          condition: i > 1 ? {
+            prop: `image${i - 1}_src`
+          } : undefined
+        }
+      });
+      
+      // Titre de l'image (conditionnel)
+      props.push({
+        name: `image${i}_title`,
+        label: `Titre`,
+        type: PropType.STRING,
+        required: false,
+        defaultValue: '',
+        description: `Titre de l'image ${i}`,
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: `Images`,
+          order: (i - 1) * 5 + 2,
+          condition: {
+            prop: `image${i}_src`
+          }
+        }
+      });
+      
+      // Description (conditionnel)
+      props.push({
+        name: `image${i}_description`,
+        label: `Description`,
+        type: PropType.STRING,
+        required: false,
+        defaultValue: '',
+        description: `Description de l'image ${i}`,
+        editorConfig: {
+          control: EditorControl.TEXTAREA,
+          group: `Images`,
+          order: (i - 1) * 5 + 3,
+          condition: {
+            prop: `image${i}_src`
+          }
+        }
+      });
+      
+      // Catégorie (conditionnel et seulement si filtering activé)
+      props.push({
+        name: `image${i}_category`,
+        label: `Catégorie`,
+        type: PropType.SELECT,
+        required: false,
+        defaultValue: 'all',
+        description: `Catégorie de l'image ${i}`,
+        options: [
+          { value: 'all', label: 'Toutes' },
+          { value: 'nature', label: 'Nature' },
+          { value: 'architecture', label: 'Architecture' },
+          { value: 'portrait', label: 'Portraits' },
+          { value: 'workspace', label: 'Espaces' },
+          { value: 'product', label: 'Produits' },
+          { value: 'event', label: 'Événements' }
+        ],
+        editorConfig: {
+          control: EditorControl.SELECT,
+          group: `Images`,
+          order: (i - 1) * 5 + 4,
+          condition: {
+            prop: `image${i}_src`,
+            values: ['enableFiltering']
+          }
+        }
+      });
+      
+      // Alt text pour SEO (conditionnel)
+      props.push({
+        name: `image${i}_alt`,
+        label: `Texte alternatif (SEO)`,
+        type: PropType.STRING,
+        required: false,
+        defaultValue: '',
+        description: `Texte alternatif pour l'image ${i}`,
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: `Images`,
+          order: (i - 1) * 5 + 5,
+          condition: {
+            prop: `image${i}_src`
+          },
+          placeholder: 'Description pour les moteurs de recherche'
+        }
+      });
+    }
+    
+    return props;
+  }
+  
+  /**
+   * Retourne une image par défaut selon l'index
+   */
+  private getDefaultImage(index: number): string {
+    const defaultImages = [
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
+      'https://images.unsplash.com/photo-1469474968028-56623f02e42e',
+      'https://images.unsplash.com/photo-1494526585095-c41746248156',
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
+      'https://images.unsplash.com/photo-1519389950473-47ba0277781c',
+      'https://images.unsplash.com/photo-1441974231531-c6227db76b6e'
+    ];
+    return defaultImages[index - 1] || '';
+  }
+  
+  /**
+   * Extrait les images depuis les données plates
+   */
+  private extractImages(data: any): any[] {
+    const images = [];
+    
+    for (let i = 1; i <= 20; i++) {
+      const src = data[`image${i}_src`];
+      if (src) {
+        images.push({
+          id: `image-${i}`,
+          image: {
+            src,
+            alt: data[`image${i}_alt`] || data[`image${i}_title`] || `Image ${i}`
+          },
+          title: data[`image${i}_title`] || '',
+          description: data[`image${i}_description`] || '',
+          category: data[`image${i}_category`] || 'all',
+          type: 'image'
+        });
+      }
+    }
+    
+    return images;
   }
 
   render(data: GalleryData, context?: RenderContext): RenderResult {
@@ -71,11 +378,15 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
     const fontHeading = theme?.typography?.fontFamily?.heading || 'Inter, system-ui, sans-serif';
     const fontBody = theme?.typography?.fontFamily?.body || 'Inter, system-ui, sans-serif';
     const visualVariant = (data as any).visualVariant || 'modern';
+    const variant = (data as any).variant || 'masonry-flow';
+    
+    // Extraire les images depuis la structure plate
+    const images = this.extractImages(data);
     
     logger.info('GalleryRendererV3PerfectEnhanced', 'render', '🎨 Début du rendu Gallery parfait', {
-      variant: data.variant,
+      variant,
       visualVariant,
-      itemsCount: data.items.length,
+      itemsCount: images.length,
       theme: {
         primaryColor,
         secondaryColor,
@@ -86,11 +397,11 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
 
     try {
       const html = `
-<section class="gallery gallery--${data.variant} gallery--visual-${visualVariant}">
+<section class="gallery gallery--${variant} gallery--visual-${visualVariant}">
   <div class="gallery__container">
     ${this.renderHeader(data)}
-    ${this.renderFilters(data)}
-    ${this.renderGallery(data)}
+    ${this.renderFilters(data, images)}
+    ${this.renderGallery(data, images)}
   </div>
 </section>`;
 
@@ -120,7 +431,7 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
     }
   }
 
-  private generateCSS(data: GalleryData, theme?: any): string {
+  private generateCSS(data: any, theme?: any): string {
     const primaryColor = theme?.colors?.primary || '#667eea';
     const secondaryColor = theme?.colors?.secondary || '#764ba2';
     const fontHeading = theme?.typography?.fontFamily?.heading || 'Inter, system-ui, sans-serif';
@@ -133,6 +444,12 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
   --gallery-secondary: ${secondaryColor};
   --gallery-font-heading: ${fontHeading};
   --gallery-font-body: ${fontBody};
+  --gap-none: 0;
+  --gap-xs: 0.25rem;
+  --gap-sm: 0.5rem;
+  --gap-md: 1rem;
+  --gap-lg: 1.5rem;
+  --gap-xl: 2rem;
 }
 
 /* ========================================
@@ -338,11 +655,15 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
    LAYOUT DE BASE (toutes variantes)
    ======================================== */
 
+/* Layout de base avec variables dynamiques */
+.gallery__grid {
+  display: grid;
+  gap: var(--gap);
+}
+
 /* Masonry Flow - Layout dynamique */
 .gallery--masonry-flow .gallery__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(var(--columns-desktop), 1fr);
   grid-auto-flow: dense;
 }
 
@@ -356,9 +677,43 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
 
 /* Grid Uniform - Grille régulière */
 .gallery--grid-uniform .gallery__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(var(--columns-desktop), 1fr);
+}
+
+/* Instagram Style - Carré parfait */
+.gallery--instagram-style .gallery__grid {
+  grid-template-columns: repeat(var(--columns-desktop), 1fr);
+}
+
+.gallery--instagram-style .gallery__item {
+  aspect-ratio: 1;
+}
+
+.gallery--instagram-style .gallery__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Carousel Fullscreen - Une image à la fois */
+.gallery--carousel-fullscreen .gallery__grid {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  gap: var(--gap);
+}
+
+.gallery--carousel-fullscreen .gallery__item {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  height: 70vh;
+}
+
+.gallery--carousel-fullscreen .gallery__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 /* Gallery item base */
@@ -495,20 +850,33 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
    RESPONSIVE
    ======================================== */
 
+@media (max-width: 1024px) {
+  .gallery__grid {
+    grid-template-columns: repeat(var(--columns-tablet), 1fr) !important;
+  }
+  
+  .gallery--carousel-fullscreen .gallery__item {
+    height: 60vh;
+  }
+}
+
 @media (max-width: 768px) {
   .gallery {
     padding: 4rem 0;
   }
   
   .gallery__grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
-    gap: 1rem !important;
+    grid-template-columns: repeat(var(--columns-mobile), 1fr) !important;
   }
   
   .gallery--masonry-flow .gallery__item:nth-child(4n+1),
   .gallery--masonry-flow .gallery__item:nth-child(6n+3) {
     grid-row: auto;
     grid-column: auto;
+  }
+  
+  .gallery--carousel-fullscreen .gallery__item {
+    height: 50vh;
   }
 }
 
@@ -537,26 +905,44 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
     </div>`;
   }
 
-  private renderFilters(data: GalleryData): string {
-    if (!data.filtering?.enabled) return '';
+  private renderFilters(data: any, images: any[]): string {
+    if (!data.enableFiltering) return '';
 
-    const categories = [...new Set(data.items.map(item => item.category).filter(Boolean))];
+    const categories = [...new Set(images.map(item => item.category).filter(cat => cat && cat !== 'all'))];
     
     return `
     <div class="gallery__filters">
       <button class="gallery__filter active" data-filter="all">
-        ${data.filtering.allLabel || 'Tous'}
+        Toutes
       </button>
       ${categories.map(cat => `
         <button class="gallery__filter" data-filter="${cat}">
-          ${cat}
+          ${this.getCategoryLabel(cat)}
         </button>
       `).join('')}
     </div>`;
   }
+  
+  private getCategoryLabel(category: string): string {
+    const labels: Record<string, string> = {
+      'nature': 'Nature',
+      'architecture': 'Architecture',
+      'portrait': 'Portraits',
+      'workspace': 'Espaces',
+      'product': 'Produits',
+      'event': 'Événements'
+    };
+    return labels[category] || category;
+  }
 
-  private renderGallery(data: GalleryData): string {
-    const items = data.items.map((item, index) => `
+  private renderGallery(data: any, images: any[]): string {
+    const columnsDesktop = data.columns_desktop || 3;
+    const columnsTablet = data.columns_tablet || 2;
+    const columnsMobile = data.columns_mobile || 1;
+    const gap = data.gap || 'md';
+    const showOverlay = data.showOverlay !== false;
+    
+    const items = images.map((item, index) => `
       <div class="gallery__item" 
            style="--index: ${index};" 
            data-category="${item.category || 'all'}"
@@ -565,7 +951,7 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
              alt="${item.image.alt || ''}" 
              class="gallery__image"
              loading="lazy">
-        ${(item.title || item.description) ? `
+        ${showOverlay && (item.title || item.description) ? `
           <div class="gallery__overlay">
             ${item.title ? `<h3 class="gallery__item-title">${item.title}</h3>` : ''}
             ${item.description ? `<p class="gallery__item-description">${item.description}</p>` : ''}
@@ -575,10 +961,11 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
     `).join('');
 
     return `
-    <div class="gallery__grid">
+    <div class="gallery__grid" 
+         style="--columns-desktop: ${columnsDesktop}; --columns-tablet: ${columnsTablet}; --columns-mobile: ${columnsMobile}; --gap: var(--gap-${gap});">
       ${items}
     </div>
-    ${data.lightbox?.enabled ? this.renderLightbox() : ''}`;
+    ${data.enableLightbox !== false ? this.renderLightbox() : ''}`;
   }
 
   private renderLightbox(): string {
@@ -589,11 +976,11 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
     </div>`;
   }
 
-  private generateJS(data: GalleryData): string {
+  private generateJS(data: any): string {
     const js: string[] = [];
 
     // Filters
-    if (data.filtering?.enabled) {
+    if (data.enableFiltering) {
       js.push(`
 // Gallery filtering
 (function() {
@@ -627,7 +1014,7 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
     }
 
     // Lightbox
-    if (data.lightbox?.enabled) {
+    if (data.enableLightbox !== false) {
       js.push(`
 // Gallery lightbox
 (function() {
@@ -662,14 +1049,15 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
     return js.join('\n\n');
   }
 
-  private renderFallback(data: GalleryData): RenderResult {
+  private renderFallback(data: any): RenderResult {
+    const images = this.extractImages(data);
     return {
       html: `
 <section class="gallery gallery--fallback">
   <div class="gallery__container">
     <h2>${data.title || 'Galerie'}</h2>
     <div class="gallery__grid">
-      ${data.items.map(item => `
+      ${images.map(item => `
         <div class="gallery__item">
           <img src="${item.image.src}" alt="${item.image.alt || ''}">
         </div>
@@ -689,13 +1077,16 @@ export class GalleryRendererV3PerfectEnhanced extends BaseRendererV3<GalleryData
     };
   }
 
-  renderPreview(data: GalleryData): string {
-    const visualVariant = (data as any).visualVariant || 'modern';
+  renderPreview(data: any): string {
+    const visualVariant = data.visualVariant || 'modern';
+    const variant = data.variant || 'masonry-flow';
+    const images = this.extractImages(data);
+    
     return `
-<div class="gallery-preview gallery--${data.variant} gallery--visual-${visualVariant}">
+<div class="gallery-preview gallery--${variant} gallery--visual-${visualVariant}">
   <h3>${data.title || 'Gallery'}</h3>
   <div class="gallery-preview__grid">
-    ${data.items.slice(0, 4).map(item => `
+    ${images.slice(0, 4).map(item => `
       <div class="gallery-mini">
         <img src="${item.image.src}" alt="">
       </div>

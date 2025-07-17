@@ -28,36 +28,417 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
 
   /**
    * Retourne les propriétés éditables du bloc
-   * Ajoute la propriété variant pour les styles
+   * OVERRIDE COMPLET - pas d'héritage
    */
   getBlockProps(): BlockProp[] {
-    const baseProps = super.getBlockProps();
-    
-    // Filter out any existing variant properties to avoid duplicates
-    const filteredProps = baseProps.filter(prop => prop.name !== 'variant' && prop.name !== 'visualVariant');
-    
-    // Ajouter la propriété variant au début
-    const variantProp: BlockProp = {
-      name: 'variant',  // Changed from 'key' to 'name' for consistency
-      type: PropType.SELECT,
-      label: 'Style du contenu',
-      required: false,
-      defaultValue: 'modern',
-      description: 'Choisissez le style visuel du contenu',
-      options: [
-        { value: 'modern', label: 'Moderne' },
-        { value: 'minimal', label: 'Minimaliste' },
-        { value: 'bold', label: 'Impact' },
-        { value: 'elegant', label: 'Élégant' }
-      ],
-      editorConfig: {
-        control: EditorControl.RADIO,
-        group: 'Visuel',
-        order: 1
+    // IMPORTANT: Ne PAS appeler super() - on définit TOUT ici
+    const props: BlockProp[] = [
+      // Style visuel (comme les autres blocs V3)
+      {
+        name: 'visualVariant',
+        type: PropType.SELECT,
+        label: 'Style visuel',
+        required: false,
+        defaultValue: 'modern',
+        description: 'Choisissez le style visuel du bloc',
+        options: [
+          { value: 'modern', label: '🎨 Moderne - Gradient dynamique' },
+          { value: 'minimal', label: '⚡ Minimaliste - Épuré et rapide' },
+          { value: 'bold', label: '🔥 Audacieux - Impact visuel fort' },
+          { value: 'elegant', label: '✨ Élégant - Glassmorphism subtil' }
+        ],
+        editorConfig: {
+          control: EditorControl.RADIO,
+          group: 'Visuel',
+          order: 1
+        }
+      },
+      
+      // Type de contenu
+      {
+        name: 'type',
+        type: PropType.SELECT,
+        label: 'Type de contenu',
+        required: true,
+        defaultValue: 'text-image',
+        description: 'Choisissez le type de contenu à afficher',
+        options: [
+          { value: 'text-image', label: '📝 Texte et Image' },
+          { value: 'timeline', label: '⏱️ Timeline' },
+          { value: 'accordion', label: '📂 Accordéon' },
+          { value: 'tabs', label: '🗂️ Onglets' },
+          { value: 'quote', label: '💬 Citation' },
+          { value: 'stats', label: '📊 Statistiques' },
+          { value: 'before-after', label: '🔄 Avant/Après' },
+          { value: 'process', label: '📋 Processus' }
+        ],
+        editorConfig: {
+          control: EditorControl.RADIO,
+          group: 'Type de contenu',
+          order: 1
+        }
+      },
+      
+      // Contenu commun
+      {
+        name: 'title',
+        type: PropType.STRING,
+        label: 'Titre',
+        required: false,
+        description: 'Titre principal de la section',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Contenu',
+          order: 1
+        }
+      },
+      {
+        name: 'subtitle',
+        type: PropType.STRING,
+        label: 'Sous-titre',
+        required: false,
+        description: 'Sous-titre ou description courte',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Contenu',
+          order: 2
+        }
+      },
+      
+      // Layout
+      {
+        name: 'layout.containerWidth',
+        type: PropType.SELECT,
+        label: 'Largeur du conteneur',
+        defaultValue: 'normal',
+        options: [
+          { value: 'full', label: 'Pleine largeur' },
+          { value: 'wide', label: 'Large' },
+          { value: 'normal', label: 'Normal' },
+          { value: 'narrow', label: 'Étroit' }
+        ],
+        editorConfig: {
+          control: EditorControl.SELECT,
+          group: 'Mise en page',
+          order: 1
+        }
+      },
+      {
+        name: 'layout.padding',
+        type: PropType.SELECT,
+        label: 'Espacement interne',
+        defaultValue: 'lg',
+        options: [
+          { value: 'none', label: 'Aucun' },
+          { value: 'sm', label: 'Petit' },
+          { value: 'md', label: 'Moyen' },
+          { value: 'lg', label: 'Grand' },
+          { value: 'xl', label: 'Très grand' }
+        ],
+        editorConfig: {
+          control: EditorControl.SELECT,
+          group: 'Mise en page',
+          order: 2
+        }
+      },
+      
+      // Animation
+      {
+        name: 'animation.enabled',
+        type: PropType.BOOLEAN,
+        label: 'Activer les animations',
+        defaultValue: true,
+        description: 'Active les animations au défilement',
+        editorConfig: {
+          control: EditorControl.SWITCH,
+          group: 'Animations',
+          order: 1
+        }
+      },
+      
+      // ===== CHAMPS CONDITIONNELS POUR TEXT-IMAGE =====
+      {
+        name: 'textImage.layout',
+        type: PropType.SELECT,
+        label: 'Position de l\'image',
+        defaultValue: 'right',
+        description: 'Choisissez où placer l\'image par rapport au texte',
+        options: [
+          { value: 'left', label: '⬅️ Image à gauche' },
+          { value: 'right', label: '➡️ Image à droite' },
+          { value: 'center', label: '⬆️ Image centrée au dessus' },
+          { value: 'zigzag', label: '🔄 Alternance (plusieurs sections)' }
+        ],
+        editorConfig: {
+          control: EditorControl.RADIO,
+          group: 'Texte et Image',
+          order: 1,
+          showIf: {
+            field: 'type',
+            operator: 'equals',
+            value: 'text-image'
+          }
+        }
+      },
+      {
+        name: 'textImage.image',
+        type: PropType.STRING,
+        label: 'Image principale',
+        required: false,
+        description: 'URL de l\'image ou sélectionnez depuis la galerie',
+        editorConfig: {
+          control: EditorControl.IMAGE_PICKER,
+          group: 'Texte et Image',
+          order: 2,
+          showIf: {
+            field: 'type',
+            operator: 'equals',
+            value: 'text-image'
+          },
+          placeholder: 'https://exemple.com/image.jpg'
+        }
+      },
+      {
+        name: 'textImage.imageSize',
+        type: PropType.SELECT,
+        label: 'Taille de l\'image',
+        defaultValue: 'medium',
+        options: [
+          { value: 'small', label: 'Petite (30%)' },
+          { value: 'medium', label: 'Moyenne (40%)' },
+          { value: 'large', label: 'Grande (50%)' },
+          { value: 'full', label: 'Pleine largeur' }
+        ],
+        editorConfig: {
+          control: EditorControl.SELECT,
+          group: 'Texte et Image',
+          order: 3,
+          showIf: {
+            field: 'type',
+            operator: 'equals',
+            value: 'text-image'
+          }
+        }
+      },
+      {
+        name: 'textImage.imageStyle',
+        type: PropType.SELECT,
+        label: 'Style de l\'image',
+        defaultValue: 'rounded',
+        options: [
+          { value: 'rounded', label: '⚪ Coins arrondis' },
+          { value: 'circle', label: '🔵 Cercle' },
+          { value: 'square', label: '⬜ Carré' },
+          { value: 'shadow', label: '🌑 Avec ombre' }
+        ],
+        editorConfig: {
+          control: EditorControl.SELECT,
+          group: 'Texte et Image',
+          order: 4,
+          showIf: {
+            field: 'type',
+            operator: 'equals',
+            value: 'text-image'
+          }
+        }
+      },
+      {
+        name: 'textImage.content',
+        type: PropType.STRING,
+        label: 'Contenu principal',
+        required: false,
+        defaultValue: '<p>Votre contenu ici...</p>',
+        description: 'Écrivez et mettez en forme votre contenu comme dans WordPress',
+        editorConfig: {
+          control: EditorControl.RICH_TEXT,
+          group: 'Texte et Image',
+          order: 5,
+          showIf: {
+            field: 'type',
+            operator: 'equals',
+            value: 'text-image'
+          },
+          richTextOptions: {
+            // Barre d'outils style WordPress
+            toolbar: [
+              // Ligne 1 : Formats et actions principales
+              {
+                name: 'format',
+                label: 'Format',
+                type: 'dropdown',
+                options: [
+                  { value: 'paragraph', label: 'Paragraphe' },
+                  { value: 'heading2', label: 'Titre 2' },
+                  { value: 'heading3', label: 'Titre 3' },
+                  { value: 'heading4', label: 'Titre 4' }
+                ]
+              },
+              '|',
+              { name: 'bold', label: 'Gras', icon: 'B', shortcut: 'Ctrl+B' },
+              { name: 'italic', label: 'Italique', icon: 'I', shortcut: 'Ctrl+I' },
+              { name: 'underline', label: 'Souligné', icon: 'U', shortcut: 'Ctrl+U' },
+              { name: 'strike', label: 'Barré', icon: 'ABC' },
+              '|',
+              { name: 'bulletList', label: 'Liste à puces', icon: '• • •' },
+              { name: 'orderedList', label: 'Liste numérotée', icon: '1. 2. 3.' },
+              { name: 'outdent', label: 'Réduire le retrait', icon: '←' },
+              { name: 'indent', label: 'Augmenter le retrait', icon: '→' },
+              '|',
+              { name: 'alignLeft', label: 'Aligner à gauche', icon: '⬛⬜⬜' },
+              { name: 'alignCenter', label: 'Centrer', icon: '⬜⬛⬜' },
+              { name: 'alignRight', label: 'Aligner à droite', icon: '⬜⬜⬛' },
+              { name: 'justify', label: 'Justifier', icon: '⬛⬛⬛' },
+              '|',
+              { name: 'link', label: 'Insérer/modifier un lien', icon: '🔗', shortcut: 'Ctrl+K' },
+              { name: 'blockquote', label: 'Citation', icon: '"' },
+              { name: 'table', label: 'Tableau', icon: '⊞' },
+              { name: 'horizontalRule', label: 'Ligne de séparation', icon: '━━━' },
+              '|',
+              {
+                name: 'textColor',
+                label: 'Couleur du texte',
+                type: 'color-picker',
+                icon: 'A',
+                colors: [
+                  '#000000', '#434343', '#666666', '#999999', '#cccccc', '#efefef',
+                  '#ff0000', '#ff9900', '#ffff00', '#00ff00', '#00ffff', '#0000ff',
+                  '#9900ff', '#ff00ff'
+                ]
+              },
+              {
+                name: 'backgroundColor',
+                label: 'Couleur de fond',
+                type: 'color-picker',
+                icon: '🖍️',
+                colors: [
+                  'transparent', '#ffff00', '#00ff00', '#00ffff', '#ff00ff',
+                  '#f4cccc', '#fce5cd', '#fff2cc', '#d9ead3', '#d0e0e3'
+                ]
+              },
+              '|',
+              { name: 'removeFormat', label: 'Supprimer la mise en forme', icon: 'T̸' },
+              '|',
+              { name: 'undo', label: 'Annuler', icon: '↶', shortcut: 'Ctrl+Z' },
+              { name: 'redo', label: 'Rétablir', icon: '↷', shortcut: 'Ctrl+Y' },
+              '|',
+              { name: 'fullscreen', label: 'Plein écran', icon: '⛶' },
+              { name: 'help', label: 'Aide', icon: '?' }
+            ],
+            // Options de l'éditeur
+            placeholder: 'Commencez à écrire votre contenu ici... Utilisez la barre d\'outils pour formater votre texte.',
+            minHeight: '400px',
+            maxHeight: '600px',
+            autofocus: false,
+            spellcheck: true,
+            // Formats autorisés
+            formats: [
+              'paragraph', 'heading1', 'heading2', 'heading3', 'heading4', 'heading5', 'heading6',
+              'bold', 'italic', 'underline', 'strike', 'code',
+              'bulletList', 'orderedList', 'blockquote', 'codeBlock',
+              'link', 'video', 'table', 'horizontalRule'
+            ],
+            // Options pour les liens
+            linkOptions: {
+              defaultProtocol: 'https://',
+              targets: [
+                { value: '_self', label: 'Même fenêtre' },
+                { value: '_blank', label: 'Nouvelle fenêtre' },
+                { value: '_parent', label: 'Fenêtre parent' },
+                { value: '_top', label: 'Fenêtre principale' }
+              ],
+              rel: ['nofollow', 'noopener', 'noreferrer']
+            },
+            // Options pour les tableaux
+            tableOptions: {
+              defaultRows: 3,
+              defaultCols: 3,
+              maxRows: 20,
+              maxCols: 10,
+              allowHeaderRow: true,
+              allowHeaderCol: true
+            }
+          }
+        }
+      },
+      {
+        name: 'textImage.features',
+        type: PropType.ARRAY,
+        label: 'Points clés (optionnel)',
+        required: false,
+        description: 'Liste de points avec icônes',
+        editorConfig: {
+          control: EditorControl.ARRAY,
+          group: 'Texte et Image',
+          order: 6,
+          showIf: {
+            field: 'type',
+            operator: 'equals',
+            value: 'text-image'
+          },
+          addButtonText: '+ Ajouter un point',
+          schema: [
+            {
+              name: 'icon',
+              type: PropType.STRING,
+              label: 'Icône',
+              defaultValue: '✓',
+              placeholder: 'Ex: ✓, ⭐, 🚀'
+            },
+            {
+              name: 'text',
+              type: PropType.STRING,
+              label: 'Texte',
+              required: true,
+              placeholder: 'Point important à mettre en avant'
+            }
+          ]
+        }
+      },
+      {
+        name: 'textImage.cta',
+        type: PropType.OBJECT,
+        label: 'Bouton d\'action (optionnel)',
+        required: false,
+        editorConfig: {
+          control: EditorControl.OBJECT,
+          group: 'Texte et Image',
+          order: 7,
+          showIf: {
+            field: 'type',
+            operator: 'equals',
+            value: 'text-image'
+          },
+          schema: [
+            {
+              name: 'text',
+              type: PropType.STRING,
+              label: 'Texte du bouton',
+              defaultValue: 'En savoir plus'
+            },
+            {
+              name: 'link',
+              type: PropType.STRING,
+              label: 'Lien',
+              defaultValue: '#'
+            },
+            {
+              name: 'style',
+              type: PropType.SELECT,
+              label: 'Style',
+              defaultValue: 'primary',
+              options: [
+                { value: 'primary', label: 'Principal' },
+                { value: 'secondary', label: 'Secondaire' },
+                { value: 'outline', label: 'Contour' }
+              ]
+            }
+          ]
+        }
       }
-    };
+    ];
 
-    return [variantProp, ...filteredProps];
+    // Retourner UNIQUEMENT nos props personnalisés (pas de super() pour éviter les doublons)
+    return props;
   }
 
   getDefaultCSS(): string {
@@ -84,13 +465,13 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
    ======================================== */
 
 /* Style Moderne */
-.content[data-style-variant="modern"] {
+.content--visual-modern {
   background: linear-gradient(135deg, 
     color-mix(in srgb, var(--primary), transparent 95%) 0%, 
     var(--background) 50%);
 }
 
-.content[data-style-variant="modern"] .content__title {
+.content--visual-modern .content__title {
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
@@ -101,21 +482,21 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   margin-bottom: 1.5rem;
 }
 
-.content[data-style-variant="modern"] .content__subtitle {
+.content--visual-modern .content__subtitle {
   font-family: var(--font-body);
   font-size: 1.25rem;
   color: var(--text-secondary);
   opacity: 0.9;
 }
 
-.content[data-style-variant="modern"] .content__body {
+.content--visual-modern .content__body {
   font-family: var(--font-body);
   font-size: 1.125rem;
   line-height: 1.8;
   color: var(--text);
 }
 
-.content[data-style-variant="modern"] .content__card {
+.content--visual-modern .content__card {
   background: var(--surface);
   border-radius: 1.5rem;
   padding: 2rem;
@@ -123,18 +504,18 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.content[data-style-variant="modern"] .content__card:hover {
+.content--visual-modern .content__card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 60px -15px color-mix(in srgb, var(--primary), transparent 80%);
 }
 
 /* Style Minimaliste */
-.content[data-style-variant="minimal"] {
+.content--visual-minimal {
   background: var(--background);
   padding: 8rem 0;
 }
 
-.content[data-style-variant="minimal"] .content__title {
+.content--visual-minimal .content__title {
   font-family: var(--font-body);
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 300;
@@ -143,7 +524,7 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   margin-bottom: 2rem;
 }
 
-.content[data-style-variant="minimal"] .content__subtitle {
+.content--visual-minimal .content__subtitle {
   font-family: var(--font-body);
   font-size: 1rem;
   color: var(--text-secondary);
@@ -153,7 +534,7 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   margin-bottom: 3rem;
 }
 
-.content[data-style-variant="minimal"] .content__body {
+.content--visual-minimal .content__body {
   font-family: var(--font-body);
   font-size: 1.125rem;
   line-height: 2;
@@ -162,7 +543,7 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   margin: 0 auto;
 }
 
-.content[data-style-variant="minimal"] .content__divider {
+.content--visual-minimal .content__divider {
   width: 60px;
   height: 1px;
   background: var(--border);
@@ -170,14 +551,14 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
 }
 
 /* Style Impact */
-.content[data-style-variant="bold"] {
+.content--visual-bold {
   background: var(--text);
   color: var(--background);
   padding: 8rem 0;
   position: relative;
 }
 
-.content[data-style-variant="bold"]::before {
+.content--visual-bold::before {
   content: '';
   position: absolute;
   top: 0;
@@ -187,7 +568,7 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
 }
 
-.content[data-style-variant="bold"] .content__title {
+.content--visual-bold .content__title {
   font-family: var(--font-heading);
   font-size: clamp(3rem, 8vw, 5rem);
   font-weight: 900;
@@ -197,7 +578,7 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   margin-bottom: 1rem;
 }
 
-.content[data-style-variant="bold"] .content__subtitle {
+.content--visual-bold .content__subtitle {
   font-family: var(--font-body);
   font-size: 1.5rem;
   color: var(--primary);
@@ -205,7 +586,7 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   margin-bottom: 2rem;
 }
 
-.content[data-style-variant="bold"] .content__body {
+.content--visual-bold .content__body {
   font-family: var(--font-body);
   font-size: 1.25rem;
   line-height: 1.6;
@@ -213,19 +594,19 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   opacity: 0.9;
 }
 
-.content[data-style-variant="bold"] .content__highlight {
+.content--visual-bold .content__highlight {
   color: var(--accent);
   font-weight: 700;
 }
 
 /* Style Élégant */
-.content[data-style-variant="elegant"] {
+.content--visual-elegant {
   background: linear-gradient(180deg, var(--background) 0%, var(--surface) 100%);
   padding: 10rem 0;
   position: relative;
 }
 
-.content[data-style-variant="elegant"]::after {
+.content--visual-elegant::after {
   content: '';
   position: absolute;
   top: 4rem;
@@ -239,7 +620,7 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   filter: blur(40px);
 }
 
-.content[data-style-variant="elegant"] .content__title {
+.content--visual-elegant .content__title {
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 400;
@@ -249,7 +630,7 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   margin-bottom: 2rem;
 }
 
-.content[data-style-variant="elegant"] .content__subtitle {
+.content--visual-elegant .content__subtitle {
   font-family: var(--font-body);
   font-size: 1.125rem;
   color: var(--text-secondary);
@@ -259,7 +640,7 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   margin: 0 auto 4rem;
 }
 
-.content[data-style-variant="elegant"] .content__body {
+.content--visual-elegant .content__body {
   font-family: var(--font-body);
   font-size: 1.125rem;
   line-height: 1.9;
@@ -542,8 +923,299 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   }
 }
 
+/* ========================================
+   STYLES POUR TEXT-IMAGE
+   ======================================== */
+
+.content__text-image {
+  padding: 2rem 0;
+}
+
+.content__text-image-wrapper {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* Layout: Image à droite (par défaut) */
+.content__text-image--image-right .content__text-image-wrapper {
+  grid-template-columns: 1fr auto;
+}
+
+/* Layout: Image à gauche */
+.content__text-image--image-left .content__text-image-wrapper {
+  grid-template-columns: auto 1fr;
+}
+
+.content__text-image--image-left .content__text-image-media {
+  order: -1;
+}
+
+/* Layout: Image centrée au-dessus */
+.content__text-image--image-center .content__text-image-wrapper {
+  grid-template-columns: 1fr;
+  text-align: center;
+}
+
+.content__text-image-media--center {
+  margin: 0 auto 2rem;
+}
+
+/* Tailles d'image */
+.content__text-image-media--small {
+  width: 300px;
+  max-width: 100%;
+}
+
+.content__text-image-media--medium {
+  width: 400px;
+  max-width: 100%;
+}
+
+.content__text-image-media--large {
+  width: 500px;
+  max-width: 100%;
+}
+
+.content__text-image-media--full {
+  width: 100%;
+}
+
+/* Styles d'image */
+.content__text-image-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.content__text-image-img--rounded {
+  border-radius: 1rem;
+}
+
+.content__text-image-img--circle {
+  border-radius: 50%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.content__text-image-img--square {
+  border-radius: 0;
+}
+
+.content__text-image-img--shadow {
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenu riche */
+.content__rich-text {
+  font-family: var(--font-body);
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.content__rich-text h2 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem;
+  color: var(--text);
+}
+
+.content__rich-text h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+  color: var(--text);
+}
+
+.content__rich-text h4 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.5rem;
+  color: var(--text);
+}
+
+.content__rich-text p {
+  margin: 0 0 1.5rem;
+}
+
+.content__rich-text ul,
+.content__rich-text ol {
+  margin: 0 0 1.5rem;
+  padding-left: 2rem;
+}
+
+.content__rich-text li {
+  margin: 0.5rem 0;
+}
+
+.content__rich-text strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.content__rich-text em {
+  font-style: italic;
+}
+
+.content__rich-text u {
+  text-decoration: underline;
+}
+
+.content__rich-text a {
+  color: var(--primary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.content__rich-text a:hover {
+  border-bottom-color: var(--primary);
+}
+
+.content__rich-text blockquote {
+  margin: 2rem 0;
+  padding: 1rem 2rem;
+  border-left: 4px solid var(--primary);
+  background: var(--surface);
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+/* Features list */
+.content__features {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.content__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.content__feature-icon {
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  color: var(--primary);
+  margin-top: 0.125rem;
+}
+
+.content__feature-text {
+  font-family: var(--font-body);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* CTA Button */
+.content__cta {
+  margin-top: 2rem;
+}
+
+.content__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.content__btn--primary {
+  background: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+}
+
+.content__btn--primary:hover {
+  background: var(--secondary);
+  border-color: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2);
+}
+
+.content__btn--secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.content__btn--secondary:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.content__btn--outline {
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--border);
+}
+
+.content__btn--outline:hover {
+  border-color: var(--text);
+  transform: translateY(-2px);
+}
+
+/* Container widths */
+.content__container--full {
+  max-width: 100%;
+}
+
+.content__container--wide {
+  max-width: 1400px;
+}
+
+.content__container--normal {
+  max-width: 1200px;
+}
+
+.content__container--narrow {
+  max-width: 800px;
+}
+
 /* Responsive - inchangé */
 @media (max-width: 768px) {
+  /* Text-Image responsive */
+  .content__text-image--image-left .content__text-image-wrapper,
+  .content__text-image--image-right .content__text-image-wrapper {
+    grid-template-columns: 1fr;
+  }
+  
+  .content__text-image-media {
+    order: -1;
+    margin: 0 auto 2rem;
+  }
+  
+  .content__text-image-media--small,
+  .content__text-image-media--medium,
+  .content__text-image-media--large {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .content__rich-text h2 {
+    font-size: 1.5rem;
+  }
+  
+  .content__rich-text h3 {
+    font-size: 1.25rem;
+  }
+  
+  .content__rich-text h4 {
+    font-size: 1.125rem;
+  }
+  
   .content--magazine-layout .content__body {
     column-count: 1;
   }
@@ -573,7 +1245,7 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
     grid-template-columns: 1fr;
   }
   
-  .content[data-style-variant="elegant"] .content__body {
+  .content--visual-elegant .content__body {
     column-count: 1;
   }
 }
@@ -639,7 +1311,7 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
           const scrolled = window.scrollY;
           const progress = scrolled / documentHeight;
           
-          progressBar.style.transform = \`scaleX(\${progress})\`;
+          progressBar.style.transform = 'scaleX(' + progress + ')';
           
           ticking = false;
         });
@@ -662,15 +1334,15 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
     
     // Créer les liens
     headings.forEach((heading, index) => {
-      const id = \`heading-\${index}\`;
+      const id = 'heading-' + index;
       heading.id = id;
       
       const level = heading.tagName.toLowerCase();
       const item = document.createElement('li');
-      item.className = \`content__toc-item content__toc-item--\${level}\`;
+      item.className = 'content__toc-item content__toc-item--' + level;
       
       const link = document.createElement('a');
-      link.href = \`#\${id}\`;
+      link.href = '#' + id;
       link.className = 'content__toc-link';
       link.textContent = heading.textContent;
       
@@ -1011,15 +1683,15 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
             break;
             
           case 'twitter':
-            window.open(\`https://twitter.com/intent/tweet?text=\${encodeURIComponent(title)}&url=\${encodeURIComponent(url)}\`);
+            window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(title) + '&url=' + encodeURIComponent(url));
             break;
             
           case 'facebook':
-            window.open(\`https://www.facebook.com/sharer/sharer.php?u=\${encodeURIComponent(url)}\`);
+            window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url));
             break;
             
           case 'linkedin':
-            window.open(\`https://www.linkedin.com/sharing/share-offsite/?url=\${encodeURIComponent(url)}\`);
+            window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url));
             break;
             
           case 'copy':
@@ -1094,14 +1766,38 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
       const validData = validation.data;
       logger.info('ContentRendererV3PerfectEnhanced', 'render', 'Rendu Content avec variante:', validData.variant);
 
-      // Ajouter le style variant depuis les données
-      const styleVariant = (data as any).variant || 'modern';
+      // Extraire le thème du contexte
+      const theme = context?.theme;
+      const primaryColor = theme?.colors?.primary || '#667eea';
+      const secondaryColor = theme?.colors?.secondary || '#764ba2';
+      const textColor = theme?.colors?.text || '#1a202c';
+      const textSecondaryColor = theme?.colors?.textSecondary || '#718096';
+      const backgroundColor = theme?.colors?.background || '#ffffff';
+      const surfaceColor = theme?.colors?.surface || '#f7fafc';
+      const borderColor = theme?.colors?.border || '#e2e8f0';
+      const accentColor = theme?.colors?.accent || primaryColor;
+      const fontHeading = theme?.typography?.fontFamily?.heading || 'Inter, system-ui, sans-serif';
+      const fontBody = theme?.typography?.fontFamily?.body || 'Inter, system-ui, sans-serif';
+
+      // Ajouter le style variant depuis les données (visualVariant pour uniformité)
+      const visualVariant = (data as any).visualVariant || 'modern';
 
       // Générer le HTML selon la variante
-      const html = this.renderVariant(validData, styleVariant);
+      const html = this.renderVariant(validData, visualVariant, context);
       
-      // CSS avec variables personnalisées
-      const customCSS = this.generateCustomCSS(validData);
+      // CSS avec variables personnalisées et thème
+      const customCSS = this.generateCustomCSS(validData, {
+        primaryColor,
+        secondaryColor,
+        textColor,
+        textSecondaryColor,
+        backgroundColor,
+        surfaceColor,
+        borderColor,
+        accentColor,
+        fontHeading,
+        fontBody
+      });
       
       return {
         html,
@@ -1120,44 +1816,324 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
     }
   }
 
-  private renderVariant(data: ContentData, styleVariant: string): string {
+  private renderVariant(data: ContentData, visualVariant: string, context?: RenderContext): string {
     let content = '';
     
-    switch(data.variant) {
-      case 'magazine-layout':
-        content = this.renderMagazineLayout(data);
+    // Utiliser data.type au lieu de data.variant
+    switch(data.type) {
+      case 'text-image':
+        content = this.renderTextImage(data);
         break;
-      case 'blog-modern':
-        content = this.renderBlogModern(data);
+      case 'timeline':
+        content = this.renderTimeline(data);
         break;
-      case 'timeline-story':
-        content = this.renderTimelineStory(data);
+      case 'accordion':
+        content = this.renderAccordion(data);
         break;
-      case 'cards-grid':
-        content = this.renderCardsGrid(data);
+      case 'tabs':
+        content = this.renderTabs(data);
         break;
-      case 'split-content':
-        content = this.renderSplitContent(data);
+      case 'quote':
+        content = this.renderQuote(data);
         break;
-      case 'accordion-tabs':
-        content = this.renderAccordionTabs(data);
+      case 'stats':
+        content = this.renderStats(data);
         break;
-      case 'comparison-table':
-        content = this.renderComparisonTable(data);
+      case 'before-after':
+        content = this.renderBeforeAfter(data);
         break;
-      case 'interactive-story':
-        content = this.renderInteractiveStory(data);
+      case 'process':
+        content = this.renderProcess(data);
         break;
       default:
-        content = this.renderMagazineLayout(data);
+        content = this.renderTextImage(data);
     }
 
     return `
-      <section class="content content--${data.variant} ${data.animation?.enabled ? 'content--animated' : ''}" data-style-variant="${styleVariant}" id="${data.id || 'content'}">
-        <div class="content__container">
+      <section class="content content--${data.type} content--visual-${visualVariant} ${data.animation?.enabled ? 'content--animated' : ''}" data-style-variant="${visualVariant}" id="${data.id || 'content'}">
+        <div class="content__container content__container--${data.layout?.containerWidth || 'normal'}">
           ${content}
         </div>
       </section>
+    `;
+  }
+
+  private renderTextImage(data: ContentData): string {
+    const textImage = data.textImage || {};
+    const layout = textImage.layout || 'right';
+    const imagePosition = layout === 'left' ? 'content__text-image--image-left' : 
+                         layout === 'right' ? 'content__text-image--image-right' :
+                         layout === 'center' ? 'content__text-image--image-center' : 
+                         'content__text-image--zigzag';
+
+    return `
+      <div class="content__text-image ${imagePosition}">
+        ${data.title ? `<h2 class="content__title">${this.escapeHtml(data.title)}</h2>` : ''}
+        ${data.subtitle ? `<p class="content__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+        
+        <div class="content__text-image-wrapper">
+          ${textImage.image && layout !== 'center' ? `
+            <div class="content__text-image-media content__text-image-media--${textImage.imageSize || 'medium'}">
+              <img 
+                src="${textImage.image.src || textImage.image}" 
+                alt="${textImage.image.alt || ''}" 
+                class="content__text-image-img content__text-image-img--${textImage.imageStyle || 'rounded'}"
+                loading="lazy"
+              />
+            </div>
+          ` : ''}
+          
+          <div class="content__text-image-content">
+            ${textImage.image && layout === 'center' ? `
+              <div class="content__text-image-media content__text-image-media--center content__text-image-media--${textImage.imageSize || 'medium'}">
+                <img 
+                  src="${textImage.image.src || textImage.image}" 
+                  alt="${textImage.image.alt || ''}" 
+                  class="content__text-image-img content__text-image-img--${textImage.imageStyle || 'rounded'}"
+                  loading="lazy"
+                />
+              </div>
+            ` : ''}
+            
+            <div class="content__rich-text">
+              ${textImage.content || '<p>Votre contenu ici...</p>'}
+            </div>
+            
+            ${textImage.features && textImage.features.length > 0 ? `
+              <ul class="content__features">
+                ${textImage.features.map(feature => `
+                  <li class="content__feature">
+                    <span class="content__feature-icon">${feature.icon || '✓'}</span>
+                    <span class="content__feature-text">${this.escapeHtml(feature.text)}</span>
+                  </li>
+                `).join('')}
+              </ul>
+            ` : ''}
+            
+            ${textImage.cta ? `
+              <div class="content__cta">
+                <a href="${textImage.cta.link || '#'}" class="content__btn content__btn--${textImage.cta.style || 'primary'}">
+                  ${this.escapeHtml(textImage.cta.text || 'En savoir plus')}
+                </a>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  private renderTimeline(data: ContentData): string {
+    const timeline = data.timeline || {};
+    return `
+      <div class="content__timeline content__timeline--${timeline.style || 'vertical'}">
+        ${data.title ? `<h2 class="content__title">${this.escapeHtml(data.title)}</h2>` : ''}
+        ${data.subtitle ? `<p class="content__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+        
+        <div class="content__timeline-items">
+          ${(timeline.items || []).map((item, index) => `
+            <div class="content__timeline-item" style="--index: ${index}">
+              <div class="content__timeline-marker">
+                ${item.icon ? `<span class="content__timeline-icon">${item.icon}</span>` : ''}
+              </div>
+              <div class="content__timeline-content">
+                <time class="content__timeline-date">${this.escapeHtml(item.date)}</time>
+                <h3 class="content__timeline-title">${this.escapeHtml(item.title)}</h3>
+                <p class="content__timeline-description">${this.escapeHtml(item.description)}</p>
+                ${item.link ? `
+                  <a href="${item.link.url}" class="content__timeline-link">
+                    ${this.escapeHtml(item.link.text)}
+                  </a>
+                ` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  private renderAccordion(data: ContentData): string {
+    const accordion = data.accordion || {};
+    return `
+      <div class="content__accordion content__accordion--${accordion.style || 'simple'}">
+        ${data.title ? `<h2 class="content__title">${this.escapeHtml(data.title)}</h2>` : ''}
+        ${data.subtitle ? `<p class="content__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+        
+        <div class="content__accordion-items">
+          ${(accordion.items || []).map((item, index) => `
+            <div class="content__accordion-item ${item.open ? 'active' : ''}" data-index="${index}">
+              <button class="content__accordion-trigger">
+                ${item.icon ? `<span class="content__accordion-icon">${item.icon}</span>` : ''}
+                <span class="content__accordion-title">${this.escapeHtml(item.title)}</span>
+                <span class="content__accordion-arrow">▼</span>
+              </button>
+              <div class="content__accordion-content">
+                <div class="content__accordion-inner">
+                  ${item.content}
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  private renderTabs(data: ContentData): string {
+    const tabs = data.tabs || {};
+    return `
+      <div class="content__tabs content__tabs--${tabs.style || 'line'}">
+        ${data.title ? `<h2 class="content__title">${this.escapeHtml(data.title)}</h2>` : ''}
+        ${data.subtitle ? `<p class="content__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+        
+        <div class="content__tabs-nav">
+          ${(tabs.items || []).map((item, index) => `
+            <button class="content__tab ${index === 0 ? 'active' : ''}" data-tab="${index}">
+              ${item.icon ? `<span class="content__tab-icon">${item.icon}</span>` : ''}
+              <span class="content__tab-label">${this.escapeHtml(item.label)}</span>
+              ${item.badge ? `<span class="content__tab-badge">${this.escapeHtml(item.badge)}</span>` : ''}
+            </button>
+          `).join('')}
+        </div>
+        
+        <div class="content__tabs-panels">
+          ${(tabs.items || []).map((item, index) => `
+            <div class="content__tab-panel ${index === 0 ? 'active' : ''}" data-panel="${index}">
+              ${item.content}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  private renderQuote(data: ContentData): string {
+    const quote = data.quote || {};
+    const quoteData = quote.data || {};
+    
+    return `
+      <div class="content__quote content__quote--${quote.style || 'simple'}">
+        ${quote.showQuoteIcon !== false ? `
+          <div class="content__quote-icon content__quote-icon--${quote.quoteIconStyle || 'classic'}">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+            </svg>
+          </div>
+        ` : ''}
+        
+        <blockquote class="content__quote-text">
+          ${quoteData.text || 'Votre citation ici...'}
+        </blockquote>
+        
+        <div class="content__quote-author">
+          ${quoteData.image ? `
+            <img src="${quoteData.image.src || quoteData.image}" alt="${quoteData.author || ''}" class="content__quote-avatar">
+          ` : ''}
+          <div class="content__quote-author-info">
+            <cite class="content__quote-name">${this.escapeHtml(quoteData.author || 'Auteur')}</cite>
+            ${quoteData.role ? `<span class="content__quote-role">${this.escapeHtml(quoteData.role)}</span>` : ''}
+            ${quoteData.company ? `<span class="content__quote-company">${this.escapeHtml(quoteData.company)}</span>` : ''}
+          </div>
+          ${quoteData.rating ? `
+            <div class="content__quote-rating">
+              ${Array.from({length: 5}, (_, i) => `
+                <span class="content__quote-star ${i < quoteData.rating ? 'filled' : ''}">★</span>
+              `).join('')}
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }
+
+  private renderStats(data: ContentData): string {
+    const stats = data.stats || {};
+    
+    return `
+      <div class="content__stats content__stats--${stats.style || 'simple'}">
+        ${data.title ? `<h2 class="content__title">${this.escapeHtml(data.title)}</h2>` : ''}
+        ${data.subtitle ? `<p class="content__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+        
+        <div class="content__stats-grid" style="--columns: ${stats.columns || 3}">
+          ${(stats.items || []).map((stat, index) => `
+            <div class="content__stat" style="--index: ${index}">
+              ${stat.icon ? `<div class="content__stat-icon">${stat.icon}</div>` : ''}
+              <div class="content__stat-value">
+                ${stat.prefix || ''}${stat.value}${stat.suffix || ''}
+              </div>
+              <div class="content__stat-label">${this.escapeHtml(stat.label)}</div>
+              ${stat.description ? `<p class="content__stat-description">${this.escapeHtml(stat.description)}</p>` : ''}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  private renderBeforeAfter(data: ContentData): string {
+    const beforeAfter = data.beforeAfter || {};
+    const beforeAfterData = beforeAfter.data || {};
+    
+    return `
+      <div class="content__before-after content__before-after--${beforeAfter.style || 'slider'}">
+        ${beforeAfterData.title ? `<h2 class="content__title">${this.escapeHtml(beforeAfterData.title)}</h2>` : ''}
+        ${beforeAfterData.description ? `<p class="content__subtitle">${this.escapeHtml(beforeAfterData.description)}</p>` : ''}
+        
+        <div class="content__before-after-container">
+          <div class="content__before-after-wrapper">
+            <div class="content__before">
+              <img src="${beforeAfterData.before?.image?.src || ''}" alt="${beforeAfterData.before?.label || 'Avant'}">
+              ${beforeAfter.showLabels !== false ? `<span class="content__before-label">${beforeAfterData.before?.label || 'Avant'}</span>` : ''}
+            </div>
+            <div class="content__after">
+              <img src="${beforeAfterData.after?.image?.src || ''}" alt="${beforeAfterData.after?.label || 'Après'}">
+              ${beforeAfter.showLabels !== false ? `<span class="content__after-label">${beforeAfterData.after?.label || 'Après'}</span>` : ''}
+            </div>
+            ${beforeAfter.style === 'slider' ? `
+              <div class="content__before-after-slider" style="left: ${beforeAfter.sliderPosition || 50}%">
+                <div class="content__before-after-handle">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                    <path d="M16 5v14l-11-7z" transform="scale(-1, 1) translate(-24, 0)"/>
+                  </svg>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  private renderProcess(data: ContentData): string {
+    const process = data.process || {};
+    
+    return `
+      <div class="content__process content__process--${process.style || 'steps'} content__process--${process.orientation || 'horizontal'}">
+        ${data.title ? `<h2 class="content__title">${this.escapeHtml(data.title)}</h2>` : ''}
+        ${data.subtitle ? `<p class="content__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+        
+        <div class="content__process-items">
+          ${(process.items || []).map((item, index) => `
+            <div class="content__process-item" style="--index: ${index}">
+              <div class="content__process-number content__process-number--${process.numberStyle || 'circle'}">
+                ${item.icon || item.number || (index + 1)}
+              </div>
+              ${process.showConnectors !== false && index < (process.items || []).length - 1 ? `
+                <div class="content__process-connector"></div>
+              ` : ''}
+              <div class="content__process-content">
+                <h3 class="content__process-title">${this.escapeHtml(item.title)}</h3>
+                <p class="content__process-description">${this.escapeHtml(item.description)}</p>
+                ${item.image ? `
+                  <img src="${item.image.src || item.image}" alt="${item.title}" class="content__process-image">
+                ` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
     `;
   }
 
@@ -1429,26 +2405,56 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
     return content;
   }
 
-  private generateCustomCSS(data: ContentData): string {
-    let css = '\n/* Custom Content Styles */\n';
+  private generateCustomCSS(data: ContentData, theme: any): string {
+    let css = '\n/* Custom Content Styles avec thème dynamique */\n';
     
-    // Couleurs personnalisées
+    // Variables CSS du thème
+    css += `:root {
+      --content-primary: ${theme.primaryColor};
+      --content-secondary: ${theme.secondaryColor};
+      --content-text: ${theme.textColor};
+      --content-text-secondary: ${theme.textSecondaryColor};
+      --content-background: ${theme.backgroundColor};
+      --content-surface: ${theme.surfaceColor};
+      --content-border: ${theme.borderColor};
+      --content-accent: ${theme.accentColor};
+      --content-font-heading: ${theme.fontHeading};
+      --content-font-body: ${theme.fontBody};
+    }\n`;
+
+    // Remplacer les variables var() dans le CSS par les variables du thème
+    css += `
+    /* Override des variables CSS pour utiliser le thème */
+    .content {
+      --primary: var(--content-primary);
+      --secondary: var(--content-secondary);
+      --text: var(--content-text);
+      --text-secondary: var(--content-text-secondary);
+      --background: var(--content-background);
+      --surface: var(--content-surface);
+      --border: var(--content-border);
+      --accent: var(--content-accent);
+      --font-heading: var(--content-font-heading);
+      --font-body: var(--content-font-body);
+    }\n`;
+    
+    // Couleurs personnalisées (override du thème si spécifié)
     if (data.styles?.colors) {
       const colors = data.styles.colors;
       css += `.content {
-        --content-primary: ${colors.primary || '#667eea'};
-        --content-secondary: ${colors.secondary || '#764ba2'};
-        --content-text: ${colors.text || '#4b5563'};
-        --content-heading: ${colors.heading || '#1f2937'};
-        --content-bg: ${colors.background || '#ffffff'};
+        ${colors.primary ? `--content-primary: ${colors.primary};` : ''}
+        ${colors.secondary ? `--content-secondary: ${colors.secondary};` : ''}
+        ${colors.text ? `--content-text: ${colors.text};` : ''}
+        ${colors.heading ? `--content-text: ${colors.heading};` : ''}
+        ${colors.background ? `--content-background: ${colors.background};` : ''}
       }\n`;
     }
 
-    // Typography
+    // Typography personnalisée
     if (data.styles?.typography) {
       const typo = data.styles.typography;
       css += `.content {
-        ${typo.fontFamily ? `font-family: ${typo.fontFamily};` : ''}
+        ${typo.fontFamily ? `--content-font-body: ${typo.fontFamily};` : ''}
         ${typo.fontSize ? `font-size: ${typo.fontSize};` : ''}
         ${typo.lineHeight ? `line-height: ${typo.lineHeight};` : ''}
       }\n`;
@@ -1466,9 +2472,19 @@ export class ContentRendererV3PerfectEnhanced extends BaseRendererV3<ContentData
   }
 
   private escapeHtml(text: string): string {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    // Échappement HTML sans dépendance au DOM
+    if (!text) return '';
+    
+    const escapeMap: Record<string, string> = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+      '/': '&#x2F;'
+    };
+    
+    return text.replace(/[&<>"'\/]/g, (char) => escapeMap[char] || char);
   }
 }
 

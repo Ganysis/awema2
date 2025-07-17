@@ -95,8 +95,9 @@ import { ServicesRendererV3Perfect } from '../v3/renderers/services-perfect.rend
 import { ServicesRendererV3PerfectEnhanced } from '../v3/renderers/services-perfect-enhanced.renderer';
 import { GalleryRendererV3Perfect } from '../v3/renderers/gallery-perfect.renderer';
 import { GalleryRendererV3PerfectEnhanced } from '../v3/renderers/gallery-perfect-enhanced.renderer';
+import { GalleryRendererV3Supreme } from '../v3/renderers/gallery-v3-supreme.renderer';
 import { ContentRendererV3Perfect } from '../v3/renderers/content-perfect.renderer';
-import { ContentRendererV3PerfectEnhanced } from '../v3/renderers/content-perfect-enhanced.renderer';
+import { ContentRendererV3Supreme as ContentRendererV3PerfectEnhanced } from '../v3/renderers/content-v3-supreme.renderer';
 import { TestimonialsRendererV3Perfect } from '../v3/renderers/testimonials-perfect.renderer';
 import { TestimonialsRendererV3PerfectEnhanced } from '../v3/renderers/testimonials-perfect-enhanced.renderer';
 import { PricingRendererV3Perfect } from '../v3/renderers/pricing-perfect.renderer';
@@ -112,7 +113,7 @@ import { ContactRendererV3PerfectEnhanced } from '../v3/renderers/contact-perfec
 const heroV3 = new HeroRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
 const featuresV3 = new FeaturesRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
 const servicesV3 = new ServicesRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
-const galleryV3 = new GalleryRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
+const galleryV3 = new GalleryRendererV3Supreme(); // Using supreme version for better ergonomics
 const contentV3 = new ContentRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
 const testimonialsV3 = new TestimonialsRendererV3PerfectEnhanced(); // Using enhanced version for better visuals
 const pricingV3 = new PricingRendererV3PerfectEnhanced(); // Using enhanced version for better visuals

@@ -315,6 +315,15 @@
       - Changé min-height de 100vh à 70vh
       - Ajouté padding: 4rem 0 3rem
       - Réduit l'espace du scroll indicator
+    - ✅ GALLERY V3 : Amélioration ergonomie gestion des médias
+      - Structure plate pour jusqu'à 20 images (évite [object Object])
+      - Propriétés conditionnelles : chaque image n'apparaît que si la précédente est remplie
+      - Champs par image : src, title, description, category, alt (SEO)
+      - Support de 4 variantes : masonry-flow, grid-uniform, carousel-fullscreen, instagram-style
+      - Contrôles responsive : colonnes desktop/tablet/mobile configurables
+      - Options d'affichage : overlay au survol, lightbox, filtres par catégorie
+      - Méthode extractImages() pour convertir la structure plate en tableau
+      - CSS avec variables dynamiques pour layout responsive
     
     💡 GUIDE RAPIDE POUR MODIFIER LES BLOCS V3 :
     1. **Structure plate obligatoire** : Pas de nested objects/arrays dans getBlockProps()
