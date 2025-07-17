@@ -32,12 +32,13 @@ export const multiPageTemplate: Template = {
   ],
   variants: [],
   blocks: [
-    'hero-split-screen',
-    'hero-centered',
-    'services-grid-cards',
-    'services-list-detailed',
-    'testimonials-carousel',
-    'contact-form-map'
+    'header-pro',
+    'hero-v3-perfect',
+    'services-v3-perfect',
+    'features-v3-perfect',
+    'testimonials-v3-perfect',
+    'contact-v3-perfect',
+    'footer-pro'
   ],
   defaultBlocks: [], // Will be populated per page
   performance: {
@@ -51,249 +52,266 @@ export const multiPageTemplate: Template = {
 };
 
 export interface PageConfig {
-  slug: string;
+  id: string;
   title: string;
-  description: string;
+  slug: string;
   blocks: DefaultBlock[];
+  seo?: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+  };
 }
 
 export interface MultiPageConfig {
-  businessName: string;
-  businessType: string;
-  contactInfo: {
-    phone: string;
-    email: string;
-    address: string;
-    hours?: string;
-  };
+  companyName: string;
+  industry: string;
   services: Array<{
-    title: string;
-    description: string;
-    details?: string;
-    features?: string[];
-    icon?: string;
-    price?: string;
-    image?: string;
-  }>;
-  about?: {
-    story: string;
-    mission?: string;
-    team?: Array<{
-      name: string;
-      role: string;
-      bio?: string;
-      image?: string;
-    }>;
-  };
-  testimonials?: Array<{
     name: string;
-    role?: string;
-    content: string;
-    rating?: number;
-    image?: string;
+    description: string;
+    features?: string[];
   }>;
+  primaryColor?: string;
+  secondaryColor?: string;
 }
 
 export function generateMultiPageStructure(config: MultiPageConfig): PageConfig[] {
   const pages: PageConfig[] = [];
 
-  // Home Page
+  // Home page
   pages.push({
-    slug: 'index',
-    title: `${config.businessName} - Professional ${config.businessType} Services`,
-    description: `Welcome to ${config.businessName}. We provide expert ${config.businessType} services with quality and reliability.`,
+    id: 'home',
+    title: 'Home',
+    slug: '/',
     blocks: [
       {
-        blockId: 'hero-centered',
+        blockId: 'header-pro',
+        order: 0,
+        props: {
+          businessName: config.companyName,
+          primaryColor: config.primaryColor
+        }
+      },
+      {
+        blockId: 'hero-v3-perfect',
         order: 1,
         props: {
-          title: `Welcome to ${config.businessName}`,
-          subtitle: `Your trusted ${config.businessType} experts`,
-          description: 'Quality service, competitive prices, and customer satisfaction guaranteed.',
-          ctaText: 'Get Started',
-          ctaLink: '/contact',
-          secondaryCtaText: 'Our Services',
-          secondaryCtaLink: '/services',
-          backgroundImage: `/hero-${config.businessType}.jpg`
-        },
-        variants: ['minimal']
+          title: `Welcome to ${config.companyName}`,
+          subtitle: `Professional ${config.industry} services`,
+          primaryColor: config.primaryColor,
+          secondaryColor: config.secondaryColor
+        }
       },
       {
-        blockId: 'services-grid-cards',
+        blockId: 'services-v3-perfect',
         order: 2,
         props: {
-          title: 'What We Offer',
-          subtitle: 'Professional solutions for every need',
-          services: config.services.slice(0, 3).map(s => ({
-            ...s,
-            link: `/services/${s.title.toLowerCase().replace(/\s+/g, '-')}`
-          })),
-          columns: 3,
-          showIcons: true,
-          showLinks: true
-        },
-        variants: ['bordered', 'hover-lift']
+          title: 'Our Services',
+          subtitle: 'What we offer'
+        }
       },
       {
-        blockId: 'testimonials-carousel',
+        blockId: 'features-v3-perfect',
         order: 3,
         props: {
-          title: 'Client Testimonials',
-          testimonials: config.testimonials?.slice(0, 3) || [],
-          showRating: true,
-          showImages: false,
-          autoplay: true
-        },
-        variants: ['minimal']
+          title: 'Why Choose Us'
+        }
+      },
+      {
+        blockId: 'testimonials-v3-perfect',
+        order: 4,
+        props: {
+          title: 'Client Reviews'
+        }
+      },
+      {
+        blockId: 'cta-v3-perfect',
+        order: 5,
+        props: {
+          title: 'Ready to Get Started?',
+          ctaText: 'Contact Us'
+        }
+      },
+      {
+        blockId: 'footer-pro',
+        order: 6,
+        props: {
+          businessName: config.companyName,
+          primaryColor: config.primaryColor
+        }
       }
-    ]
+    ],
+    seo: {
+      title: `${config.companyName} | Professional ${config.industry} Services`,
+      description: `${config.companyName} provides professional ${config.industry} services. Quality work, competitive prices.`
+    }
   });
 
-  // Services Page
+  // Services overview page
   pages.push({
-    slug: 'services',
-    title: `Our Services - ${config.businessName}`,
-    description: `Explore our comprehensive ${config.businessType} services. Professional solutions tailored to your needs.`,
+    id: 'services',
+    title: 'Services',
+    slug: '/services',
     blocks: [
       {
-        blockId: 'hero-centered',
+        blockId: 'header-pro',
+        order: 0,
+        props: {
+          businessName: config.companyName,
+          primaryColor: config.primaryColor
+        }
+      },
+      {
+        blockId: 'hero-v3-perfect',
         order: 1,
         props: {
           title: 'Our Services',
-          subtitle: 'Comprehensive solutions for all your needs',
-          ctaText: 'Get Quote',
-          ctaLink: '/contact'
-        },
-        variants: ['minimal']
+          subtitle: 'Professional solutions for all your needs',
+          visualVariant: 'minimal'
+        }
       },
       {
-        blockId: 'services-list-detailed',
+        blockId: 'services-v3-perfect',
         order: 2,
         props: {
-          title: 'Service Details',
-          services: config.services.map(s => ({
-            ...s,
-            link: `/services/${s.title.toLowerCase().replace(/\s+/g, '-')}`
-          })),
-          showPricing: true,
-          showFeatures: true,
-          ctaText: 'Learn More'
-        },
-        variants: ['alternating']
+          title: 'What We Offer',
+          visualVariant: 'modern'
+        }
+      },
+      {
+        blockId: 'pricing-v3-perfect',
+        order: 3,
+        props: {
+          title: 'Transparent Pricing'
+        }
+      },
+      {
+        blockId: 'cta-v3-perfect',
+        order: 4,
+        props: {
+          title: 'Need a Custom Solution?',
+          ctaText: 'Get Quote'
+        }
+      },
+      {
+        blockId: 'footer-pro',
+        order: 5,
+        props: {
+          businessName: config.companyName,
+          primaryColor: config.primaryColor
+        }
       }
-    ]
+    ],
+    seo: {
+      title: `Services | ${config.companyName}`,
+      description: `Explore our professional ${config.industry} services. Quality work guaranteed.`
+    }
   });
 
-  // Individual Service Pages
-  config.services.forEach((service, index) => {
-    const serviceSlug = service.title.toLowerCase().replace(/\s+/g, '-');
-    pages.push({
-      slug: `services/${serviceSlug}`,
-      title: `${service.title} - ${config.businessName}`,
-      description: service.details || service.description,
-      blocks: [
-        {
-          blockId: 'hero-split-screen',
-          order: 1,
-          props: {
-            title: service.title,
-            subtitle: service.description,
-            ctaText: 'Get Quote',
-            ctaLink: '/contact',
-            image: service.image || `/service-${index + 1}.jpg`,
-            imageAlt: service.title
-          },
-          variants: index % 2 === 0 ? [] : ['image-left']
-        },
-        {
-          blockId: 'contact-form-map',
-          order: 2,
-          props: {
-            title: `Inquire About ${service.title}`,
-            subtitle: 'Get a free consultation',
-            contactInfo: config.contactInfo,
-            showMap: false,
-            formFields: [
-              { name: 'name', label: 'Your Name', type: 'text', required: true },
-              { name: 'email', label: 'Email Address', type: 'email', required: true },
-              { name: 'phone', label: 'Phone Number', type: 'tel', required: true },
-              { name: 'message', label: 'Project Details', type: 'textarea', required: true }
-            ]
-          },
-          variants: ['stacked']
-        }
-      ]
-    });
-  });
-
-  // About Page
-  if (config.about) {
-    pages.push({
-      slug: 'about',
-      title: `About Us - ${config.businessName}`,
-      description: `Learn about ${config.businessName}. ${config.about.story}`,
-      blocks: [
-        {
-          blockId: 'hero-centered',
-          order: 1,
-          props: {
-            title: 'About Us',
-            subtitle: config.about.mission || 'Dedicated to excellence since day one',
-            description: config.about.story
-          },
-          variants: ['minimal']
-        },
-        {
-          blockId: 'testimonials-carousel',
-          order: 2,
-          props: {
-            title: 'What People Say',
-            testimonials: config.testimonials || [],
-            showRating: true,
-            showImages: true,
-            autoplay: false
-          },
-          variants: ['cards']
-        }
-      ]
-    });
-  }
-
-  // Contact Page
+  // About page
   pages.push({
-    slug: 'contact',
-    title: `Contact Us - ${config.businessName}`,
-    description: `Get in touch with ${config.businessName}. We're here to help with all your ${config.businessType} needs.`,
+    id: 'about',
+    title: 'About Us',
+    slug: '/about',
     blocks: [
       {
-        blockId: 'hero-centered',
+        blockId: 'header-pro',
+        order: 0,
+        props: {
+          businessName: config.companyName,
+          primaryColor: config.primaryColor
+        }
+      },
+      {
+        blockId: 'hero-v3-perfect',
+        order: 1,
+        props: {
+          title: `About ${config.companyName}`,
+          subtitle: 'Your trusted partner since 2000',
+          visualVariant: 'minimal'
+        }
+      },
+      {
+        blockId: 'content-v3-perfect',
+        order: 2,
+        props: {
+          title: 'Our Story',
+          contentType: 'article'
+        }
+      },
+      {
+        blockId: 'features-v3-perfect',
+        order: 3,
+        props: {
+          title: 'Our Values',
+          visualVariant: 'cards-hover'
+        }
+      },
+      {
+        blockId: 'gallery-v3-perfect',
+        order: 4,
+        props: {
+          title: 'Our Work'
+        }
+      },
+      {
+        blockId: 'footer-pro',
+        order: 5,
+        props: {
+          businessName: config.companyName,
+          primaryColor: config.primaryColor
+        }
+      }
+    ],
+    seo: {
+      title: `About Us | ${config.companyName}`,
+      description: `Learn about ${config.companyName} - your trusted ${config.industry} partner.`
+    }
+  });
+
+  // Contact page
+  pages.push({
+    id: 'contact',
+    title: 'Contact',
+    slug: '/contact',
+    blocks: [
+      {
+        blockId: 'header-pro',
+        order: 0,
+        props: {
+          businessName: config.companyName,
+          primaryColor: config.primaryColor
+        }
+      },
+      {
+        blockId: 'contact-v3-perfect',
         order: 1,
         props: {
           title: 'Get In Touch',
-          subtitle: 'We\'re here to help',
-          ctaText: 'Call Now',
-          ctaLink: `tel:${config.contactInfo.phone.replace(/\D/g, '')}`
-        },
-        variants: ['minimal']
+          subtitle: 'We\'re here to help with your project',
+          showMap: true
+        }
       },
       {
-        blockId: 'contact-form-map',
+        blockId: 'faq-v3-perfect',
         order: 2,
         props: {
-          title: 'Send Us a Message',
-          contactInfo: config.contactInfo,
-          showMap: true,
-          formFields: [
-            { name: 'name', label: 'Your Name', type: 'text', required: true },
-            { name: 'email', label: 'Email Address', type: 'email', required: true },
-            { name: 'phone', label: 'Phone Number', type: 'tel', required: false },
-            { name: 'subject', label: 'Subject', type: 'text', required: true },
-            { name: 'message', label: 'Message', type: 'textarea', required: true }
-          ]
-        },
-        variants: ['form-left']
+          title: 'Frequently Asked Questions'
+        }
+      },
+      {
+        blockId: 'footer-pro',
+        order: 3,
+        props: {
+          businessName: config.companyName,
+          primaryColor: config.primaryColor
+        }
       }
-    ]
+    ],
+    seo: {
+      title: `Contact Us | ${config.companyName}`,
+      description: `Contact ${config.companyName} for professional ${config.industry} services. Get your free quote today.`
+    }
   });
 
   return pages;

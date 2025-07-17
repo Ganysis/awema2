@@ -29,16 +29,22 @@ export const landingPageTemplate: Template = {
   ],
   variants: [],
   blocks: [
-    'hero-split-screen',
-    'hero-centered',
-    'services-grid-cards',
-    'services-list-detailed',
-    'testimonials-carousel',
-    'contact-form-map'
+    'header-pro',
+    'hero-v3-perfect',
+    'services-v3-perfect',
+    'features-v3-perfect',
+    'testimonials-v3-perfect',
+    'contact-v3-perfect',
+    'footer-pro'
   ],
   defaultBlocks: [
     {
-      blockId: 'hero-split-screen',
+      blockId: 'header-pro',
+      order: 0,
+      props: {}
+    },
+    {
+      blockId: 'hero-v3-perfect',
       order: 1,
       props: {
         title: 'Professional Services You Can Trust',
@@ -48,160 +54,134 @@ export const landingPageTemplate: Template = {
         secondaryCtaText: 'View Our Work',
         secondaryCtaLink: '#services'
       },
-      variants: []
+      variants: ['split-screen']
     },
     {
-      blockId: 'services-grid-cards',
+      blockId: 'services-v3-perfect',
       order: 2,
       props: {
         title: 'Our Services',
-        subtitle: 'Complete solutions for all your needs',
-        columns: 3,
-        showIcons: true,
-        showLinks: true
-      },
-      variants: ['shadow', 'hover-lift']
+        subtitle: 'Professional solutions tailored to your needs'
+      }
     },
     {
-      blockId: 'testimonials-carousel',
+      blockId: 'features-v3-perfect',
       order: 3,
       props: {
-        title: 'What Our Customers Say',
-        subtitle: 'Join hundreds of satisfied customers',
-        showRating: true,
-        showImages: true,
-        autoplay: true
-      },
-      variants: []
+        title: 'Why Choose Us',
+        subtitle: 'Experience the difference quality makes'
+      }
     },
     {
-      blockId: 'contact-form-map',
+      blockId: 'testimonials-v3-perfect',
       order: 4,
       props: {
+        title: 'What Our Clients Say',
+        subtitle: 'Don\'t just take our word for it'
+      }
+    },
+    {
+      blockId: 'contact-v3-perfect',
+      order: 5,
+      props: {
         title: 'Get In Touch',
-        subtitle: 'Free quotes and consultations',
-        showMap: true,
-        submitText: 'Send Message'
-      },
-      variants: []
+        subtitle: 'Ready to start your project? Contact us today for a free quote',
+        showMap: true
+      }
+    },
+    {
+      blockId: 'footer-pro',
+      order: 6,
+      props: {}
     }
   ],
-  performance: {
-    lighthouseScore: 98,
-    pageSpeed: 95,
-    firstContentfulPaint: 1.2,
-    largestContentfulPaint: 2.4,
-    totalBlockingTime: 100,
-    cumulativeLayoutShift: 0.02
+  customCSS: '',
+  customJS: '',
+  seo: {
+    title: 'Professional Services | Your Company Name',
+    description: 'Quality workmanship and exceptional service. Get your free quote today.',
+    keywords: ['services', 'professional', 'quality', 'trusted']
   }
 };
 
 export interface LandingPageConfig {
-  businessName: string;
-  businessType: string;
-  contactInfo: {
-    phone: string;
-    email: string;
-    address: string;
-    hours?: string;
-  };
-  services: Array<{
-    title: string;
-    description: string;
-    icon?: string;
-    price?: string;
-  }>;
+  companyName: string;
+  industry: string;
+  services: string[];
+  primaryColor?: string;
+  secondaryColor?: string;
+  features?: string[];
   testimonials?: Array<{
     name: string;
-    role?: string;
-    content: string;
+    text: string;
     rating?: number;
-    image?: string;
   }>;
-  heroImage?: string;
-  logo?: string;
-  colorScheme?: {
-    primary: string;
-    secondary: string;
-    accent: string;
-  };
 }
 
 export function generateLandingPageBlocks(config: LandingPageConfig): DefaultBlock[] {
   return [
     {
-      blockId: 'hero-split-screen',
-      order: 1,
+      blockId: 'header-pro',
+      order: 0,
       props: {
-        title: `Welcome to ${config.businessName}`,
-        subtitle: `Professional ${config.businessType} services in your area`,
-        ctaText: 'Get Free Quote',
-        ctaLink: '#contact',
-        secondaryCtaText: 'Our Services',
-        secondaryCtaLink: '#services',
-        image: config.heroImage || `/hero-${config.businessType}.jpg`,
-        imageAlt: `${config.businessName} professional services`
-      },
-      variants: []
+        businessName: config.companyName,
+        primaryColor: config.primaryColor
+      }
     },
     {
-      blockId: 'services-grid-cards',
+      blockId: 'hero-v3-perfect',
+      order: 1,
+      props: {
+        title: `Welcome to ${config.companyName}`,
+        subtitle: `Professional ${config.industry} services you can trust`,
+        primaryColor: config.primaryColor,
+        secondaryColor: config.secondaryColor
+      }
+    },
+    {
+      blockId: 'services-v3-perfect',
       order: 2,
       props: {
         title: 'Our Services',
-        subtitle: `Expert ${config.businessType} solutions`,
-        services: config.services,
-        columns: Math.min(config.services.length, 3),
-        showIcons: true,
-        showLinks: true
-      },
-      variants: ['shadow', 'hover-lift']
+        services: config.services.map((service, index) => ({
+          id: `service-${index}`,
+          title: service,
+          description: `Professional ${service.toLowerCase()} services`,
+          icon: '🔧'
+        }))
+      }
     },
     {
-      blockId: 'testimonials-carousel',
+      blockId: 'features-v3-perfect',
       order: 3,
       props: {
-        title: 'Customer Reviews',
-        subtitle: 'See what our clients say about us',
-        testimonials: config.testimonials || [
-          {
-            name: 'John Doe',
-            role: 'Homeowner',
-            content: 'Excellent service and professional work. Highly recommended!',
-            rating: 5
-          },
-          {
-            name: 'Jane Smith',
-            role: 'Business Owner',
-            content: 'Quick response time and fair pricing. Very satisfied with the results.',
-            rating: 5
-          }
-        ],
-        showRating: true,
-        showImages: true,
-        autoplay: true
-      },
-      variants: []
+        title: 'Why Choose Us',
+        features: config.features || []
+      }
     },
     {
-      blockId: 'contact-form-map',
+      blockId: 'testimonials-v3-perfect',
       order: 4,
       props: {
+        title: 'Client Testimonials',
+        testimonials: config.testimonials || []
+      }
+    },
+    {
+      blockId: 'contact-v3-perfect',
+      order: 5,
+      props: {
         title: 'Contact Us',
-        subtitle: 'Get your free quote today',
-        contactInfo: config.contactInfo,
-        showMap: true,
-        submitText: 'Send Message',
-        mapCoordinates: { lat: 40.7128, lng: -74.0060 },
-        formFields: [
-          { name: 'name', label: 'Your Name', type: 'text', required: true },
-          { name: 'email', label: 'Email Address', type: 'email', required: true },
-          { name: 'phone', label: 'Phone Number', type: 'tel', required: false },
-          { name: 'service', label: 'Service Needed', type: 'select', options: config.services.map(s => s.title), required: true },
-          { name: 'message', label: 'Message', type: 'textarea', required: true }
-        ]
-      },
-      variants: []
+        subtitle: 'Get your free quote today'
+      }
+    },
+    {
+      blockId: 'footer-pro',
+      order: 6,
+      props: {
+        businessName: config.companyName,
+        primaryColor: config.primaryColor
+      }
     }
   ];
 }
