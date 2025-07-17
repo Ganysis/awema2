@@ -63,16 +63,16 @@ export const pricingPlanSchema = z.object({
 // Schema principal Pricing
 export const pricingDataSchema = z.object({
   // Variants visuels
-  variant: z.enum([
-    'cards-classic',
-    'cards-modern',
+  visualVariant: z.enum([
+    'modern',
+    'minimal',
+    'bold',
+    'elegant',
+    'cards-hover',
     'table-comparison',
-    'cards-gradient',
-    'cards-glassmorphism',
-    'toggle-monthly-yearly',
-    'slider-interactive',
-    'cards-minimal'
-  ]).default('cards-modern').describe('Style visuel du bloc pricing'),
+    'gradient-glow',
+    'glassmorphism'
+  ]).default('modern').describe('Style visuel du bloc pricing'),
   
   // Configuration du titre
   title: z.string().default('Nos Tarifs'),
@@ -304,7 +304,7 @@ export type PricingData = z.infer<typeof pricingDataSchema>;
 
 // Valeurs par défaut complètes
 export const pricingDefaults: PricingData = {
-  variant: 'cards-modern',
+  visualVariant: 'modern',
   title: 'Choisissez votre plan',
   subtitle: 'Des tarifs transparents et adaptés à vos besoins',
   description: 'Tous nos plans incluent l\'hébergement, le SSL et le support technique.',
@@ -520,7 +520,7 @@ pricingDataSchema._parse = new Proxy(pricingDataSchema._parse, {
     } else {
       logger.info('pricingDataSchema', 'parse', '✅ Validation réussie', {
         plansCount: result.data.plans.length,
-        variant: result.data.variant
+        visualVariant: result.data.visualVariant
       });
     }
     

@@ -726,6 +726,58 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   color: var(--color-background);
 }
 
+/* Styles spécifiques pour les cartes featured dans la variante minimal */
+.pricing--minimal .pricing__card--featured {
+  background: var(--color-surface);
+  border: 2px solid var(--color-primary);
+  color: var(--color-text-primary);
+}
+
+.pricing--minimal .pricing__card--featured .pricing__name,
+.pricing--minimal .pricing__card--featured .pricing__price,
+.pricing--minimal .pricing__card--featured .pricing__description {
+  color: var(--color-text-primary);
+}
+
+.pricing--minimal .pricing__card--featured .pricing__price-value {
+  color: var(--color-primary);
+  font-weight: 400;
+}
+
+.pricing--minimal .pricing__card--featured .pricing__badge {
+  background: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.pricing--minimal .pricing__card--featured .pricing__button {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+  font-weight: 500;
+}
+
+.pricing--minimal .pricing__card--featured .pricing__button:hover {
+  background: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+
+.pricing--minimal .pricing__card--featured .pricing__feature {
+  color: var(--color-text-primary);
+}
+
+.pricing--minimal .pricing__card--featured .pricing__feature-icon circle {
+  fill: var(--color-primary);
+  opacity: 0.15;
+}
+
+.pricing--minimal .pricing__card--featured .pricing__feature-icon path {
+  stroke: var(--color-primary);
+}
+
 /* Style Impact */
 .pricing--bold {
   background: var(--color-text-primary);
@@ -810,6 +862,71 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 .pricing--bold .pricing__button:hover {
   background: var(--color-primary);
   transform: scale(1.1);
+}
+
+/* Styles spécifiques pour les cartes featured dans la variante bold */
+.pricing--bold .pricing__card--featured {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  transform: rotate(-2deg) scale(1.08);
+  box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.3);
+}
+
+.pricing--bold .pricing__card--featured:nth-child(even) {
+  transform: rotate(2deg) scale(1.08);
+}
+
+.pricing--bold .pricing__card--featured:hover {
+  transform: rotate(0deg) scale(1.1);
+}
+
+/* Assurer la lisibilité du texte blanc sur fond gradient */
+.pricing--bold .pricing__card--featured .pricing__name,
+.pricing--bold .pricing__card--featured .pricing__description,
+.pricing--bold .pricing__card--featured .pricing__price,
+.pricing--bold .pricing__card--featured .pricing__currency,
+.pricing--bold .pricing__card--featured .pricing__period,
+.pricing--bold .pricing__card--featured .pricing__feature {
+  color: white !important;
+}
+
+.pricing--bold .pricing__card--featured .pricing__price {
+  background: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricing--bold .pricing__card--featured .pricing__badge {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pricing--bold .pricing__card--featured .pricing__button {
+  background: white;
+  color: var(--color-primary);
+  border: 2px solid white;
+  font-weight: 800;
+}
+
+.pricing--bold .pricing__card--featured .pricing__button:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.pricing--bold .pricing__card--featured .pricing__feature-icon circle {
+  fill: rgba(255, 255, 255, 0.2);
+}
+
+.pricing--bold .pricing__card--featured .pricing__feature-icon path {
+  stroke: white;
+}
+
+.pricing--bold .pricing__card--featured .pricing__divider {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* Style Élégant */
@@ -907,17 +1024,293 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   border-color: var(--color-primary);
 }
 
+/* Styles spécifiques pour les cartes featured dans la variante elegant */
+.pricing--elegant .pricing__card--featured {
+  background: color-mix(in srgb, var(--color-surface), transparent 30%);
+  backdrop-filter: blur(30px);
+  border: 2px solid color-mix(in srgb, var(--color-primary), transparent 30%);
+  box-shadow: 0 20px 40px -10px color-mix(in srgb, var(--color-primary), transparent 30%);
+  color: var(--color-text-primary);
+}
+
+.pricing--elegant .pricing__card--featured::before {
+  opacity: 0.8;
+}
+
+.pricing--elegant .pricing__card--featured .pricing__name,
+.pricing--elegant .pricing__card--featured .pricing__description,
+.pricing--elegant .pricing__card--featured .pricing__price-value,
+.pricing--elegant .pricing__card--featured .pricing__feature {
+  color: var(--color-text-primary);
+}
+
+.pricing--elegant .pricing__card--featured .pricing__price-value {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 400;
+}
+
+.pricing--elegant .pricing__card--featured .pricing__currency,
+.pricing--elegant .pricing__card--featured .pricing__period {
+  color: var(--color-text-secondary);
+}
+
+.pricing--elegant .pricing__card--featured .pricing__badge {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pricing--elegant .pricing__card--featured .pricing__button {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  border: none;
+  font-weight: 600;
+}
+
+.pricing--elegant .pricing__card--featured .pricing__button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--color-primary), transparent 50%);
+}
+
+.pricing--elegant .pricing__card--featured .pricing__feature-icon circle {
+  fill: var(--color-primary);
+  opacity: 0.15;
+}
+
+.pricing--elegant .pricing__card--featured .pricing__feature-icon path {
+  stroke: var(--color-primary);
+}
+
+/* Effet hover adaptatif pour glassmorphism */
+.pricing--elegant .pricing__card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pricing--elegant .pricing__card:hover {
+  background: color-mix(in srgb, var(--color-primary), transparent 85%);
+  backdrop-filter: blur(40px);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 60px -20px color-mix(in srgb, var(--color-primary), transparent 50%);
+}
+
+/* Adaptation des couleurs au hover pour meilleur contraste */
+.pricing--elegant .pricing__card:hover .pricing__name,
+.pricing--elegant .pricing__card:hover .pricing__description,
+.pricing--elegant .pricing__card:hover .pricing__price-value,
+.pricing--elegant .pricing__card:hover .pricing__currency,
+.pricing--elegant .pricing__card:hover .pricing__period,
+.pricing--elegant .pricing__card:hover .pricing__feature {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.pricing--elegant .pricing__card:hover .pricing__price-value {
+  background: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricing--elegant .pricing__card:hover .pricing__button {
+  background: white;
+  color: var(--color-primary);
+  border-color: white;
+}
+
+.pricing--elegant .pricing__card:hover .pricing__feature-icon circle {
+  fill: rgba(255, 255, 255, 0.2);
+}
+
+.pricing--elegant .pricing__card:hover .pricing__feature-icon path {
+  stroke: white;
+}
+
+/* Hover spécifique pour les cartes featured */
+.pricing--elegant .pricing__card--featured:hover {
+  background: linear-gradient(135deg, 
+    color-mix(in srgb, var(--color-primary), transparent 20%),
+    color-mix(in srgb, var(--color-secondary), transparent 20%)
+  );
+  backdrop-filter: blur(50px);
+}
+
+.pricing--elegant .pricing__card--featured:hover .pricing__button {
+  background: white;
+  color: var(--color-primary);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* ========================================
+   STYLES DE BASE DES CARTES
+   ======================================== */
+
+/* Styles par défaut pour toutes les cartes - Meilleur contraste */
+.pricing__card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+  border-color: var(--color-primary);
+}
+
+.pricing__badge {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-primary);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pricing__name {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 1.5rem 0 0.5rem;
+}
+
+.pricing__description {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  margin-bottom: 2rem;
+}
+
+.pricing__price-wrapper {
+  margin: 2rem 0;
+}
+
+.pricing__price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.pricing__currency {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.pricing__price-value {
+  font-size: 3.5rem;
+  font-weight: var(--font-weight-black);
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.pricing__period {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-normal);
+}
+
+.pricing__features {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  flex: 1;
+}
+
+.pricing__feature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+}
+
+.pricing__feature--disabled {
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+}
+
+.pricing__feature-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.pricing__feature-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Carte mise en avant avec meilleur contraste */
+.pricing__card--featured {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  transform: scale(1.05);
+  z-index: 1;
+}
+
+.pricing__card--featured .pricing__name,
+.pricing__card--featured .pricing__price-value,
+.pricing__card--featured .pricing__feature {
+  color: white;
+}
+
+.pricing__card--featured .pricing__description,
+.pricing__card--featured .pricing__currency,
+.pricing__card--featured .pricing__period {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pricing__card--featured .pricing__badge {
+  background: white;
+  color: var(--color-primary);
+}
+
+.pricing__card--featured .pricing__button--primary {
+  background: white;
+  color: var(--color-primary);
+  border-color: white;
+}
+
+.pricing__card--featured .pricing__button--primary:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
 /* ========================================
    LAYOUTS DE CARTES AMÉLIORÉS
    ======================================== */
 
-/* Cards Modern - Design épuré et moderne */
-.pricing-layout--cards-modern .pricing__grid {
+/* Cards Modern - Design épuré et moderne (PAR DÉFAUT) */
+.pricing__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  align-items: stretch;
+}
+
+.pricing-layout--cards-modern .pricing__grid {
+  /* Hérite des styles par défaut ci-dessus */
 }
 
 /* Cards Gradient - Effets visuels gradients */
@@ -959,6 +1352,42 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   text-align: center;
 }
 
+/* Styles spécifiques pour les cartes featured dans cards-minimal layout */
+.pricing-layout--cards-minimal .pricing__card--featured {
+  background: var(--color-surface);
+  border: 2px solid var(--color-primary);
+  color: var(--color-text-primary);
+}
+
+.pricing-layout--cards-minimal .pricing__card--featured .pricing__name,
+.pricing-layout--cards-minimal .pricing__card--featured .pricing__description,
+.pricing-layout--cards-minimal .pricing__card--featured .pricing__price-value,
+.pricing-layout--cards-minimal .pricing__card--featured .pricing__currency,
+.pricing-layout--cards-minimal .pricing__card--featured .pricing__period,
+.pricing-layout--cards-minimal .pricing__card--featured .pricing__feature {
+  color: var(--color-text-primary) !important;
+}
+
+.pricing-layout--cards-minimal .pricing__card--featured .pricing__feature-icon circle {
+  fill: var(--color-primary);
+  opacity: 0.15;
+}
+
+.pricing-layout--cards-minimal .pricing__card--featured .pricing__feature-icon path {
+  stroke: var(--color-primary);
+}
+
+.pricing-layout--cards-minimal .pricing__card--featured .pricing__button--primary {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.pricing-layout--cards-minimal .pricing__card--featured .pricing__badge {
+  background: var(--color-primary);
+  color: white;
+}
+
 /* Cards Hover - Effets interactifs au survol */
 .pricing-layout--cards-hover .pricing__card {
   position: relative;
@@ -988,6 +1417,40 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 .pricing-layout--cards-hover .pricing__card:hover::after {
   opacity: 1;
   animation: shimmer 0.6s ease-out;
+}
+
+/* Styles spécifiques pour cards-hover featured */
+.pricing-layout--cards-hover .pricing__card--featured {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+}
+
+.pricing-layout--cards-hover .pricing__card--featured .pricing__name,
+.pricing-layout--cards-hover .pricing__card--featured .pricing__description,
+.pricing-layout--cards-hover .pricing__card--featured .pricing__price-value,
+.pricing-layout--cards-hover .pricing__card--featured .pricing__currency,
+.pricing-layout--cards-hover .pricing__card--featured .pricing__period,
+.pricing-layout--cards-hover .pricing__card--featured .pricing__feature {
+  color: white !important;
+}
+
+.pricing-layout--cards-hover .pricing__card--featured .pricing__feature-icon circle {
+  fill: rgba(255, 255, 255, 0.2);
+}
+
+.pricing-layout--cards-hover .pricing__card--featured .pricing__feature-icon path {
+  stroke: white;
+}
+
+.pricing-layout--cards-hover .pricing__card--featured .pricing__button--primary {
+  background: white;
+  color: var(--color-primary);
+}
+
+.pricing-layout--cards-hover .pricing__card--featured .pricing__badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(10px);
 }
 
 /* Comparison Table - Vue détaillée en tableau */
@@ -2332,11 +2795,13 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     
     return `
       <li class="pricing__feature ${!included ? 'pricing__feature--disabled' : ''}">
-        <svg class="pricing__feature-icon" viewBox="0 0 24 24" width="20" height="20">
+        <svg class="pricing__feature-icon" viewBox="0 0 24 24" width="20" height="20" fill="none">
           ${included ? `
-            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            <circle cx="12" cy="12" r="10" fill="var(--color-primary)" opacity="0.15"/>
+            <path stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>
           ` : `
-            <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            <circle cx="12" cy="12" r="10" stroke="var(--color-text-secondary)" stroke-width="1.5" opacity="0.3"/>
+            <path stroke="var(--color-text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 9l-6 6M9 9l6 6"/>
           `}
         </svg>
         <span>${this.escapeHtml(text)}</span>
