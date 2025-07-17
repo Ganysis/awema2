@@ -1326,13 +1326,13 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   }
 
   private renderFAQ(data: PricingData): string {
-    if (!data.faq || data.faq.length === 0) return '';
+    if (!data.faq?.enabled || !data.faq?.items || data.faq.items.length === 0) return '';
     
     return `
       <div class="pricing__faq">
-        <h3 class="pricing__faq-title">Questions fréquentes</h3>
+        <h3 class="pricing__faq-title">${this.escapeHtml(data.faq.title || 'Questions fréquentes')}</h3>
         <div class="pricing__faq-list">
-          ${data.faq.map((item, index) => `
+          ${data.faq.items.map((item, index) => `
             <div class="pricing__faq-item">
               <button class="pricing__faq-question">
                 ${this.escapeHtml(item.question)}
@@ -1343,7 +1343,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
                 </span>
               </button>
               <div class="pricing__faq-answer">
-                <p>${item.answer}</p>
+                <p>${this.escapeHtml(item.answer)}</p>
               </div>
             </div>
           `).join('')}
