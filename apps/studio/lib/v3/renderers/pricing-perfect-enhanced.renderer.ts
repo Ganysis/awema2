@@ -28,64 +28,487 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 
   /**
    * Retourne les propriétés éditables du bloc
-   * Ajoute la propriété variant pour les styles
+   * Structure PLATE pour éviter les [object Object]
    */
   getBlockProps(): BlockProp[] {
-    const baseProps = super.getBlockProps();
-    
-    // Filter out any existing variant properties to avoid duplicates
-    const filteredProps = baseProps.filter(prop => prop.name !== 'variant' && prop.name !== 'visualVariant');
-    
-    // Propriétés harmonisées avec Services et Features V3
-    const visualVariantProp: BlockProp = {
-      name: 'visualVariant',
-      label: 'Style visuel',
-      type: PropType.SELECT,
-      required: false,
-      defaultValue: 'modern',
-      description: 'Choisissez le style visuel du bloc',
-      options: [
-        { value: 'modern', label: '🎨 Moderne - Gradient dynamique' },
-        { value: 'minimal', label: '⚡ Minimaliste - Épuré et rapide' },
-        { value: 'bold', label: '🔥 Audacieux - Impact visuel fort' },
-        { value: 'elegant', label: '✨ Élégant - Glassmorphism subtil' }
-      ],
-      editorConfig: {
-        control: EditorControl.RADIO,
-        group: 'Style',
-        order: 1
+    // NE PAS utiliser super.getBlockProps() pour éviter les objets imbriqués
+    const props: BlockProp[] = [
+      // Propriétés harmonisées avec Services et Features V3
+      {
+        name: 'visualVariant',
+        label: 'Style visuel',
+        type: PropType.SELECT,
+        required: false,
+        defaultValue: 'modern',
+        description: 'Choisissez le style visuel du bloc',
+        options: [
+          { value: 'modern', label: '🎨 Moderne - Gradient dynamique' },
+          { value: 'minimal', label: '⚡ Minimaliste - Épuré et rapide' },
+          { value: 'bold', label: '🔥 Audacieux - Impact visuel fort' },
+          { value: 'elegant', label: '✨ Élégant - Glassmorphism subtil' }
+        ],
+        editorConfig: {
+          control: EditorControl.RADIO,
+          group: 'Style',
+          order: 1
+        }
+      },
+
+      // Type de disposition
+      {
+        name: 'layout',
+        label: 'Type de disposition',
+        type: PropType.SELECT,
+        required: false,
+        defaultValue: 'cards-modern',
+        description: 'Choisissez la disposition des tarifs',
+        options: [
+          { value: 'cards-modern', label: '📱 Cartes modernes - Design épuré' },
+          { value: 'cards-gradient', label: '🌈 Cartes gradient - Effet visuel' },
+          { value: 'cards-minimal', label: '⚡ Cartes minimales - Ultra simple' },
+          { value: 'comparison-table', label: '📊 Tableau comparatif - Vue détaillée' },
+          { value: 'cards-slider', label: '🎠 Carousel - Navigation fluide' },
+          { value: 'toggle-view', label: '🔄 Vue toggle - Mensuel/Annuel' },
+          { value: 'single-plan', label: '📄 Plan unique - Focus produit' },
+          { value: 'cards-hover', label: '🎯 Cartes hover - Interactif' }
+        ],
+        editorConfig: {
+          control: EditorControl.SELECT,
+          group: 'Style',
+          order: 2
+        }
+      },
+
+      // Contenu principal
+      {
+        name: 'title',
+        label: 'Titre principal',
+        type: PropType.STRING,
+        required: true,
+        defaultValue: 'Nos Tarifs',
+        description: 'Le titre principal de la section tarifs',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Contenu',
+          order: 1
+        }
+      },
+      {
+        name: 'subtitle',
+        label: 'Sous-titre',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Choisissez le plan qui vous convient',
+        description: 'Texte sous le titre principal',
+        editorConfig: {
+          control: EditorControl.TEXTAREA,
+          group: 'Contenu',
+          order: 2
+        }
+      },
+
+      // Plan 1 - Structure plate
+      {
+        name: 'plan1_name',
+        label: 'Nom du plan 1',
+        type: PropType.STRING,
+        required: true,
+        defaultValue: 'Starter',
+        description: 'Nom du premier plan tarifaire',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Plan 1',
+          order: 1
+        }
+      },
+      {
+        name: 'plan1_description',
+        label: 'Description du plan 1',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Parfait pour démarrer',
+        description: 'Description courte du plan',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Plan 1',
+          order: 2
+        }
+      },
+      {
+        name: 'plan1_price',
+        label: 'Prix du plan 1',
+        type: PropType.NUMBER,
+        required: true,
+        defaultValue: 29,
+        description: 'Prix du plan (nombre uniquement)',
+        editorConfig: {
+          control: EditorControl.NUMBER,
+          group: 'Plan 1',
+          order: 3
+        }
+      },
+      {
+        name: 'plan1_currency',
+        label: 'Devise',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: '€',
+        description: 'Symbole de la devise',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Plan 1',
+          order: 4
+        }
+      },
+      {
+        name: 'plan1_period',
+        label: 'Période',
+        type: PropType.SELECT,
+        required: false,
+        defaultValue: 'month',
+        description: 'Période de facturation',
+        options: [
+          { value: 'month', label: 'Par mois' },
+          { value: 'year', label: 'Par an' },
+          { value: 'once', label: 'Une fois' }
+        ],
+        editorConfig: {
+          control: EditorControl.SELECT,
+          group: 'Plan 1',
+          order: 5
+        }
+      },
+      {
+        name: 'plan1_features',
+        label: 'Caractéristiques',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: '✓ 1 site web\n✓ Hébergement inclus\n✓ Support par email\n✓ SSL gratuit\n✗ Personnalisation avancée\n✗ Support prioritaire',
+        description: 'Liste des caractéristiques (une par ligne, utilisez ✓ ou ✗)',
+        editorConfig: {
+          control: EditorControl.TEXTAREA,
+          group: 'Plan 1',
+          order: 6,
+          rows: 6
+        }
+      },
+      {
+        name: 'plan1_cta_text',
+        label: 'Texte du bouton',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Commencer',
+        description: 'Texte du bouton d\'action',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Plan 1',
+          order: 7
+        }
+      },
+      {
+        name: 'plan1_popular',
+        label: 'Plan populaire',
+        type: PropType.BOOLEAN,
+        required: false,
+        defaultValue: false,
+        description: 'Mettre en avant ce plan',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Plan 1',
+          order: 8
+        }
+      },
+
+      // Plan 2 - Structure plate
+      {
+        name: 'plan2_name',
+        label: 'Nom du plan 2',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Pro',
+        description: 'Nom du deuxième plan tarifaire',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Plan 2',
+          order: 1,
+          condition: {
+            prop: 'plan1_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan2_description',
+        label: 'Description du plan 2',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Pour les professionnels',
+        description: 'Description courte du plan',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Plan 2',
+          order: 2,
+          condition: {
+            prop: 'plan2_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan2_price',
+        label: 'Prix du plan 2',
+        type: PropType.NUMBER,
+        required: false,
+        defaultValue: 59,
+        description: 'Prix du plan (nombre uniquement)',
+        editorConfig: {
+          control: EditorControl.NUMBER,
+          group: 'Plan 2',
+          order: 3,
+          condition: {
+            prop: 'plan2_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan2_currency',
+        label: 'Devise',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: '€',
+        description: 'Symbole de la devise',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Plan 2',
+          order: 4,
+          condition: {
+            prop: 'plan2_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan2_period',
+        label: 'Période',
+        type: PropType.SELECT,
+        required: false,
+        defaultValue: 'month',
+        description: 'Période de facturation',
+        options: [
+          { value: 'month', label: 'Par mois' },
+          { value: 'year', label: 'Par an' },
+          { value: 'once', label: 'Une fois' }
+        ],
+        editorConfig: {
+          control: EditorControl.SELECT,
+          group: 'Plan 2',
+          order: 5,
+          condition: {
+            prop: 'plan2_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan2_features',
+        label: 'Caractéristiques',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: '✓ 3 sites web\n✓ Hébergement premium\n✓ Support prioritaire\n✓ SSL gratuit\n✓ Personnalisation avancée\n✓ Analytics avancés',
+        description: 'Liste des caractéristiques (une par ligne, utilisez ✓ ou ✗)',
+        editorConfig: {
+          control: EditorControl.TEXTAREA,
+          group: 'Plan 2',
+          order: 6,
+          rows: 6,
+          condition: {
+            prop: 'plan2_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan2_cta_text',
+        label: 'Texte du bouton',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Choisir Pro',
+        description: 'Texte du bouton d\'action',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Plan 2',
+          order: 7,
+          condition: {
+            prop: 'plan2_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan2_popular',
+        label: 'Plan populaire',
+        type: PropType.BOOLEAN,
+        required: false,
+        defaultValue: true,
+        description: 'Mettre en avant ce plan',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Plan 2',
+          order: 8,
+          condition: {
+            prop: 'plan2_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+
+      // Plan 3 - Structure plate
+      {
+        name: 'plan3_name',
+        label: 'Nom du plan 3',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Enterprise',
+        description: 'Nom du troisième plan tarifaire',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Plan 3',
+          order: 1,
+          condition: {
+            prop: 'plan2_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan3_description',
+        label: 'Description du plan 3',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Solutions sur mesure',
+        description: 'Description courte du plan',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Plan 3',
+          order: 2,
+          condition: {
+            prop: 'plan3_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan3_price',
+        label: 'Prix du plan 3',
+        type: PropType.NUMBER,
+        required: false,
+        defaultValue: 199,
+        description: 'Prix du plan (nombre uniquement)',
+        editorConfig: {
+          control: EditorControl.NUMBER,
+          group: 'Plan 3',
+          order: 3,
+          condition: {
+            prop: 'plan3_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan3_currency',
+        label: 'Devise',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: '€',
+        description: 'Symbole de la devise',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Plan 3',
+          order: 4,
+          condition: {
+            prop: 'plan3_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan3_period',
+        label: 'Période',
+        type: PropType.SELECT,
+        required: false,
+        defaultValue: 'month',
+        description: 'Période de facturation',
+        options: [
+          { value: 'month', label: 'Par mois' },
+          { value: 'year', label: 'Par an' },
+          { value: 'once', label: 'Une fois' }
+        ],
+        editorConfig: {
+          control: EditorControl.SELECT,
+          group: 'Plan 3',
+          order: 5,
+          condition: {
+            prop: 'plan3_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan3_features',
+        label: 'Caractéristiques',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: '✓ Sites illimités\n✓ Infrastructure dédiée\n✓ Support 24/7\n✓ SSL gratuit\n✓ Personnalisation complète\n✓ API access',
+        description: 'Liste des caractéristiques (une par ligne, utilisez ✓ ou ✗)',
+        editorConfig: {
+          control: EditorControl.TEXTAREA,
+          group: 'Plan 3',
+          order: 6,
+          rows: 6,
+          condition: {
+            prop: 'plan3_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan3_cta_text',
+        label: 'Texte du bouton',
+        type: PropType.STRING,
+        required: false,
+        defaultValue: 'Nous contacter',
+        description: 'Texte du bouton d\'action',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Plan 3',
+          order: 7,
+          condition: {
+            prop: 'plan3_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
+      },
+      {
+        name: 'plan3_popular',
+        label: 'Plan populaire',
+        type: PropType.BOOLEAN,
+        required: false,
+        defaultValue: false,
+        description: 'Mettre en avant ce plan',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Plan 3',
+          order: 8,
+          condition: {
+            prop: 'plan3_name',
+            operator: 'NOT_EMPTY'
+          }
+        }
       }
-    };
+    ];
 
-    // Propriété pour le type de disposition (layout)
-    const layoutProp: BlockProp = {
-      name: 'layout',
-      label: 'Type de disposition',
-      type: PropType.SELECT,
-      required: false,
-      defaultValue: 'cards-modern',
-      description: 'Choisissez la disposition des tarifs',
-      options: [
-        { value: 'cards-modern', label: '📱 Cartes modernes - Design épuré' },
-        { value: 'cards-gradient', label: '🌈 Cartes gradient - Effet visuel' },
-        { value: 'cards-minimal', label: '⚡ Cartes minimales - Ultra simple' },
-        { value: 'comparison-table', label: '📊 Tableau comparatif - Vue détaillée' },
-        { value: 'cards-slider', label: '🎠 Carousel - Navigation fluide' },
-        { value: 'toggle-view', label: '🔄 Vue toggle - Mensuel/Annuel' },
-        { value: 'single-plan', label: '📄 Plan unique - Focus produit' },
-        { value: 'cards-hover', label: '🎯 Cartes hover - Interactif' }
-      ],
-      editorConfig: {
-        control: EditorControl.SELECT,
-        group: 'Style',
-        order: 2
-      }
-    };
-
-    // Enlever layout des props existantes s'il y est
-    const filteredPropsWithoutLayout = filteredProps.filter(prop => prop.name !== 'layout');
-
-    return [visualVariantProp, layoutProp, ...filteredPropsWithoutLayout];
+    return props;
   }
 
   getDefaultCSS(): string {
@@ -696,6 +1119,44 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 /* ========================================
    ÉLÉMENTS COMMUNS AVEC THÈME
    ======================================== */
+
+/* Styles de boutons généraux */
+.pricing__button {
+  display: inline-block;
+  width: 100%;
+  padding: 1rem 2rem;
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-semibold);
+  text-align: center;
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.pricing__button--primary {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.pricing__button--primary:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px var(--color-primary);
+}
+
+.pricing__button--outline {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.pricing__button--outline:hover {
+  background: var(--color-primary);
+  color: white;
+}
 
 /* Toggle période avec thème */
 .pricing__toggle {
@@ -1384,25 +1845,58 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `;
   }
 
+  /**
+   * Extrait les plans depuis les données plates
+   */
+  private extractPlans(data: any): any[] {
+    const plans = [];
+    
+    // Extraire jusqu'à 3 plans
+    for (let i = 1; i <= 3; i++) {
+      const name = data[`plan${i}_name`];
+      if (name) {
+        const features = data[`plan${i}_features`] || '';
+        const featuresArray = features.split('\n').map((f: string) => {
+          const trimmed = f.trim();
+          if (trimmed.startsWith('✓')) {
+            return { text: trimmed.substring(1).trim(), included: true };
+          } else if (trimmed.startsWith('✗')) {
+            return { text: trimmed.substring(1).trim(), included: false };
+          }
+          return { text: trimmed, included: true };
+        }).filter((f: any) => f.text);
+
+        plans.push({
+          id: i.toString(),
+          name,
+          description: data[`plan${i}_description`] || '',
+          price: {
+            amount: data[`plan${i}_price`] || 0,
+            currency: data[`plan${i}_currency`] || '€',
+            period: data[`plan${i}_period`] || 'month'
+          },
+          features: featuresArray,
+          cta: {
+            text: data[`plan${i}_cta_text`] || 'Choisir',
+            link: '#',
+            variant: data[`plan${i}_popular`] ? 'primary' : 'outline',
+            fullWidth: true
+          },
+          popular: data[`plan${i}_popular`] || false,
+          featured: data[`plan${i}_popular`] || false,
+          recommended: data[`plan${i}_popular`] || false
+        });
+      }
+    }
+    
+    return plans;
+  }
+
   render(data: PricingData, context?: RenderContext): RenderResult {
     try {
-      // Validation des données
-      const validation = this.validate(data);
-      if (!validation.success) {
-        logger.error('PricingRendererV3PerfectEnhanced', 'render', 'Validation échouée', validation.error);
-        return {
-          html: this.renderError('Données invalides'),
-          css: this.getDefaultCSS(),
-          js: this.getDefaultJS(),
-          errors: validation.error.errors.map(e => ({
-            message: e.message,
-            path: e.path.join('.')
-          }))
-        };
-      }
-
-      const validData = validation.data;
-      logger.info('PricingRendererV3PerfectEnhanced', 'render', 'Rendu Pricing avec layout:', validData.layout);
+      // NE PAS valider avec le schema car on utilise une structure plate
+      const validData = data as any;
+      logger.info('PricingRendererV3PerfectEnhanced', 'render', 'Rendu Pricing avec layout:', validData.layout || 'cards-modern');
 
       // Récupération complète des couleurs du thème
       const theme = context?.theme;
@@ -1417,11 +1911,21 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
       const fontHeading = theme?.typography?.fontFamily?.heading || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
       const fontBody = theme?.typography?.fontFamily?.body || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
+      // Extraire les plans depuis les données plates
+      const plans = this.extractPlans(validData);
+      
+      // Créer un objet de données compatible avec les méthodes de rendu existantes
+      const dataWithPlans = {
+        ...validData,
+        plans,
+        layout: validData.layout || 'cards-modern'
+      };
+
       // Récupérer le style visuel depuis les données (harmonisé avec Services/Features)
       const visualVariant = (data as any).visualVariant || 'modern';
 
       // Générer le HTML selon le layout avec les couleurs du thème
-      const html = this.renderLayout(validData, visualVariant, {
+      const html = this.renderLayout(dataWithPlans, visualVariant, {
         primaryColor,
         secondaryColor,
         textColor,
@@ -1454,7 +1958,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     }
   }
 
-  private renderLayout(data: PricingData, visualVariant: string, themeColors: any): string {
+  private renderLayout(data: any, visualVariant: string, themeColors: any): string {
     let content = '';
     
     switch(data.layout) {
@@ -1544,7 +2048,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `;
   }
 
-  private renderHeader(data: PricingData): string {
+  private renderHeader(data: any): string {
     if (!data.title && !data.subtitle) return '';
     
     return `
@@ -1555,7 +2059,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `;
   }
 
-  private renderToggle(data: PricingData): string {
+  private renderToggle(data: any): string {
     if (!data.toggle?.enabled) return '';
     
     return `
@@ -1574,7 +2078,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `;
   }
 
-  private renderGuarantee(data: PricingData): string {
+  private renderGuarantee(data: any): string {
     if (!data.guarantee) return '';
     
     return `
@@ -1586,7 +2090,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `;
   }
 
-  private renderFAQ(data: PricingData): string {
+  private renderFAQ(data: any): string {
     if (!data.faq?.enabled || !data.faq?.items || data.faq.items.length === 0) return '';
     
     return `
@@ -1613,27 +2117,27 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `;
   }
 
-  private renderCardsClassic(data: PricingData): string {
+  private renderCardsClassic(data: any): string {
     return this.renderCards(data, 'classic');
   }
 
-  private renderCardsModern(data: PricingData): string {
+  private renderCardsModern(data: any): string {
     return this.renderCards(data, 'modern');
   }
 
-  private renderCardsMinimal(data: PricingData): string {
+  private renderCardsMinimal(data: any): string {
     return this.renderCards(data, 'minimal');
   }
 
-  private renderCardsGradient(data: PricingData): string {
+  private renderCardsGradient(data: any): string {
     return this.renderCards(data, 'gradient');
   }
 
-  private renderCardsHover(data: PricingData): string {
+  private renderCardsHover(data: any): string {
     return this.renderCards(data, 'hover');
   }
 
-  private renderCards(data: PricingData, style: string): string {
+  private renderCards(data: any, style: string): string {
     return `
       <div class="pricing__grid pricing__grid--${style}">
         ${data.plans.map(plan => this.renderPlanCard(plan, data)).join('')}
@@ -1641,7 +2145,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `;
   }
 
-  private renderCardsSlider(data: PricingData): string {
+  private renderCardsSlider(data: any): string {
     return `
       <div class="pricing__slider">
         <button class="pricing__nav pricing__nav-prev">
@@ -1661,7 +2165,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `;
   }
 
-  private renderComparisonTable(data: PricingData): string {
+  private renderComparisonTable(data: any): string {
     const allFeatures = [...new Set(data.plans.flatMap(plan => 
       plan.features.map(f => typeof f === 'string' ? f : f.text)
     ))];
@@ -1727,7 +2231,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `;
   }
 
-  private renderToggleView(data: PricingData): string {
+  private renderToggleView(data: any): string {
     return `
       <div class="pricing__toggle-view">
         <div class="pricing__view-buttons">
@@ -1756,7 +2260,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `;
   }
 
-  private renderSinglePlan(data: PricingData): string {
+  private renderSinglePlan(data: any): string {
     const plan = data.plans[0];
     if (!plan) return '';
     
@@ -1769,39 +2273,51 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `;
   }
 
-  private renderPlanCard(plan: any, data: PricingData): string {
-    const monthlyPrice = plan.price;
-    const yearlyPrice = plan.yearlyPrice || Math.floor(plan.price * 12 * 0.8);
+  private renderPlanCard(plan: any, data: any): string {
+    // Extraire les valeurs correctement depuis l'objet price
+    const price = typeof plan.price === 'object' ? plan.price.amount : plan.price;
+    const currency = typeof plan.price === 'object' ? plan.price.currency : '€';
+    const period = typeof plan.price === 'object' ? plan.price.period : 'month';
+    
+    const monthlyPrice = price || 0;
+    const yearlyPrice = plan.yearlyPrice || Math.floor(monthlyPrice * 12 * 0.8);
+    
+    // Traduction des périodes
+    const periodText = {
+      'month': 'mois',
+      'year': 'an',
+      'once': ''
+    }[period] || 'mois';
     
     return `
-      <div class="pricing__card ${plan.featured ? 'pricing__card--featured' : ''}">
-        ${plan.badge ? `<span class="pricing__badge">${this.escapeHtml(plan.badge)}</span>` : ''}
+      <div class="pricing__card ${plan.featured || plan.popular ? 'pricing__card--featured' : ''}">
+        ${plan.popular ? `<span class="pricing__badge">Plus populaire</span>` : ''}
         
         <h3 class="pricing__name">${this.escapeHtml(plan.name)}</h3>
         ${plan.description ? `<p class="pricing__description">${this.escapeHtml(plan.description)}</p>` : ''}
         
         <div class="pricing__price-wrapper">
           <div class="pricing__price" data-price="monthly">
-            <span class="pricing__currency">${plan.currency || '€'}</span>
+            <span class="pricing__currency">${currency}</span>
             <span class="pricing__price-value" data-monthly-price="${monthlyPrice}" data-yearly-price="${yearlyPrice}">
               ${monthlyPrice}
             </span>
-            <span class="pricing__period">/${plan.period || 'mois'}</span>
+            <span class="pricing__period">${period !== 'once' ? '/' + periodText : ''}</span>
           </div>
           
           <div class="pricing__price" data-price="yearly" style="display: none;">
-            <span class="pricing__currency">${plan.currency || '€'}</span>
+            <span class="pricing__currency">${currency}</span>
             <span class="pricing__price-value">${yearlyPrice}</span>
             <span class="pricing__period">/an</span>
           </div>
         </div>
         
         <ul class="pricing__features">
-          ${plan.features.map(feature => this.renderFeature(feature)).join('')}
+          ${plan.features.map((feature: any) => this.renderFeature(feature)).join('')}
         </ul>
         
-        <button class="pricing__button pricing__button--${plan.buttonStyle || 'primary'}">
-          ${this.escapeHtml(plan.buttonText || 'Commencer')}
+        <button class="pricing__button ${plan.cta?.variant === 'primary' || plan.popular ? 'pricing__button--primary' : 'pricing__button--outline'}">
+          ${this.escapeHtml(plan.cta?.text || 'Commencer')}
         </button>
         
         ${plan.note ? `<p class="pricing__note">${this.escapeHtml(plan.note)}</p>` : ''}
