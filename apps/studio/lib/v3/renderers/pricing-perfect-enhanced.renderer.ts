@@ -36,28 +36,56 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     // Filter out any existing variant properties to avoid duplicates
     const filteredProps = baseProps.filter(prop => prop.name !== 'variant' && prop.name !== 'visualVariant');
     
-    // Ajouter la propriété variant au début
-    const variantProp: BlockProp = {
-      name: 'variant',  // Changed from 'key' to 'name' for consistency
+    // Propriétés harmonisées avec Services et Features V3
+    const visualVariantProp: BlockProp = {
+      name: 'visualVariant',
+      label: 'Style visuel',
       type: PropType.SELECT,
-      label: 'Style des tarifs',
       required: false,
       defaultValue: 'modern',
-      description: 'Choisissez le style visuel des tarifs',
+      description: 'Choisissez le style visuel du bloc',
       options: [
-        { value: 'modern', label: 'Moderne' },
-        { value: 'minimal', label: 'Minimaliste' },
-        { value: 'bold', label: 'Impact' },
-        { value: 'elegant', label: 'Élégant' }
+        { value: 'modern', label: '🎨 Moderne - Gradient dynamique' },
+        { value: 'minimal', label: '⚡ Minimaliste - Épuré et rapide' },
+        { value: 'bold', label: '🔥 Audacieux - Impact visuel fort' },
+        { value: 'elegant', label: '✨ Élégant - Glassmorphism subtil' }
       ],
       editorConfig: {
         control: EditorControl.RADIO,
-        group: 'Visuel',
+        group: 'Style',
         order: 1
       }
     };
 
-    return [variantProp, ...filteredProps];
+    // Propriété pour le type de disposition (layout)
+    const layoutProp: BlockProp = {
+      name: 'layout',
+      label: 'Type de disposition',
+      type: PropType.SELECT,
+      required: false,
+      defaultValue: 'cards-modern',
+      description: 'Choisissez la disposition des tarifs',
+      options: [
+        { value: 'cards-modern', label: '📱 Cartes modernes - Design épuré' },
+        { value: 'cards-gradient', label: '🌈 Cartes gradient - Effet visuel' },
+        { value: 'cards-minimal', label: '⚡ Cartes minimales - Ultra simple' },
+        { value: 'comparison-table', label: '📊 Tableau comparatif - Vue détaillée' },
+        { value: 'cards-slider', label: '🎠 Carousel - Navigation fluide' },
+        { value: 'toggle-view', label: '🔄 Vue toggle - Mensuel/Annuel' },
+        { value: 'single-plan', label: '📄 Plan unique - Focus produit' },
+        { value: 'cards-hover', label: '🎯 Cartes hover - Interactif' }
+      ],
+      editorConfig: {
+        control: EditorControl.SELECT,
+        group: 'Style',
+        order: 2
+      }
+    };
+
+    // Enlever layout des props existantes s'il y est
+    const filteredPropsWithoutLayout = filteredProps.filter(prop => prop.name !== 'layout');
+
+    return [visualVariantProp, layoutProp, ...filteredPropsWithoutLayout];
   }
 
   getDefaultCSS(): string {
@@ -129,13 +157,13 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
    ======================================== */
 
 /* Style Moderne */
-.pricing[data-style-variant="modern"] {
+.pricing--modern {
   background: linear-gradient(135deg, 
     color-mix(in srgb, var(--color-primary), transparent 95%) 0%, 
     var(--color-background) 50%);
 }
 
-.pricing[data-style-variant="modern"] .pricing__card {
+.pricing--modern .pricing__card {
   background: var(--color-surface);
   border-radius: 2rem;
   padding: 3rem 2rem;
@@ -145,7 +173,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   overflow: hidden;
 }
 
-.pricing[data-style-variant="modern"] .pricing__card::before {
+.pricing--modern .pricing__card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -157,22 +185,22 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   transition: transform 0.3s;
 }
 
-.pricing[data-style-variant="modern"] .pricing__card:hover::before {
+.pricing--modern .pricing__card:hover::before {
   transform: scaleX(1);
 }
 
-.pricing[data-style-variant="modern"] .pricing__card:hover {
+.pricing--modern .pricing__card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 60px -10px color-mix(in srgb, var(--color-primary), transparent 70%);
 }
 
-.pricing[data-style-variant="modern"] .pricing__card--featured {
+.pricing--modern .pricing__card--featured {
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   color: var(--color-background);
   transform: scale(1.05);
 }
 
-.pricing[data-style-variant="modern"] .pricing__price {
+.pricing--modern .pricing__price {
   font-family: var(--font-family-heading);
   font-size: 3.5rem;
   font-weight: 800;
@@ -182,13 +210,13 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   -webkit-text-fill-color: transparent;
 }
 
-.pricing[data-style-variant="modern"] .pricing__card--featured .pricing__price {
+.pricing--modern .pricing__card--featured .pricing__price {
   background: var(--color-background);
   -webkit-background-clip: text;
   background-clip: text;
 }
 
-.pricing[data-style-variant="modern"] .pricing__button {
+.pricing--modern .pricing__button {
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   color: var(--color-background);
   border: none;
@@ -199,28 +227,28 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   transition: all 0.3s;
 }
 
-.pricing[data-style-variant="modern"] .pricing__button:hover {
+.pricing--modern .pricing__button:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--color-primary), transparent 50%);
 }
 
 /* Style Minimaliste */
-.pricing[data-style-variant="minimal"] {
+.pricing--minimal {
   background: var(--color-background);
   padding: 8rem 0;
 }
 
-.pricing[data-style-variant="minimal"] .pricing__header {
+.pricing--minimal .pricing__header {
   margin-bottom: 6rem;
 }
 
-.pricing[data-style-variant="minimal"] .pricing__title {
+.pricing--minimal .pricing__title {
   font-family: var(--font-family-body);
   font-weight: 300;
   letter-spacing: -0.02em;
 }
 
-.pricing[data-style-variant="minimal"] .pricing__card {
+.pricing--minimal .pricing__card {
   background: transparent;
   border: 1px solid var(--color-border);
   border-radius: 0;
@@ -229,12 +257,12 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   text-align: center;
 }
 
-.pricing[data-style-variant="minimal"] .pricing__card:hover {
+.pricing--minimal .pricing__card:hover {
   border-color: var(--color-text-primary);
   background: var(--color-surface);
 }
 
-.pricing[data-style-variant="minimal"] .pricing__name {
+.pricing--minimal .pricing__name {
   font-family: var(--font-family-body);
   font-size: 1rem;
   text-transform: uppercase;
@@ -243,7 +271,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   margin-bottom: 2rem;
 }
 
-.pricing[data-style-variant="minimal"] .pricing__price {
+.pricing--minimal .pricing__price {
   font-family: var(--font-family-body);
   font-size: 4rem;
   font-weight: 200;
@@ -251,14 +279,14 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   margin-bottom: 3rem;
 }
 
-.pricing[data-style-variant="minimal"] .pricing__divider {
+.pricing--minimal .pricing__divider {
   width: 60px;
   height: 1px;
   background: var(--color-border);
   margin: 2rem auto;
 }
 
-.pricing[data-style-variant="minimal"] .pricing__button {
+.pricing--minimal .pricing__button {
   background: transparent;
   color: var(--color-text-primary);
   border: 1px solid var(--color-text-primary);
@@ -270,20 +298,20 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   letter-spacing: 0.05em;
 }
 
-.pricing[data-style-variant="minimal"] .pricing__button:hover {
+.pricing--minimal .pricing__button:hover {
   background: var(--color-text-primary);
   color: var(--color-background);
 }
 
 /* Style Impact */
-.pricing[data-style-variant="bold"] {
+.pricing--bold {
   background: var(--color-text-primary);
   color: var(--color-background);
   padding: 8rem 0;
   position: relative;
 }
 
-.pricing[data-style-variant="bold"]::before {
+.pricing--bold::before {
   content: '';
   position: absolute;
   top: 0;
@@ -301,7 +329,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   pointer-events: none;
 }
 
-.pricing[data-style-variant="bold"] .pricing__title {
+.pricing--bold .pricing__title {
   font-family: var(--font-family-heading);
   font-size: clamp(3rem, 8vw, 5rem);
   font-weight: 900;
@@ -310,12 +338,12 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   letter-spacing: -0.03em;
 }
 
-.pricing[data-style-variant="bold"] .pricing__subtitle {
+.pricing--bold .pricing__subtitle {
   color: var(--color-primary);
   font-weight: 600;
 }
 
-.pricing[data-style-variant="bold"] .pricing__card {
+.pricing--bold .pricing__card {
   background: var(--color-background);
   color: var(--color-text-primary);
   border-radius: 0;
@@ -326,17 +354,17 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   box-shadow: 10px 10px 0 var(--color-primary);
 }
 
-.pricing[data-style-variant="bold"] .pricing__card:nth-child(even) {
+.pricing--bold .pricing__card:nth-child(even) {
   transform: rotate(2deg);
   box-shadow: -10px 10px 0 var(--color-secondary);
 }
 
-.pricing[data-style-variant="bold"] .pricing__card:hover {
+.pricing--bold .pricing__card:hover {
   transform: rotate(0deg) scale(1.05);
   z-index: 10;
 }
 
-.pricing[data-style-variant="bold"] .pricing__price {
+.pricing--bold .pricing__price {
   font-family: var(--font-family-heading);
   font-size: 5rem;
   font-weight: 900;
@@ -344,7 +372,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   text-transform: uppercase;
 }
 
-.pricing[data-style-variant="bold"] .pricing__button {
+.pricing--bold .pricing__button {
   background: var(--color-text-primary);
   color: var(--color-background);
   border: none;
@@ -356,19 +384,19 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   transition: all 0.3s;
 }
 
-.pricing[data-style-variant="bold"] .pricing__button:hover {
+.pricing--bold .pricing__button:hover {
   background: var(--color-primary);
   transform: scale(1.1);
 }
 
 /* Style Élégant */
-.pricing[data-style-variant="elegant"] {
+.pricing--elegant {
   background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-background) 100%);
   padding: 10rem 0;
   position: relative;
 }
 
-.pricing[data-style-variant="elegant"]::after {
+.pricing--elegant::after {
   content: '';
   position: absolute;
   top: 20%;
@@ -384,19 +412,19 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   pointer-events: none;
 }
 
-.pricing[data-style-variant="elegant"] .pricing__title {
+.pricing--elegant .pricing__title {
   font-family: var(--font-family-heading);
   font-weight: 400;
   text-align: center;
   letter-spacing: 0.02em;
 }
 
-.pricing[data-style-variant="elegant"] .pricing__subtitle {
+.pricing--elegant .pricing__subtitle {
   text-align: center;
   font-style: italic;
 }
 
-.pricing[data-style-variant="elegant"] .pricing__card {
+.pricing--elegant .pricing__card {
   background: color-mix(in srgb, var(--color-surface), transparent 50%);
   backdrop-filter: blur(20px);
   border: 1px solid color-mix(in srgb, var(--color-border), transparent 50%);
@@ -408,7 +436,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   overflow: hidden;
 }
 
-.pricing[data-style-variant="elegant"] .pricing__card::before {
+.pricing--elegant .pricing__card::before {
   content: '';
   position: absolute;
   top: -2px;
@@ -422,16 +450,16 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   z-index: -1;
 }
 
-.pricing[data-style-variant="elegant"] .pricing__card:hover::before {
+.pricing--elegant .pricing__card:hover::before {
   opacity: 1;
 }
 
-.pricing[data-style-variant="elegant"] .pricing__card:hover {
+.pricing--elegant .pricing__card:hover {
   background: var(--color-surface);
   transform: translateY(-4px);
 }
 
-.pricing[data-style-variant="elegant"] .pricing__price {
+.pricing--elegant .pricing__price {
   font-family: var(--font-family-heading);
   font-size: 3rem;
   font-weight: 300;
@@ -439,7 +467,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   margin-bottom: 2rem;
 }
 
-.pricing[data-style-variant="elegant"] .pricing__button {
+.pricing--elegant .pricing__button {
   background: transparent;
   color: var(--color-text-primary);
   border: 2px solid var(--color-primary);
@@ -450,10 +478,219 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   transition: all 0.3s;
 }
 
-.pricing[data-style-variant="elegant"] .pricing__button:hover {
+.pricing--elegant .pricing__button:hover {
   background: var(--color-primary);
   color: var(--color-background);
   border-color: var(--color-primary);
+}
+
+/* ========================================
+   LAYOUTS DE CARTES AMÉLIORÉS
+   ======================================== */
+
+/* Cards Modern - Design épuré et moderne */
+.pricing-layout--cards-modern .pricing__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Cards Gradient - Effets visuels gradients */
+.pricing-layout--cards-gradient .pricing__card {
+  background: linear-gradient(135deg, 
+    var(--color-primary) 0%, 
+    var(--color-secondary) 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-layout--cards-gradient .pricing__card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    transparent 70%);
+  animation: float 20s infinite ease-in-out;
+}
+
+/* Cards Minimal - Ultra simple et épuré */
+.pricing-layout--cards-minimal .pricing__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.pricing-layout--cards-minimal .pricing__card {
+  border: 1px solid var(--color-border);
+  background: transparent;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Cards Hover - Effets interactifs au survol */
+.pricing-layout--cards-hover .pricing__card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.pricing-layout--cards-hover .pricing__card:hover {
+  transform: rotateY(10deg) rotateX(-10deg);
+}
+
+.pricing-layout--cards-hover .pricing__card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 40%,
+    var(--color-primary-light) 50%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.pricing-layout--cards-hover .pricing__card:hover::after {
+  opacity: 1;
+  animation: shimmer 0.6s ease-out;
+}
+
+/* Comparison Table - Vue détaillée en tableau */
+.pricing-layout--comparison-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pricing-layout--comparison-table .pricing__table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.pricing-layout--comparison-table th,
+.pricing-layout--comparison-table td {
+  padding: 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pricing-layout--comparison-table th {
+  background: var(--color-surface);
+  font-weight: var(--font-weight-bold);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Toggle View - Bascule mensuel/annuel */
+.pricing-layout--toggle-view .pricing__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.pricing-layout--toggle-view .pricing__toggle-switch {
+  width: 60px;
+  height: 30px;
+  background: var(--color-border);
+  border-radius: 15px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.pricing-layout--toggle-view .pricing__toggle-switch.active {
+  background: var(--color-primary);
+}
+
+.pricing-layout--toggle-view .pricing__toggle-slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.pricing-layout--toggle-view .pricing__toggle-switch.active .pricing__toggle-slider {
+  transform: translateX(30px);
+}
+
+/* Single Plan - Focus sur un seul produit */
+.pricing-layout--single-plan .pricing__card {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 4rem;
+  text-align: center;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+}
+
+/* Cards Slider - Carousel fluide */
+.pricing-layout--cards-slider {
+  position: relative;
+  overflow: hidden;
+  padding: 0 3rem;
+}
+
+.pricing-layout--cards-slider .pricing__slider {
+  display: flex;
+  gap: 2rem;
+  transition: transform 0.5s ease;
+  padding: 2rem 0;
+}
+
+.pricing-layout--cards-slider .pricing__slide {
+  flex: 0 0 350px;
+  scroll-snap-align: center;
+}
+
+.pricing-layout--cards-slider .pricing__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  z-index: 10;
+}
+
+.pricing-layout--cards-slider .pricing__nav:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.pricing-layout--cards-slider .pricing__nav--prev {
+  left: 0;
+}
+
+.pricing-layout--cards-slider .pricing__nav--next {
+  right: 0;
 }
 
 /* ========================================
@@ -678,12 +915,12 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     margin: 0 auto;
   }
   
-  .pricing[data-style-variant="bold"] .pricing__card {
+  .pricing--bold .pricing__card {
     transform: none;
     box-shadow: 0 10px 0 var(--color-primary);
   }
   
-  .pricing[data-style-variant="bold"] .pricing__card:nth-child(even) {
+  .pricing--bold .pricing__card:nth-child(even) {
     transform: none;
     box-shadow: 0 10px 0 var(--color-secondary);
   }
@@ -708,6 +945,27 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(30px, -30px) rotate(120deg);
+  }
+  66% {
+    transform: translate(-20px, 20px) rotate(240deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
   }
 }
     `;
@@ -1159,11 +1417,11 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
       const fontHeading = theme?.typography?.fontFamily?.heading || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
       const fontBody = theme?.typography?.fontFamily?.body || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
-      // Ajouter le style variant depuis les données
-      const styleVariant = (data as any).variant || 'modern';
+      // Récupérer le style visuel depuis les données (harmonisé avec Services/Features)
+      const visualVariant = (data as any).visualVariant || 'modern';
 
       // Générer le HTML selon le layout avec les couleurs du thème
-      const html = this.renderLayout(validData, styleVariant, {
+      const html = this.renderLayout(validData, visualVariant, {
         primaryColor,
         secondaryColor,
         textColor,
@@ -1224,6 +1482,9 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
       case 'cards-gradient':
         content = this.renderCardsGradient(data);
         break;
+      case 'cards-hover':
+        content = this.renderCardsHover(data);
+        break;
       default:
         content = this.renderCardsModern(data);
     }
@@ -1271,7 +1532,7 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
     `.trim();
 
     return `
-      <section class="pricing pricing--${data.layout}" data-style-variant="${styleVariant}" id="${data.id || 'pricing'}" style="${themeStyles}">
+      <section class="pricing pricing--${visualVariant} pricing-layout--${data.layout}" id="${data.id || 'pricing'}" style="${themeStyles}">
         <div class="pricing__container">
           ${this.renderHeader(data)}
           ${this.renderToggle(data)}
@@ -1366,6 +1627,10 @@ export class PricingRendererV3PerfectEnhanced extends BaseRendererV3<PricingData
 
   private renderCardsGradient(data: PricingData): string {
     return this.renderCards(data, 'gradient');
+  }
+
+  private renderCardsHover(data: PricingData): string {
+    return this.renderCards(data, 'hover');
   }
 
   private renderCards(data: PricingData, style: string): string {
