@@ -62,6 +62,8 @@ export class FooterRendererV3PerfectEnhanced extends BaseRendererV3<FooterData> 
           order: 1
         }
       },
+      
+      // Company Information
       {
         name: 'companyName',
         type: PropType.STRING,
@@ -76,17 +78,123 @@ export class FooterRendererV3PerfectEnhanced extends BaseRendererV3<FooterData> 
         }
       },
       {
+        name: 'companyDescription',
+        type: PropType.TEXT,
+        label: 'Description',
+        defaultValue: 'Votre partenaire de confiance pour tous vos projets',
+        description: 'Description de votre entreprise',
+        editorConfig: {
+          control: EditorControl.TEXTAREA,
+          group: 'Entreprise',
+          order: 2
+        }
+      },
+      {
+        name: 'companyLogo',
+        type: PropType.IMAGE,
+        label: 'Logo',
+        description: 'Logo de l\'entreprise (optionnel)',
+        editorConfig: {
+          control: EditorControl.IMAGE,
+          group: 'Entreprise',
+          order: 3
+        }
+      },
+      {
+        name: 'companyPhone',
+        type: PropType.STRING,
+        label: 'Téléphone',
+        defaultValue: '',
+        description: 'Numéro de téléphone',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Contact',
+          order: 1
+        }
+      },
+      {
+        name: 'companyEmail',
+        type: PropType.STRING,
+        label: 'Email',
+        defaultValue: '',
+        description: 'Email de contact',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Contact',
+          order: 2
+        }
+      },
+      {
+        name: 'companyAddress',
+        type: PropType.TEXT,
+        label: 'Adresse',
+        defaultValue: '',
+        description: 'Adresse complète',
+        editorConfig: {
+          control: EditorControl.TEXTAREA,
+          group: 'Contact',
+          order: 3
+        }
+      },
+      
+      // Newsletter
+      {
         name: 'newsletterEnabled',
         type: PropType.BOOLEAN,
         label: 'Activer la newsletter',
         defaultValue: true,
-        description: 'Afficher le formulaire d\'inscription à la newsletter',
+        description: 'Afficher le formulaire d\'inscription',
         editorConfig: {
           control: EditorControl.TOGGLE,
           group: 'Newsletter',
           order: 1
         }
       },
+      {
+        name: 'newsletterTitle',
+        type: PropType.STRING,
+        label: 'Titre newsletter',
+        defaultValue: 'Restez informé',
+        description: 'Titre de la section newsletter',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Newsletter',
+          order: 2
+        }
+      },
+      {
+        name: 'newsletterDescription',
+        type: PropType.TEXT,
+        label: 'Description newsletter',
+        defaultValue: 'Inscrivez-vous à notre newsletter pour recevoir nos dernières actualités',
+        description: 'Texte d\'introduction',
+        editorConfig: {
+          control: EditorControl.TEXTAREA,
+          group: 'Newsletter',
+          order: 3
+        }
+      },
+      {
+        name: 'newsletterStyle',
+        type: PropType.SELECT,
+        label: 'Style newsletter',
+        options: [
+          { value: 'inline', label: 'En ligne' },
+          { value: 'stacked', label: 'Empilé' },
+          { value: 'card', label: 'Carte' },
+          { value: 'minimal', label: 'Minimal' },
+          { value: 'floating', label: 'Flottant' }
+        ],
+        defaultValue: 'inline',
+        description: 'Style du formulaire',
+        editorConfig: {
+          control: EditorControl.RADIO,
+          group: 'Newsletter',
+          order: 4
+        }
+      },
+      
+      // Social Links
       {
         name: 'socialEnabled',
         type: PropType.BOOLEAN,
@@ -97,6 +205,130 @@ export class FooterRendererV3PerfectEnhanced extends BaseRendererV3<FooterData> 
           control: EditorControl.TOGGLE,
           group: 'Réseaux sociaux',
           order: 1
+        }
+      },
+      {
+        name: 'socialStyle',
+        type: PropType.SELECT,
+        label: 'Style des icônes',
+        options: [
+          { value: 'icons', label: 'Icônes simples' },
+          { value: 'buttons', label: 'Boutons' },
+          { value: 'cards', label: 'Cartes' },
+          { value: 'gradient', label: 'Gradient' }
+        ],
+        defaultValue: 'icons',
+        description: 'Style d\'affichage',
+        editorConfig: {
+          control: EditorControl.RADIO,
+          group: 'Réseaux sociaux',
+          order: 2
+        }
+      },
+      {
+        name: 'facebookUrl',
+        type: PropType.STRING,
+        label: 'Facebook URL',
+        defaultValue: '',
+        description: 'Lien vers votre page Facebook',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Réseaux sociaux',
+          order: 3
+        }
+      },
+      {
+        name: 'instagramUrl',
+        type: PropType.STRING,
+        label: 'Instagram URL',
+        defaultValue: '',
+        description: 'Lien vers votre compte Instagram',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Réseaux sociaux',
+          order: 4
+        }
+      },
+      {
+        name: 'linkedinUrl',
+        type: PropType.STRING,
+        label: 'LinkedIn URL',
+        defaultValue: '',
+        description: 'Lien vers votre profil LinkedIn',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Réseaux sociaux',
+          order: 5
+        }
+      },
+      {
+        name: 'twitterUrl',
+        type: PropType.STRING,
+        label: 'Twitter/X URL',
+        defaultValue: '',
+        description: 'Lien vers votre compte Twitter/X',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Réseaux sociaux',
+          order: 6
+        }
+      },
+      
+      // Back to top
+      {
+        name: 'backToTopEnabled',
+        type: PropType.BOOLEAN,
+        label: 'Bouton retour en haut',
+        defaultValue: true,
+        description: 'Afficher le bouton de retour en haut',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Fonctionnalités',
+          order: 1
+        }
+      },
+      {
+        name: 'backToTopStyle',
+        type: PropType.SELECT,
+        label: 'Style du bouton',
+        options: [
+          { value: 'circle', label: 'Cercle' },
+          { value: 'square', label: 'Carré' },
+          { value: 'text', label: 'Texte' },
+          { value: 'floating', label: 'Flottant' }
+        ],
+        defaultValue: 'circle',
+        description: 'Style du bouton retour en haut',
+        editorConfig: {
+          control: EditorControl.RADIO,
+          group: 'Fonctionnalités',
+          order: 2
+        }
+      },
+      
+      // Copyright
+      {
+        name: 'copyrightText',
+        type: PropType.STRING,
+        label: 'Texte copyright',
+        defaultValue: '© {year} {company}. Tous droits réservés.',
+        description: 'Utilisez {year} pour l\'année et {company} pour le nom',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Copyright',
+          order: 1
+        }
+      },
+      {
+        name: 'showCredits',
+        type: PropType.BOOLEAN,
+        label: 'Afficher les crédits Awema',
+        defaultValue: true,
+        description: 'Afficher "Créé avec ❤️ par Awema"',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Copyright',
+          order: 2
         }
       }
     ];
@@ -129,7 +361,123 @@ export class FooterRendererV3PerfectEnhanced extends BaseRendererV3<FooterData> 
     return '';
   }
 
-  private renderFooter(data: FooterData, id: string, context?: any): { html: string; css: string; js: string } {
+  private convertToStructuredData(data: any): any {
+    // Convertir les propriétés plates en structure attendue
+    const socialLinks = [];
+    
+    if (data.facebookUrl) {
+      socialLinks.push({ platform: 'facebook', url: data.facebookUrl, icon: 'facebook', color: '#1877f2' });
+    }
+    if (data.instagramUrl) {
+      socialLinks.push({ platform: 'instagram', url: data.instagramUrl, icon: 'instagram', color: '#e4405f' });
+    }
+    if (data.linkedinUrl) {
+      socialLinks.push({ platform: 'linkedin', url: data.linkedinUrl, icon: 'linkedin', color: '#0077b5' });
+    }
+    if (data.twitterUrl) {
+      socialLinks.push({ platform: 'twitter', url: data.twitterUrl, icon: 'twitter', color: '#1da1f2' });
+    }
+    
+    return {
+      visualVariant: data.visualVariant || 'waves',
+      company: {
+        name: data.companyName || 'Mon Entreprise',
+        description: data.companyDescription || 'Votre partenaire de confiance',
+        logo: data.companyLogo,
+        phone: data.companyPhone,
+        email: data.companyEmail,
+        address: data.companyAddress
+      },
+      newsletter: {
+        enabled: data.newsletterEnabled !== false,
+        title: data.newsletterTitle || 'Restez informé',
+        description: data.newsletterDescription || 'Inscrivez-vous à notre newsletter',
+        style: data.newsletterStyle || 'inline',
+        placeholder: 'Votre email',
+        buttonText: 'S\'inscrire',
+        successMessage: 'Merci pour votre inscription !'
+      },
+      social: {
+        enabled: data.socialEnabled !== false,
+        style: data.socialStyle || 'icons',
+        size: 'medium',
+        links: socialLinks
+      },
+      backToTop: {
+        enabled: data.backToTopEnabled !== false,
+        style: data.backToTopStyle || 'circle',
+        showAfter: 300
+      },
+      copyright: {
+        enabled: true,
+        text: data.copyrightText || '© {year} {company}. Tous droits réservés.',
+        position: 'center',
+        showCredits: data.showCredits !== false,
+        creditsText: 'Créé avec ❤️ par Awema',
+        creditsUrl: 'https://awema.fr'
+      },
+      legal: {
+        enabled: true,
+        position: 'copyright',
+        links: [
+          { label: 'Mentions légales', url: '/legal' },
+          { label: 'Confidentialité', url: '/privacy' },
+          { label: 'CGV', url: '/terms' }
+        ]
+      },
+      layout: {
+        containerWidth: 'wide',
+        columnsDesktop: 4
+      },
+      widgets: [
+        {
+          type: 'companyInfo',
+          enabled: true,
+          position: 1
+        },
+        {
+          type: 'quickLinks',
+          enabled: true,
+          title: 'Navigation',
+          position: 2
+        },
+        {
+          type: 'contactInfo',
+          enabled: true,
+          title: 'Contact',
+          position: 3
+        },
+        {
+          type: 'social',
+          enabled: data.socialEnabled !== false,
+          title: 'Suivez-nous',
+          position: 4
+        }
+      ],
+      quickLinks: {
+        columns: [
+          {
+            title: 'Services',
+            links: [
+              { label: 'Tous nos services', url: '/services' },
+              { label: 'Devis gratuit', url: '/contact' },
+              { label: 'Réalisations', url: '/gallery' }
+            ]
+          },
+          {
+            title: 'À propos',
+            links: [
+              { label: 'Qui sommes-nous', url: '/about' },
+              { label: 'Notre équipe', url: '/about#team' },
+              { label: 'Nos valeurs', url: '/about#values' }
+            ]
+          }
+        ]
+      }
+    };
+  }
+
+  private renderFooter(data: any, id: string, context?: any): { html: string; css: string; js: string } {
     const theme = context?.theme;
     
     // Récupération des couleurs du thème
@@ -141,16 +489,19 @@ export class FooterRendererV3PerfectEnhanced extends BaseRendererV3<FooterData> 
     const borderColor = theme?.colors?.border || '#e2e8f0';
     
     // Déterminer les couleurs du footer selon le thème
-    const footerBg = data.styles?.backgroundColor || primaryColor;
+    const footerBg = primaryColor;
     const footerText = this.getContrastColor(footerBg);
     const footerTextSecondary = footerText === '#ffffff' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.6)';
     
     const footerId = `footer-${id}`;
     
+    // Convertir les propriétés plates en structure
+    const structuredData = this.convertToStructuredData(data);
+    
     const html = `
       <footer 
         id="${footerId}" 
-        class="footer-v3 footer-v3--${data.visualVariant}"
+        class="footer-v3 footer-v3--${data.visualVariant || 'waves'}"
         style="
           --footer-bg: ${footerBg};
           --footer-text: ${footerText};
@@ -160,21 +511,20 @@ export class FooterRendererV3PerfectEnhanced extends BaseRendererV3<FooterData> 
           --footer-border: ${footerText === '#ffffff' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.1)'};
         "
       >
-        ${this.renderVisualBackground(data.visualVariant)}
+        ${this.renderVisualBackground(data.visualVariant || 'waves')}
         
-        ${data.newsletter?.enabled ? this.renderNewsletter(data) : ''}
+        ${structuredData.newsletter.enabled ? this.renderNewsletter(structuredData) : ''}
         
         <div class="footer-v3__main">
-          <div class="footer-v3__container footer-v3__container--${data.layout.containerWidth}">
-            <div class="footer-v3__grid footer-v3__grid--${data.layout.columnsDesktop}">
-              ${this.renderWidgets(data)}
+          <div class="footer-v3__container footer-v3__container--wide">
+            <div class="footer-v3__grid footer-v3__grid--4">
+              ${this.renderWidgets(structuredData)}
             </div>
           </div>
         </div>
         
-        ${this.renderCopyright(data)}
-        ${data.backToTop?.enabled ? this.renderBackToTop(data) : ''}
-        ${data.cookieNotice?.enabled ? this.renderCookieNotice(data) : ''}
+        ${this.renderCopyright(structuredData)}
+        ${structuredData.backToTop.enabled ? this.renderBackToTop(structuredData) : ''}
       </footer>
     `;
 
