@@ -32,6 +32,8 @@ import { PricingRendererV3PerfectEnhanced } from '../v3/renderers/pricing-perfec
 import { FAQRendererV3PerfectEnhanced } from '../v3/renderers/faq-perfect-enhanced.renderer';
 import { CTARendererV3PerfectEnhanced } from '../v3/renderers/cta-perfect-enhanced.renderer';
 import { ContactRendererV3PerfectEnhanced } from '../v3/renderers/contact-perfect-enhanced.renderer';
+import { HeaderPerfectEnhancedRenderer } from '../v3/renderers/header-perfect-enhanced.renderer';
+import { FooterRendererV3PerfectEnhanced } from '../v3/renderers/footer-perfect-enhanced.renderer';
 
 // Créer les instances V3
 const heroV3 = new HeroRendererV3PerfectEnhanced();
@@ -44,6 +46,8 @@ const pricingV3 = new PricingRendererV3PerfectEnhanced();
 const faqV3 = new FAQRendererV3PerfectEnhanced();
 const ctaV3 = new CTARendererV3PerfectEnhanced();
 const contactV3 = new ContactRendererV3PerfectEnhanced();
+const headerV3 = new HeaderPerfectEnhancedRenderer();
+const footerV3 = new FooterRendererV3PerfectEnhanced();
 
 // Créer les wrappers pour les renderers V3
 const renderHeroV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
@@ -196,7 +200,50 @@ const renderContactV3Perfect = (props: any, variants?: string[], isExport: boole
   return contactV3.render(props, context);
 };
 
+const renderHeaderV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
+  let theme = undefined;
+  if (typeof window !== 'undefined') {
+    theme = (window as any).__tempTheme || (window as any).__editorStore?.getState()?.theme;
+  }
+  
+  const context = { 
+    isExport,
+    theme,
+    device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
+  };
+  
+  return headerV3.render(props, context);
+};
+
+const renderFooterV3Perfect = (props: any, variants?: string[], isExport: boolean = false) => {
+  let theme = undefined;
+  if (typeof window !== 'undefined') {
+    theme = (window as any).__tempTheme || (window as any).__editorStore?.getState()?.theme;
+  }
+  
+  const context = { 
+    isExport,
+    theme,
+    device: 'desktop' as 'desktop' | 'tablet' | 'mobile' | undefined
+  };
+  
+  return footerV3.render(props, context);
+};
+
 // Créer les blocs V3 pour le registry
+const headerV3Perfect: Block = {
+  id: 'header-v3-perfect',
+  name: 'Header V3 Perfect',
+  category: 'header',
+  description: '8 variantes modernes avec mega menu et animations',
+  tags: ['v3', 'header', 'modern', 'navigation'],
+  get props() { return headerV3.getBlockProps(); },
+  variants: [],
+  defaultProps: headerV3.getDefaultData(),
+  thumbnail: '',
+  performanceImpact: 'low' as any
+};
+
 const heroV3Perfect: Block = {
   id: 'hero-v3-perfect',
   name: 'Hero V3 Perfect',
@@ -327,6 +374,19 @@ const contactV3Perfect: Block = {
   performanceImpact: 'medium' as any
 };
 
+const footerV3Perfect: Block = {
+  id: 'footer-v3-perfect',
+  name: 'Footer V3 Perfect',
+  category: 'footer',
+  description: '8 variantes avec widgets dynamiques et animations',
+  tags: ['v3', 'footer', 'modern', 'widgets'],
+  get props() { return footerV3.getBlockProps(); },
+  variants: [],
+  defaultProps: footerV3.getDefaultData(),
+  thumbnail: '',
+  performanceImpact: 'low' as any
+};
+
 // Map template block categories to shared BlockCategory enum
 const categoryMap: Record<string, BlockCategory> = {
   'hero': BlockCategory.HERO,
@@ -371,6 +431,12 @@ export const blockRegistry: BlockDefinition[] = [
     category: BlockCategory.HEADER,
     name: 'Header Ultra-Moderne',
     description: 'En-tête ultra-moderne avec 8 variantes visuelles, mega menus et fonctionnalités avancées',
+  },
+  {
+    block: headerV3Perfect,
+    category: BlockCategory.HEADER,
+    name: '🎨 Header V3 PERFECT',
+    description: '8 variantes (Modern, Minimal, Bold, Elegant, Corporate, Creative, Tech, Classic) avec mega menu, sticky avancé, dark mode, recherche, et animations',
   },
   
   // V3 PERFECT BLOCKS
@@ -454,6 +520,12 @@ export const blockRegistry: BlockDefinition[] = [
     name: 'Footer Ultra-Moderne',
     description: 'Pied de page ultra-moderne avec 8 variantes, widgets dynamiques et intégrations avancées',
   },
+  {
+    block: footerV3Perfect,
+    category: BlockCategory.FOOTER,
+    name: '🦶 Footer V3 PERFECT',
+    description: '8 variantes (Waves, Gradient, Split, Centered, Dark, Floating, Geometric, Organic) avec widgets dynamiques, newsletter avancée, et animations',
+  },
 ].filter(def => def && def.block);
 
 // Helper functions
@@ -476,6 +548,7 @@ const renderFunctions: Record<string, any> = {
   'simple-header': renderSimpleHeader,
   'header-pro': renderHeaderPro,
   'header-ultra-modern': renderHeaderUltraModern,
+  'header-v3-perfect': renderHeaderV3Perfect,
   
   // V3 PERFECT renderers
   'hero-v3-perfect': renderHeroV3Perfect,
@@ -493,6 +566,7 @@ const renderFunctions: Record<string, any> = {
   'simple-footer': renderSimpleFooter,
   'footer-pro': renderFooterPro,
   'footer-ultra-modern': renderFooterUltraModern,
+  'footer-v3-perfect': renderFooterV3Perfect,
 };
 
 export function getBlockRenderFunction(blockId: string): ((props: any, variants?: string[], isExport?: boolean) => any) | undefined {

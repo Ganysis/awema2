@@ -1,150 +1,239 @@
 /**
- * Header Schema V3 - Validation complète avec Zod
+ * Header V3 Schema - Navigation ultra-moderne avec mega menu
  */
 
 import { z } from 'zod';
-import { buttonSchema, imageSchema, colorSchema } from '../common';
 
-// Schema pour un élément de menu
-export const menuItemSchema = z.object({
-  id: z.string().default(() => crypto.randomUUID()),
-  label: z.string().min(1, 'Le label est requis'),
-  link: z.string().default('#'),
-  target: z.enum(['_self', '_blank', '_parent', '_top']).default('_self'),
+// Schema pour un lien de navigation
+export const navLinkSchema = z.object({
+  id: z.string(),
+  label: z.string(),
+  url: z.string(),
   icon: z.string().optional(),
-  badge: z.object({
-    text: z.string(),
-    color: z.enum(['primary', 'secondary', 'success', 'warning', 'error']).default('primary')
+  badge: z.string().optional(),
+  target: z.enum(['_self', '_blank']).default('_self'),
+});
+
+// Schema pour un sous-menu
+export const subMenuSchema = z.object({
+  id: z.string(),
+  label: z.string(),
+  description: z.string().optional(),
+  links: z.array(navLinkSchema),
+  featured: z.object({
+    title: z.string(),
+    description: z.string(),
+    image: z.string().optional(),
+    link: z.string(),
   }).optional(),
-  
-  // Support mega menu
+});
+
+// Schema pour un élément de menu principal
+export const menuItemSchema = z.object({
+  id: z.string(),
+  label: z.string(),
+  url: z.string().optional(),
+  icon: z.string().optional(),
+  badge: z.string().optional(),
+  highlight: z.boolean().default(false),
+  submenu: subMenuSchema.optional(),
   megaMenu: z.object({
     enabled: z.boolean().default(false),
-    columns: z.number().min(1).max(6).default(3),
-    style: z.enum(['cards', 'columns', 'tabs', 'mixed']).default('columns'),
-    items: z.array(z.object({
+    columns: z.number().min(2).max(6).default(4),
+    showImages: z.boolean().default(true),
+    featured: z.array(z.object({
       title: z.string(),
-      description: z.string().optional(),
-      icon: z.string().optional(),
+      description: z.string(),
+      image: z.string().optional(),
       link: z.string(),
-      image: imageSchema.optional()
-    }))
+    })).optional(),
   }).optional(),
-  
-  // Sous-menu dropdown classique
-  subItems: z.lazy(() => z.array(menuItemSchema)).optional()
 });
 
-// Schema pour la recherche
-export const searchConfigSchema = z.object({
-  enabled: z.boolean().default(false),
-  placeholder: z.string().default('Rechercher...'),
-  style: z.enum(['modal', 'dropdown', 'inline', 'instant']).default('modal'),
-  hotkey: z.string().optional().default('cmd+k'),
-  apiEndpoint: z.string().optional()
-});
-
-// Schema pour le dark mode
-export const darkModeSchema = z.object({
-  enabled: z.boolean().default(false),
-  style: z.enum(['toggle', 'dropdown', 'auto', 'system']).default('toggle'),
-  defaultMode: z.enum(['light', 'dark', 'system']).default('system')
-});
-
-// Schema pour les langues
-export const languageSelectorSchema = z.object({
-  enabled: z.boolean().default(false),
-  style: z.enum(['dropdown', 'flags', 'inline', 'modal']).default('dropdown'),
-  languages: z.array(z.object({
-    code: z.string().min(2).max(5),
-    label: z.string(),
-    flag: z.string().optional(),
-    url: z.string().optional()
-  })).min(1).default([
-    { code: 'fr', label: 'Français' }
-  ])
-});
-
-// Schema principal du Header
+// Schema principal Header
 export const headerDataSchema = z.object({
-  // Variants visuels
-  variant: z.enum([
-    'minimal-float',
-    'glassmorphism',
-    'gradient-accent',
-    'shadow-elegant',
-    'bold-corporate',
-    'split-nav',
-    'center-logo',
-    'mega-menu-pro'
-  ]).default('minimal-float'),
-  
-  // Configuration du logo
-  logo: z.object({
-    type: z.enum(['text', 'image', 'both']).default('text'),
-    text: z.string().default('AWEMA'),
-    image: imageSchema.optional(),
-    size: z.enum(['sm', 'md', 'lg', 'xl']).default('md'),
-    link: z.string().default('/')
+  // Variantes visuelles
+  visualVariant: z.enum([
+    'modern',
+    'minimal', 
+    'bold',
+    'elegant',
+    'corporate',
+    'creative',
+    'tech',
+    'classic'
+  ]).default('modern'),
+
+  // Branding
+  branding: z.object({
+    type: z.enum(['logo', 'text', 'both']).default('text'),
+    logoUrl: z.string().optional(),
+    logoAlt: z.string().default('Logo'),
+    companyName: z.string().default('Mon Entreprise'),
+    tagline: z.string().optional(),
+    size: z.enum(['small', 'medium', 'large', 'xl']).default('medium'),
+    position: z.enum(['left', 'center']).default('left'),
   }),
-  
-  // Navigation principale
+
+  // Navigation
   navigation: z.object({
-    items: z.array(menuItemSchema).default([]),
-    alignment: z.enum(['left', 'center', 'right', 'justify']).default('right'),
-    style: z.enum(['links', 'buttons', 'pills', 'underline']).default('links'),
-    mobileStyle: z.enum(['drawer', 'fullscreen', 'dropdown', 'accordion', 'push']).default('drawer'),
-    mobileBreakpoint: z.number().default(768)
-  }),
-  
-  // Actions (boutons CTA)
-  actions: z.object({
-    enabled: z.boolean().default(true),
-    items: z.array(buttonSchema).max(3).default([
+    items: z.array(menuItemSchema).default([
       {
-        text: 'Contact',
-        link: '#contact',
-        variant: 'primary',
-        size: 'md'
-      }
-    ])
+        id: 'home',
+        label: 'Accueil',
+        url: '/',
+      },
+      {
+        id: 'services',
+        label: 'Services',
+        submenu: {
+          id: 'services-menu',
+          label: 'Nos Services',
+          description: 'Découvrez tous nos services',
+          links: [],
+        },
+      },
+      {
+        id: 'about',
+        label: 'À propos',
+        url: '/about',
+      },
+      {
+        id: 'gallery',
+        label: 'Galerie',
+        url: '/gallery',
+      },
+      {
+        id: 'contact',
+        label: 'Contact',
+        url: '/contact',
+        highlight: true,
+      },
+    ]),
+    alignment: z.enum(['left', 'center', 'right']).default('right'),
+    style: z.enum(['links', 'buttons', 'pills']).default('links'),
   }),
-  
+
   // Features
-  search: searchConfigSchema,
-  darkMode: darkModeSchema,
-  languageSelector: languageSelectorSchema,
-  
-  // Options de comportement
-  behavior: z.object({
-    sticky: z.boolean().default(true),
-    hideOnScroll: z.boolean().default(false),
-    transparent: z.boolean().default(false),
-    shrinkOnScroll: z.boolean().default(true),
-    showTopBar: z.boolean().default(false),
-    animateOnScroll: z.boolean().default(true)
+  features: z.object({
+    // Sticky
+    sticky: z.object({
+      enabled: z.boolean().default(true),
+      behavior: z.enum(['always', 'scrollUp', 'scrollDown']).default('always'),
+      shrinkOnScroll: z.boolean().default(true),
+      showAfter: z.number().default(100),
+      backgroundColor: z.string().optional(),
+      shadow: z.boolean().default(true),
+    }),
+
+    // Search
+    search: z.object({
+      enabled: z.boolean().default(false),
+      placeholder: z.string().default('Rechercher...'),
+      style: z.enum(['inline', 'modal', 'dropdown']).default('modal'),
+      icon: z.boolean().default(true),
+    }),
+
+    // Dark mode toggle
+    darkMode: z.object({
+      enabled: z.boolean().default(false),
+      defaultMode: z.enum(['light', 'dark', 'system']).default('system'),
+      icon: z.boolean().default(true),
+      label: z.boolean().default(false),
+    }),
+
+    // Language selector
+    languageSelector: z.object({
+      enabled: z.boolean().default(false),
+      languages: z.array(z.object({
+        code: z.string(),
+        label: z.string(),
+        flag: z.string().optional(),
+      })).default([
+        { code: 'fr', label: 'Français', flag: '🇫🇷' },
+        { code: 'en', label: 'English', flag: '🇬🇧' },
+      ]),
+      style: z.enum(['dropdown', 'flags', 'text']).default('dropdown'),
+    }),
+
+    // CTA Button
+    cta: z.object({
+      enabled: z.boolean().default(true),
+      text: z.string().default('Devis gratuit'),
+      link: z.string().default('#contact'),
+      style: z.enum(['primary', 'secondary', 'outline', 'gradient']).default('primary'),
+      icon: z.string().optional(),
+      size: z.enum(['small', 'medium', 'large']).default('medium'),
+    }),
+
+    // Announcement bar
+    announcement: z.object({
+      enabled: z.boolean().default(false),
+      text: z.string().default('🎉 Offre spéciale : -20% sur tous nos services !'),
+      link: z.string().optional(),
+      dismissible: z.boolean().default(true),
+      position: z.enum(['top', 'bottom']).default('top'),
+      style: z.enum(['info', 'success', 'warning', 'gradient']).default('gradient'),
+    }),
   }),
-  
-  // Top bar (optionnel)
-  topBar: z.object({
+
+  // Mobile menu
+  mobile: z.object({
+    breakpoint: z.number().default(1024),
+    menuStyle: z.enum(['slide', 'fullscreen', 'dropdown', 'bottom']).default('slide'),
+    animation: z.enum(['fade', 'slide', 'scale', 'rotate']).default('slide'),
+    showLogo: z.boolean().default(true),
+    showSocial: z.boolean().default(true),
+    backgroundColor: z.string().optional(),
+  }),
+
+  // Layout
+  layout: z.object({
+    containerWidth: z.enum(['full', 'wide', 'normal', 'narrow']).default('wide'),
+    padding: z.enum(['none', 'small', 'medium', 'large']).default('medium'),
+    height: z.enum(['auto', 'small', 'medium', 'large']).default('medium'),
+    shadow: z.boolean().default(false),
+    border: z.boolean().default(false),
+  }),
+
+  // Social links
+  social: z.object({
+    enabled: z.boolean().default(true),
+    position: z.enum(['nav', 'mobile', 'both']).default('mobile'),
+    links: z.array(z.object({
+      platform: z.string(),
+      url: z.string(),
+      icon: z.string(),
+      label: z.string().optional(),
+    })).default([
+      { platform: 'facebook', url: '#', icon: 'facebook' },
+      { platform: 'instagram', url: '#', icon: 'instagram' },
+      { platform: 'linkedin', url: '#', icon: 'linkedin' },
+    ]),
+  }),
+
+  // Contact info (quick access)
+  quickContact: z.object({
     enabled: z.boolean().default(false),
-    content: z.string().default(''),
-    style: z.enum(['info', 'promo', 'alert', 'custom']).default('info'),
-    dismissible: z.boolean().default(true),
-    backgroundColor: colorSchema.optional(),
-    textColor: colorSchema.optional()
+    phone: z.string().optional(),
+    email: z.string().optional(),
+    showInDesktop: z.boolean().default(true),
+    showInMobile: z.boolean().default(true),
+    style: z.enum(['text', 'icons', 'buttons']).default('text'),
   }),
-  
+
   // Styles personnalisés
   styles: z.object({
-    height: z.enum(['sm', 'md', 'lg', 'xl', 'auto']).default('md'),
-    padding: z.enum(['none', 'sm', 'md', 'lg']).default('md'),
-    backgroundColor: colorSchema.optional(),
-    textColor: colorSchema.optional(),
-    borderBottom: z.boolean().default(true),
-    shadow: z.enum(['none', 'sm', 'md', 'lg', 'xl']).default('sm'),
-    blur: z.boolean().default(false)
-  })
+    backgroundColor: z.string().optional(),
+    textColor: z.string().optional(),
+    accentColor: z.string().optional(),
+    hoverEffect: z.enum(['none', 'underline', 'background', 'scale']).default('underline'),
+    fontFamily: z.string().optional(),
+    fontSize: z.enum(['small', 'medium', 'large']).default('medium'),
+    fontWeight: z.enum(['normal', 'medium', 'bold']).default('medium'),
+    borderRadius: z.enum(['none', 'small', 'medium', 'large', 'full']).default('medium'),
+    customCSS: z.string().optional(),
+  }),
 });
 
 // Type TypeScript dérivé du schéma
@@ -152,116 +241,139 @@ export type HeaderData = z.infer<typeof headerDataSchema>;
 
 // Valeurs par défaut complètes
 export const headerDefaults: HeaderData = {
-  variant: 'minimal-float',
+  visualVariant: 'modern',
   
-  logo: {
+  branding: {
     type: 'text',
-    text: 'AWEMA',
-    size: 'md',
-    link: '/'
+    companyName: 'Mon Entreprise',
+    logoAlt: 'Logo',
+    size: 'medium',
+    position: 'left',
   },
-  
+
   navigation: {
     items: [
       {
-        id: '1',
+        id: 'home',
         label: 'Accueil',
-        link: '/',
-        target: '_self'
+        url: '/',
       },
       {
-        id: '2',
+        id: 'services',
         label: 'Services',
-        link: '#services',
-        target: '_self',
-        subItems: [
-          {
-            id: '2-1',
-            label: 'Développement Web',
-            link: '#dev-web',
-            target: '_self'
-          },
-          {
-            id: '2-2',
-            label: 'Design UI/UX',
-            link: '#design',
-            target: '_self'
-          }
-        ]
+        submenu: {
+          id: 'services-menu',
+          label: 'Nos Services',
+          description: 'Découvrez notre expertise',
+          links: [
+            { id: 's1', label: 'Service 1', url: '/services/service-1' },
+            { id: 's2', label: 'Service 2', url: '/services/service-2' },
+            { id: 's3', label: 'Service 3', url: '/services/service-3' },
+          ],
+        },
       },
       {
-        id: '3',
+        id: 'about',
         label: 'À propos',
-        link: '#about',
-        target: '_self'
+        url: '/about',
       },
       {
-        id: '4',
+        id: 'gallery',
+        label: 'Galerie',
+        url: '/gallery',
+      },
+      {
+        id: 'contact',
         label: 'Contact',
-        link: '#contact',
-        target: '_self'
-      }
+        url: '/contact',
+        highlight: true,
+      },
     ],
     alignment: 'right',
     style: 'links',
-    mobileStyle: 'drawer',
-    mobileBreakpoint: 768
   },
-  
-  actions: {
+
+  features: {
+    sticky: {
+      enabled: true,
+      behavior: 'always',
+      shrinkOnScroll: true,
+      showAfter: 100,
+      shadow: true,
+    },
+    search: {
+      enabled: false,
+      placeholder: 'Rechercher...',
+      style: 'modal',
+      icon: true,
+    },
+    darkMode: {
+      enabled: false,
+      defaultMode: 'system',
+      icon: true,
+      label: false,
+    },
+    languageSelector: {
+      enabled: false,
+      languages: [
+        { code: 'fr', label: 'Français', flag: '🇫🇷' },
+        { code: 'en', label: 'English', flag: '🇬🇧' },
+      ],
+      style: 'dropdown',
+    },
+    cta: {
+      enabled: true,
+      text: 'Devis gratuit',
+      link: '#contact',
+      style: 'primary',
+      size: 'medium',
+    },
+    announcement: {
+      enabled: false,
+      text: '🎉 Offre spéciale : -20% sur tous nos services !',
+      dismissible: true,
+      position: 'top',
+      style: 'gradient',
+    },
+  },
+
+  mobile: {
+    breakpoint: 1024,
+    menuStyle: 'slide',
+    animation: 'slide',
+    showLogo: true,
+    showSocial: true,
+  },
+
+  layout: {
+    containerWidth: 'wide',
+    padding: 'medium',
+    height: 'medium',
+    shadow: false,
+    border: false,
+  },
+
+  social: {
     enabled: true,
-    items: [
-      {
-        text: 'Devis gratuit',
-        link: '#contact',
-        variant: 'primary',
-        size: 'md'
-      }
-    ]
+    position: 'mobile',
+    links: [
+      { platform: 'facebook', url: 'https://facebook.com', icon: 'facebook' },
+      { platform: 'instagram', url: 'https://instagram.com', icon: 'instagram' },
+      { platform: 'linkedin', url: 'https://linkedin.com', icon: 'linkedin' },
+    ],
   },
-  
-  search: {
+
+  quickContact: {
     enabled: false,
-    placeholder: 'Rechercher...',
-    style: 'modal',
-    hotkey: 'cmd+k'
+    showInDesktop: true,
+    showInMobile: true,
+    style: 'text',
   },
-  
-  darkMode: {
-    enabled: false,
-    style: 'toggle',
-    defaultMode: 'system'
-  },
-  
-  languageSelector: {
-    enabled: false,
-    style: 'dropdown',
-    languages: [
-      { code: 'fr', label: 'Français' }
-    ]
-  },
-  
-  behavior: {
-    sticky: true,
-    hideOnScroll: false,
-    transparent: false,
-    shrinkOnScroll: true,
-    showTopBar: false,
-    animateOnScroll: true
-  },
-  
-  topBar: {
-    enabled: false,
-    content: '',
-    style: 'info',
-    dismissible: true
-  },
-  
+
   styles: {
-    height: 'md',
-    padding: 'md',
-    borderBottom: true,
-    shadow: 'sm',
-    blur: false
-  }
+    hoverEffect: 'underline',
+    fontSize: 'medium',
+    fontWeight: 'medium',
+    borderRadius: 'medium',
+  },
 };
