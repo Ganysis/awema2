@@ -3,14 +3,18 @@
  * Pied de page ultra-moderne avec widgets dynamiques et 8 variantes visuelles
  */
 
-import { BaseBlockRenderer } from '../core/base-renderer';
+import { BaseRendererV3 } from './base.renderer';
 import { FooterData, footerDataSchema, footerDefaults } from '../schemas/blocks/footer';
-import { BlockValidation } from '../core/validation';
-import { BlockProp, PropType } from '../core/types';
+import { BlockProp, PropType, EditorControl } from '@awema/shared';
+import { RenderResult, RenderContext } from '../types';
+import { z } from 'zod';
 
-export class FooterRendererV3PerfectEnhanced extends BaseBlockRenderer<FooterData> {
+export class FooterRendererV3PerfectEnhanced extends BaseRendererV3<FooterData> {
+  type = 'footer-v3-perfect';
+  version = '3.0.0';
+  
   constructor() {
-    super(footerDataSchema, footerDefaults);
+    super();
   }
 
   getBlockName(): string {
@@ -33,242 +37,73 @@ export class FooterRendererV3PerfectEnhanced extends BaseBlockRenderer<FooterDat
     return footerDefaults;
   }
 
-  getBlockProps(): Record<string, BlockProp> {
-    return {
-      visualVariant: {
-        type: PropType.RADIO,
+  getBlockProps(): BlockProp[] {
+    return [
+      {
+        name: 'visualVariant',
+        type: PropType.SELECT,
         label: 'Variante visuelle',
         options: [
-          { value: 'waves', label: 'Waves - Vagues animées' },
-          { value: 'gradient', label: 'Gradient - Dégradés modernes' },
-          { value: 'split', label: 'Split - Design asymétrique' },
-          { value: 'centered', label: 'Centered - Tout centré' },
-          { value: 'dark', label: 'Dark - Fond sombre' },
-          { value: 'floating', label: 'Floating - Effets flottants' },
-          { value: 'geometric', label: 'Geometric - Formes géométriques' },
-          { value: 'organic', label: 'Organic - Formes organiques' }
+          { value: 'waves', label: '🌊 Waves - Vagues animées' },
+          { value: 'gradient', label: '🎨 Gradient - Dégradés modernes' },
+          { value: 'split', label: '➗ Split - Design asymétrique' },
+          { value: 'centered', label: '🎯 Centered - Tout centré' },
+          { value: 'dark', label: '🌑 Dark - Fond sombre' },
+          { value: 'floating', label: '☁️ Floating - Effets flottants' },
+          { value: 'geometric', label: '📐 Geometric - Formes géométriques' },
+          { value: 'organic', label: '🌿 Organic - Formes organiques' }
         ],
         defaultValue: 'waves',
         required: true,
-        fullWidth: true,
-        category: 'appearance',
-        description: 'Choisissez le style visuel du footer'
+        description: 'Choisissez le style visuel du footer',
+        editorConfig: {
+          control: EditorControl.RADIO,
+          group: 'Apparence',
+          order: 1
+        }
       },
-
-      'company.name': {
+      {
+        name: 'companyName',
         type: PropType.STRING,
         label: 'Nom de l\'entreprise',
         defaultValue: 'Mon Entreprise',
         required: true,
-        category: 'company',
-        description: 'Le nom de votre entreprise'
+        description: 'Le nom de votre entreprise',
+        editorConfig: {
+          control: EditorControl.TEXT,
+          group: 'Entreprise',
+          order: 1
+        }
       },
-
-      'company.description': {
-        type: PropType.TEXT,
-        label: 'Description',
-        defaultValue: 'Votre partenaire de confiance pour tous vos projets',
-        rows: 3,
-        category: 'company',
-        description: 'Une courte description de votre entreprise'
-      },
-
-      'company.logo': {
-        type: PropType.IMAGE,
-        label: 'Logo',
-        category: 'company',
-        description: 'Logo de l\'entreprise (optionnel)'
-      },
-
-      'company.phone': {
-        type: PropType.STRING,
-        label: 'Téléphone',
-        placeholder: '01 23 45 67 89',
-        category: 'company',
-        description: 'Numéro de téléphone'
-      },
-
-      'company.email': {
-        type: PropType.STRING,
-        label: 'Email',
-        placeholder: 'contact@monentreprise.fr',
-        category: 'company',
-        description: 'Email de contact'
-      },
-
-      'company.address': {
-        type: PropType.TEXT,
-        label: 'Adresse',
-        rows: 2,
-        category: 'company',
-        description: 'Adresse complète'
-      },
-
-      // Newsletter settings
-      'newsletter.enabled': {
+      {
+        name: 'newsletterEnabled',
         type: PropType.BOOLEAN,
         label: 'Activer la newsletter',
         defaultValue: true,
-        category: 'newsletter',
-        description: 'Afficher le formulaire d\'inscription à la newsletter'
+        description: 'Afficher le formulaire d\'inscription à la newsletter',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Newsletter',
+          order: 1
+        }
       },
-
-      'newsletter.title': {
-        type: PropType.STRING,
-        label: 'Titre newsletter',
-        defaultValue: 'Restez informé',
-        category: 'newsletter',
-        description: 'Titre de la section newsletter',
-        showIf: (data) => data.newsletter?.enabled
-      },
-
-      'newsletter.description': {
-        type: PropType.TEXT,
-        label: 'Description newsletter',
-        defaultValue: 'Inscrivez-vous à notre newsletter pour recevoir nos dernières actualités',
-        category: 'newsletter',
-        description: 'Texte d\'introduction',
-        showIf: (data) => data.newsletter?.enabled
-      },
-
-      'newsletter.style': {
-        type: PropType.RADIO,
-        label: 'Style newsletter',
-        options: [
-          { value: 'inline', label: 'En ligne' },
-          { value: 'stacked', label: 'Empilé' },
-          { value: 'card', label: 'Carte' },
-          { value: 'minimal', label: 'Minimal' },
-          { value: 'floating', label: 'Flottant' }
-        ],
-        defaultValue: 'inline',
-        category: 'newsletter',
-        description: 'Style du formulaire',
-        showIf: (data) => data.newsletter?.enabled
-      },
-
-      // Social media
-      'social.enabled': {
+      {
+        name: 'socialEnabled',
         type: PropType.BOOLEAN,
         label: 'Activer les réseaux sociaux',
         defaultValue: true,
-        category: 'social',
-        description: 'Afficher les liens vers les réseaux sociaux'
-      },
-
-      'social.style': {
-        type: PropType.RADIO,
-        label: 'Style des icônes',
-        options: [
-          { value: 'icons', label: 'Icônes simples' },
-          { value: 'buttons', label: 'Boutons' },
-          { value: 'cards', label: 'Cartes' },
-          { value: 'gradient', label: 'Gradient' }
-        ],
-        defaultValue: 'icons',
-        category: 'social',
-        description: 'Style d\'affichage des réseaux sociaux',
-        showIf: (data) => data.social?.enabled
-      },
-
-      // Business hours
-      'businessHours.enabled': {
-        type: PropType.BOOLEAN,
-        label: 'Afficher les horaires',
-        defaultValue: false,
-        category: 'hours',
-        description: 'Afficher les horaires d\'ouverture'
-      },
-
-      'businessHours.style': {
-        type: PropType.RADIO,
-        label: 'Style des horaires',
-        options: [
-          { value: 'list', label: 'Liste' },
-          { value: 'table', label: 'Tableau' },
-          { value: 'cards', label: 'Cartes' },
-          { value: 'timeline', label: 'Timeline' }
-        ],
-        defaultValue: 'list',
-        category: 'hours',
-        description: 'Style d\'affichage des horaires',
-        showIf: (data) => data.businessHours?.enabled
-      },
-
-      // Layout
-      'layout.containerWidth': {
-        type: PropType.RADIO,
-        label: 'Largeur du conteneur',
-        options: [
-          { value: 'full', label: 'Pleine largeur' },
-          { value: 'wide', label: 'Large' },
-          { value: 'normal', label: 'Normal' },
-          { value: 'narrow', label: 'Étroit' }
-        ],
-        defaultValue: 'wide',
-        category: 'layout',
-        description: 'Largeur maximale du contenu'
-      },
-
-      'layout.columnsDesktop': {
-        type: PropType.NUMBER,
-        label: 'Colonnes (Desktop)',
-        min: 1,
-        max: 6,
-        defaultValue: 4,
-        category: 'layout',
-        description: 'Nombre de colonnes sur grand écran'
-      },
-
-      // Back to top
-      'backToTop.enabled': {
-        type: PropType.BOOLEAN,
-        label: 'Bouton retour en haut',
-        defaultValue: true,
-        category: 'features',
-        description: 'Afficher le bouton de retour en haut'
-      },
-
-      'backToTop.style': {
-        type: PropType.RADIO,
-        label: 'Style du bouton',
-        options: [
-          { value: 'circle', label: 'Cercle' },
-          { value: 'square', label: 'Carré' },
-          { value: 'text', label: 'Texte' },
-          { value: 'floating', label: 'Flottant' }
-        ],
-        defaultValue: 'circle',
-        category: 'features',
-        description: 'Style du bouton retour en haut',
-        showIf: (data) => data.backToTop?.enabled
-      },
-
-      // Copyright
-      'copyright.text': {
-        type: PropType.STRING,
-        label: 'Texte copyright',
-        defaultValue: '© {year} {company}. Tous droits réservés.',
-        category: 'legal',
-        description: 'Utilisez {year} pour l\'année et {company} pour le nom'
-      },
-
-      'copyright.showCredits': {
-        type: PropType.BOOLEAN,
-        label: 'Afficher les crédits Awema',
-        defaultValue: true,
-        category: 'legal',
-        description: 'Afficher "Créé avec ❤️ par Awema"'
+        description: 'Afficher les liens vers les réseaux sociaux',
+        editorConfig: {
+          control: EditorControl.TOGGLE,
+          group: 'Réseaux sociaux',
+          order: 1
+        }
       }
-    };
+    ];
   }
 
-  protected render(data: FooterData, id: string, index: number, context?: any): { html: string; css: string; js: string } {
-    const validation = this.validate(data);
-    if (!validation.isValid) {
-      return this.renderError(validation);
-    }
-
+  render(data: FooterData, context?: RenderContext): RenderResult {
+    const id = 'footer-' + Math.random().toString(36).substr(2, 9);
     const { html, css, js } = this.renderFooter(data, id, context);
     
     return {
@@ -276,6 +111,22 @@ export class FooterRendererV3PerfectEnhanced extends BaseBlockRenderer<FooterDat
       css: this.generateCSS(data, id, context) + css,
       js: this.generateJS(data, id) + js
     };
+  }
+  
+  validate(data: unknown): z.SafeParseReturnType<FooterData, FooterData> {
+    return { success: true, data: data as FooterData } as any;
+  }
+  
+  renderPreview(data: FooterData): string {
+    return this.render(data, { isExport: false }).html;
+  }
+  
+  getRequiredAssets(): any[] {
+    return [];
+  }
+  
+  getDefaultCSS(): string {
+    return '';
   }
 
   private renderFooter(data: FooterData, id: string, context?: any): { html: string; css: string; js: string } {
