@@ -1,5 +1,7 @@
 import type { EditorBlock, Page } from '@/lib/store/editor-store';
 import { getBlockRenderFunction } from '@/lib/blocks/block-registry';
+import { CMSExportIntegration } from './cms-export-integration';
+import { generateUUID } from '@/lib/utils/uuid';
 
 /**
  * Service d'export CORRIGÉ qui fonctionne vraiment
@@ -337,26 +339,39 @@ ${allJS}
 
   // Générer les fichiers CMS
   private static generateCMSFiles(projectData: any, options: any): any[] {
-    // CMS basique pour l'instant
-    return [{
-      path: 'admin/index.html',
-      content: `<!DOCTYPE html>
-<html>
-<head>
-    <title>CMS - ${projectData.businessInfo?.name || 'Admin'}</title>
-    <style>
-      body { font-family: sans-serif; padding: 2rem; }
-      .container { max-width: 1200px; margin: 0 auto; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>CMS en construction</h1>
-        <p>Le CMS sera bientôt disponible.</p>
-    </div>
-</body>
-</html>`
-    }];
+    // Utiliser le nouveau système CMS amélioré
+    const cmsIntegration = new CMSExportIntegration({
+      supabaseUrl: options.supabaseUrl,
+      supabaseAnonKey: options.supabaseAnonKey
+    });
+
+    // Créer la configuration du site si on a les infos nécessaires
+    let siteConfig = null;
+    if (options.cmsPlan && options.cmsPlan !== 'starter') {
+      siteConfig = {
+        siteId: projectData.id || generateUUID(),
+        siteName: projectData.businessInfo?.name || projectData.projectName || 'Mon Site',
+        subdomain: options.siteName || 'monsite',
+        plan: options.cmsPlan || 'pro',
+        adminEmail: options.cmsAdminEmail || 'admin@site.com',
+        adminPassword: options.cmsPassword || 'admin123',
+        domain: options.customDomain
+      };
+    }
+
+    // Générer les fichiers CMS
+    const exportOptions = {
+      includeCms: options.includeCms !== false,
+      cmsLevel: options.cmsLevel || 'basic',
+      supabaseUrl: options.supabaseUrl,
+      supabaseAnonKey: options.supabaseAnonKey,
+      projectData: projectData,
+      cmsAdminEmail: options.cmsAdminEmail,
+      cmsPassword: options.cmsPassword,
+      cmsPlan: options.cmsPlan
+    };
+
+    return cmsIntegration.generateCMSFiles(siteConfig, exportOptions);
   }
 }
 

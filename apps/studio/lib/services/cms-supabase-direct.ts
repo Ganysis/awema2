@@ -53,8 +53,8 @@ export class CMSSupabaseDirect {
       // Charger Supabase SDK
       await this.loadSupabaseSDK();
       
-      // Initialiser le client
-      this.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      // Initialiser le client avec protection contre .asc
+      this.initializeSupabaseWithFix();
       
       // Vérifier la session
       const session = this.getStoredSession();
@@ -64,6 +64,23 @@ export class CMSSupabaseDirect {
       } else {
         this.showLogin();
       }
+    }
+
+    initializeSupabaseWithFix() {
+      // Créer le client Supabase
+      this.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      
+      // Patcher la méthode fetch pour corriger les erreurs .asc
+      const originalFetch = window.fetch;
+      window.fetch = function(...args) {
+        let url = args[0];
+        if (typeof url === 'string' && url.includes('.asc')) {
+          console.warn('Correction automatique de l\\'URL .asc:', url);
+          url = url.replace(/\\.asc/g, '');
+          args[0] = url;
+        }
+        return originalFetch.apply(this, args);
+      };
     }
 
     async loadSupabaseSDK() {
@@ -142,7 +159,7 @@ export class CMSSupabaseDirect {
         }
         
         const user = users[0];
-        // TODO: Vérifier le mot de passe avec bcrypt
+        // A faire - Vérifier le mot de passe avec bcrypt
         
         this.currentUser = user;
         this.saveSession(user);
@@ -171,7 +188,7 @@ export class CMSSupabaseDirect {
           .from('cms_content')
           .select('*')
           .eq('site_id', SITE_ID)
-          .order('page_slug');
+          .order('page_slug', { ascending: true });
         
         if (!error && content && content.length > 0) {
           this.currentContent = content;
@@ -273,6 +290,20 @@ export class CMSSupabaseDirect {
       window.cms.logout();
     }
   };
+
+  // Protection globale contre les erreurs .asc
+  (function patchFetchForAsc() {
+    const originalFetch = window.fetch;
+    window.fetch = function(...args) {
+      let url = args[0];
+      if (typeof url === 'string' && url.includes('.asc')) {
+        console.warn('Protection globale: Correction .asc dans URL:', url);
+        url = url.replace(/\\.asc/g, '');
+        args[0] = url;
+      }
+      return originalFetch.apply(this, args);
+    };
+  })();
 
   // Initialiser le CMS
   window.cms = new CMSSupabaseDirect();

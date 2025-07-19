@@ -12,6 +12,8 @@ import { generateBasicCMSFixed } from './cms-basic-fixed';
 import { NetlifyFunctionsGenerator } from './netlify-functions-generator';
 import { generateCMSWithNetlifyFunctions } from './cms-netlify-functions-adapter';
 import { getTableName } from '../config/supabase-tables.config';
+import { generateStandaloneCMSScript } from './cms-standalone';
+import generateStandaloneCMSStyles from './cms-standalone-styles';
 
 interface CMSConfig {
   siteId: string;
@@ -29,6 +31,9 @@ interface ExportOptions {
   supabaseUrl?: string;
   supabaseAnonKey?: string;
   projectData?: any;
+  cmsPlan?: 'starter' | 'pro' | 'premium';
+  cmsAdminEmail?: string;
+  cmsPassword?: string;
 }
 
 export class CMSExportIntegration {
@@ -247,11 +252,20 @@ export class CMSExportIntegration {
 
     // 8. Éditeur de pages pour le CMS
     if (options.cmsLevel !== 'none') {
-      const { generatePageEditorScript } = require('./cms-page-editor');
-      files.push({
-        path: 'admin/page-editor.js',
-        content: generatePageEditorScript()
-      });
+      // Utiliser l'éditeur visuel pour les niveaux 'full' et 'basic'
+      if (options.cmsLevel === 'full') {
+        const { generateVisualEditorScript } = require('./cms-visual-editor');
+        files.push({
+          path: 'admin/page-editor.js',
+          content: generateVisualEditorScript()
+        });
+      } else {
+        const { generateSimplePageEditorScript } = require('./cms-page-editor-simple');
+        files.push({
+          path: 'admin/page-editor.js',
+          content: generateSimplePageEditorScript()
+        });
+      }
     }
 
     return files;
@@ -578,12 +592,8 @@ if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin
    * Génère le CMS basique
    */
   private generateBasicCMS(): string {
-    // Si on a des Netlify Functions, utiliser la version adaptée
-    if (process.env.SUPABASE_SERVICE_KEY) {
-      return generateCMSWithNetlifyFunctions();
-    }
-    // Sinon utiliser la version standard
-    return generateBasicCMSFixed();
+    // Utiliser la version standalone du CMS
+    return generateStandaloneCMSScript();
   }
 
   private generateBasicCMSOld(): string {
@@ -891,69 +901,19 @@ if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin
    * Génère le CMS complet
    */
   private generateFullCMS(): string {
-    // Pour le CMS complet, on inclurait toutes les fonctionnalités
-    // Je vais créer une version condensée pour l'exemple
-    return this.generateBasicCMS() + `
-
-// Extensions pour le CMS Full
-(function() {
-  'use strict';
-
-  // Ajouter les fonctionnalités avancées au CMS existant
-  const cms = window.cms;
-
-  // Editeur de blocs inline
-  cms.enableInlineEditing = function() {
-    document.querySelectorAll('[data-cms-editable]').forEach(element => {
-      element.addEventListener('dblclick', function() {
-        if (cms.currentUser) {
-          this.contentEditable = true;
-          this.focus();
-        }
-      });
-
-      element.addEventListener('blur', function() {
-        this.contentEditable = false;
-        cms.saveInlineEdit(this);
-      });
-    });
-  };
-
-  // Sauvegarde automatique
-  cms.saveInlineEdit = async function(element) {
-    const blockId = element.closest('[data-cms-block]')?.dataset.cmsBlock;
-    const field = element.dataset.cmsField;
-    const value = element.textContent;
-
-    if (!blockId || !field) return;
-
-    // Sauvegarder dans Supabase
-    console.log('Saving:', { blockId, field, value });
-    // Implémenter la logique de sauvegarde
-  };
-
-  // Drag & Drop pour réorganiser les blocs
-  cms.enableDragDrop = function() {
-    // Implémenter le drag & drop
-  };
-
-  // Galerie de médias
-  cms.openMediaGallery = function(callback) {
-    // Ouvrir la galerie de médias
-  };
-
-  // Analytics dashboard
-  cms.showAnalytics = function() {
-    // Afficher les analytics
-  };
-
-})();`;
+    // Le CMS standalone inclut déjà toutes les fonctionnalités
+    return generateStandaloneCMSScript();
   }
 
   /**
    * Génère les styles CSS
    */
   private generateCMSStyles(): string {
+    // Utiliser les styles standalone
+    return generateStandaloneCMSStyles();
+  }
+
+  private generateCMSStylesOld(): string {
     return `/* CMS AWEMA Styles */
 :root {
   --primary: #3B82F6;
