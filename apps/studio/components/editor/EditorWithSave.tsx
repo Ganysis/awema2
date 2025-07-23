@@ -16,14 +16,16 @@ interface EditorProps {
   projectId?: string;
   template?: string;
   theme?: string;
+  isGenerated?: boolean;
 }
 
-export function EditorWithSave({ projectId, template, theme = 'premium' }: EditorProps = {}) {
+export function EditorWithSave({ projectId, template, theme = 'premium', isGenerated = false }: EditorProps = {}) {
   const [showPreview, setShowPreview] = useState(false);
   const [loading, setLoading] = useState(true);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const versionServiceRef = useRef<DBVersionHistoryService | null>(null);
+  const hasLoadedRef = useRef(false);
   
   const { 
     isPreviewMode, 
@@ -49,7 +51,6 @@ export function EditorWithSave({ projectId, template, theme = 'premium' }: Edito
   
   const searchParams = useSearchParams();
   const clientId = searchParams.get('clientId');
-  const isGenerated = searchParams.get('generated') === 'true';
   const autoPreview = searchParams.get('preview') === 'true';
 
   // Fonction pour sauvegarder le projet
@@ -68,6 +69,15 @@ export function EditorWithSave({ projectId, template, theme = 'premium' }: Edito
         pages,
         theme: currentTheme,
       };
+      
+      console.log('Données à sauvegarder:', {
+        businessInfo: !!businessInfo,
+        projectName,
+        globalHeader: !!globalHeader,
+        globalFooter: !!globalFooter,
+        pagesCount: pages.length,
+        pages: pages.map(p => ({ id: p.id, name: p.name, blocksCount: p.blocks?.length || 0 }))
+      });
 
       // Sauvegarder dans la base de données
       const response = await fetch(`/api/projects/${projectId}/save`, {
@@ -191,7 +201,7 @@ export function EditorWithSave({ projectId, template, theme = 'premium' }: Edito
       versionServiceRef.current = new DBVersionHistoryService({
         projectId,
         storageKey: `version-history-${projectId}`,
-        syncEnabled: true,
+        syncEnabled: false, // TODO: Réactiver quand l'authentification sera implémentée
       });
 
       // Démarrer l'auto-save avec versioning
@@ -212,97 +222,233 @@ export function EditorWithSave({ projectId, template, theme = 'premium' }: Edito
 
   // Charger le projet au montage
   useEffect(() => {
-    if (projectId) {
-      loadProject();
-    } else if (clientId === 'new' && isGenerated && typeof window !== 'undefined') {
-      // Code existant pour la génération depuis les données client
+    console.log('EditorWithSave montage - isGenerated:', isGenerated, 'projectId:', projectId);
+    
+    // Éviter le double chargement
+    if (hasLoadedRef.current) {
+      console.log('Déjà chargé via le ref, on skip');
+      return;
+    }
+    
+    // Priorité au site généré depuis le formulaire si isGenerated est true
+    if (isGenerated && typeof window !== 'undefined') {
+      console.log('Tentative de chargement du site généré depuis sessionStorage...');
+      // Charger le site généré depuis sessionStorage
+      const generatedSiteStr = sessionStorage.getItem('generatedSite');
       const clientDataStr = sessionStorage.getItem('newClientData');
-      if (clientDataStr) {
+      
+      console.log('Session Storage - generatedSite existe:', !!generatedSiteStr);
+      console.log('Session Storage - newClientData existe:', !!clientDataStr);
+      
+      if (generatedSiteStr && clientDataStr) {
         try {
+          const generatedSite = JSON.parse(generatedSiteStr);
           const clientData = JSON.parse(clientDataStr);
           
-          // Générer le site à partir des données client
-          const { blocks, pages, theme } = siteGenerator.generateSiteFromClient(clientData);
+          console.log('Chargement du site généré:', generatedSite);
+          console.log('Blocs page accueil:', generatedSite.blocks?.length);
+          console.log('Pages additionnelles:', Object.keys(generatedSite.pages || {}));
           
           // Sauvegarder les infos business
-          setBusinessInfo(clientData);
+          setBusinessInfo(clientData.businessInfo || clientData);
           
           // Appliquer le thème
-          setThemeVariant(theme.variant);
-          updateColors(theme.colors);
+          if (generatedSite.theme) {
+            setThemeVariant(generatedSite.theme.variant || 'premium');
+            if (generatedSite.theme.colors) {
+              updateColors(generatedSite.theme.colors);
+            }
+          }
           
           // Convertir les pages générées en format compatible avec le store
           const editorPages = [];
           
           // Ajouter la page principale
-          editorPages.push({
-            id: 'home',
-            name: 'Accueil',
-            slug: '/',
-            blocks: blocks,
-            meta: {
-              title: `${clientData.businessName} - ${clientData.businessType}`,
-              description: clientData.description || `${clientData.businessName} - Services professionnels de ${clientData.businessType} à ${clientData.city}`
-            }
-          });
-          
-          // Ajouter les autres pages générées
-          pages.forEach((pageBlocks, slug) => {
-            const pageName = getPageNameFromSlug(slug, clientData);
+          if (generatedSite.blocks && generatedSite.blocks.length > 0) {
             editorPages.push({
-              id: crypto.randomUUID(),
-              name: pageName,
-              slug: `/${slug}`,
-              blocks: pageBlocks,
-              meta: {
-                title: pageName,
-                description: `${pageName} - ${clientData.businessName}`
+              id: 'home',
+              name: 'Accueil',
+              slug: '/',
+              blocks: generatedSite.blocks,
+              meta: generatedSite.metadata || {
+                title: `${clientData.businessInfo?.companyName || 'Mon Site'}`,
+                description: clientData.businessInfo?.description || 'Site web professionnel'
               }
             });
-          });
+          }
+          
+          // Ajouter les autres pages générées
+          if (generatedSite.pages) {
+            Object.entries(generatedSite.pages).forEach(([slug, pageData]: [string, any]) => {
+              const pageName = getPageNameFromSlug(slug, clientData);
+              editorPages.push({
+                id: crypto.randomUUID(),
+                name: pageName,
+                slug: `/${slug}`,
+                blocks: pageData.blocks || [],
+                meta: pageData.metadata || {
+                  title: pageName,
+                  description: `${pageName} - ${clientData.businessInfo?.companyName || 'Mon Site'}`
+                }
+              });
+            });
+          }
           
           // Initialiser toutes les pages
-          initializePages(editorPages);
+          if (editorPages.length > 0) {
+            console.log('Initialisation des pages avec:', editorPages);
+            console.log('Nombre de pages:', editorPages.length);
+            console.log('Pages:', editorPages.map(p => ({ id: p.id, name: p.name, blocks: p.blocks.length })));
+            initializePages(editorPages);
+          } else {
+            // Fallback : créer une page d'accueil par défaut si aucune page n'a été générée
+            console.warn('Aucune page générée, création d\'une page par défaut');
+            
+            const defaultBlocks = [
+              {
+                id: crypto.randomUUID(),
+                type: 'Hero V3 Perfect',
+                props: {
+                  variant: 'split-content',
+                  title: clientData.businessInfo?.companyName || 'Bienvenue',
+                  subtitle: 'Votre partenaire de confiance',
+                  description: clientData.businessInfo?.description || 'Nous sommes là pour vous servir',
+                  primaryButton: {
+                    text: 'Contactez-nous',
+                    href: '#contact'
+                  }
+                },
+                children: []
+              },
+              {
+                id: crypto.randomUUID(),
+                type: 'Services V3 Perfect',
+                props: {
+                  variant: 'cards-hover',
+                  title: 'Nos Services',
+                  subtitle: 'Ce que nous proposons'
+                },
+                children: []
+              },
+              {
+                id: crypto.randomUUID(),
+                type: 'Contact V3 Perfect',
+                props: {
+                  variant: 'split-map',
+                  title: 'Contactez-nous',
+                  companyName: clientData.businessInfo?.companyName || 'Mon Entreprise',
+                  phone: clientData.contact?.phones?.[0]?.number || '01 02 03 04 05',
+                  email: clientData.contact?.email || 'contact@example.com',
+                  address: clientData.location?.address || '123 rue Example'
+                },
+                children: []
+              }
+            ];
+            
+            initializePages([{
+              id: 'home',
+              name: 'Accueil',
+              slug: '/',
+              blocks: defaultBlocks,
+              meta: {
+                title: clientData.businessInfo?.companyName || 'Mon Site',
+                description: 'Site web professionnel'
+              }
+            }]);
+          }
           
           // Configurer Header et Footer globaux
-          setGlobalHeader({
-            id: crypto.randomUUID(),
-            type: 'simple-header',
-            props: {
-              logo: clientData.businessName,
-              menuItems: [
-                { label: 'Accueil', href: '/' },
-                { label: 'Services', href: '/services' },
-                { label: 'Contact', href: '/contact' }
-              ]
-            },
-            children: []
-          });
+          if (generatedSite.globalHeader) {
+            setGlobalHeader(generatedSite.globalHeader);
+          } else {
+            // Header par défaut
+            setGlobalHeader({
+              id: crypto.randomUUID(),
+              type: 'Header V3 Perfect',
+              props: {
+                visualVariant: 'modern',
+                companyName: clientData.businessInfo?.companyName || 'Mon Entreprise',
+                brandingType: 'text',
+                stickyEnabled: true,
+                menuItem1_label: 'Accueil',
+                menuItem1_href: '/',
+                menuItem2_label: 'Services',
+                menuItem2_href: '#services',
+                menuItem3_label: 'Contact',
+                menuItem3_href: '#contact',
+                ctaEnabled: true,
+                ctaText: 'Devis gratuit',
+                ctaHref: '#contact'
+              },
+              children: []
+            });
+          }
           
-          setGlobalFooter({
-            id: crypto.randomUUID(),
-            type: 'simple-footer',
-            props: {
-              companyName: clientData.businessName,
-              address: `${clientData.address}\n${clientData.postalCode} ${clientData.city}`,
-              phone: clientData.phone,
-              email: clientData.email,
-              showAwemaLink: true
-            },
-            children: []
-          });
+          if (generatedSite.globalFooter) {
+            setGlobalFooter(generatedSite.globalFooter);
+          } else {
+            // Footer par défaut
+            setGlobalFooter({
+              id: crypto.randomUUID(),
+              type: 'Footer V3 Perfect',
+              props: {
+                variant: 'modern',
+                companyName: clientData.businessInfo?.companyName || 'Mon Entreprise',
+                description: 'Votre partenaire de confiance',
+                addressTitle: 'Adresse',
+                addressLine1: clientData.location?.address || '123 rue Example',
+                addressLine2: `${clientData.location?.postalCode || '75000'} ${clientData.location?.city || 'Paris'}`,
+                phoneTitle: 'Téléphone',
+                phoneNumber: clientData.contact?.phones?.[0]?.number || '01 02 03 04 05',
+                emailTitle: 'Email',
+                emailAddress: clientData.contact?.email || 'contact@example.com',
+                showSocialLinks: false,
+                showNewsletter: false
+              },
+              children: []
+            });
+          }
           
-          // Nettoyer sessionStorage
-          sessionStorage.removeItem('newClientData');
+          // Si on a un projectId, sauvegarder automatiquement
+          if (projectId) {
+            console.log('Sauvegarde automatique programmée dans 3 secondes...');
+            console.log('Pages à sauvegarder:', editorPages);
+            setTimeout(() => {
+              console.log('Exécution de la sauvegarde automatique...');
+              const currentPages = useEditorStore.getState().pages;
+              console.log('État actuel des pages dans le store:', currentPages);
+              console.log('Nombre de pages:', currentPages.length);
+              if (currentPages.length === 0) {
+                console.error('ATTENTION: Aucune page dans le store lors de la sauvegarde !');
+              }
+              saveProject();
+              
+              // Nettoyer sessionStorage APRÈS la sauvegarde
+              console.log('Nettoyage de sessionStorage après sauvegarde...');
+              sessionStorage.removeItem('generatedSite');
+              sessionStorage.removeItem('newClientData');
+            }, 3000); // Augmenté à 3 secondes
+          }
           
+          hasLoadedRef.current = true;
           setLoading(false);
         } catch (error) {
-          console.error('Erreur lors de la génération du site:', error);
+          console.error('Erreur lors du chargement du site généré:', error);
+          hasLoadedRef.current = true;
           setLoading(false);
         }
       } else {
-        setLoading(false);
+        console.log('Pas de site généré trouvé dans sessionStorage');
+        // Si pas de site généré mais qu'on a un projectId, charger depuis la DB
+        if (projectId) {
+          loadProject();
+        } else {
+          setLoading(false);
+        }
       }
+    } else if (projectId) {
+      // Si ce n'est pas un site généré, charger depuis la DB
+      loadProject();
     } else {
       setLoading(false);
     }
@@ -311,7 +457,7 @@ export function EditorWithSave({ projectId, template, theme = 'premium' }: Edito
     if (autoPreview) {
       setShowPreview(true);
     }
-  }, [projectId]);
+  }, [projectId, isGenerated]);
 
   // Auto-save toutes les 30 secondes
   useEffect(() => {
@@ -354,10 +500,15 @@ export function EditorWithSave({ projectId, template, theme = 'premium' }: Edito
     // Services
     if (slug.startsWith('services/')) {
       const serviceName = slug.replace('services/', '');
-      const service = clientData.services?.find((s: any) => 
-        s.name.toLowerCase().replace(/\s+/g, '-') === serviceName
-      );
-      return service?.name || serviceName;
+      // Vérifier si services existe et est un array
+      if (Array.isArray(clientData.services)) {
+        const service = clientData.services.find((s: any) => 
+          s.name?.toLowerCase().replace(/\s+/g, '-') === serviceName
+        );
+        return service?.name || serviceName.replace(/-/g, ' ');
+      }
+      // Sinon, juste formater le nom
+      return serviceName.replace(/-/g, ' ');
     }
     
     // Pages SEO locales
@@ -366,15 +517,20 @@ export function EditorWithSave({ projectId, template, theme = 'premium' }: Edito
       return `${city.charAt(0).toUpperCase() + city.slice(1)} - ${service.replace(/-/g, ' ')}`;
     }
     
-    // Autres pages
+    // Autres pages avec meilleurs noms
     const pageNames: Record<string, string> = {
       'about': 'À propos',
       'gallery': 'Galerie',
       'faq': 'FAQ',
-      'legal': 'Mentions légales'
+      'legal': 'Mentions légales',
+      'avant-apres': 'Avant/Après',
+      'devis': 'Devis gratuit',
+      'contact': 'Contact',
+      'realisations': 'Réalisations',
+      'temoignages': 'Témoignages'
     };
     
-    return pageNames[slug] || slug;
+    return pageNames[slug] || slug.charAt(0).toUpperCase() + slug.slice(1);
   };
 
   if (loading) {

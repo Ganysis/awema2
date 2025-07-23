@@ -8,8 +8,13 @@ import {
   PlusIcon,
   TrashIcon,
   PhotoIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  SparklesIcon
 } from '@heroicons/react/24/outline';
+import { aiSiteGenerator } from '@/lib/services/ai-site-generator.service';
+import type { ClientFormData as FormDataType } from '@/types/client-form';
+import type { GenerationProgress } from '@/lib/services/ai-site-generator.service';
+import { generateId } from '@/lib/utils';
 
 // Types pour le formulaire
 interface Service {
@@ -103,6 +108,8 @@ const colorSchemes: Record<string, { primary: string; secondary: string; accent:
 export default function NewClientPage() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generationProgress, setGenerationProgress] = useState<GenerationProgress | null>(null);
   const [formData, setFormData] = useState<ClientFormData>({
     businessName: '',
     legalForm: 'SARL',
@@ -159,7 +166,7 @@ export default function NewClientPage() {
 
   const addService = () => {
     const newService: Service = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       name: '',
       description: '',
       price: '',
@@ -196,17 +203,349 @@ export default function NewClientPage() {
   };
 
   const handleSubmit = async () => {
-    // TODO: Save to database
-    console.log('Form data:', formData);
+    setIsGenerating(true);
     
-    // Générer le site et rediriger vers l'éditeur
-    // Pour l'instant on stocke les données dans sessionStorage
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('newClientData', JSON.stringify(formData));
+    try {
+      // Configurer le callback de progression
+      aiSiteGenerator.setProgressCallback((progress) => {
+        setGenerationProgress(progress);
+      });
+      
+      // Convertir les données du formulaire au format attendu
+      const clientFormData: FormDataType = {
+        businessInfo: {
+          companyName: formData.businessName,
+          legalForm: formData.legalForm,
+          siret: formData.siret,
+          insurance: formData.insurance,
+          yearsOfExperience: formData.yearsExperience,
+          certifications: formData.certifications,
+          businessType: formData.businessType,
+          description: formData.slogan
+        },
+        contact: {
+          phones: [
+            { number: formData.phone, type: 'main' },
+            ...(formData.phoneUrgency ? [{ number: formData.phoneUrgency, type: 'emergency' }] : [])
+          ],
+          emails: [
+            { email: formData.email, type: 'contact' },
+            ...(formData.emailAccounting ? [{ email: formData.emailAccounting, type: 'accounting' }] : [])
+          ],
+          address: {
+            street: formData.address,
+            city: formData.city,
+            postalCode: formData.postalCode,
+            country: 'France'
+          },
+          hours: formData.schedule,
+          socialMedia: formData.socialMedia
+        },
+        services: {
+          mainServices: formData.services.map(service => ({
+            name: service.name,
+            description: service.description,
+            price: service.price,
+            priceType: service.priceType,
+            duration: service.duration,
+            guarantee: service.guarantee,
+            included: service.guarantee ? [service.guarantee] : [],
+            images: service.images
+          }))
+        },
+        serviceArea: {
+          cities: formData.interventionCities,
+          radius: parseInt(formData.interventionRadius),
+          departments: formData.departments,
+          travelFees: formData.travelFees
+        },
+        branding: {
+          colors: {
+            primary: formData.primaryColor,
+            secondary: formData.secondaryColor,
+            accent: formData.accentColor
+          },
+          visualStyle: formData.visualStyle,
+          typography: formData.typography,
+          logo: formData.logo || null
+        },
+        options: {
+          selectedPages: formData.selectedPages,
+          paymentMethods: formData.paymentMethods,
+          languages: formData.languages,
+          emergency247: formData.emergency247
+        },
+        media: {
+          logo: formData.logo || null,
+          photos: [],
+          videos: []
+        },
+        pricing: {
+          paymentMethods: formData.paymentMethods
+        },
+        testimonials: {
+          reviews: []
+        }
+      };
+      
+      let clientId = 'new';
+      let projectId = null;
+      
+      // Créer le client dans la base de données
+      try {
+        // Valider et formater l'email
+        let emailToUse = formData.email;
+        if (!emailToUse || !emailToUse.includes('@')) {
+          // Générer un email par défaut si manquant ou invalide
+          const cleanBusinessName = (formData.businessName || 'client').toLowerCase().replace(/[^a-z0-9]/g, '');
+          emailToUse = `contact@${cleanBusinessName}.fr`;
+          console.warn(`Email invalide ou manquant, utilisation de: ${emailToUse}`);
+        }
+        
+        const clientData = {
+          name: formData.businessName || 'Client',
+          email: emailToUse,
+          phone: formData.phone,
+          address: formData.address,
+          city: formData.city,
+          postalCode: formData.postalCode,
+          companyName: formData.businessName,
+          website: '',
+          notes: `Entreprise: ${formData.businessType}\nAnnées d'expérience: ${formData.yearsExperience || 'Non spécifié'}`,
+          tags: [formData.businessType]
+        };
+        
+        console.log('Tentative de création du client avec les données:', clientData);
+        
+        const clientResponse = await fetch('/api/clients', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(clientData),
+        });
+
+        const responseText = await clientResponse.text();
+        console.log('Réponse du serveur:', clientResponse.status, responseText);
+        
+        if (!clientResponse.ok) {
+          console.error('Erreur lors de la création du client:', clientResponse.status, responseText);
+          
+          // Essayer de parser l'erreur si c'est du JSON
+          try {
+            const errorData = JSON.parse(responseText);
+            throw new Error(errorData.error || `Erreur création client: ${clientResponse.status}`);
+          } catch {
+            throw new Error(`Erreur création client: ${clientResponse.status} - ${responseText}`);
+          }
+        }
+        
+        // Parser la réponse JSON
+        let clientResult;
+        try {
+          clientResult = JSON.parse(responseText);
+        } catch (e) {
+          console.error('Erreur parsing JSON:', e);
+          throw new Error('Réponse invalide du serveur');
+        }
+        
+        console.log('Client créé avec succès:', clientResult);
+        
+        if (clientResult.success && clientResult.data) {
+          clientId = clientResult.data.id;
+          console.log('ID du client créé:', clientId);
+          
+          // Créer un projet pour ce client
+          try {
+            const projectData = {
+              name: `Site web ${formData.businessName}`,
+              clientId: clientId,
+              status: 'DRAFT',
+              description: `Site web généré automatiquement pour ${formData.businessName}`
+            };
+            
+            console.log('Création du projet avec:', projectData);
+            
+            const projectResponse = await fetch('/api/projects', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(projectData),
+            });
+            
+            if (projectResponse.ok) {
+              const projectResult = await projectResponse.json();
+              if (projectResult.success && projectResult.data) {
+                projectId = projectResult.data.id;
+                console.log('Projet créé avec succès:', projectResult);
+              }
+            } else {
+              const projError = await projectResponse.text();
+              console.error('Erreur lors de la création du projet:', projectResponse.status, projError);
+            }
+          } catch (error) {
+            console.error('Erreur lors de la création du projet:', error);
+          }
+        } else {
+          console.error('Format de réponse inattendu:', clientResult);
+          throw new Error('Client créé mais format de réponse invalide');
+        }
+      } catch (error) {
+        console.error('Erreur lors de la création du client:', error);
+        // Ne pas bloquer la génération du site, mais alerter l'utilisateur
+        alert(`Attention: Le client n'a pas pu être enregistré dans la base de données. Erreur: ${(error as Error).message}\n\nLe site sera quand même généré mais sans client associé.`);
+        clientId = 'new'; // Fallback sur 'new' si la création échoue
+      }
+
+      // Générer le site
+      console.log('Début de la génération du site avec les données:', clientFormData);
+      let generatedSite;
+      try {
+        generatedSite = await aiSiteGenerator.generateSiteFromForm(clientFormData);
+        console.log('Site généré avec succès:', generatedSite);
+        console.log('Nombre de pages:', generatedSite.pages?.length);
+        console.log('Pages:', generatedSite.pages?.map(p => ({ slug: p.slug, blocks: p.blocks?.length })));
+      } catch (genError) {
+        console.error('ERREUR lors de la génération du site:', genError);
+        // Créer un site minimal en cas d'erreur
+        generatedSite = {
+          pages: [{
+            id: 'home',
+            name: 'Accueil',
+            slug: '/',
+            isHomePage: true,
+            blocks: [
+              {
+                id: generateId(),
+                type: 'Hero V3 Perfect',
+                props: {
+                  variant: 'split-content',
+                  title: formData.businessName || 'Bienvenue',
+                  subtitle: `${formData.businessType} à ${formData.city}`,
+                  description: 'Votre partenaire de confiance',
+                  primaryButton: { text: 'Contactez-nous', href: '#contact' }
+                },
+                children: []
+              }
+            ],
+            seo: {
+              title: formData.businessName,
+              description: `${formData.businessType} à ${formData.city}`,
+              keywords: [formData.businessType]
+            }
+          }],
+          theme: {
+            variant: 'premium',
+            colors: {
+              primary: '#2563eb',
+              secondary: '#7c3aed'
+            }
+          },
+          navigation: {},
+          settings: {}
+        };
+      }
+      
+      
+      // Stocker le site transformé dans sessionStorage
+      if (typeof window !== 'undefined') {
+        // Trouver la page d'accueil
+        const homePage = generatedSite.pages?.find(p => p.isHomePage || p.slug === '/' || p.slug === 'home');
+        console.log('Recherche page accueil. Pages disponibles:', generatedSite.pages?.map(p => ({
+          slug: p.slug,
+          isHomePage: p.isHomePage,
+          blocksCount: p.blocks?.length
+        })));
+        console.log('Page accueil trouvée:', !!homePage, homePage?.slug);
+        
+        // Extraire header et footer de la page d'accueil
+        let globalHeader = null;
+        let globalFooter = null;
+        let homeBlocks = [];
+        
+        if (homePage && homePage.blocks) {
+          console.log('Blocs de la page accueil:', homePage.blocks.map(b => b.type));
+          globalHeader = homePage.blocks.find(b => b.type?.toLowerCase().includes('header'));
+          globalFooter = homePage.blocks.find(b => b.type?.toLowerCase().includes('footer'));
+          
+          // Filtrer les blocs pour enlever header et footer du contenu principal
+          homeBlocks = homePage.blocks.filter(b => 
+            !b.type?.toLowerCase().includes('header') && 
+            !b.type?.toLowerCase().includes('footer')
+          );
+          console.log('Après filtrage - Header trouvé:', !!globalHeader, '- Footer trouvé:', !!globalFooter, '- Blocs restants:', homeBlocks.length);
+        } else {
+          console.warn('Aucune page accueil trouvée ou pas de blocs !');
+        }
+        
+        // Créer la structure pour sessionStorage
+        const siteToStore = {
+          blocks: homeBlocks, // Blocs de la page d'accueil sans header/footer
+          pages: generatedSite.pages?.reduce((acc, page) => {
+            // Skip la page d'accueil qui est déjà dans blocks
+            if (page.isHomePage || page.slug === '/' || page.slug === 'home') {
+              return acc;
+            }
+            
+            // Filtrer header/footer des autres pages aussi
+            const pageBlocks = page.blocks?.filter(b => 
+              !b.type?.toLowerCase().includes('header') && 
+              !b.type?.toLowerCase().includes('footer')
+            ) || [];
+            
+            const cleanSlug = page.slug.replace(/^\//, '');
+            if (cleanSlug) {
+              acc[cleanSlug] = {
+                blocks: pageBlocks,
+                metadata: page.seo || {}
+              };
+            }
+            return acc;
+          }, {}) || {},
+          theme: generatedSite.theme,
+          navigation: generatedSite.navigation,
+          globalHeader: globalHeader,
+          globalFooter: globalFooter,
+          metadata: homePage?.seo || {}
+        };
+        
+        console.log('SITE À STOCKER DANS SESSIONSTORAGE:', {
+          blocksCount: siteToStore.blocks.length,
+          pagesCount: Object.keys(siteToStore.pages).length,
+          hasHeader: !!siteToStore.globalHeader,
+          hasFooter: !!siteToStore.globalFooter,
+          pages: Object.keys(siteToStore.pages)
+        });
+        console.log('Blocs page accueil:', siteToStore.blocks.map(b => b.type));
+        
+        sessionStorage.setItem('generatedSite', JSON.stringify(siteToStore));
+        sessionStorage.setItem('newClientData', JSON.stringify(clientFormData));
+        if (clientId !== 'new') {
+          sessionStorage.setItem('clientId', clientId);
+        }
+        if (projectId) {
+          sessionStorage.setItem('projectId', projectId);
+        }
+      }
+      
+      // Rediriger vers l'éditeur avec l'ID du client et du projet
+      const params = new URLSearchParams({
+        clientId: clientId,
+        generated: 'true',
+        ai: 'true'
+      });
+      if (projectId) {
+        params.append('projectId', projectId);
+      }
+      router.push(`/?${params.toString()}`);
+    } catch (error) {
+      console.error('Erreur lors de la génération du site:', error);
+      alert('Une erreur est survenue lors de la génération du site. Veuillez réessayer.');
+    } finally {
+      setIsGenerating(false);
+      setGenerationProgress(null);
     }
-    
-    // Rediriger vers l'éditeur avec un ID temporaire
-    router.push('/?clientId=new&generated=true');
   };
 
   const renderStep = () => {
@@ -1208,6 +1547,89 @@ export default function NewClientPage() {
         );
         
       case 8:
+        // Si on est en train de générer, afficher la progression
+        if (isGenerating && generationProgress) {
+          return (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+                <SparklesIcon className="w-6 h-6 mr-2 text-primary-600" />
+                Génération de votre site en cours...
+              </h2>
+              
+              <div className="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-lg p-8">
+                <div className="space-y-6">
+                  {/* Progress bar */}
+                  <div>
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="font-medium text-gray-700">{generationProgress.message}</span>
+                      <span className="text-gray-600">{generationProgress.progress}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div
+                        className="bg-gradient-to-r from-primary-500 to-secondary-500 h-3 rounded-full transition-all duration-500"
+                        style={{ width: `${generationProgress.progress}%` }}
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Étapes de génération */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                    {[
+                      { step: 'analysis', label: 'Analyse des données', icon: '🔍' },
+                      { step: 'structure', label: 'Création de la structure', icon: '🏗️' },
+                      { step: 'content', label: 'Génération du contenu', icon: '✍️' },
+                      { step: 'blocks', label: 'Configuration des blocs', icon: '🎨' },
+                      { step: 'links', label: 'Maillage interne', icon: '🔗' },
+                      { step: 'theme', label: 'Application du thème', icon: '🎭' }
+                    ].map(({ step, label, icon }) => {
+                      const isActive = generationProgress.step === step;
+                      const isDone = getStepOrder(generationProgress.step) > getStepOrder(step);
+                      
+                      return (
+                        <div
+                          key={step}
+                          className={`
+                            flex items-center space-x-3 p-3 rounded-lg transition-all
+                            ${isActive ? 'bg-white shadow-md scale-105' : 
+                              isDone ? 'bg-green-50' : 'bg-gray-50'
+                            }
+                          `}
+                        >
+                          <span className="text-2xl">{icon}</span>
+                          <div className="flex-1">
+                            <p className={`font-medium ${isActive ? 'text-primary-700' : 'text-gray-700'}`}>
+                              {label}
+                            </p>
+                            {isActive && (
+                              <p className="text-xs text-gray-500 mt-1">En cours...</p>
+                            )}
+                            {isDone && (
+                              <p className="text-xs text-green-600 mt-1">✓ Terminé</p>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  
+                  {/* Animation de chargement */}
+                  <div className="flex justify-center mt-8">
+                    <div className="relative">
+                      <div className="w-16 h-16 border-4 border-primary-200 rounded-full"></div>
+                      <div className="w-16 h-16 border-4 border-primary-600 rounded-full border-t-transparent animate-spin absolute top-0 left-0"></div>
+                    </div>
+                  </div>
+                  
+                  <p className="text-center text-gray-600 text-sm">
+                    Veuillez patienter, cela peut prendre quelques instants...
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        }
+        
+        // Sinon, afficher le récapitulatif normal
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900">Récapitulatif</h2>
@@ -1374,4 +1796,17 @@ function getDepartmentName(code: string): string {
     '95': "Val-d'Oise"
   };
   return departments[code] || code;
+}
+
+function getStepOrder(step: string): number {
+  const order: { [key: string]: number } = {
+    'analysis': 1,
+    'structure': 2,
+    'content': 3,
+    'blocks': 4,
+    'links': 5,
+    'theme': 6,
+    'complete': 7
+  };
+  return order[step] || 0;
 }
