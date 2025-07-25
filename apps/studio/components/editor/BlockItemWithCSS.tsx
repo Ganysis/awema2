@@ -19,6 +19,27 @@ interface BlockItemProps {
   isGlobal?: boolean;
 }
 
+// Fonction pour convertir les styles en CSS inline
+function styleToCss(style: any): string {
+  if (!style) return '';
+  
+  let css = '';
+  
+  if (style.backgroundColor) {
+    css += `background-color: ${style.backgroundColor}; `;
+  }
+  
+  if (style.backgroundGradient) {
+    css += `background: ${style.backgroundGradient}; `;
+  }
+  
+  if (style.paddingY) {
+    css += `padding-top: ${style.paddingY}; padding-bottom: ${style.paddingY}; `;
+  }
+  
+  return css.trim();
+}
+
 // Real block preview with actual CSS
 function BlockRealPreview({ block }: { block: EditorBlock }) {
   const [preview, setPreview] = useState<{ html: string; css: string } | null>(null);
@@ -51,8 +72,18 @@ function BlockRealPreview({ block }: { block: EditorBlock }) {
         const rendered = renderFn(processedProps, []);
         
         if (rendered && typeof rendered === 'object') {
+          let html = rendered.html || '';
+          
+          // Appliquer les styles du bloc si présents
+          if (block.style) {
+            const styleString = styleToCss(block.style);
+            if (styleString) {
+              html = `<div style="${styleString}">${html}</div>`;
+            }
+          }
+          
           setPreview({
-            html: rendered.html || '',
+            html: html,
             css: rendered.css || ''
           });
         }

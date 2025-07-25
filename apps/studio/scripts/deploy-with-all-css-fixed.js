@@ -8,6 +8,7 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 // Charger les clés
 const envPath = path.join(__dirname, '..', '.env.local');
@@ -192,7 +193,7 @@ async function deployWithAllCSS() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        siteId: `css-force-${Date.now()}`,
+        siteId: crypto.randomUUID(),
         siteName: `awema-css-force-${Date.now()}`,
         projectData: projectData,
         plan: 'pro',

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const { PrismaClient } = require('@prisma/client');
+const crypto = require('crypto');
 const prisma = new PrismaClient();
 
 async function createCompleteProject() {
@@ -174,7 +175,7 @@ async function createCompleteProject() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         projectId: project.id,
-        siteId: `site-${Date.now()}`,
+        siteId: crypto.randomUUID(),
         siteName: `plomberie-v2-${Date.now()}`,
         projectData: JSON.parse(project.data),
         plan: 'pro',

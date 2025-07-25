@@ -3,6 +3,7 @@
  */
 
 const fetch = require('node-fetch');
+const crypto = require('crypto');
 
 async function testFullExport() {
   console.log('🚀 Test d\'export complet avec CMS\n');
@@ -201,7 +202,7 @@ async function testFullExport() {
 
   // Créer la requête de déploiement
   const deployRequest = {
-    siteId: `test-cms-${Date.now()}`,
+    siteId: crypto.randomUUID(),
     siteName: `test-cms-complet-${Date.now()}`,
     plan: 'pro', // Pour avoir le CMS
     projectData: projectData

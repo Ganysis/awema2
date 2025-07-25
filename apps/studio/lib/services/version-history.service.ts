@@ -69,7 +69,7 @@ export class VersionHistoryService {
    */
   saveVersion(data: any, type: 'auto' | 'manual' = 'manual', description?: string): Version {
     const version: Version = {
-      id: `v-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      id: crypto.randomUUID(),
       timestamp: Date.now(),
       date: new Date().toLocaleString('fr-FR'),
       label: this.generateLabel(type),
@@ -307,7 +307,7 @@ class VersionHistory {
 
   saveVersion(data, type = 'manual', description = '') {
     const version = {
-      id: 'v-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
+      id: crypto.randomUUID(),
       timestamp: Date.now(),
       date: new Date().toLocaleString('fr-FR'),
       label: type === 'auto' ? 'Sauvegarde auto' : 'Sauvegarde manuelle',

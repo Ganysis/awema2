@@ -5,6 +5,7 @@
  */
 
 const fetch = require('node-fetch');
+const crypto = require('crypto');
 
 async function deployWithProperCSS() {
   console.log('🚀 Déploiement du site avec CSS Ultra-Modern correct\n');
@@ -510,7 +511,7 @@ async function deployWithProperCSS() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        siteId: `site-${Date.now()}`,
+        siteId: crypto.randomUUID(),
         siteName: `awema-ultra-modern-${Date.now()}`,
         projectData: projectData,
         plan: 'pro',

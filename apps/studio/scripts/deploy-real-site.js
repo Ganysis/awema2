@@ -8,6 +8,7 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 // Charger les vraies clés Supabase
 const envPath = path.join(__dirname, '..', '.env.local');
@@ -641,7 +642,7 @@ async function deployRealSite() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        siteId: `real-${Date.now()}`,
+        siteId: crypto.randomUUID(),
         siteName: `awema-real-${Date.now()}`,
         projectData: projectData,
         plan: 'pro',

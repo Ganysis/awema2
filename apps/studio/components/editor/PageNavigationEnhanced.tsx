@@ -201,9 +201,9 @@ export function PageNavigationEnhanced() {
           return (
             <div key={categoryKey} className="border-b border-gray-100">
               {/* Category header */}
-              <button
+              <div
                 onClick={() => toggleCategory(categoryKey)}
-                className="w-full px-4 py-2 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                className="w-full px-4 py-2 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-2">
                   {isExpanded ? (
@@ -225,7 +225,7 @@ export function PageNavigationEnhanced() {
                     <PlusIcon className="h-3 w-3" />
                   </button>
                 )}
-              </button>
+              </div>
 
               {/* Pages in category */}
               {isExpanded && (

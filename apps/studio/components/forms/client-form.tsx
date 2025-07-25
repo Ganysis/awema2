@@ -98,7 +98,7 @@ export function ClientForm({
 
   const addService = () => {
     const newService: Service = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       name: '',
       description: '',
       price: '',

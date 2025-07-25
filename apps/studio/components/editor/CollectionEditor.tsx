@@ -262,7 +262,7 @@ export function CollectionEditor({
   };
 
   const addItem = () => {
-    const newItem: any = { id: `item-${Date.now()}` };
+    const newItem: any = { id: crypto.randomUUID() };
     
     // Set default values
     Object.entries(itemSchema).forEach(([key, schema]) => {

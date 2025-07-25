@@ -19,6 +19,172 @@ export class CTARendererV3PerfectEnhanced extends BaseRendererV3<CTAData> {
     logger.info('CTARendererV3PerfectEnhanced', 'constructor', '🚀 Initialisation du renderer CTA V3 PERFECT ENHANCED');
   }
 
+  private loadUltraEffectsCSS(): string {
+    // CSS des effets ultra avancés
+    return `
+/* ========================================
+   VARIANTE PARTICLE EXPLOSION - Particules animées
+   ======================================== */
+.cta--particle-explosion {
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  color: white;
+  position: relative;
+  padding: 8rem 0;
+  overflow: hidden;
+}
+
+.cta--particle-explosion .particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cta--particle-explosion .particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFloat 10s infinite;
+}
+
+.cta--particle-explosion .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.cta--particle-explosion .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+.cta--particle-explosion .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+.cta--particle-explosion .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+.cta--particle-explosion .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+.cta--particle-explosion .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+.cta--particle-explosion .particle:nth-child(7) { left: 70%; animation-delay: 6s; }
+.cta--particle-explosion .particle:nth-child(8) { left: 80%; animation-delay: 7s; }
+.cta--particle-explosion .particle:nth-child(9) { left: 90%; animation-delay: 8s; }
+.cta--particle-explosion .particle:nth-child(10) { left: 95%; animation-delay: 9s; }
+
+@keyframes particleFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) scale(0);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(80vh) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) scale(0.5);
+  }
+}
+
+.cta--particle-explosion .cta__button--primary {
+  background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ========================================
+   VARIANTE 3D FLIP - Effet 3D au survol
+   ======================================== */
+.cta--3d-flip {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  padding: 8rem 0;
+  perspective: 1000px;
+}
+
+.cta--3d-flip .cta__content {
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.cta--3d-flip:hover .cta__content {
+  transform: rotateY(5deg) rotateX(-5deg);
+}
+
+.cta--3d-flip .cta__button {
+  transform-style: preserve-3d;
+  transition: transform 0.3s;
+}
+
+.cta--3d-flip .cta__button:hover {
+  transform: translateZ(20px) rotateX(-10deg);
+}
+
+/* ========================================
+   VARIANTE FLOATING CARDS - Cartes flottantes
+   ======================================== */
+.cta--floating-cards {
+  background: linear-gradient(to right, #141e30, #243b55);
+  color: white;
+  padding: 8rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta--floating-cards .floating-card {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  animation: floatCard 20s infinite ease-in-out;
+}
+
+.cta--floating-cards .floating-card:nth-child(1) {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.cta--floating-cards .floating-card:nth-child(2) {
+  top: 60%;
+  right: 5%;
+  animation-delay: 5s;
+}
+
+.cta--floating-cards .floating-card:nth-child(3) {
+  bottom: 10%;
+  left: 10%;
+  animation-delay: 10s;
+}
+
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-20px) rotate(5deg); }
+  50% { transform: translateY(0) rotate(-5deg); }
+  75% { transform: translateY(20px) rotate(3deg); }
+}
+
+/* Animation liquide morphing */
+@keyframes liquidMorph2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-100px, 100px) scale(1.3); }
+  66% { transform: translate(100px, -100px) scale(0.7); }
+}
+
+/* Animation glitch */
+@keyframes glitch2 {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -2px); }
+  40% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(30% 0 40% 0); transform: translate(0, -2px); }
+  80% { clip-path: inset(5% 0 80% 0); transform: translate(-2px, 0); }
+}
+    `;
+  }
+
   validate(data: unknown): z.SafeParseReturnType<CTAData, CTAData> {
     return ctaDataSchema.safeParse(data);
   }
@@ -32,9 +198,12 @@ export class CTARendererV3PerfectEnhanced extends BaseRendererV3<CTAData> {
   }
 
   getDefaultCSS(): string {
+    // Inclure le CSS des effets ultra avancés
+    const ultraEffectsCSS = this.loadUltraEffectsCSS();
+    
     return `
 /* ========================================
-   CTA V3 PERFECT ENHANCED - Styles avec variantes
+   CTA V3 PERFECT ENHANCED - Styles avec variantes + Ultra Effects
    ======================================== */
 
 .cta {
@@ -618,7 +787,209 @@ export class CTARendererV3PerfectEnhanced extends BaseRendererV3<CTAData> {
   .cta--elegant::before {
     opacity: 0.05;
   }
-}`;
+}
+
+/* ========================================
+   NOUVELLES VARIANTES ULTRA EFFECTS
+   ======================================== */
+
+/* VARIANTE NEON GLOW */
+.cta--neon-glow {
+  background: #0a0a0a;
+  color: #ffffff;
+  position: relative;
+  padding: 8rem 0;
+  overflow: hidden;
+}
+
+.cta--neon-glow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, #00ffff 0%, transparent 25%, transparent 50%, #ff00ff 75%, transparent 100%);
+  animation: neonRotate 20s linear infinite;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+}
+
+.cta--neon-glow .cta__title {
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 
+    0 0 10px #00ffff,
+    0 0 20px #00ffff,
+    0 0 30px #00ffff,
+    0 0 40px #0088ff;
+  animation: neonFlicker 2s ease-in-out infinite alternate;
+}
+
+/* VARIANTE LIQUID MORPH */
+.cta--liquid-morph {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  position: relative;
+  padding: 8rem 0;
+  overflow: hidden;
+}
+
+.cta--liquid-morph::before,
+.cta--liquid-morph::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.7;
+}
+
+.cta--liquid-morph::before {
+  background: linear-gradient(45deg, #f093fb, #f5576c);
+  top: -300px;
+  left: -300px;
+  animation: liquidMorph1 20s ease-in-out infinite;
+}
+
+.cta--liquid-morph .cta__content {
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4rem;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* VARIANTE GLITCH EFFECT */
+.cta--glitch-effect {
+  background: #000;
+  color: #fff;
+  position: relative;
+  padding: 8rem 0;
+  overflow: hidden;
+}
+
+.cta--glitch-effect .cta__title {
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  position: relative;
+  animation: glitchBase 2s infinite;
+}
+
+.cta--glitch-effect .cta__title::before,
+.cta--glitch-effect .cta__title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cta--glitch-effect .cta__title::before {
+  animation: glitch1 0.5s infinite;
+  color: #00ffff;
+  z-index: -1;
+}
+
+/* VARIANTE WAVE ANIMATION */
+.cta--wave-animation {
+  background: linear-gradient(135deg, #06beb6 0%, #48b1bf 100%);
+  color: white;
+  position: relative;
+  padding: 8rem 0;
+  overflow: hidden;
+}
+
+.cta--wave-animation .wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(255,255,255,0.3)' d='M0,96L60,112C120,128,240,160,360,160C480,160,600,128,720,122.7C840,117,960,139,1080,138.7C1200,139,1320,117,1380,106.7L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+  background-size: 1440px 100px;
+  animation: wave 10s linear infinite;
+}
+
+/* VARIANTE COUNTDOWN */
+.cta--countdown {
+  background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);
+  color: #2d3436;
+  padding: 8rem 0;
+  position: relative;
+}
+
+.cta--countdown .countdown-timer {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin: 3rem 0;
+}
+
+.cta--countdown .countdown-item {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 15px;
+  min-width: 100px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.cta--countdown .countdown-number {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animations pour les nouvelles variantes */
+@keyframes neonRotate {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes neonFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes liquidMorph1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(100px, -100px) scale(1.2); }
+  66% { transform: translate(-100px, 100px) scale(0.8); }
+}
+
+@keyframes glitchBase {
+  0%, 90%, 100% { opacity: 1; }
+  92% { opacity: 0.8; }
+  94% { opacity: 1; }
+  96% { opacity: 0.8; }
+}
+
+@keyframes glitch1 {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(20% 0 30% 0); transform: translate(-2px, 2px); }
+  40% { clip-path: inset(50% 0 20% 0); transform: translate(2px, -2px); }
+  60% { clip-path: inset(10% 0 60% 0); transform: translate(-2px, 0); }
+  80% { clip-path: inset(80% 0 5% 0); transform: translate(2px, 0); }
+}
+
+@keyframes wave {
+  0% { background-position-x: 0; }
+  100% { background-position-x: 1440px; }
+}
+
+${ultraEffectsCSS}`;
   }
 
   getDefaultJS(): string {
@@ -643,6 +1014,14 @@ class CTAV3PerfectEnhanced {
     if (classes.contains('cta--minimal')) return 'minimal';
     if (classes.contains('cta--bold')) return 'bold';
     if (classes.contains('cta--elegant')) return 'elegant';
+    if (classes.contains('cta--neon-glow')) return 'neon-glow';
+    if (classes.contains('cta--liquid-morph')) return 'liquid-morph';
+    if (classes.contains('cta--glitch-effect')) return 'glitch-effect';
+    if (classes.contains('cta--wave-animation')) return 'wave-animation';
+    if (classes.contains('cta--countdown')) return 'countdown';
+    if (classes.contains('cta--particle-explosion')) return 'particle-explosion';
+    if (classes.contains('cta--3d-flip')) return '3d-flip';
+    if (classes.contains('cta--floating-cards')) return 'floating-cards';
     return 'modern'; // default
   }
   
@@ -798,6 +1177,30 @@ class CTAV3PerfectEnhanced {
       case 'elegant':
         this.initElegantEffects();
         break;
+      case 'neon-glow':
+        this.initNeonGlowEffects();
+        break;
+      case 'liquid-morph':
+        this.initLiquidMorphEffects();
+        break;
+      case 'glitch-effect':
+        this.initGlitchEffects();
+        break;
+      case 'wave-animation':
+        this.initWaveEffects();
+        break;
+      case 'countdown':
+        this.initCountdownEffects();
+        break;
+      case 'particle-explosion':
+        this.initParticleExplosionEffects();
+        break;
+      case '3d-flip':
+        this.init3DFlipEffects();
+        break;
+      case 'floating-cards':
+        this.initFloatingCardsEffects();
+        break;
     }
   }
   
@@ -921,6 +1324,240 @@ class CTAV3PerfectEnhanced {
       }, index * 100);
     });
   }
+  
+  initNeonGlowEffects() {
+    // Effet de pulsation néon sur les boutons
+    const buttons = this.element.querySelectorAll('.neon-button');
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        button.style.animation = 'neonPulse 0.5s ease-in-out';
+      });
+      button.addEventListener('animationend', () => {
+        button.style.animation = '';
+      });
+    });
+  }
+  
+  initLiquidMorphEffects() {
+    // Effet de morphing au mouvement de la souris
+    const content = this.element.querySelector('.cta__content');
+    if (content) {
+      this.element.addEventListener('mousemove', (e) => {
+        const rect = this.element.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        
+        content.style.transform = \`perspective(1000px) rotateY(\${(x - 0.5) * 10}deg) rotateX(\${(y - 0.5) * -10}deg)\`;
+      });
+      
+      this.element.addEventListener('mouseleave', () => {
+        content.style.transform = '';
+      });
+    }
+  }
+  
+  initGlitchEffects() {
+    // Effet glitch aléatoire
+    const title = this.element.querySelector('.cta__title');
+    if (title) {
+      setInterval(() => {
+        if (Math.random() > 0.9) {
+          title.style.animation = 'glitchText 0.3s';
+          setTimeout(() => {
+            title.style.animation = '';
+          }, 300);
+        }
+      }, 3000);
+    }
+  }
+  
+  initWaveEffects() {
+    // Synchronisation des vagues
+    const waves = this.element.querySelectorAll('.wave');
+    waves.forEach((wave, index) => {
+      wave.style.animationDelay = \`\${index * 0.5}s\`;
+    });
+  }
+  
+  initCountdownEffects() {
+    const timer = this.element.querySelector('.countdown-timer');
+    if (!timer) return;
+    
+    const endDate = new Date(timer.dataset.end);
+    
+    const updateCountdown = () => {
+      const now = new Date();
+      const diff = endDate - now;
+      
+      if (diff <= 0) {
+        clearInterval(interval);
+        return;
+      }
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      
+      document.getElementById('days').textContent = String(days).padStart(2, '0');
+      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    };
+    
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  }
+  
+  initParticleExplosionEffects() {
+    // Animation dynamique des particules
+    const particles = this.element.querySelectorAll('.particle');
+    particles.forEach((particle, index) => {
+      particle.addEventListener('animationend', () => {
+        // Relancer l'animation avec une nouvelle position
+        const newLeft = Math.random() * 100;
+        (particle as HTMLElement).style.left = newLeft + '%';
+        (particle as HTMLElement).style.animationDelay = (Math.random() * 10) + 's';
+      });
+    });
+    
+    // Effet de souffle au clic sur les boutons
+    const buttons = this.element.querySelectorAll('.cta__button');
+    buttons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        this.createExplosion(e, button);
+      });
+    });
+  }
+  
+  createExplosion(e, button) {
+    const rect = button.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      const angle = (Math.PI * 2 * i) / 20;
+      const velocity = 50 + Math.random() * 50;
+      
+      particle.style.cssText = \`
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #fff;
+        border-radius: 50%;
+        left: \${x}px;
+        top: \${y}px;
+        pointer-events: none;
+      \`;
+      
+      button.appendChild(particle);
+      
+      // Animation
+      particle.animate([
+        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+        { transform: \`translate(\${Math.cos(angle) * velocity}px, \${Math.sin(angle) * velocity}px) scale(0)\`, opacity: 0 }
+      ], {
+        duration: 800,
+        easing: 'cubic-bezier(0, .9, .57, 1)'
+      }).onfinish = () => particle.remove();
+    }
+  }
+  
+  init3DFlipEffects() {
+    const content = this.element.querySelector('.cta__content');
+    let rotateX = 0;
+    let rotateY = 0;
+    
+    this.element.addEventListener('mousemove', (e) => {
+      const rect = this.element.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      
+      rotateX = (y - 0.5) * -20;
+      rotateY = (x - 0.5) * 20;
+      
+      content.style.transform = \`perspective(1000px) rotateX(\${rotateX}deg) rotateY(\${rotateY}deg)\`;
+    });
+    
+    this.element.addEventListener('mouseleave', () => {
+      content.style.transform = '';
+    });
+    
+    // Animation 3D sur les boutons
+    const buttons = this.element.querySelectorAll('.cta__button');
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        button.style.transform = 'translateZ(30px) scale(1.1)';
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        button.style.transform = '';
+      });
+    });
+  }
+  
+  initFloatingCardsEffects() {
+    const cards = this.element.querySelectorAll('.floating-card');
+    
+    // Interactivité avec les cartes
+    cards.forEach((card, index) => {
+      card.style.cursor = 'pointer';
+      
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'scale(1.1)';
+        card.style.zIndex = '100';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.zIndex = '';
+      });
+      
+      // Mouvement aléatoire supplémentaire
+      setInterval(() => {
+        const randomX = (Math.random() - 0.5) * 20;
+        const randomY = (Math.random() - 0.5) * 20;
+        card.style.transform = \`translate(\${randomX}px, \${randomY}px)\`;
+      }, 3000 + index * 1000);
+    });
+    
+    // Création de nouvelles cartes au survol
+    this.element.addEventListener('mouseenter', () => {
+      if (Math.random() > 0.7) {
+        this.createFloatingCard();
+      }
+    });
+  }
+  
+  createFloatingCard() {
+    const messages = ['💫 Magie', '🎨 Design', '⚡ Rapidité', '🌟 Qualité'];
+    const card = document.createElement('div');
+    card.className = 'floating-card';
+    card.style.cssText = \`
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.5s ease-out;
+    \`;
+    card.innerHTML = \`<span>\${messages[Math.floor(Math.random() * messages.length)]}</span>\`;
+    
+    this.element.appendChild(card);
+    
+    // Position aléatoire
+    setTimeout(() => {
+      card.style.top = \`\${Math.random() * 80}%\`;
+      card.style.left = \`\${Math.random() * 80}%\`;
+      card.style.opacity = '1';
+      card.style.transform = 'scale(1)';
+    }, 10);
+    
+    // Suppression après animation
+    setTimeout(() => {
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0)';
+      setTimeout(() => card.remove(), 500);
+    }, 5000);
+  }
 }
 
 // Styles additionnels
@@ -968,6 +1605,32 @@ style.textContent = \`
       transform: translateY(-1000px) translateX(-50px) scale(0.8);
       opacity: 0;
     }
+  }
+  
+  @keyframes neonPulse {
+    0% {
+      box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.5),
+        inset 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+    50% {
+      box-shadow: 
+        0 0 40px rgba(0, 255, 255, 0.8),
+        inset 0 0 40px rgba(0, 255, 255, 0.4);
+    }
+    100% {
+      box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.5),
+        inset 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+  }
+  
+  @keyframes glitchText {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
   }
 \`;
 document.head.appendChild(style);
@@ -1030,6 +1693,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   private renderContent(data: CTAData): string {
+    const variant = data.themeVariant || 'modern';
+    
+    // Contenu spécifique pour les nouvelles variantes
+    if (variant === 'neon-glow') {
+      return this.renderNeonGlow(data);
+    } else if (variant === 'liquid-morph') {
+      return this.renderLiquidMorph(data);
+    } else if (variant === 'glitch-effect') {
+      return this.renderGlitchEffect(data);
+    } else if (variant === 'wave-animation') {
+      return this.renderWaveAnimation(data);
+    } else if (variant === 'countdown') {
+      return this.renderCountdown(data);
+    } else if (variant === 'particle-explosion') {
+      return this.renderParticleExplosion(data);
+    } else if (variant === '3d-flip') {
+      return this.render3DFlip(data);
+    } else if (variant === 'floating-cards') {
+      return this.renderFloatingCards(data);
+    }
+    
+    // Rendu standard pour les autres variantes
     return `
       <h2 class="cta__title">${this.escapeHtml(data.title)}</h2>
       ${data.subtitle ? `<p class="cta__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
@@ -1038,6 +1723,154 @@ document.addEventListener('DOMContentLoaded', () => {
       ${data.form ? this.renderForm(data) : this.renderButtons(data)}
       
       ${data.features && data.features.length > 0 ? this.renderFeatures(data.features) : ''}
+    `;
+  }
+  
+  private renderNeonGlow(data: CTAData): string {
+    return `
+      <h2 class="cta__title" data-text="${this.escapeHtml(data.title)}">${this.escapeHtml(data.title)}</h2>
+      ${data.subtitle ? `<p class="cta__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+      ${data.description ? `<p class="cta__description">${this.escapeHtml(data.description)}</p>` : ''}
+      
+      <div class="cta__buttons">
+        ${data.buttons?.map(button => `
+          <a href="${button.link}" class="cta__button cta__button--${button.style || 'primary'} neon-button">
+            <span class="neon-text">${this.escapeHtml(button.text)}</span>
+            <span class="neon-glow"></span>
+          </a>
+        `).join('') || ''}
+      </div>
+    `;
+  }
+  
+  private renderLiquidMorph(data: CTAData): string {
+    return `
+      <h2 class="cta__title">${this.escapeHtml(data.title)}</h2>
+      ${data.subtitle ? `<p class="cta__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+      ${data.description ? `<p class="cta__description">${this.escapeHtml(data.description)}</p>` : ''}
+      
+      ${data.form ? this.renderForm(data) : this.renderButtons(data)}
+      
+      ${data.features && data.features.length > 0 ? this.renderFeatures(data.features) : ''}
+    `;
+  }
+  
+  private renderGlitchEffect(data: CTAData): string {
+    return `
+      <h2 class="cta__title" data-text="${this.escapeHtml(data.title)}">${this.escapeHtml(data.title)}</h2>
+      ${data.subtitle ? `<p class="cta__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+      ${data.description ? `<p class="cta__description">${this.escapeHtml(data.description)}</p>` : ''}
+      
+      <div class="cta__buttons">
+        ${data.buttons?.map(button => `
+          <a href="${button.link}" class="cta__button cta__button--${button.style || 'primary'} glitch-button">
+            <span>${this.escapeHtml(button.text)}</span>
+          </a>
+        `).join('') || ''}
+      </div>
+    `;
+  }
+  
+  private renderWaveAnimation(data: CTAData): string {
+    return `
+      <h2 class="cta__title">${this.escapeHtml(data.title)}</h2>
+      ${data.subtitle ? `<p class="cta__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+      ${data.description ? `<p class="cta__description">${this.escapeHtml(data.description)}</p>` : ''}
+      
+      ${data.form ? this.renderForm(data) : this.renderButtons(data)}
+      
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+    `;
+  }
+  
+  private renderCountdown(data: CTAData): string {
+    const endDate = data.countdownDate || new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+    
+    return `
+      <h2 class="cta__title">${this.escapeHtml(data.title)}</h2>
+      ${data.subtitle ? `<p class="cta__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+      
+      <div class="countdown-timer" data-end="${endDate}">
+        <div class="countdown-item">
+          <div class="countdown-number" id="days">00</div>
+          <div class="countdown-label">Jours</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="hours">00</div>
+          <div class="countdown-label">Heures</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="minutes">00</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="seconds">00</div>
+          <div class="countdown-label">Secondes</div>
+        </div>
+      </div>
+      
+      ${data.description ? `<p class="cta__description">${this.escapeHtml(data.description)}</p>` : ''}
+      ${data.form ? this.renderForm(data) : this.renderButtons(data)}
+    `;
+  }
+  
+  private renderParticleExplosion(data: CTAData): string {
+    return `
+      <div class="particles">
+        ${Array.from({length: 10}, (_, i) => `<div class="particle"></div>`).join('')}
+      </div>
+      
+      <h2 class="cta__title">${this.escapeHtml(data.title)}</h2>
+      ${data.subtitle ? `<p class="cta__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+      ${data.description ? `<p class="cta__description">${this.escapeHtml(data.description)}</p>` : ''}
+      
+      <div class="cta__buttons">
+        ${data.buttons?.map(button => `
+          <a href="${button.link}" class="cta__button cta__button--${button.style || 'primary'}">
+            <span>${this.escapeHtml(button.text)}</span>
+          </a>
+        `).join('') || ''}
+      </div>
+    `;
+  }
+  
+  private render3DFlip(data: CTAData): string {
+    return `
+      <h2 class="cta__title">${this.escapeHtml(data.title)}</h2>
+      ${data.subtitle ? `<p class="cta__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+      ${data.description ? `<p class="cta__description">${this.escapeHtml(data.description)}</p>` : ''}
+      
+      <div class="cta__buttons">
+        ${data.buttons?.map(button => `
+          <a href="${button.link}" class="cta__button cta__button--${button.style || 'primary'}">
+            <span>${this.escapeHtml(button.text)}</span>
+          </a>
+        `).join('') || ''}
+      </div>
+      
+      ${data.features && data.features.length > 0 ? this.renderFeatures(data.features) : ''}
+    `;
+  }
+  
+  private renderFloatingCards(data: CTAData): string {
+    return `
+      <div class="floating-card">
+        <span>✨ Innovation</span>
+      </div>
+      <div class="floating-card">
+        <span>🚀 Performance</span>
+      </div>
+      <div class="floating-card">
+        <span>💡 Créativité</span>
+      </div>
+      
+      <h2 class="cta__title">${this.escapeHtml(data.title)}</h2>
+      ${data.subtitle ? `<p class="cta__subtitle">${this.escapeHtml(data.subtitle)}</p>` : ''}
+      ${data.description ? `<p class="cta__description">${this.escapeHtml(data.description)}</p>` : ''}
+      
+      ${data.form ? this.renderForm(data) : this.renderButtons(data)}
     `;
   }
 

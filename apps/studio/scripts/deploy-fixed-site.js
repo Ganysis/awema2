@@ -11,6 +11,7 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 // Charger les clés
 const envPath = path.join(__dirname, '..', '.env.local');
@@ -456,7 +457,7 @@ async function deployFixedSite() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        siteId: `fixed-${Date.now()}`,
+        siteId: crypto.randomUUID(),
         siteName: `awema-fixed-${Date.now()}`,
         projectData: projectData,
         plan: 'pro',

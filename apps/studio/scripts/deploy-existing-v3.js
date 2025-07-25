@@ -1,6 +1,7 @@
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const fs = require('fs').promises;
 const path = require('path');
+const crypto = require('crypto');
 require('dotenv').config({ path: '.env.local' });
 
 // Configuration
@@ -200,7 +201,7 @@ async function main() {
     console.log('🚀 Lancement du déploiement Netlify...');
     
     const deployData = {
-      siteId: `test-v3-blocks-${Date.now()}`,
+      siteId: crypto.randomUUID(),
       siteName: `test-v3-blocks-${Date.now()}`,
       projectData: projectData,
       plan: 'starter',

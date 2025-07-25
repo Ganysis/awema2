@@ -6,10 +6,15 @@ import { BlockLibrary } from './BlockLibrary';
 import { TemplateLibrary } from './TemplateLibrary';
 import { ThemeSelector } from './ThemeSelector';
 import { PageNavigationEnhanced } from './PageNavigationEnhanced';
+import { Sparkles } from 'lucide-react';
 
 type Tab = 'pages' | 'blocks' | 'templates' | 'theme';
 
-export function Sidebar() {
+interface SidebarProps {
+  onAIGenerate?: () => void;
+}
+
+export function Sidebar({ onAIGenerate }: SidebarProps) {
   const [activeTab, setActiveTab] = useState<Tab>('pages');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -84,6 +89,22 @@ export function Sidebar() {
         {activeTab === 'templates' && <TemplateLibrary searchQuery={searchQuery} />}
         {activeTab === 'theme' && <ThemeSelector />}
       </div>
+      
+      {/* AI Generation Button */}
+      {onAIGenerate && (
+        <div className="p-4 border-t border-gray-200">
+          <button
+            onClick={onAIGenerate}
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+          >
+            <Sparkles className="w-5 h-5" />
+            <span className="font-medium">Génération IA</span>
+          </button>
+          <p className="text-xs text-gray-500 text-center mt-2">
+            Générez du contenu unique avec l'IA
+          </p>
+        </div>
+      )}
     </div>
   );
 }

@@ -3,6 +3,39 @@ import { Client, ClientStatus, Prisma } from '@prisma/client';
 import { prisma } from '../prisma';
 
 export class ClientServiceSimple {
+  static async create(data: any) {
+    try {
+      console.log('ClientServiceSimple.create appelé avec:', data);
+      
+      // Vérifier que les champs requis sont présents
+      if (!data.name || !data.email) {
+        throw new Error('Les champs name et email sont requis');
+      }
+      
+      const clientData = {
+        ...data,
+        tags: data.tags ? JSON.stringify(data.tags) : undefined,
+      };
+      
+      console.log('Données à insérer dans la base:', clientData);
+      
+      const client = await prisma.client.create({
+        data: clientData,
+      });
+      
+      console.log('Client créé avec succès:', client);
+      
+      return {
+        ...client,
+        tags: client.tags ? JSON.parse(client.tags) : [],
+      };
+    } catch (error) {
+      console.error('Error in ClientServiceSimple.create:', error);
+      console.error('Stack trace:', (error as any).stack);
+      throw error;
+    }
+  }
+
   static async list(params: {
     skip?: number;
     take?: number;

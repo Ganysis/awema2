@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://elec-pro-lyon.netlify.app/sitemap.xml

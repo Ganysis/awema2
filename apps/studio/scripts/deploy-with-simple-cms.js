@@ -5,12 +5,13 @@
 const { NetlifyEdgeFunctionsSimple } = require('../lib/services/netlify-edge-functions-simple');
 const fs = require('fs').promises;
 const path = require('path');
+const crypto = require('crypto');
 
 async function deployWithSimpleCMS() {
   console.log('🚀 Déploiement avec CMS simplifié\n');
 
   const generator = new NetlifyEdgeFunctionsSimple();
-  const siteId = 'test-simple-' + Date.now();
+  const siteId = crypto.randomUUID();
   
   // Blocs de test
   const testBlocks = [

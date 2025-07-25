@@ -51,7 +51,15 @@ export class FooterRendererV3PerfectEnhanced extends BaseRendererV3<FooterData> 
           { value: 'dark', label: '🌑 Dark - Fond sombre' },
           { value: 'floating', label: '☁️ Floating - Effets flottants' },
           { value: 'geometric', label: '📐 Geometric - Formes géométriques' },
-          { value: 'organic', label: '🌿 Organic - Formes organiques' }
+          { value: 'organic', label: '🌿 Organic - Formes organiques' },
+          { value: 'cyber-grid', label: '🔲 Cyber Grid - Grille futuriste' },
+          { value: 'aurora', label: '🌌 Aurora - Aurores boréales' },
+          { value: 'glassmorphism', label: '🪟 Glassmorphism - Effet verre' },
+          { value: 'particle-flow', label: '✨ Particle Flow - Flux de particules' },
+          { value: 'morphing-shapes', label: '🎭 Morphing - Formes morphing' },
+          { value: 'retro-synthwave', label: '🌆 Synthwave - Rétro années 80' },
+          { value: 'liquid-metal', label: '🪙 Liquid Metal - Métal liquide' },
+          { value: 'minimalist-zen', label: '☯️ Zen - Minimaliste zen' }
         ],
         defaultValue: 'waves',
         required: true,
@@ -358,7 +366,377 @@ export class FooterRendererV3PerfectEnhanced extends BaseRendererV3<FooterData> 
   }
   
   getDefaultCSS(): string {
-    return '';
+    // Charger le CSS des effets ultra
+    const ultraEffectsCSS = this.loadUltraEffectsCSS();
+    
+    return `
+/* ========================================
+   FOOTER V3 PERFECT ENHANCED - Styles avec effets ultra
+   ======================================== */
+
+${this.getBaseCSS()}
+
+${ultraEffectsCSS}
+    `;
+  }
+  
+  private loadUltraEffectsCSS(): string {
+    // CSS des effets ultra modernes
+    return `
+/* ========================================
+   FOOTER ULTRA EFFECTS - Effets visuels avancés
+   ======================================== */
+
+/* VARIANTE CYBER GRID - Grille futuriste */
+.footer-v3--cyber-grid {
+  background: #0a0a0a;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-v3--cyber-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 20s linear infinite;
+  pointer-events: none;
+}
+
+.footer-v3--cyber-grid::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ffff, transparent);
+  animation: scanLine 3s linear infinite;
+}
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+@keyframes scanLine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* VARIANTE AURORA - Aurores boréales */
+.footer-v3--aurora {
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-v3--aurora::before,
+.footer-v3--aurora::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: radial-gradient(ellipse at center, transparent 0%, #00ff88 25%, transparent 50%, #ff00ff 75%, transparent 100%);
+  animation: aurora 15s ease-in-out infinite;
+  opacity: 0.2;
+  mix-blend-mode: screen;
+}
+
+.footer-v3--aurora::after {
+  animation-delay: 7.5s;
+  background: radial-gradient(ellipse at center, transparent 0%, #ff00ff 25%, transparent 50%, #00ffff 75%, transparent 100%);
+}
+
+@keyframes aurora {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(1.2); }
+  50% { transform: rotate(180deg) scale(1); }
+  75% { transform: rotate(270deg) scale(0.8); }
+}
+
+/* VARIANTE GLASSMORPHISM - Effet verre */
+.footer-v3--glassmorphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  position: relative;
+}
+
+.footer-v3--glassmorphism::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(120, 200, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(255, 120, 200, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.footer-v3--glassmorphism .footer-v3__widget {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.footer-v3--glassmorphism .footer-v3__widget:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* VARIANTE PARTICLE FLOW - Flux de particules */
+.footer-v3--particle-flow {
+  background: #1a1a2e;
+  color: #eee;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-v3--particle-flow .particles-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.footer-v3--particle-flow .particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFlow 15s linear infinite;
+}
+
+@keyframes particleFlow {
+  0% {
+    opacity: 0;
+    transform: translate(0, 100vh);
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(100vw, -100px);
+  }
+}
+
+/* VARIANTE MORPHING SHAPES - Formes morphing */
+.footer-v3--morphing-shapes {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-v3--morphing-shapes .shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.6;
+  animation: morphing 20s ease-in-out infinite;
+}
+
+@keyframes morphing {
+  0%, 100% {
+    border-radius: 50%;
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    transform: rotate(90deg) scale(1.1);
+  }
+  50% {
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+    transform: rotate(180deg) scale(0.9);
+  }
+  75% {
+    border-radius: 30% 70% 70% 30% / 70% 30% 30% 70%;
+    transform: rotate(270deg) scale(1.2);
+  }
+}
+
+/* VARIANTE RETRO SYNTHWAVE - Style années 80 */
+.footer-v3--retro-synthwave {
+  background: linear-gradient(to bottom, #0f0c29 0%, #302b63 50%, #ff006e 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-v3--retro-synthwave::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      #ff006e,
+      #ff006e 2px,
+      transparent 2px,
+      transparent 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #8338ec,
+      #8338ec 2px,
+      transparent 2px,
+      transparent 20px
+    );
+  opacity: 0.1;
+  perspective: 500px;
+  transform: rotateX(60deg);
+}
+
+.footer-v3--retro-synthwave .footer-v3__widget-title {
+  font-family: 'Orbitron', monospace;
+  text-transform: uppercase;
+  background: linear-gradient(to right, #ff006e, #8338ec, #3a86ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* VARIANTE LIQUID METAL - Métal liquide */
+.footer-v3--liquid-metal {
+  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+  color: #e0e0e0;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-v3--liquid-metal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+  animation: liquidShift 20s ease-in-out infinite;
+}
+
+@keyframes liquidShift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-20px, -20px) scale(1.1); }
+  66% { transform: translate(20px, 20px) scale(0.9); }
+}
+
+/* VARIANTE MINIMALIST ZEN - Zen minimaliste */
+.footer-v3--minimalist-zen {
+  background: #fafafa;
+  color: #333;
+  padding: 8rem 0 2rem;
+  position: relative;
+}
+
+.footer-v3--minimalist-zen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ddd, transparent);
+}
+
+.footer-v3--minimalist-zen .footer-v3__widget-title {
+  font-size: 0.875rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #999;
+}
+
+.footer-v3--minimalist-zen .footer-v3__link {
+  color: #666;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.footer-v3--minimalist-zen .footer-v3__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #333;
+  transition: width 0.3s ease;
+}
+
+.footer-v3--minimalist-zen .footer-v3__link:hover {
+  color: #333;
+}
+
+.footer-v3--minimalist-zen .footer-v3__link:hover::after {
+  width: 100%;
+}
+    `;
+  }
+  
+  private getBaseCSS(): string {
+    return `
+/* Base Footer Styles */
+.footer-v3 {
+  position: relative;
+  color: var(--footer-text);
+  --footer-bg: #1a1f2e;
+  --footer-text: #e0e6ed;
+  --footer-muted: #8892b0;
+  --footer-border: rgba(255, 255, 255, 0.1);
+  --footer-primary: #64ffda;
+  --footer-secondary: #f6a192;
+  --footer-gradient: linear-gradient(135deg, var(--footer-primary) 0%, var(--footer-secondary) 100%);
+}
+
+/* Widget styles */
+.footer-v3__widget {
+  margin-bottom: 2rem;
+}
+
+.footer-v3__widget-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-v3__link {
+  color: var(--footer-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: inline-block;
+  padding: 0.25rem 0;
+}
+
+.footer-v3__link:hover {
+  color: var(--footer-primary);
+}
+    `;
   }
 
   private convertToStructuredData(data: any): any {
@@ -567,6 +945,38 @@ export class FooterRendererV3PerfectEnhanced extends BaseRendererV3<FooterData> 
             </svg>
           </div>
         `;
+      
+      case 'cyber-grid':
+        return ''; // Les effets sont gérés par CSS
+      
+      case 'aurora':
+        return ''; // Les effets sont gérés par CSS
+      
+      case 'glassmorphism':
+        return ''; // Les effets sont gérés par CSS
+      
+      case 'particle-flow':
+        return `
+          <div class="particles-container">
+            ${Array.from({length: 10}, (_, i) => `<div class="particle"></div>`).join('')}
+          </div>
+        `;
+      
+      case 'morphing-shapes':
+        return `
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
+        `;
+      
+      case 'retro-synthwave':
+        return '<div class="neon-line"></div>';
+      
+      case 'liquid-metal':
+        return ''; // Les effets sont gérés par CSS
+      
+      case 'minimalist-zen':
+        return ''; // Les effets sont gérés par CSS
       
       default:
         return '';
@@ -1919,7 +2329,7 @@ export class FooterRendererV3PerfectEnhanced extends BaseRendererV3<FooterData> 
     window.addEventListener('scroll', function() {
       const currentScroll = window.pageYOffset;
       
-      if (currentScroll > ${data.backToTop.showAfter}) {
+      if (currentScroll > ${data.backToTop?.showAfter || 300}) {
         backToTop.classList.add('visible');
       } else {
         backToTop.classList.remove('visible');

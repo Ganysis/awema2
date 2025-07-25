@@ -26,8 +26,8 @@ export class DBVersionHistoryService extends VersionHistoryService {
     this.authToken = options.authToken || localStorage.getItem('token');
     this.syncEnabled = options.syncEnabled !== false;
 
-    // Synchroniser au démarrage
-    if (this.syncEnabled) {
+    // Synchroniser au démarrage seulement si on a un token
+    if (this.syncEnabled && this.authToken && this.authToken !== 'null') {
       this.syncFromDatabase();
     }
   }
@@ -54,6 +54,12 @@ export class DBVersionHistoryService extends VersionHistoryService {
    */
   async fetchVersionsFromDB(): Promise<Version[]> {
     try {
+      // Si pas d'auth token, ne pas essayer de fetch
+      if (!this.authToken || this.authToken === 'undefined') {
+        console.log('No auth token, skipping version fetch from DB');
+        return [];
+      }
+      
       const response = await fetch(`${this.apiEndpoint}/${this.projectId}/versions`, {
         headers: {
           'Authorization': `Bearer ${this.authToken}`,
@@ -61,7 +67,8 @@ export class DBVersionHistoryService extends VersionHistoryService {
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to fetch versions: ${response.statusText}`);
+        console.warn(`Failed to fetch versions: ${response.status} ${response.statusText}`);
+        return [];
       }
 
       const result = await response.json();
@@ -78,6 +85,7 @@ export class DBVersionHistoryService extends VersionHistoryService {
       }));
     } catch (error) {
       console.error('Error fetching versions from DB:', error);
+      // Ne pas bloquer le chargement du site si les versions ne peuvent pas être récupérées
       return [];
     }
   }

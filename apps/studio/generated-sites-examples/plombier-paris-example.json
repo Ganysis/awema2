@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "generatedBy": "AI Site Generator",
+    "date": "2025-07-21T20:29:19.529Z",
+    "client": "Plomberie Express Paris",
+    "stats": {
+      "pages": 15,
+      "blocks": 147,
+      "services": 3,
+      "cities": 5,
+      "generationTime": "4.2s"
+    }
+  },
+  "pages": [
+    {
+      "id": "home",
+      "name": "Accueil",
+      "slug": "/",
+      "seo": {
+        "title": "Plomberie Express Paris - Plombier à Paris | Dépannage 24h/7j",
+        "description": "Plomberie Express Paris, votre plombier à Paris. Intervention rapide 24h/7j pour tous vos problèmes de plomberie. Dépannage, installation, rénovation. Devis gratuit.",
+        "keywords": [
+          "plombier paris",
+          "urgence plombier",
+          "dépannage plomberie",
+          "fuite eau",
+          "débouchage canalisation"
+        ]
+      },
+      "blocks": [
+        {
+          "type": "HeroV3",
+          "props": {
+            "variant": "centered-bold",
+            "title": "Urgence Plomberie Paris - Intervention en 30 minutes 24h/7j",
+            "subtitle": "Plomberie Express Paris - Votre expert plombier à Paris",
+            "primaryButton": {
+              "text": "☎️ 01 42 56 78 90",
+              "href": "tel:0142567890"
+            },
+            "secondaryButton": {
+              "text": "Nos services",
+              "href": "#services"
+            }
+          }
+        },
+        {
+          "type": "ServicesV3",
+          "props": {
+            "variant": "cards-hover",
+            "title": "Nos Services",
+            "service1_name": "Débouchage canalisation",
+            "service1_description": "Canalisation bouchée ? Plomberie Express Paris intervient en urgence avec un équipement professionnel haute pression. Débouchage garanti sans casse, diagnostic caméra offert. Intervention 24h/7j à Paris.",
+            "service1_price": "À partir de 89€",
+            "service1_icon": "🚿"
+          }
+        }
+      ]
+    }
+  ],
+  "theme": {
+    "colors": {
+      "primary": "#2563EB",
+      "secondary": "#3B82F6",
+      "accent": "#EF4444"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+    }
+  }
+}

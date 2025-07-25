@@ -293,7 +293,7 @@ export class EditorMediaManager {
 
     // Créer l'objet image
     const image: EditorImage = {
-      id: `img-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      id: crypto.randomUUID(),
       url: imagePath,
       thumbnailUrl: thumbPath,
       alt: metadata?.alt || file.name,

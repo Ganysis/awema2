@@ -87,6 +87,7 @@ model Client {
   leads       Lead[]
   invoices    Invoice[]
   formLinks   FormLink[]
+  templateProposals TemplateProposal[]
   
   @@index([email])
   @@index([status])
@@ -378,6 +379,87 @@ enum InvoiceStatus {
   PAID
   OVERDUE
   CANCELLED
+}
+
+// ========== TEMPLATES ==========
+
+model Template {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  category    String   // plombier, electricien, etc.
+  
+  // Template structure
+  blocks      String   // JSON array of blocks configuration
+  theme       String   // JSON theme configuration
+  
+  // Template properties
+  tags        String?  // JSON array for filtering: modern, classic, urgency, etc.
+  score       Float    @default(0) // Quality/relevance score
+  
+  // Metadata
+  metadata    String?  // JSON: performance, accessibility, seoScore, etc.
+  
+  // Usage tracking
+  usageCount  Int      @default(0)
+  lastUsedAt  DateTime?
+  
+  // Status
+  isActive    Boolean  @default(true)
+  isPublic    Boolean  @default(true)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([category])
+  @@index([isActive])
+  @@map("templates")
+}
+
+// ========== TEMPLATE PROPOSALS ==========
+
+model TemplateProposal {
+  id          String   @id @default(cuid())
+  clientId    String
+  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  
+  // Form data used for selection
+  formData    String   // JSON of the form submission
+  
+  // AI Analysis results (visible only to admin)
+  aiAnalysis  String?  // JSON: {suggestions, scoring, reasoning}
+  
+  // Selected templates (3 options)
+  option1     String?  // JSON: {templateId, customizations, adminNotes}
+  option2     String?  // JSON: {templateId, customizations, adminNotes}
+  option3     String?  // JSON: {templateId, customizations, adminNotes}
+  
+  // Admin customization
+  adminNotes  String?  // Notes for personalizing the presentation
+  customMessage String? // Personalized message to client
+  
+  // Status
+  status      ProposalStatus @default(PENDING)
+  selectedOption Int?     // Which option client selected (1, 2, or 3)
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  analyzedAt  DateTime? // When AI analysis was done
+  proposedAt  DateTime? // When sent to client
+  selectedAt  DateTime? // When client made selection
+  
+  @@index([clientId])
+  @@index([status])
+  @@map("template_proposals")
+}
+
+enum ProposalStatus {
+  PENDING      // Form submitted, waiting for AI analysis
+  ANALYZED     // AI has generated suggestions
+  CUSTOMIZING  // Admin is customizing proposals
+  PROPOSED     // Sent to client
+  SELECTED     // Client has selected an option
+  CONFIRMED    // Selection confirmed and project started
 }
 
 // ========== FORM LINKS ==========

@@ -8,6 +8,7 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 async function deployPerfectSite() {
   console.log('🚀 Déploiement du site PARFAIT avec AWEMA Studio\n');
@@ -1014,7 +1015,7 @@ async function deployPerfectSite() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        siteId: `perfect-${Date.now()}`,
+        siteId: crypto.randomUUID(),
         siteName: `awema-perfect-${Date.now()}`,
         projectData: projectData,
         plan: 'premium',

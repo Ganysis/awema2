@@ -1,0 +1,45 @@
+{
+  "date": "2025-07-22T19:55:46.239Z",
+  "sites": [
+    {
+      "name": "Plomberie Express Paris",
+      "url": "https://plomberie-express-paris-1753130251607-1753214146229.netlify.app",
+      "adminUrl": "https://app.netlify.com/sites/plomberie-express-paris-1753130251607-1753214146229",
+      "deployId": "deploy-1753214146237"
+    },
+    {
+      "name": "Élec Pro Lyon",
+      "url": "https://-lec-pro-lyon-1753130251672-1753214146230.netlify.app",
+      "adminUrl": "https://app.netlify.com/sites/-lec-pro-lyon-1753130251672-1753214146230",
+      "deployId": "deploy-1753214146238"
+    },
+    {
+      "name": "L'Atelier du Bois",
+      "url": "https://l-atelier-du-bois-1753130251798-1753214146232.netlify.app",
+      "adminUrl": "https://app.netlify.com/sites/l-atelier-du-bois-1753130251798-1753214146232",
+      "deployId": "deploy-1753214146238"
+    },
+    {
+      "name": "Couleurs Méditerranée",
+      "url": "https://couleurs-m-diterran-e-1753130251872-1753214146234.netlify.app",
+      "adminUrl": "https://app.netlify.com/sites/couleurs-m-diterran-e-1753130251872-1753214146234",
+      "deployId": "deploy-1753214146238"
+    },
+    {
+      "name": "Bâti Sud Construction",
+      "url": "https://b-ti-sud-construction-1753130251940-1753214146237.netlify.app",
+      "adminUrl": "https://app.netlify.com/sites/b-ti-sud-construction-1753130251940-1753214146237",
+      "deployId": "deploy-1753214146239"
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "plan": "pro",
+    "features": [
+      "Fonds colorés alternés par métier",
+      "Contenu personnalisé",
+      "CMS Supabase intégré",
+      "SEO optimisé"
+    ]
+  }
+}

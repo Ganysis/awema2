@@ -215,6 +215,8 @@ export class PreviewGenerator {
         min-height: 100vh;
         text-rendering: optimizeSpeed;
         line-height: 1.5;
+        display: flex;
+        flex-direction: column;
       }
       
       img, picture, video, canvas, svg {
@@ -346,6 +348,44 @@ export class PreviewGenerator {
       .gap-4 { gap: 1rem; }
       .gap-6 { gap: 1.5rem; }
       .gap-8 { gap: 2rem; }
+      
+      /* Site Wrapper for proper height */
+      .site-wrapper {
+        flex: 1 0 auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      
+      .site-wrapper > * {
+        flex-shrink: 0;
+      }
+      
+      .site-wrapper > main,
+      .site-wrapper > section {
+        flex: 1 0 auto;
+      }
+      
+      /* Fix pour le header sticky */
+      body:has(.header-v3--sticky) .site-wrapper {
+        padding-top: 80px;
+      }
+      
+      /* Fallback si :has() n'est pas supporté */
+      @supports not selector(:has(*)) {
+        .site-wrapper {
+          padding-top: 80px;
+        }
+      }
+      
+      /* Dans l'éditeur, désactiver le sticky pour le header */
+      .editor-preview .header-v3--sticky {
+        position: relative !important;
+      }
+      
+      .editor-preview .site-wrapper {
+        padding-top: 0 !important;
+      }
       
       /* Section Spacing */
       section {
@@ -647,7 +687,9 @@ export class PreviewGenerator {
     <style id="main-css">${css}</style>
 </head>
 <body>
-    ${html}
+    <div class="site-wrapper">
+        ${html}
+    </div>
     ${js ? `<script>${js}</script>` : ''}
 </body>
 </html>`;

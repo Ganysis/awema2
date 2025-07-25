@@ -3,6 +3,7 @@
  */
 
 const fetch = require('node-fetch');
+const crypto = require('crypto');
 
 async function testSimpleAuth() {
   console.log('🚀 Test de déploiement avec auth simplifiée\n');
@@ -51,7 +52,7 @@ async function testSimpleAuth() {
   };
 
   const deployRequest = {
-    siteId: `test-auth-${Date.now()}`,
+    siteId: crypto.randomUUID(),
     siteName: `test-auth-simple-${Date.now()}`,
     plan: 'starter', // Pas de Supabase
     projectData: projectData,

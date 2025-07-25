@@ -3,6 +3,7 @@
  */
 
 const fetch = require('node-fetch');
+const crypto = require('crypto');
 
 async function testFixedAuth() {
   console.log('🚀 Déploiement avec authentification corrigée\n');
@@ -75,7 +76,7 @@ async function testFixedAuth() {
   };
 
   const deployRequest = {
-    siteId: `test-fixed-${Date.now()}`,
+    siteId: crypto.randomUUID(),
     siteName: `test-auth-fixed-${Date.now()}`,
     plan: 'pro', // Pour avoir le CMS avec Edge Functions
     projectData: projectData

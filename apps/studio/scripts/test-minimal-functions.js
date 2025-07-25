@@ -3,6 +3,7 @@
  */
 
 const { NetlifyFunctionsMinimal } = require('../lib/services/netlify-functions-minimal');
+const crypto = require('crypto');
 
 async function testMinimal() {
   console.log('🧪 Test Minimal Netlify Functions\n');
@@ -92,7 +93,7 @@ async function testMinimal() {
   try {
     console.log('\n📦 Déploiement...');
     const deployRequest = {
-      siteId: `test-minimal-${Date.now()}`,
+      siteId: crypto.randomUUID(),
       siteName: `test-minimal-functions-${Date.now()}`,
       plan: 'starter',
       projectData: projectData,

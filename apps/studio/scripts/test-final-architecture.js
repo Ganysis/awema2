@@ -3,6 +3,7 @@
  */
 
 const fetch = require('node-fetch');
+const crypto = require('crypto');
 
 async function testFinalArchitecture() {
   console.log('🚀 Test Architecture Finale : Netlify Functions + Supabase\n');
@@ -82,7 +83,7 @@ async function testFinalArchitecture() {
   };
 
   const deployRequest = {
-    siteId: `test-final-${Date.now()}`,
+    siteId: crypto.randomUUID(),
     siteName: `test-architecture-finale-${Date.now()}`,
     plan: 'pro',
     projectData: projectData,

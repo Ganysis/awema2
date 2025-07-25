@@ -1,0 +1,474 @@
+/* ========================================
+   FOOTER ULTRA EFFECTS - Effets visuels avancés pour Footer V3
+   ======================================== */
+
+/* ========================================
+   VARIANTE CYBER GRID - Grille futuriste
+   ======================================== */
+.footer--cyber-grid {
+  background: #0a0a0a;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 0 2rem;
+}
+
+.footer--cyber-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 20s linear infinite;
+  pointer-events: none;
+}
+
+.footer--cyber-grid::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ffff, transparent);
+  animation: scanLine 3s linear infinite;
+}
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+@keyframes scanLine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.footer--cyber-grid .footer__content {
+  position: relative;
+  z-index: 10;
+}
+
+.footer--cyber-grid .footer__title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #00ffff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* ========================================
+   VARIANTE AURORA - Aurores boréales
+   ======================================== */
+.footer--aurora {
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 0 2rem;
+}
+
+.footer--aurora::before,
+.footer--aurora::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: radial-gradient(ellipse at center, transparent 0%, #00ff88 25%, transparent 50%, #ff00ff 75%, transparent 100%);
+  animation: aurora 15s ease-in-out infinite;
+  opacity: 0.2;
+  mix-blend-mode: screen;
+}
+
+.footer--aurora::after {
+  animation-delay: 7.5s;
+  background: radial-gradient(ellipse at center, transparent 0%, #ff00ff 25%, transparent 50%, #00ffff 75%, transparent 100%);
+}
+
+@keyframes aurora {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(1.2); }
+  50% { transform: rotate(180deg) scale(1); }
+  75% { transform: rotate(270deg) scale(0.8); }
+}
+
+/* ========================================
+   VARIANTE GLASSMORPHISM - Effet verre
+   ======================================== */
+.footer--glassmorphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  position: relative;
+  padding: 6rem 0 2rem;
+}
+
+.footer--glassmorphism::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(120, 200, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(255, 120, 200, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.footer--glassmorphism .footer__widget {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.footer--glassmorphism .footer__widget:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================
+   VARIANTE PARTICLE FLOW - Flux de particules
+   ======================================== */
+.footer--particle-flow {
+  background: #1a1a2e;
+  color: #eee;
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 0 2rem;
+}
+
+.footer--particle-flow .particles-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.footer--particle-flow .particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFlow 15s linear infinite;
+}
+
+@keyframes particleFlow {
+  0% {
+    opacity: 0;
+    transform: translate(0, 100vh);
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(100vw, -100px);
+  }
+}
+
+.footer--particle-flow .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.footer--particle-flow .particle:nth-child(2) { left: 20%; animation-delay: 1.5s; }
+.footer--particle-flow .particle:nth-child(3) { left: 30%; animation-delay: 3s; }
+.footer--particle-flow .particle:nth-child(4) { left: 40%; animation-delay: 4.5s; }
+.footer--particle-flow .particle:nth-child(5) { left: 50%; animation-delay: 6s; }
+.footer--particle-flow .particle:nth-child(6) { left: 60%; animation-delay: 7.5s; }
+.footer--particle-flow .particle:nth-child(7) { left: 70%; animation-delay: 9s; }
+.footer--particle-flow .particle:nth-child(8) { left: 80%; animation-delay: 10.5s; }
+.footer--particle-flow .particle:nth-child(9) { left: 90%; animation-delay: 12s; }
+.footer--particle-flow .particle:nth-child(10) { left: 95%; animation-delay: 13.5s; }
+
+/* ========================================
+   VARIANTE MORPHING SHAPES - Formes morphing
+   ======================================== */
+.footer--morphing-shapes {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 0 2rem;
+}
+
+.footer--morphing-shapes .shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.6;
+  animation: morphing 20s ease-in-out infinite;
+}
+
+.footer--morphing-shapes .shape-1 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(45deg, #f093fb, #f5576c);
+  top: -200px;
+  left: -200px;
+}
+
+.footer--morphing-shapes .shape-2 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(45deg, #4facfe, #00f2fe);
+  bottom: -150px;
+  right: -150px;
+  animation-delay: 10s;
+}
+
+.footer--morphing-shapes .shape-3 {
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(45deg, #fa709a, #fee140);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 5s;
+}
+
+@keyframes morphing {
+  0%, 100% {
+    border-radius: 50%;
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    transform: rotate(90deg) scale(1.1);
+  }
+  50% {
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+    transform: rotate(180deg) scale(0.9);
+  }
+  75% {
+    border-radius: 30% 70% 70% 30% / 70% 30% 30% 70%;
+    transform: rotate(270deg) scale(1.2);
+  }
+}
+
+/* ========================================
+   VARIANTE RETRO SYNTHWAVE - Style années 80
+   ======================================== */
+.footer--retro-synthwave {
+  background: linear-gradient(to bottom, #0f0c29 0%, #302b63 50%, #ff006e 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 0 2rem;
+}
+
+.footer--retro-synthwave::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      #ff006e,
+      #ff006e 2px,
+      transparent 2px,
+      transparent 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #8338ec,
+      #8338ec 2px,
+      transparent 2px,
+      transparent 20px
+    );
+  opacity: 0.1;
+  perspective: 500px;
+  transform: rotateX(60deg);
+}
+
+.footer--retro-synthwave .footer__title {
+  font-family: 'Orbitron', monospace;
+  text-transform: uppercase;
+  background: linear-gradient(to right, #ff006e, #8338ec, #3a86ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+}
+
+.footer--retro-synthwave .neon-line {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff006e, transparent);
+  animation: neonScan 4s linear infinite;
+}
+
+@keyframes neonScan {
+  0% { 
+    transform: translateX(-100%);
+    filter: hue-rotate(0deg);
+  }
+  100% { 
+    transform: translateX(100%);
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* ========================================
+   VARIANTE LIQUID METAL - Métal liquide
+   ======================================== */
+.footer--liquid-metal {
+  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+  color: #e0e0e0;
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 0 2rem;
+}
+
+.footer--liquid-metal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  animation: liquidShift 20s ease-in-out infinite;
+}
+
+@keyframes liquidShift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-20px, -20px) scale(1.1); }
+  66% { transform: translate(20px, 20px) scale(0.9); }
+}
+
+.footer--liquid-metal .footer__widget {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer--liquid-metal .footer__widget::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: metalShine 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes metalShine {
+  0%, 100% { transform: translate(-30%, -30%) rotate(0deg); }
+  50% { transform: translate(30%, 30%) rotate(180deg); }
+}
+
+/* ========================================
+   VARIANTE MINIMALIST ZEN - Zen minimaliste
+   ======================================== */
+.footer--minimalist-zen {
+  background: #fafafa;
+  color: #333;
+  padding: 8rem 0 2rem;
+  position: relative;
+}
+
+.footer--minimalist-zen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ddd, transparent);
+}
+
+.footer--minimalist-zen .footer__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer--minimalist-zen .footer__title {
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 1rem;
+}
+
+.footer--minimalist-zen .footer__link {
+  color: #666;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.3s ease;
+}
+
+.footer--minimalist-zen .footer__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #333;
+  transition: width 0.3s ease;
+}
+
+.footer--minimalist-zen .footer__link:hover {
+  color: #333;
+}
+
+.footer--minimalist-zen .footer__link:hover::after {
+  width: 100%;
+}
+
+/* Animations communes pour widgets */
+.footer__widget-enter {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: widgetEnter 0.8s ease-out forwards;
+}
+
+@keyframes widgetEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer--cyber-grid::before {
+    background-size: 30px 30px;
+  }
+  
+  .footer--aurora::before,
+  .footer--aurora::after {
+    animation-duration: 20s;
+  }
+  
+  .footer--morphing-shapes .shape {
+    filter: blur(60px);
+  }
+  
+  .footer--liquid-metal .footer__widget {
+    margin-bottom: 1.5rem;
+  }
+}

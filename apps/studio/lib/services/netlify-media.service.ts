@@ -56,7 +56,7 @@ export class NetlifyMediaService {
 
     // Créer les métadonnées
     const imageData: SiteImage = {
-      id: `img-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      id: crypto.randomUUID(),
       path: imagePath,
       alt: options?.alt || file.name.replace(/\.[^/.]+$/, ''),
       width: metadata.dimensions.width,

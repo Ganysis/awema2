@@ -534,7 +534,21 @@ export function getBlocksByCategory(category: BlockCategory): BlockDefinition[] 
 }
 
 export function getBlockById(id: string): BlockDefinition | undefined {
-  return blockRegistry.find(def => def && def.block && def.block.id === id);
+  // First try exact match
+  let block = blockRegistry.find(def => def && def.block && def.block.id === id);
+  
+  // If not found, try matching by name
+  if (!block) {
+    block = blockRegistry.find(def => def && def.block && def.block.name === id);
+  }
+  
+  // If still not found, try converting to kebab-case ID
+  if (!block) {
+    const kebabId = id.toLowerCase().replace(/\s+/g, '-');
+    block = blockRegistry.find(def => def && def.block && def.block.id === kebabId);
+  }
+  
+  return block;
 }
 
 export function getAllCategories(): BlockCategory[] {
@@ -570,5 +584,7 @@ const renderFunctions: Record<string, any> = {
 };
 
 export function getBlockRenderFunction(blockId: string): ((props: any, variants?: string[], isExport?: boolean) => any) | undefined {
-  return renderFunctions[blockId];
+  // Convert space-separated names to dash-separated IDs
+  const normalizedId = blockId.toLowerCase().replace(/\s+/g, '-');
+  return renderFunctions[normalizedId];
 }

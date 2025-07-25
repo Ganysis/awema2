@@ -7,8 +7,9 @@ import { z } from 'zod';
 const createProjectSchema = z.object({
   name: z.string().min(2),
   description: z.string().optional(),
-  template: z.string(),
+  template: z.string().optional(),
   clientId: z.string(),
+  status: z.string().optional(),
   domain: z.string().optional(),
   subdomain: z.string().optional(),
   customDomain: z.string().optional(),
@@ -116,6 +117,7 @@ export async function POST(request: NextRequest) {
     const project = await ProjectService.create({
       ...data,
       slug,
+      template: data.template || 'professional', // Add default template
       data: initialData, // Add initial data structure
       // createdBy: authResult.user.id, // TODO: Add back when auth is fixed
     });

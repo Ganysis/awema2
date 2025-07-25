@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bâti Sud Construction - Macon Professionnel</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .block {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1, h2, h3 {
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+        
+        /* Hero */
+        .hero-content {
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* CTA */
+        .cta-content {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .cta-content h2, .cta-content p {
+            color: white !important;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .btn-primary {
+            background: #6B7280;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-cta {
+            background: white;
+            color: #6B7280;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        }
+        
+        /* Header/Footer */
+        .header-v3-perfect {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .footer-v3-perfect {
+            background: #1f2937;
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-v3-perfect h2, .footer-v3-perfect p {
+            color: white;
+        }
+    </style>
+
+<style>
+  /* Styles personnalisés pour maçon */
+  section {
+    padding: 4rem 0;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Amélioration des contrastes */
+  section:nth-child(odd) {
+    background-color: #ffffff;
+  }
+  
+  section:nth-child(even) {
+    background-color: #F9FAFB;
+  }
+  
+  /* Sections spéciales avec gradients */
+  section:nth-child(3n) {
+    background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%);
+  }
+  
+  section:nth-child(5n) {
+    background: linear-gradient(135deg, #D1D5DB 0%, #9CA3AF 100%);
+  }
+  
+  /* Amélioration visuelle */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  h1, h2, h3 {
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+  }
+  
+  p {
+    color: #4b5563;
+    line-height: 1.8;
+  }
+</style>
+
+</head>
+<body>
+    
+    <section class="block HeaderV3" id="block-0" style="background-color: #ffffff;">
+      <div class="container">
+        <h2>HeaderV3</h2>
+        <p></p>
+      </div>
+    </section>
+
+    <section class="block HeroV3" id="block-1" style="background-color: #F9FAFB;">
+      <div class="container">
+        <h2>Bâtissons vos projets ensemble à Toulouse</h2>
+        <p>Construction et rénovation de qualité</p>
+      </div>
+    </section>
+
+    <section class="block ServicesV3" id="block-2" style="background-color: #F3F4F6;">
+      <div class="container">
+        <h2>Nos Services</h2>
+        <p>Découvrez l'ensemble de nos prestations de Maçon</p>
+      </div>
+    </section>
+
+    <section class="block FeaturesV3" id="block-3" style="background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%);">
+      <div class="container">
+        <h2>Pourquoi nous choisir ?</h2>
+        <p></p>
+      </div>
+    </section>
+
+    <section class="block TestimonialsV3" id="block-4" style="background-color: #E5E7EB;">
+      <div class="container">
+        <h2>Ils nous font confiance</h2>
+        <p></p>
+      </div>
+    </section>
+
+    <section class="block CTAV3" id="block-5" style="background: linear-gradient(135deg, #D1D5DB 0%, #9CA3AF 100%);">
+      <div class="container">
+        <h2>Prêt à démarrer votre projet ?</h2>
+        <p>Contactez-nous pour un devis gratuit</p>
+      </div>
+    </section>
+
+    <section class="block FooterV3" id="block-6" style="background-color: #F5F5F5;">
+      <div class="container">
+        <h2>FooterV3</h2>
+        <p>Maçonnerie générale et gros œuvre</p>
+      </div>
+    </section>
+
+    <section class="block simple-header" id="block-7" style="background-color: #EEEEEE;">
+      <div class="container">
+        <h2>simple-header</h2>
+        <p></p>
+      </div>
+    </section>
+</body>
+</html>
+  

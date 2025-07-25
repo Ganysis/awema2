@@ -224,7 +224,7 @@ export function GalleryEditor({
     }
 
     const newImage: GalleryImage = {
-      id: `image-${Date.now()}`,
+      id: crypto.randomUUID(),
       src: '',
       title: '',
       alt: '',

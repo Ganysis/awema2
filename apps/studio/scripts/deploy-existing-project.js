@@ -2,6 +2,7 @@
 
 const { PrismaClient } = require('@prisma/client');
 const fetch = require('node-fetch');
+const crypto = require('crypto');
 const prisma = new PrismaClient();
 
 async function deployExistingProject() {
@@ -49,7 +50,7 @@ async function deployExistingProject() {
       },
       body: JSON.stringify({
         projectId: project.id,
-        siteId: `site-${Date.now()}`,
+        siteId: crypto.randomUUID(),
         siteName: `plomberie-real-${Date.now()}`,
         projectData: projectData,
         plan: 'pro',

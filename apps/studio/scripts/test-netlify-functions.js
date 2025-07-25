@@ -4,6 +4,7 @@
 
 const { NetlifyFunctionsFixed } = require('../lib/services/netlify-functions-fixed');
 const fetch = require('node-fetch');
+const crypto = require('crypto');
 
 async function testNetlifyFunctions() {
   console.log('🚀 Test avec Netlify Functions classiques\n');
@@ -53,7 +54,7 @@ async function testNetlifyFunctions() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        siteId: `test-functions-${Date.now()}`,
+        siteId: crypto.randomUUID(),
         siteName: `test-netlify-functions-${Date.now()}`,
         plan: 'pro',
         projectData: projectData,

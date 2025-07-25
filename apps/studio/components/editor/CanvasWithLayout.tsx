@@ -76,7 +76,7 @@ export function CanvasWithLayout({ children, isPreviewMode = false }: CanvasWith
     }
     
     return (
-      <>
+      <div>
         <style dangerouslySetInnerHTML={{ __html: `
           :root {
             --primary: ${theme.colors.primary};
@@ -109,15 +109,15 @@ export function CanvasWithLayout({ children, isPreviewMode = false }: CanvasWith
         </div>
         
         {/* Scripts */}
-        {headerJS && <script dangerouslySetInnerHTML={{ __html: headerJS }} />}
-        {footerJS && <script dangerouslySetInnerHTML={{ __html: footerJS }} />}
-      </>
+        {headerJS && <script key="header-script" dangerouslySetInnerHTML={{ __html: headerJS }} />}
+        {footerJS && <script key="footer-script" dangerouslySetInnerHTML={{ __html: footerJS }} />}
+      </div>
     );
   }
 
   // Pour l'éditeur, on doit aussi inclure les styles de base
   return (
-    <>
+    <div>
       <style dangerouslySetInnerHTML={{ __html: `
         .canvas-with-layout {
           min-height: 100%;
@@ -126,12 +126,21 @@ export function CanvasWithLayout({ children, isPreviewMode = false }: CanvasWith
           position: relative;
           overflow: hidden;
         }
-        .canvas-with-layout .header-navigation {
-          position: absolute !important;
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 100;
+        /* Désactiver le sticky du header dans l'éditeur */
+        .canvas-with-layout .header-v3--sticky {
+          position: relative !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+        }
+        /* Éviter que le header cache le contenu */
+        .canvas-with-layout .header-v3 {
+          position: relative !important;
+          z-index: 10;
+        }
+        /* Supprimer le padding-top du wrapper */
+        .canvas-with-layout .site-wrapper {
+          padding-top: 0 !important;
         }
         .page-content {
           flex: 1;
@@ -139,7 +148,7 @@ export function CanvasWithLayout({ children, isPreviewMode = false }: CanvasWith
         }
         .global-header {
           position: relative;
-          z-index: 100;
+          z-index: 10;
         }
         .global-footer {
           margin-top: auto;
@@ -163,6 +172,6 @@ export function CanvasWithLayout({ children, isPreviewMode = false }: CanvasWith
           {renderGlobalBlock(globalFooter, 'footer')}
         </div>
       </div>
-    </>
+    </div>
   );
 }

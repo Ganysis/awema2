@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Supabase Direct</title>
+</head>
+<body>
+    <h1>Test de connexion Supabase</h1>
+    <div id="results"></div>
+
+    <script>
+        const SUPABASE_URL = 'https://zvcvhundfeqwufmvtmzd.supabase.co';
+        const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2Y3ZodW5kZmVxd3VmbXZ0bXpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIxMzg3NzMsImV4cCI6MjA2NzcxNDc3M30.F03jQKH5gPnggL1amanmNCaCBzhjXJaqwd-wM3FdWfM';
+        const SITE_ID = 'site-1752866606272';
+
+        async function testSupabase() {
+            const results = document.getElementById('results');
+            
+            // Test 1: Requête simple sans order
+            try {
+                results.innerHTML += '<h2>Test 1: Sans ORDER</h2>';
+                const response1 = await fetch(`${SUPABASE_URL}/rest/v1/cms_content?site_id=eq.${SITE_ID}`, {
+                    headers: {
+                        'apikey': ANON_KEY,
+                        'Authorization': `Bearer ${ANON_KEY}`
+                    }
+                });
+                results.innerHTML += `<p>Status: ${response1.status}</p>`;
+                const data1 = await response1.text();
+                results.innerHTML += `<pre>${data1}</pre>`;
+            } catch (e) {
+                results.innerHTML += `<p style="color:red">Erreur: ${e.message}</p>`;
+            }
+
+            // Test 2: Avec order correct
+            try {
+                results.innerHTML += '<h2>Test 2: Avec ORDER correct</h2>';
+                const response2 = await fetch(`${SUPABASE_URL}/rest/v1/cms_content?site_id=eq.${SITE_ID}&order=page_slug`, {
+                    headers: {
+                        'apikey': ANON_KEY,
+                        'Authorization': `Bearer ${ANON_KEY}`
+                    }
+                });
+                results.innerHTML += `<p>Status: ${response2.status}</p>`;
+                const data2 = await response2.text();
+                results.innerHTML += `<pre>${data2}</pre>`;
+            } catch (e) {
+                results.innerHTML += `<p style="color:red">Erreur: ${e.message}</p>`;
+            }
+
+            // Test 3: Liste toutes les tables
+            try {
+                results.innerHTML += '<h2>Test 3: Vérifier les tables</h2>';
+                const response3 = await fetch(`${SUPABASE_URL}/rest/v1/`, {
+                    headers: {
+                        'apikey': ANON_KEY,
+                        'Authorization': `Bearer ${ANON_KEY}`
+                    }
+                });
+                results.innerHTML += `<p>Status: ${response3.status}</p>`;
+                const data3 = await response3.text();
+                results.innerHTML += `<pre>${data3.substring(0, 500)}...</pre>`;
+            } catch (e) {
+                results.innerHTML += `<p style="color:red">Erreur: ${e.message}</p>`;
+            }
+
+            // Test 4: Sélectionner tout de cms_content
+            try {
+                results.innerHTML += '<h2>Test 4: SELECT * FROM cms_content</h2>';
+                const response4 = await fetch(`${SUPABASE_URL}/rest/v1/cms_content`, {
+                    headers: {
+                        'apikey': ANON_KEY,
+                        'Authorization': `Bearer ${ANON_KEY}`
+                    }
+                });
+                results.innerHTML += `<p>Status: ${response4.status}</p>`;
+                const data4 = await response4.text();
+                results.innerHTML += `<pre>${data4}</pre>`;
+            } catch (e) {
+                results.innerHTML += `<p style="color:red">Erreur: ${e.message}</p>`;
+            }
+        }
+
+        // Lancer les tests au chargement
+        testSupabase();
+    </script>
+</body>
+</html>

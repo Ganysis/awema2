@@ -2,6 +2,7 @@ import type { EditorBlock, Page } from '@/lib/store/editor-store';
 import { getBlockRenderFunction } from '@/lib/blocks/block-registry';
 import { CMSExportIntegration } from './cms-export-integration';
 import { generateUUID } from '@/lib/utils/uuid';
+import { ParallaxExportIntegration } from './parallax-export-integration';
 
 /**
  * Service d'export CORRIGÉ qui fonctionne vraiment
@@ -22,8 +23,12 @@ export class ExportServiceFixed {
 /* Reset CSS */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; padding: 0; }
-html, body { height: 100%; }
-body { line-height: 1.5; -webkit-font-smoothing: antialiased; }
+html { height: 100%; }
+body { 
+  min-height: 100vh;
+  line-height: 1.5; 
+  -webkit-font-smoothing: antialiased; 
+}
 img, picture, video, canvas, svg { display: block; max-width: 100%; }
 input, button, textarea, select { font: inherit; }
 p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
@@ -43,6 +48,36 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: var(--text);
   background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.site-wrapper {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-wrapper > * {
+  flex-shrink: 0;
+}
+
+.site-wrapper > main,
+.site-wrapper > section {
+  flex: 1 0 auto;
+}
+
+/* Fix pour le header sticky */
+body:has(.header-v3--sticky) .site-wrapper {
+  padding-top: 80px;
+}
+
+/* Fallback si :has() n'est pas supporté */
+@supports not selector(:has(*)) {
+  .site-wrapper {
+    padding-top: 80px;
+  }
 }
 
 .container {
@@ -321,7 +356,9 @@ ${allJS}
     <style>${allCSS}</style>
 </head>
 <body>
-    ${allHTML}
+    <div class="site-wrapper">
+        ${allHTML}
+    </div>
     
     <script>${completeJS}</script>
 </body>
