@@ -1,186 +1,128 @@
 ---
 import Base from "@/layouts/Base.astro";
-import { Image } from "astro:assets";
-import WhatsAppButton from "@/components/WhatsAppButton.astro";
-import BadgeUrgence from "@/components/BadgeUrgence.astro";
 
-// Données statiques pour la landing page Menuisier Lyon
-const landingData = {
-  metier: "Menuisier",
-  ville: "Lyon",
-  hero: {
-    headline: "Site Internet Professionnel pour Menuisier à Lyon",
-    subheadline: "Développez votre activité de menuisier avec un site web qui génère des clients qualifiés automatiquement",
-    ctaText: "Obtenir ma maquette gratuite",
-    trustBadges: ["97€/mois tout compris", "Livré en 48h", "Expert menuisier"]
-  },
-  problems: [
-    {
-        "icon": "🪵",
-        "problem": "Portfolio mal présenté",
-        "description": "Vos créations sur-mesure ne sont pas mises en valeur"
-    },
-    {
-        "icon": "📐",
-        "problem": "Devis complexes",
-        "description": "Difficile d'expliquer les options et finitions par téléphone"
-    },
-    {
-        "icon": "🏠",
-        "problem": "Clients indécis",
-        "description": "Les prospects hésitent sans voir vos réalisations"
-    },
-    {
-        "icon": "💼",
-        "problem": "Image artisanale dépassée",
-        "description": "Les Lyonnais recherchent des menuisiers modernes"
-    }
-],
-  solutions: [
-    {
-        "icon": "🖼️",
-        "solution": "Galerie photo optimisée",
-        "description": "Mise en valeur de vos réalisations"
-    },
-    {
-        "icon": "📊",
-        "solution": "Formulaire de contact intelligent",
-        "description": "Demande de devis simple et rapide"
-    },
-    {
-        "icon": "⭐",
-        "solution": "Avis clients vérifiés",
-        "description": "Témoignages avec photos des projets réalisés"
-    },
-    {
-        "icon": "🎯",
-        "solution": "SEO local optimisé",
-        "description": "Top 3 sur \"menuisier Lyon\" et quartiers"
-    }
-],
-  specialOffer: {
-    title: "Offre Spéciale Menuisiers Lyon",
-    description: "Profitez de notre expertise BTP pour dominer votre marché local",
-    originalPrice: "1990€",
-    discountPrice: "990€",
-    monthlyPrice: "97€/mois",
-    urgency: "Plus que 2 places disponibles ce mois-ci",
-    features: [
-      "Maquette gratuite en 24h",
-      "Site 10 pages optimisé SEO",
-      "Galerie photos HD",
-      "Formulaire de devis intelligent",
-      "Avis clients intégrés",
-      "Formation incluse"
-    ]
-  },
-  testimonials: [
-    {
-        "name": "Jean-Marc Rousseau",
-        "company": "Menuiserie Rousseau",
-        "location": "Lyon 7ème",
-        "content": "Mon site AWEMA a révolutionné mon activité. Les clients peuvent voir mes créations en détail et je reçois des demandes pour du sur-mesure haut de gamme.",
-        "rating": 5,
-        "results": [
-            "+40% de devis",
-            "Projets premium"
-        ]
-    },
-    {
-        "name": "Antoine Fabre",
-        "company": "AF Bois & Design",
-        "location": "Écully",
-        "content": "Le configurateur de devis me fait gagner un temps fou ! Les clients arrivent avec leur projet déjà défini, c'est un vrai plus.",
-        "rating": 5,
-        "results": [
-            "Gain 15h/semaine",
-            "Devis pré-qualifiés"
-        ]
-    }
-],
-  faq: [
-    {
-      question: "Pourquoi un site spécialisé pour menuisier ?",
-      answer: "Nous connaissons parfaitement les besoins des menuisiers : types de prestations, processus de devis, galeries de réalisations, certifications... Votre site est conçu spécifiquement pour convertir vos visiteurs en clients."
-    },
-    {
-      question: "Comment être sûr d'être visible sur Google à Lyon ?",
-      answer: "Notre méthode SEO local a fait ses preuves sur +50 artisans en France. Nous optimisons pour 'menuisier Lyon' et toutes les variantes. Premiers résultats en 4-6 semaines."
-    },
-    {
-      question: "Puis-je modifier mon site moi-même ?",
-      answer: "Oui ! Interface simple et intuitive. Vous pouvez modifier textes, photos, tarifs, ajouter des réalisations... Formation incluse et support illimité."
-    }
-  ]
+const page_data = {
+  meta_title: "Site Internet Maçon 2200€ TTC | Création Site Web Maçonnerie",
+  description: "Site web maçon 2200€ TTC tout inclus : design professionnel, SEO local, formulaire devis, galerie réalisations. Vous êtes propriétaire. Livré en 3 semaines.",
+  image: "/images/og-macon.jpg",
 };
 
-const seoData = {
-  meta_title: `Site Internet ${landingData.metier} ${landingData.ville} | AWEMA - 97€/mois`,
-  meta_description: `Création de site web professionnel pour ${landingData.metier.toLowerCase()} à ${landingData.ville}. Générez plus de clients avec un site optimisé SEO. Maquette gratuite en 24h.`,
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Site Internet pour Maçons",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": "AWEMA"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "2200",
+    "priceCurrency": "EUR",
+    "priceValidUntil": "2025-12-31",
+    "availability": "https://schema.org/InStock",
+    "description": "Site internet professionnel pour maçons - Tout inclus"
+  }
 };
+
+// Problèmes spécifiques aux maçons
+const problems = [
+  {
+    icon: "🏗️",
+    title: "Chantiers mal valorisés",
+    description: "Vos gros œuvre ne sont pas mis en avant, les clients ne voient pas la qualité de vos fondations"
+  },
+  {
+    icon: "📞",
+    title: "Devis sous-évalués",
+    description: "Les clients pensent que 'c'est juste du ciment' et ne comprennent pas votre tarification professionnelle"
+  },
+  {
+    icon: "🔍",
+    title: "Concurrence déloyale",
+    description: "Des pseudo-maçons sans assurance décennale cassent les prix sur Google"
+  },
+  {
+    icon: "💰",
+    title: "Acomptes non payés",
+    description: "Difficile de filtrer les clients sérieux avant de démarrer un gros chantier"
+  }
+];
 ---
 
-<Base {...seoData}>
-  <!-- Hero Section avec urgence -->
-  <section class="section bg-gradient-to-br from-amber-50 to-white relative overflow-hidden">
-    <div class="absolute top-0 right-0 bg-red-500 text-white px-6 py-2 rounded-bl-2xl font-bold animate-pulse">
-      🔥 Offre -50% limitée
-    </div>
+<Base {...page_data}>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
 
+  <!-- Hero Section -->
+  <section class="section bg-gradient-to-br from-orange-50 via-white to-orange-50">
     <div class="container">
-      <div class="row gy-5 items-center">
+      <div class="row items-center">
         <div class="lg:col-7">
-          <div class="mb-4 inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-            <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-            {landingData.specialOffer.urgency}
+          <!-- Badge "Spécial Maçons" -->
+          <div class="inline-flex items-center gap-2 bg-orange-100 text-orange-800 px-4 py-2 rounded-full font-semibold mb-6">
+            <span class="text-xl">🏗️</span>
+            <span>Spécial Maçons Professionnels</span>
           </div>
 
           <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
-            {landingData.hero.headline}
+            Site Internet Maçon<br/>
+            <span class="text-orange-600">2200€ TTC tout inclus</span>
           </h1>
 
-          <p class="text-xl mb-8 text-gray-600">
-            {landingData.hero.subheadline}
+          <p class="text-xl mb-8 text-gray-700 leading-relaxed">
+            Arrêtez de perdre des chantiers à cause de clients qui ne comprennent pas votre métier.
+            Obtenez un site qui valorise votre expertise et filtre les projets sérieux.
           </p>
 
-          <!-- Trust Badges -->
-          <div class="flex flex-wrap gap-4 mb-8">
-            {landingData.hero.trustBadges.map((badge) => (
-              <span class="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-md text-sm font-semibold">
-                ✓ {badge}
-              </span>
-            ))}
+          <!-- USPs principales -->
+          <div class="space-y-4 mb-10">
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-gray-800"><strong>2200€ TTC tout inclus</strong> - Prix fixe, sans surprise</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-gray-800"><strong>Vous êtes propriétaire</strong> - Code source fourni</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-gray-800"><strong>Livré en 3 semaines</strong> - Mise en ligne rapide</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-gray-800"><strong>SEO local inclus</strong> - Visible sur Google</span>
+            </div>
           </div>
 
           <!-- CTA Principal -->
           <div class="flex flex-wrap gap-4">
-            <a href="#formulaire" class="btn btn-xl btn-primary shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
-              {landingData.hero.ctaText}
-              <span class="ml-2">→</span>
+            <a href="#contact" class="btn btn-primary btn-xl shadow-lg hover:shadow-xl">
+              Obtenir mon devis gratuit →
             </a>
-            <a href="tel:0617540383" class="btn btn-xl btn-outline-primary">
-              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-              </svg>
-              06 17 54 03 83
+            <a href="tel:0617540383" class="btn btn-outline-primary btn-xl">
+              📞 06 17 54 03 83
             </a>
           </div>
         </div>
 
-        <div class="lg:col-5">
+        <div class="lg:col-5 mt-8 lg:mt-0">
           <div class="relative">
-            <Image
-              class="w-full h-auto rounded-lg shadow-2xl"
-              width={600}
-              height={500}
-              alt={`Site web ${landingData.metier} ${landingData.ville}`}
+            <img
               src="/images/screenshots/banner-shot.png"
-              format="webp"
+              alt="Exemple site web maçon"
+              class="rounded-2xl shadow-2xl"
+              width="600"
+              height="500"
             />
-            <!-- Badge sur l'image -->
-            <div class="absolute top-4 right-4 bg-white rounded-lg shadow-lg p-3">
-              <div class="text-2xl font-bold text-primary">+300</div>
-              <div class="text-sm text-gray-600">Sites livrés</div>
+            <!-- Badge de confiance -->
+            <div class="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-4 border-2 border-orange-200">
+              <div class="flex items-center gap-3">
+                <div class="text-3xl">🏗️</div>
+                <div>
+                  <div class="text-2xl font-bold text-orange-600">+50</div>
+                  <div class="text-sm text-gray-600">Maçons clients</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -188,146 +130,211 @@ const seoData = {
     </div>
   </section>
 
-  <!-- Section Problèmes/Solutions -->
-  <section class="section">
+  <!-- Section Problèmes -->
+  <section class="section bg-gray-50">
     <div class="container">
       <div class="text-center mb-12">
         <h2 class="text-4xl font-bold mb-4">
-          Vos problèmes actuels vs Notre solution
+          Les vrais problèmes d'un maçon aujourd'hui
         </h2>
         <p class="text-xl text-gray-600">
-          Nous connaissons les défis des {landingData.metier.toLowerCase()}s à {landingData.ville}
-        </p>
-      </div>
-
-      <div class="row gy-8">
-        <!-- Colonne Problèmes -->
-        <div class="lg:col-6">
-          <h3 class="text-2xl font-bold mb-6 text-red-600">❌ Sans site professionnel</h3>
-          <div class="space-y-4">
-            {landingData.problems.map((item) => (
-              <div class="bg-red-50 rounded-lg p-6 border-l-4 border-red-500">
-                <div class="flex items-start">
-                  <span class="text-3xl mr-4">{item.icon}</span>
-                  <div>
-                    <h4 class="font-bold mb-2 text-gray-900">{item.problem}</h4>
-                    <p class="text-gray-700">{item.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <!-- Colonne Solutions -->
-        <div class="lg:col-6">
-          <h3 class="text-2xl font-bold mb-6 text-green-600">✅ Avec votre site AWEMA</h3>
-          <div class="space-y-4">
-            {landingData.solutions.map((item) => (
-              <div class="bg-green-50 rounded-lg p-6 border-l-4 border-green-500">
-                <div class="flex items-start">
-                  <span class="text-3xl mr-4">{item.icon}</span>
-                  <div>
-                    <h4 class="font-bold mb-2 text-gray-900">{item.solution}</h4>
-                    <p class="text-gray-700">{item.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Offre Spéciale -->
-  <section class="section bg-gradient-to-r from-amber-600 to-amber-700 text-white">
-    <div class="container">
-      <div class="bg-white/10 backdrop-blur rounded-2xl p-8 lg:p-12">
-        <div class="text-center mb-8">
-          <h2 class="text-4xl font-bold mb-4">{landingData.specialOffer.title}</h2>
-          <p class="text-xl opacity-90">{landingData.specialOffer.description}</p>
-        </div>
-
-        <div class="row gy-8 items-center">
-          <div class="lg:col-7">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {landingData.specialOffer.features.map((feature) => (
-                <div class="flex items-center">
-                  <svg class="w-6 h-6 text-green-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                  </svg>
-                  <span class="text-lg">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div class="lg:col-5">
-            <div class="bg-white rounded-xl p-8 text-gray-900 text-center">
-              <div class="mb-4">
-                <span class="text-xl line-through text-gray-400">{landingData.specialOffer.originalPrice}</span>
-                <span class="text-5xl font-bold text-amber-600 ml-4">{landingData.specialOffer.discountPrice}</span>
-              </div>
-              <p class="text-2xl font-semibold mb-6">
-                Puis {landingData.specialOffer.monthlyPrice}
-              </p>
-              <a href="#formulaire" class="btn btn-primary btn-xl w-full mb-4">
-                Je profite de l'offre
-              </a>
-              <p class="text-sm text-red-600 font-medium animate-pulse">
-                ⚠️ {landingData.specialOffer.urgency}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Témoignages -->
-  <section class="section bg-light">
-    <div class="container">
-      <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold mb-4">
-          Ils ont transformé leur activité
-        </h2>
-        <p class="text-xl text-gray-600">
-          Découvrez les résultats de nos clients {landingData.metier.toLowerCase()}s
+          On les connaît. On les a résolus pour +50 maçons en France.
         </p>
       </div>
 
       <div class="row gy-6">
-        {landingData.testimonials.map((testimonial) => (
-          <div class="lg:col-6">
-            <div class="bg-white rounded-xl shadow-lg p-8 h-full">
-              <div class="flex mb-4">
-                {[...Array(testimonial.rating)].map(() => (
-                  <svg class="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                  </svg>
-                ))}
-              </div>
-
-              <p class="text-lg mb-6 italic">"{testimonial.content}"</p>
-
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="font-bold">{testimonial.name}</div>
-                  <div class="text-gray-600">{testimonial.company}</div>
-                  <div class="text-sm text-gray-500">{testimonial.location}</div>
-                </div>
-                <div class="text-right">
-                  {testimonial.results.map((result) => (
-                    <div class="text-sm font-semibold text-green-600">
-                      ✓ {result}
-                    </div>
-                  ))}
-                </div>
-              </div>
+        {problems.map((problem) => (
+          <div class="md:col-6">
+            <div class="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-all border border-gray-100">
+              <div class="text-5xl mb-4">{problem.icon}</div>
+              <h3 class="text-2xl font-bold mb-3 text-gray-900">{problem.title}</h3>
+              <p class="text-gray-700 text-lg leading-relaxed">{problem.description}</p>
             </div>
           </div>
         ))}
+      </div>
+
+      <!-- Call-out après les problèmes -->
+      <div class="mt-12 bg-orange-600 text-white rounded-2xl p-8 text-center">
+        <h3 class="text-3xl font-bold mb-4">
+          Un site web professionnel résout ces 4 problèmes
+        </h3>
+        <p class="text-xl mb-6 opacity-90">
+          En valorisant votre expertise AVANT que les clients vous appellent
+        </p>
+        <a href="#contact" class="btn btn-white btn-lg">
+          Je veux cette solution →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Ce qui est inclus -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">
+          Ce que vous obtenez pour 2200€ TTC
+        </h2>
+        <p class="text-xl text-gray-600">
+          Tout ce dont vous avez besoin. Rien de superflu.
+        </p>
+      </div>
+
+      <div class="row gy-6">
+        <div class="md:col-4">
+          <div class="bg-gradient-to-br from-orange-50 to-white rounded-xl p-6 h-full border border-orange-100">
+            <div class="text-4xl mb-4">🎨</div>
+            <h3 class="text-xl font-bold mb-3">Design professionnel</h3>
+            <ul class="space-y-2 text-gray-700">
+              <li>✓ Design moderne responsive</li>
+              <li>✓ Couleurs à vos couleurs</li>
+              <li>✓ Logo intégré</li>
+              <li>✓ Photos optimisées</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="md:col-4">
+          <div class="bg-gradient-to-br from-orange-50 to-white rounded-xl p-6 h-full border border-orange-100">
+            <div class="text-4xl mb-4">📝</div>
+            <h3 class="text-xl font-bold mb-3">Contenu optimisé</h3>
+            <ul class="space-y-2 text-gray-700">
+              <li>✓ Textes rédigés par IA</li>
+              <li>✓ SEO local optimisé</li>
+              <li>✓ Mots-clés métier</li>
+              <li>✓ 5-8 pages complètes</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="md:col-4">
+          <div class="bg-gradient-to-br from-orange-50 to-white rounded-xl p-6 h-full border border-orange-100">
+            <div class="text-4xl mb-4">📧</div>
+            <h3 class="text-xl font-bold mb-3">Formulaire intelligent</h3>
+            <ul class="space-y-2 text-gray-700">
+              <li>✓ Formulaire de devis</li>
+              <li>✓ Questions qualifiantes</li>
+              <li>✓ Email automatique</li>
+              <li>✓ Anti-spam intégré</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="md:col-4">
+          <div class="bg-gradient-to-br from-orange-50 to-white rounded-xl p-6 h-full border border-orange-100">
+            <div class="text-4xl mb-4">⚡</div>
+            <h3 class="text-xl font-bold mb-3">Performance maximale</h3>
+            <ul class="space-y-2 text-gray-700">
+              <li>✓ 100/100 Lighthouse</li>
+              <li>✓ Chargement < 1s</li>
+              <li>✓ Mobile-first</li>
+              <li>✓ SSL gratuit</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="md:col-4">
+          <div class="bg-gradient-to-br from-orange-50 to-white rounded-xl p-6 h-full border border-orange-100">
+            <div class="text-4xl mb-4">🔐</div>
+            <h3 class="text-xl font-bold mb-3">Propriété totale</h3>
+            <ul class="space-y-2 text-gray-700">
+              <li>✓ Code source fourni</li>
+              <li>✓ Hébergement inclus 1 an</li>
+              <li>✓ Nom de domaine inclus</li>
+              <li>✓ Pas d'abonnement caché</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="md:col-4">
+          <div class="bg-gradient-to-br from-orange-50 to-white rounded-xl p-6 h-full border border-orange-100">
+            <div class="text-4xl mb-4">📊</div>
+            <h3 class="text-xl font-bold mb-3">Analytics & SEO</h3>
+            <ul class="space-y-2 text-gray-700">
+              <li>✓ Google Analytics</li>
+              <li>✓ Google Search Console</li>
+              <li>✓ Suivi conversions</li>
+              <li>✓ Rapports mensuels</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option Maintenance -->
+      <div class="mt-12 bg-orange-50 rounded-2xl p-8 border-2 border-orange-200">
+        <div class="text-center">
+          <h3 class="text-2xl font-bold mb-4">Option Maintenance (facultatif)</h3>
+          <p class="text-lg text-gray-700 mb-6">
+            Si vous voulez qu'on gère tout : modifications, mises à jour, support prioritaire
+          </p>
+          <div class="text-4xl font-bold text-orange-600 mb-2">15€/mois</div>
+          <p class="text-gray-600">Résiliable à tout moment - Sans engagement</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Vous êtes Propriétaire -->
+  <section class="section bg-gradient-to-br from-orange-600 to-orange-700 text-white">
+    <div class="container">
+      <div class="row items-center">
+        <div class="lg:col-6">
+          <h2 class="text-4xl font-bold mb-6">
+            Vous êtes propriétaire à 100%
+          </h2>
+          <p class="text-xl mb-8 opacity-90">
+            Contrairement aux "abonnements à vie", vous possédez réellement votre site.
+            Code source, design, contenu : tout vous appartient.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-3xl">✓</span>
+              <div>
+                <div class="font-bold text-lg mb-1">Code source fourni</div>
+                <div class="opacity-90">Fichiers complets téléchargeables à tout moment</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-3xl">✓</span>
+              <div>
+                <div class="font-bold text-lg mb-1">Hébergement transférable</div>
+                <div class="opacity-90">Changez d'hébergeur quand vous voulez</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-3xl">✓</span>
+              <div>
+                <div class="font-bold text-lg mb-1">Pas d'abonnement obligatoire</div>
+                <div class="opacity-90">La maintenance est optionnelle (15€/mois)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-6 mt-8 lg:mt-0">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+            <h3 class="text-2xl font-bold mb-6">Comparaison honnête</h3>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center py-3 border-b border-white/20">
+                <span>Abonnements "à vie"</span>
+                <span class="text-red-300 font-bold">97€/mois à vie</span>
+              </div>
+              <div class="flex justify-between items-center py-3 border-b border-white/20">
+                <span>Total sur 3 ans</span>
+                <span class="text-red-300 font-bold">3 492€</span>
+              </div>
+              <div class="flex justify-between items-center py-3 border-b border-white/20">
+                <span>AWEMA (propriétaire)</span>
+                <span class="text-emerald-300 font-bold">2200€ TTC</span>
+              </div>
+              <div class="flex justify-between items-center py-3">
+                <span className="font-bold">Économie sur 3 ans</span>
+                <span class="text-emerald-300 font-bold text-2xl">1 292€</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -335,61 +342,106 @@ const seoData = {
   <!-- FAQ -->
   <section class="section">
     <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">Questions fréquentes</h2>
+      </div>
+
       <div class="row justify-center">
         <div class="lg:col-8">
-          <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold mb-4">Questions fréquentes</h2>
-            <p class="text-xl text-gray-600">
-              Tout ce que vous devez savoir sur votre futur site
-            </p>
-          </div>
+          <div class="space-y-4">
+            <details class="bg-white rounded-lg shadow-md p-6 group">
+              <summary class="font-bold text-lg cursor-pointer">
+                Pourquoi 2200€ et pas un abonnement mensuel ?
+              </summary>
+              <p class="mt-4 text-gray-700">
+                Parce qu'on veut que vous soyez VRAIMENT propriétaire. Avec un abonnement,
+                vous payez 97€/mois à vie = 3 492€ sur 3 ans. Notre modèle : 2200€ une fois,
+                puis 15€/mois OPTIONNEL si vous voulez notre maintenance.
+              </p>
+            </details>
 
-          <div class="space-y-6">
-            {landingData.faq.map((item, index) => (
-              <details class="bg-white rounded-lg shadow-md p-6 group">
-                <summary class="font-bold text-lg cursor-pointer flex items-center justify-between">
-                  {item.question}
-                  <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </summary>
-                <p class="mt-4 text-gray-700">{item.answer}</p>
-              </details>
-            ))}
+            <details class="bg-white rounded-lg shadow-md p-6 group">
+              <summary class="font-bold text-lg cursor-pointer">
+                Le site sera-t-il visible sur Google ?
+              </summary>
+              <p class="mt-4 text-gray-700">
+                Oui. SEO local inclus : recherche de mots-clés métier + ville, optimisation
+                technique (100/100 Lighthouse), création Google Business Profile, soumission
+                aux moteurs de recherche. Premiers résultats sous 4-6 semaines.
+              </p>
+            </details>
+
+            <details class="bg-white rounded-lg shadow-md p-6 group">
+              <summary class="font-bold text-lg cursor-pointer">
+                Puis-je modifier mon site moi-même ?
+              </summary>
+              <p class="mt-4 text-gray-700">
+                Oui si vous avez des compétences techniques (HTML/CSS). Sinon, deux options :
+                1) Maintenance 15€/mois = on gère tout pour vous, 2) Modifications ponctuelles
+                facturées 50€/intervention.
+              </p>
+            </details>
+
+            <details class="bg-white rounded-lg shadow-md p-6 group">
+              <summary class="font-bold text-lg cursor-pointer">
+                Combien de temps pour avoir mon site en ligne ?
+              </summary>
+              <p class="mt-4 text-gray-700">
+                3 semaines en moyenne : 1) Maquette sous 48h, 2) Validation et ajustements
+                (1 semaine), 3) Développement et mise en ligne (1-2 semaines).
+                Délai garanti ou remboursé.
+              </p>
+            </details>
+
+            <details class="bg-white rounded-lg shadow-md p-6 group">
+              <summary class="font-bold text-lg cursor-pointer">
+                Qu'est-ce qui est inclus dans les 2200€ ?
+              </summary>
+              <p class="mt-4 text-gray-700">
+                TOUT : design professionnel, développement complet, contenu rédigé par IA,
+                SEO local, formulaires, nom de domaine 1 an, hébergement 1 an,
+                Google Analytics, formation, support 30 jours. Zéro frais caché.
+              </p>
+            </details>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Formulaire de contact -->
-  <section class="section bg-gradient-to-br from-gray-50 to-white" id="formulaire">
+  <!-- Formulaire de Contact -->
+  <section class="section bg-gray-50" id="contact">
     <div class="container">
       <div class="row justify-center">
         <div class="lg:col-8">
           <div class="bg-white rounded-2xl shadow-2xl p-8 lg:p-12">
             <div class="text-center mb-8">
               <h2 class="text-4xl font-bold mb-4">
-                Recevez votre maquette gratuite en 24h
+                Obtenez votre devis personnalisé
               </h2>
               <p class="text-xl text-gray-600">
-                Remplissez ce formulaire et découvrez votre futur site
+                Réponse sous 24h avec maquette gratuite de votre futur site
               </p>
-              <div class="mt-4 inline-flex items-center px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full">
-                ⏰ Temps de remplissage : 2 minutes
-              </div>
             </div>
 
-            <form class="space-y-6">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form
+              action="https://formspree.io/f/xrbykjpb"
+              method="POST"
+              class="space-y-6"
+            >
+              <input type="hidden" name="metier" value="Maçon" />
+              <input type="hidden" name="page_source" value="/macon" />
+
+              <div class="grid md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">
                     Nom complet *
                   </label>
                   <input
                     type="text"
+                    name="nom"
                     required
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="Jean Dupont"
                   />
                 </div>
@@ -400,20 +452,24 @@ const seoData = {
                   </label>
                   <input
                     type="text"
+                    name="entreprise"
                     required
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Menuisier Dupont"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    placeholder="Maçonnerie Dupont"
                   />
                 </div>
+              </div>
 
+              <div class="grid md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">
                     Email *
                   </label>
                   <input
                     type="email"
+                    name="email"
                     required
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="contact@exemple.fr"
                   />
                 </div>
@@ -424,8 +480,9 @@ const seoData = {
                   </label>
                   <input
                     type="tel"
+                    name="telephone"
                     required
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="06 12 34 56 78"
                   />
                 </div>
@@ -433,48 +490,52 @@ const seoData = {
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Votre zone d'intervention
+                  Ville d'intervention principale *
                 </label>
                 <input
                   type="text"
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
-                  placeholder={`${landingData.ville} et environs`}
-                  value={`${landingData.ville}`}
+                  name="ville"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  placeholder="Paris, Lyon, Marseille..."
                 />
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Message (optionnel)
+                  Votre projet / Besoins spécifiques
                 </label>
                 <textarea
+                  name="message"
                   rows="4"
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
-                  placeholder="Décrivez vos besoins spécifiques..."
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  placeholder="Décrivez rapidement vos besoins : type de prestations, zone d'intervention, objectifs..."
                 ></textarea>
               </div>
 
-              <div class="flex items-start">
+              <div class="flex items-start gap-3">
                 <input
                   type="checkbox"
+                  name="rgpd_consent"
                   required
-                  class="mt-1 mr-3"
+                  class="mt-1"
+                  id="rgpd"
                 />
-                <label class="text-sm text-gray-600">
-                  J'accepte d'être contacté par AWEMA pour recevoir ma maquette gratuite et des informations sur leurs services
+                <label for="rgpd" class="text-sm text-gray-600">
+                  J'accepte d'être contacté par AWEMA pour recevoir mon devis gratuit et des informations sur leurs services *
                 </label>
               </div>
 
               <button
                 type="submit"
-                class="w-full btn btn-primary btn-xl py-4 text-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                class="w-full btn btn-primary btn-xl text-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
               >
-                Recevoir ma maquette gratuite →
+                Recevoir mon devis gratuit →
               </button>
 
               <p class="text-center text-sm text-gray-500">
                 Ou appelez-nous directement au{" "}
-                <a href="tel:0617540383" class="text-primary font-semibold">
+                <a href="tel:0617540383" class="text-orange-600 font-semibold hover:underline">
                   06 17 54 03 83
                 </a>
               </p>
@@ -486,25 +547,17 @@ const seoData = {
   </section>
 
   <!-- CTA Final -->
-  <section class="section bg-amber-600 text-white">
+  <section class="section bg-orange-600 text-white">
     <div class="container text-center">
       <h2 class="text-4xl font-bold mb-6">
-        Ne laissez plus vos concurrents prendre vos clients
+        Ne laissez plus vos concurrents prendre vos chantiers
       </h2>
       <p class="text-xl mb-8 opacity-90">
-        Chaque jour sans site professionnel, c'est des clients qui vont chez vos concurrents
+        Chaque jour sans site professionnel, c'est des clients qualifiés qui vont chez vos concurrents
       </p>
-      <div class="flex flex-wrap gap-4 justify-center">
-        <a href="#formulaire" class="btn btn-white btn-xl">
-          Je veux ma maquette gratuite
-        </a>
-        <a href="tel:0617540383" class="btn btn-outline-white btn-xl">
-          Appeler maintenant
-        </a>
-      </div>
+      <a href="#contact" class="btn btn-white btn-xl shadow-lg">
+        Je veux mon site maintenant →
+      </a>
     </div>
   </section>
-  <!-- Composants de conversion -->
-  <BadgeUrgence />
-  <WhatsAppButton />
 </Base>
