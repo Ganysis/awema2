@@ -1,350 +1,510 @@
 ---
 import Base from "@/layouts/Base.astro";
+import { Image } from "astro:assets";
+import WhatsAppButton from "@/components/WhatsAppButton.astro";
+import BadgeUrgence from "@/components/BadgeUrgence.astro";
 
-const page_data = {
-  meta_title: "Site Internet Plombier 2200€ TTC | Création Site Web Plomberie",
-  description: "Site web plombier 2200€ TTC tout inclus : design professionnel, SEO local, formulaire devis, galerie réalisations. Vous êtes propriétaire. Livré en 3 semaines.",
-  image: "/images/og-plombier.jpg",
+// Données statiques pour la landing page Plombier Lyon
+const landingData = {
+  metier: "Plombier",
+  ville: "Lyon",
+  hero: {
+    headline: "Site Internet Professionnel pour Plombier à Lyon",
+    subheadline: "Développez votre activité de plomberie avec un site web qui génère des clients qualifiés automatiquement",
+    ctaText: "Obtenir ma maquette gratuite",
+    trustBadges: ["2200€ TTC tout inclus", "Livré en 3 semaines", "Vous êtes propriétaire"]
+  },
+  problems: [
+    {
+        "icon": "📞",
+        "problem": "Appels urgences non qualifiés",
+        "description": "Vous perdez du temps avec des demandes de devis non sérieuses"
+    },
+    {
+        "icon": "🕐",
+        "problem": "Disponibilité limitée",
+        "description": "Impossible de répondre au téléphone quand vous êtes sur chantier"
+    },
+    {
+        "icon": "📋",
+        "problem": "Tarifs mal compris",
+        "description": "Les clients ne comprennent pas vos interventions et tarifs"
+    },
+    {
+        "icon": "⚠️",
+        "problem": "Concurrence agressive",
+        "description": "Vos concurrents apparaissent en premier sur Google"
+    }
+],
+  solutions: [
+    {
+        "icon": "📱",
+        "solution": "Formulaire intelligent",
+        "description": "Qualifiez vos prospects avec des questions précises automatisées"
+    },
+    {
+        "icon": "⏰",
+        "solution": "Disponibilité 24/7",
+        "description": "Vos clients peuvent demander un devis même la nuit"
+    },
+    {
+        "icon": "💰",
+        "solution": "Grille tarifaire claire",
+        "description": "Prix transparents par type d'intervention"
+    },
+    {
+        "icon": "🎯",
+        "solution": "SEO local optimisé",
+        "description": "Top 3 sur \"plombier Lyon\" et quartiers"
+    }
+],
+  specialOffer: {
+    title: "Offre Spéciale Plombiers",
+    description: "Site professionnel - Vous êtes propriétaire à 100%",
+    originalPrice: "3492€",
+    discountPrice: "2200€ TTC",
+    monthlyPrice: "tout inclus",
+    urgency: "Maintenance optionnelle 15€/mois",
+    features: [
+      "Maquette gratuite en 24h",
+      "Site 10 pages optimisé SEO",
+      "Module urgences 24/7",
+      "Formulaire de devis intelligent",
+      "Avis clients intégrés",
+      "Formation incluse"
+    ]
+  },
+  testimonials: [
+    {
+        "name": "Marc Lemoine",
+        "company": "Plomberie Express Lyon",
+        "location": "Lyon 3ème",
+        "content": "Mon site AWEMA a transformé mon activité. Je reçois maintenant des demandes qualifiées même pendant mes interventions. Les clients arrivent informés sur mes tarifs.",
+        "rating": 5,
+        "results": [
+            "+35% de devis",
+            "Moins d'appels perdus"
+        ]
+    },
+    {
+        "name": "Thomas Perrin",
+        "company": "TP Plomberie",
+        "location": "Villeurbanne",
+        "content": "Le formulaire de devis me fait gagner un temps considérable. Je ne traite que des demandes sérieuses maintenant. Mon taux de transformation a doublé.",
+        "rating": 5,
+        "results": [
+            "Gain 10h/semaine",
+            "Devis x2 plus qualifiés"
+        ]
+    }
+],
+  faq: [
+    {
+      question: "Pourquoi un site spécialisé pour plombier ?",
+      answer: "Nous connaissons parfaitement les besoins des plombiers : types d'interventions, urgences, processus de devis, certifications RGE... Votre site est conçu spécifiquement pour convertir vos visiteurs en clients."
+    },
+    {
+      question: "Comment être sûr d'être visible sur Google à Lyon ?",
+      answer: "Notre méthode SEO local a fait ses preuves sur +50 artisans en France. Nous optimisons pour 'plombier Lyon' et toutes les variantes. Premiers résultats en 4-6 semaines."
+    },
+    {
+      question: "Puis-je modifier mon site moi-même ?",
+      answer: "Oui ! Interface simple et intuitive. Vous pouvez modifier textes, photos, tarifs, ajouter des réalisations... Formation incluse et support illimité."
+    }
+  ]
 };
 
-// Schema.org pour plombier
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "serviceType": "Site Internet pour Plombiers",
-  "provider": {
-    "@type": "ProfessionalService",
-    "name": "AWEMA"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "2200",
-    "priceCurrency": "EUR",
-    "priceValidUntil": "2025-12-31",
-    "availability": "https://schema.org/InStock",
-    "description": "Site internet professionnel pour plombiers - Tout inclus"
-  }
+const seoData = {
+  meta_title: `Site Internet ${landingData.metier} 2200€ TTC | AWEMA - Vous êtes propriétaire`,
+  meta_description: `Site web professionnel pour ${landingData.metier.toLowerCase()} 2200€ TTC tout inclus. SEO local, code source fourni, livré en 3 semaines. Devis gratuit 24h.`,
 };
 ---
 
-<Base
-  title={page_data.meta_title}
-  meta_title={page_data.meta_title}
-  description={page_data.description}
-  image={page_data.image}
-  schema={schema}
->
-  <!-- SECTION 1: Hero Plombier -->
-  <section class="relative min-h-[90vh] flex items-center bg-gradient-to-br from-blue-800 via-blue-700 to-blue-900 text-white overflow-hidden">
-    <div class="absolute inset-0 bg-black/10"></div>
+<Base {...seoData}>
+  <!-- Hero Section avec urgence -->
+  <section class="section bg-gradient-to-br from-blue-50 to-white relative overflow-hidden">
+    <div class="absolute top-0 right-0 bg-blue-500 text-white px-6 py-2 rounded-bl-2xl font-bold">
+      ✓ Vous êtes propriétaire
+    </div>
 
-    <div class="container relative z-10 py-20">
-      <div class="row items-center">
-        <div class="lg:col-7" data-aos="fade-right">
-          <div class="inline-block bg-blue-600/90 backdrop-blur-sm px-4 py-2 rounded-full mb-6 shadow-lg">
-            <span class="text-white font-semibold">🔧 Spécial Plombiers</span>
+    <div class="container">
+      <div class="row gy-5 items-center">
+        <div class="lg:col-7">
+          <div class="mb-4 inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+            <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+            {landingData.specialOffer.urgency}
           </div>
 
-          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-lg">
-            Site internet qui <span class="text-blue-300">génère des interventions</span>
+          <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
+            {landingData.hero.headline}
           </h1>
 
-          <p class="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
-            Arrêtez de dépendre des urgences non-payées.<br/>
-            <strong class="text-white">Votre site travaille pour vous 24/7.</strong>
+          <p class="text-xl mb-8 text-gray-600">
+            {landingData.hero.subheadline}
           </p>
 
-          <!-- USPs plombier -->
-          <div class="space-y-4 mb-10">
-            <div class="flex items-center gap-3">
-              <span class="text-emerald-400 text-2xl">✓</span>
-              <span class="text-lg text-white"><strong>Livré en 3 semaines</strong> - Pas dans 3 mois</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-emerald-400 text-2xl">✓</span>
-              <span class="text-lg text-white"><strong>2200€ TTC tout inclus</strong> - Prix fixe, sans surprise</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-emerald-400 text-2xl">✓</span>
-              <span class="text-lg text-white"><strong>Visible sur Google</strong> - SEO local optimisé</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-emerald-400 text-2xl">✓</span>
-              <span class="text-lg text-white"><strong>Vous êtes propriétaire</strong> - Code source fourni</span>
-            </div>
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-4 mb-8">
+            {landingData.hero.trustBadges.map((badge) => (
+              <span class="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-md text-sm font-semibold">
+                ✓ {badge}
+              </span>
+            ))}
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-4">
-            <a href="#devis" class="btn bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-4 text-lg font-bold rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300">
-              Recevoir un devis gratuit
+          <!-- CTA Principal -->
+          <div class="flex flex-wrap gap-4">
+            <a href="#formulaire" class="btn btn-xl btn-primary shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
+              {landingData.hero.ctaText}
+              <span class="ml-2">→</span>
             </a>
-            <a href="tel:0617540383" class="btn border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg font-bold rounded-lg transition-all duration-300">
+            <a href="tel:0617540383" class="btn btn-xl btn-outline-primary">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+              </svg>
               06 17 54 03 83
             </a>
           </div>
-
-          <p class="text-sm text-gray-300 mt-4">
-            🚀 <strong>Offre limitée</strong> : 3 créations par mois maximum
-          </p>
         </div>
 
-        <div class="lg:col-5 mt-10 lg:mt-0" data-aos="fade-left">
-          <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl">
-            <h3 class="text-2xl font-bold mb-6 text-white">Ce que vous obtenez :</h3>
-            <ul class="space-y-4">
-              <li class="flex items-start gap-3">
-                <span class="text-blue-400 text-xl">💧</span>
-                <span><strong>Module urgences 24/7</strong><br/><span class="text-gray-300">Formulaire prioritaire fuite/dégât des eaux</span></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-blue-400 text-xl">💰</span>
-                <span><strong>Grille tarifaire claire</strong><br/><span class="text-gray-300">Prix transparents par intervention</span></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-blue-400 text-xl">📸</span>
-                <span><strong>Galerie avant/après</strong><br/><span class="text-gray-300">Vos plus belles interventions</span></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-blue-400 text-xl">⚡</span>
-                <span><strong>Vitesse ultra-rapide</strong><br/><span class="text-gray-300">Google adore les sites rapides</span></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="text-blue-400 text-xl">🎯</span>
-                <span><strong>SEO local</strong><br/><span class="text-gray-300">Top 3 "plombier [votre ville]"</span></span>
-              </li>
-            </ul>
+        <div class="lg:col-5">
+          <div class="relative">
+            <Image
+              class="w-full h-auto rounded-lg shadow-2xl"
+              width={600}
+              height={500}
+              alt={`Site web ${landingData.metier} ${landingData.ville}`}
+              src="/images/screenshots/banner-shot.png"
+              format="webp"
+            />
+            <!-- Badge sur l'image -->
+            <div class="absolute top-4 right-4 bg-white rounded-lg shadow-lg p-3">
+              <div class="text-2xl font-bold text-primary">+300</div>
+              <div class="text-sm text-gray-600">Sites livrés</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 2: Problèmes Plombiers -->
-  <section class="section bg-gray-50 py-20">
+  <!-- Section Problèmes/Solutions -->
+  <section class="section">
     <div class="container">
-      <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="text-4xl md:text-5xl font-bold mb-6">
-          Ces problèmes vous parlent ?
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">
+          Vos problèmes actuels vs Notre solution
         </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          80% des plombiers rencontrent ces mêmes difficultés quotidiennes.
+        <p class="text-xl text-gray-600">
+          Nous connaissons les défis des {landingData.metier.toLowerCase()}s à {landingData.ville}
         </p>
       </div>
 
-      <div class="row g-4">
-        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="0">
-          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
-            <div class="text-4xl mb-4">📞</div>
-            <h3 class="text-xl font-bold mb-3 text-red-600">Urgences non-payées</h3>
-            <p class="text-gray-600">
-              "Fuite d'eau, pouvez-vous venir maintenant ?" puis fantôme après intervention. Vous perdez du temps et de l'argent.
-            </p>
+      <div class="row gy-8">
+        <!-- Colonne Problèmes -->
+        <div class="lg:col-6">
+          <h3 class="text-2xl font-bold mb-6 text-red-600">❌ Sans site professionnel</h3>
+          <div class="space-y-4">
+            {landingData.problems.map((item) => (
+              <div class="bg-red-50 rounded-lg p-6 border-l-4 border-red-500">
+                <div class="flex items-start">
+                  <span class="text-3xl mr-4">{item.icon}</span>
+                  <div>
+                    <h4 class="font-bold mb-2 text-gray-900">{item.problem}</h4>
+                    <p class="text-gray-700">{item.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
-            <div class="text-4xl mb-4">💸</div>
-            <h3 class="text-xl font-bold mb-3 text-red-600">Devis non-qualifiés</h3>
-            <p class="text-gray-600">
-              Vous passez des heures à faire des devis pour des gens qui comparent 10 plombiers et prennent le moins cher.
-            </p>
+        <!-- Colonne Solutions -->
+        <div class="lg:col-6">
+          <h3 class="text-2xl font-bold mb-6 text-green-600">✅ Avec votre site AWEMA</h3>
+          <div class="space-y-4">
+            {landingData.solutions.map((item) => (
+              <div class="bg-green-50 rounded-lg p-6 border-l-4 border-green-500">
+                <div class="flex items-start">
+                  <span class="text-3xl mr-4">{item.icon}</span>
+                  <div>
+                    <h4 class="font-bold mb-2 text-gray-900">{item.solution}</h4>
+                    <p class="text-gray-700">{item.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-
-        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
-            <div class="text-4xl mb-4">😤</div>
-            <h3 class="text-xl font-bold mb-3 text-red-600">Invisible sur Internet</h3>
-            <p class="text-gray-600">
-              Vos concurrents avec des sites pourris apparaissent en premier sur Google. Vous, vous êtes invisible.
-            </p>
-          </div>
-        </div>
-
-        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="300">
-          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
-            <div class="text-4xl mb-4">⏱️</div>
-            <h3 class="text-xl font-bold mb-3 text-red-600">Téléphone qui sonne</h3>
-            <p class="text-gray-600">
-              Impossible de répondre quand vous êtes sous un évier. Les clients raccrochent et appellent le suivant.
-            </p>
-          </div>
-        </div>
-
-        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="400">
-          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
-            <div class="text-4xl mb-4">🎲</div>
-            <h3 class="text-xl font-bold mb-3 text-red-600">Dépendance totale</h3>
-            <p class="text-gray-600">
-              Si votre meilleur prescripteur (syndic, agence immobilière) arrête de vous appeler, c'est la catastrophe.
-            </p>
-          </div>
-        </div>
-
-        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="500">
-          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
-            <div class="text-4xl mb-4">💔</div>
-            <h3 class="text-xl font-bold mb-3 text-red-600">Crédibilité zéro</h3>
-            <p class="text-gray-600">
-              Pas de site = pas professionnel. Les clients vous trouvent via Pages Jaunes et vont chez votre concurrent qui a un beau site.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center mt-12" data-aos="fade-up">
-        <p class="text-2xl font-bold text-gray-800 mb-4">
-          La bonne nouvelle ? <span class="text-primary">Il y a une solution simple.</span>
-        </p>
       </div>
     </div>
   </section>
 
-  <!-- Réutiliser les sections de /site-internet-artisan.astro -->
-  <!-- Section Solution, Process, Tarif, Propriété, FAQ, CTA -->
-  <!-- Je vais copier les sections pertinentes et adapter pour plombier -->
+  <!-- Offre Spéciale -->
+  <section class="section bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+    <div class="container">
+      <div class="bg-white/10 backdrop-blur rounded-2xl p-8 lg:p-12">
+        <div class="text-center mb-8">
+          <h2 class="text-4xl font-bold mb-4">{landingData.specialOffer.title}</h2>
+          <p class="text-xl opacity-90">{landingData.specialOffer.description}</p>
+        </div>
 
-  <!-- CTA Final -->
-  <section id="devis" class="section relative bg-gradient-to-br from-blue-800 via-blue-700 to-blue-900 text-white py-20">
-    <div class="absolute inset-0 bg-black/10"></div>
+        <div class="row gy-8 items-center">
+          <div class="lg:col-7">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {landingData.specialOffer.features.map((feature) => (
+                <div class="flex items-center">
+                  <svg class="w-6 h-6 text-green-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="text-lg">{feature}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-    <div class="container relative z-10">
-      <div class="row items-center">
-        <div class="lg:col-6 mb-10 lg:mb-0" data-aos="fade-right">
-          <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight text-white drop-shadow-lg">
-            Prêt à générer plus d'interventions ?
-          </h2>
-          <p class="text-xl text-gray-200 mb-8 leading-relaxed">
-            Remplissez ce formulaire et recevez votre devis personnalisé sous 24h.
-          </p>
+          <div class="lg:col-5">
+            <div class="bg-white rounded-xl p-8 text-gray-900 text-center">
+              <div class="mb-4">
+                <span class="text-xl line-through text-gray-400">{landingData.specialOffer.originalPrice}</span>
+                <span class="text-5xl font-bold text-blue-600 ml-4">{landingData.specialOffer.discountPrice}</span>
+              </div>
+              <p class="text-2xl font-semibold mb-6">
+                Puis {landingData.specialOffer.monthlyPrice}
+              </p>
+              <a href="#formulaire" class="btn btn-primary btn-xl w-full mb-4">
+                Je profite de l'offre
+              </a>
+              <p class="text-sm text-red-600 font-medium animate-pulse">
+                ⚠️ {landingData.specialOffer.urgency}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Témoignages -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">
+          Ils ont transformé leur activité
+        </h2>
+        <p class="text-xl text-gray-600">
+          Découvrez les résultats de nos clients {landingData.metier.toLowerCase()}s
+        </p>
+      </div>
+
+      <div class="row gy-6">
+        {landingData.testimonials.map((testimonial) => (
+          <div class="lg:col-6">
+            <div class="bg-white rounded-xl shadow-lg p-8 h-full">
+              <div class="flex mb-4">
+                {[...Array(testimonial.rating)].map(() => (
+                  <svg class="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                  </svg>
+                ))}
+              </div>
+
+              <p class="text-lg mb-6 italic">"{testimonial.content}"</p>
+
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="font-bold">{testimonial.name}</div>
+                  <div class="text-gray-600">{testimonial.company}</div>
+                  <div class="text-sm text-gray-500">{testimonial.location}</div>
+                </div>
+                <div class="text-right">
+                  {testimonial.results.map((result) => (
+                    <div class="text-sm font-semibold text-green-600">
+                      ✓ {result}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4">Questions fréquentes</h2>
+            <p class="text-xl text-gray-600">
+              Tout ce que vous devez savoir sur votre futur site
+            </p>
+          </div>
 
           <div class="space-y-6">
-            <div class="flex items-start gap-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                <span class="text-2xl">✓</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold mb-2 text-white">Audit gratuit 15min</h3>
-                <p class="text-gray-200">On analyse votre situation et vos besoins</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                <span class="text-2xl">✓</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold mb-2 text-white">Devis détaillé sous 48h</h3>
-                <p class="text-gray-200">Prix fixe, pas de surprise</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                <span class="text-2xl">✓</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold mb-2 text-white">Livraison en 3 semaines</h3>
-                <p class="text-gray-200">Votre site en ligne rapidement</p>
-              </div>
-            </div>
+            {landingData.faq.map((item, index) => (
+              <details class="bg-white rounded-lg shadow-md p-6 group">
+                <summary class="font-bold text-lg cursor-pointer flex items-center justify-between">
+                  {item.question}
+                  <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </summary>
+                <p class="mt-4 text-gray-700">{item.answer}</p>
+              </details>
+            ))}
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="lg:col-6" data-aos="fade-left">
-          <div class="bg-white text-gray-900 p-8 rounded-2xl shadow-2xl">
-            <h3 class="text-2xl font-bold mb-6 text-center">Recevoir mon devis plombier</h3>
+  <!-- Formulaire de contact -->
+  <section class="section bg-gradient-to-br from-gray-50 to-white" id="formulaire">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <div class="bg-white rounded-2xl shadow-2xl p-8 lg:p-12">
+            <div class="text-center mb-8">
+              <h2 class="text-4xl font-bold mb-4">
+                Recevez votre maquette gratuite en 24h
+              </h2>
+              <p class="text-xl text-gray-600">
+                Remplissez ce formulaire et découvrez votre futur site
+              </p>
+              <div class="mt-4 inline-flex items-center px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full">
+                ⏰ Temps de remplissage : 2 minutes
+              </div>
+            </div>
 
-            <form action="https://formspree.io/f/xrbykjpb" method="POST" class="space-y-4">
-              <input type="hidden" name="_subject" value="Demande devis site plombier" />
-              <input type="hidden" name="metier" value="Plombier" />
+            <form class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Nom complet *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="Jean Dupont"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Entreprise *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="Plomberie Dupont"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="contact@exemple.fr"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Téléphone *
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="06 12 34 56 78"
+                  />
+                </div>
+              </div>
 
               <div>
-                <label for="name" class="block text-sm font-semibold mb-2">Votre nom *</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Votre zone d'intervention
+                </label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  required
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
-                  placeholder="Jean Dupont"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder={`${landingData.ville} et environs`}
+                  value={`${landingData.ville}`}
                 />
               </div>
 
               <div>
-                <label for="email" class="block text-sm font-semibold mb-2">Email *</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
-                  placeholder="jean@plomberie-dupont.fr"
-                />
-              </div>
-
-              <div>
-                <label for="phone" class="block text-sm font-semibold mb-2">Téléphone *</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  required
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
-                  placeholder="06 12 34 56 78"
-                />
-              </div>
-
-              <div>
-                <label for="city" class="block text-sm font-semibold mb-2">Votre ville *</label>
-                <input
-                  type="text"
-                  id="city"
-                  name="city"
-                  required
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
-                  placeholder="Lyon, Paris, Marseille..."
-                />
-              </div>
-
-              <div>
-                <label for="message" class="block text-sm font-semibold mb-2">Votre projet en quelques mots</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Message (optionnel)
+                </label>
                 <textarea
-                  id="message"
-                  name="message"
                   rows="4"
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition resize-none"
-                  placeholder="Ex: Je veux un site pour mon entreprise de plomberie avec formulaire urgences et galerie photos..."
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="Décrivez vos besoins spécifiques..."
                 ></textarea>
+              </div>
+
+              <div class="flex items-start">
+                <input
+                  type="checkbox"
+                  required
+                  class="mt-1 mr-3"
+                />
+                <label class="text-sm text-gray-600">
+                  J'accepte d'être contacté par AWEMA pour recevoir ma maquette gratuite et des informations sur leurs services
+                </label>
               </div>
 
               <button
                 type="submit"
-                class="w-full bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white py-4 px-6 rounded-lg font-bold text-lg shadow-lg transform hover:scale-105 transition-all duration-300"
+                class="w-full btn btn-primary btn-xl py-4 text-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
               >
-                Envoyer ma demande
+                Recevoir ma maquette gratuite →
               </button>
 
-              <p class="text-xs text-gray-500 text-center mt-4">
-                🔒 Vos données sont protégées et ne seront jamais partagées.
+              <p class="text-center text-sm text-gray-500">
+                Ou appelez-nous directement au{" "}
+                <a href="tel:0617540383" class="text-primary font-semibold">
+                  06 17 54 03 83
+                </a>
               </p>
             </form>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="text-center mt-16" data-aos="fade-up">
-        <p class="text-lg text-blue-100 mb-4">
-          Vous préférez en parler directement ?
-        </p>
-        <a href="tel:0617540383" class="inline-flex items-center gap-3 bg-white text-primary px-8 py-4 rounded-lg font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-          </svg>
-          06 17 54 03 83
+  <!-- CTA Final -->
+  <section class="section bg-blue-600 text-white">
+    <div class="container text-center">
+      <h2 class="text-4xl font-bold mb-6">
+        Ne laissez plus vos concurrents prendre vos clients
+      </h2>
+      <p class="text-xl mb-8 opacity-90">
+        Chaque jour sans site professionnel, c'est des clients qui vont chez vos concurrents
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="#formulaire" class="btn btn-white btn-xl">
+          Je veux ma maquette gratuite
+        </a>
+        <a href="tel:0617540383" class="btn btn-outline-white btn-xl">
+          Appeler maintenant
         </a>
       </div>
     </div>
   </section>
+  <!-- Composants de conversion -->
+  <BadgeUrgence />
+  <WhatsAppButton />
 </Base>
