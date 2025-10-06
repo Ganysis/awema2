@@ -1,0 +1,262 @@
+---
+export interface Props {
+  tag?: string;
+  class?: string;
+  threshold?: number;
+  rootMargin?: string;
+  placeholder?: 'skeleton' | 'blur' | 'none';
+  animation?: 'fade' | 'slide' | 'zoom' | 'none';
+  once?: boolean;
+}
+
+const {
+  tag = 'div',
+  class: className = '',
+  threshold = 0.01,
+  rootMargin = '50px',
+  placeholder = 'skeleton',
+  animation = 'fade',
+  once = true
+} = Astro.props;
+
+const Tag = tag as any;
+const uniqueId = `lazy-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<Tag
+  class={`lazy-load ${className} ${placeholder !== 'none' ? placeholder : ''}`}
+  data-lazy-id={uniqueId}
+  data-animation={animation}
+  data-once={once}
+>
+  <slot />
+</Tag>
+
+<style>
+  /* Placeholder styles */
+  .lazy-load {
+    position: relative;
+    min-height: 100px;
+  }
+
+  .lazy-load.skeleton {
+    background: linear-gradient(
+      90deg,
+      #f3f4f6 0%,
+      #e5e7eb 50%,
+      #f3f4f6 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .lazy-load.blur {
+    filter: blur(5px);
+    transition: filter 0.3s ease;
+  }
+
+  .lazy-load.loaded {
+    animation: none !important;
+    background: none !important;
+    filter: none !important;
+  }
+
+  /* Animation styles */
+  .lazy-load[data-animation="fade"] {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .lazy-load[data-animation="fade"].visible {
+    opacity: 1;
+  }
+
+  .lazy-load[data-animation="slide"] {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .lazy-load[data-animation="slide"].visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .lazy-load[data-animation="zoom"] {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .lazy-load[data-animation="zoom"].visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Content wrapper for smooth loading */
+  .lazy-load > * {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lazy-load.loaded > * {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  class LazyLoadObserver {
+    private observer: IntersectionObserver | null = null;
+    private loadedElements = new Set<string>();
+
+    constructor() {
+      this.init();
+    }
+
+    init() {
+      if (!('IntersectionObserver' in window)) {
+        // Fallback for browsers that don't support IntersectionObserver
+        this.loadAllElements();
+        return;
+      }
+
+      // Create a single observer instance for all lazy-load elements
+      this.observer = new IntersectionObserver(
+        (entries) => this.handleIntersection(entries),
+        {
+          rootMargin: '50px',
+          threshold: [0, 0.01, 0.1, 0.5, 1]
+        }
+      );
+
+      // Start observing elements
+      this.observeElements();
+
+      // Re-observe on page navigation
+      document.addEventListener('astro:after-swap', () => this.observeElements());
+    }
+
+    observeElements() {
+      const elements = document.querySelectorAll('.lazy-load:not(.loaded)');
+
+      elements.forEach(element => {
+        const id = element.getAttribute('data-lazy-id');
+
+        if (id && !this.loadedElements.has(id)) {
+          this.observer?.observe(element);
+        }
+      });
+    }
+
+    handleIntersection(entries: IntersectionObserverEntry[]) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0) {
+          const element = entry.target as HTMLElement;
+          const id = element.getAttribute('data-lazy-id');
+          const animation = element.getAttribute('data-animation');
+          const once = element.getAttribute('data-once') === 'true';
+
+          // Mark as visible and trigger animations
+          requestAnimationFrame(() => {
+            element.classList.add('visible', 'loaded');
+
+            // Load any lazy images within the element
+            this.loadImagesInElement(element);
+
+            // Load any lazy iframes within the element
+            this.loadIframesInElement(element);
+          });
+
+          // Stop observing if once is true
+          if (once && id) {
+            this.loadedElements.add(id);
+            this.observer?.unobserve(element);
+          }
+        }
+      });
+    }
+
+    loadImagesInElement(element: HTMLElement) {
+      const images = element.querySelectorAll('img[data-src], img[data-srcset]');
+
+      images.forEach(img => {
+        const imgElement = img as HTMLImageElement;
+
+        if (imgElement.dataset.src) {
+          imgElement.src = imgElement.dataset.src;
+          delete imgElement.dataset.src;
+        }
+
+        if (imgElement.dataset.srcset) {
+          imgElement.srcset = imgElement.dataset.srcset;
+          delete imgElement.dataset.srcset;
+        }
+
+        // Add loaded class when image is fully loaded
+        imgElement.addEventListener('load', () => {
+          imgElement.classList.add('loaded');
+        }, { once: true });
+      });
+    }
+
+    loadIframesInElement(element: HTMLElement) {
+      const iframes = element.querySelectorAll('iframe[data-src]');
+
+      iframes.forEach(iframe => {
+        const iframeElement = iframe as HTMLIFrameElement;
+
+        if (iframeElement.dataset.src) {
+          iframeElement.src = iframeElement.dataset.src;
+          delete iframeElement.dataset.src;
+        }
+      });
+    }
+
+    loadAllElements() {
+      // Fallback: load all elements immediately
+      const elements = document.querySelectorAll('.lazy-load');
+      elements.forEach(element => {
+        element.classList.add('visible', 'loaded');
+        this.loadImagesInElement(element as HTMLElement);
+        this.loadIframesInElement(element as HTMLElement);
+      });
+    }
+
+    // Performance monitoring
+    measurePerformance() {
+      if ('PerformanceObserver' in window) {
+        try {
+          const perfObserver = new PerformanceObserver((list) => {
+            list.getEntries().forEach((entry) => {
+              if (entry.entryType === 'measure' && entry.name.startsWith('lazy-load')) {
+                console.log(`Lazy load performance: ${entry.name} - ${entry.duration}ms`);
+              }
+            });
+          });
+          perfObserver.observe({ entryTypes: ['measure'] });
+        } catch (e) {
+          // Silent fail
+        }
+      }
+    }
+  }
+
+  // Initialize lazy loading
+  let lazyLoadObserver: LazyLoadObserver;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      lazyLoadObserver = new LazyLoadObserver();
+    });
+  } else {
+    lazyLoadObserver = new LazyLoadObserver();
+  }
+
+  // Export for use in other scripts
+  (window as any).lazyLoadObserver = lazyLoadObserver;
+</script>

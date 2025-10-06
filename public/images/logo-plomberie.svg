@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="40" viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icône robinet/clé -->
+  <g fill="#1e40af">
+    <!-- Clé à molette stylisée -->
+    <path d="M5 10 L15 10 L15 12 L18 12 L18 8 L15 8 L15 10 M5 10 L5 30 L8 30 L8 13 L12 13 L12 30 L15 30 L15 10" stroke="#1e40af" stroke-width="1.5" fill="none"/>
+    <circle cx="10" cy="25" r="2" fill="#1e40af"/>
+  </g>
+
+  <!-- Texte Plomberie Dupont -->
+  <text x="25" y="18" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e40af">
+    Plomberie
+  </text>
+  <text x="25" y="32" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e40af">
+    DUPONT
+  </text>
+
+  <!-- Tagline -->
+  <text x="130" y="25" font-family="Arial, sans-serif" font-size="10" fill="#64748b">
+    24/7 • Paris
+  </text>
+</svg>

@@ -1,0 +1,267 @@
+{
+  "business": {
+    "name": "Plomberie Aixoise - Dépannage 24/7",
+    "slogan": "Votre plombier de confiance à Aix-en-Provence",
+    "phone": "04 42 XX XX XX",
+    "email": "contact@plomberie-aixoise.fr",
+    "address": "Aix-en-Provence, Bouches-du-Rhône (13)",
+    "siret": "XXX XXX XXX 00010",
+    "yearsExperience": 15,
+    "interventionZone": "Aix-en-Provence et alentours (20km)",
+    "emergencyAvailable": true,
+    "certifications": ["Qualibat", "RGE", "Assurance décennale"]
+  },
+  "hero": {
+    "headline": "Plombier Expert à Aix-en-Provence",
+    "subheadline": "Intervention Rapide • Devis Gratuit • Artisan Local depuis 15 ans",
+    "ctaText": "Appeler Maintenant",
+    "ctaPhone": "04 42 XX XX XX",
+    "ctaSecondary": "Demander un Devis",
+    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=800&fit=crop",
+    "trustBadges": [
+      "⭐ 4.9/5 - 127 avis Google",
+      "⚡ Intervention sous 2h",
+      "✅ Garantie pièces et main d'œuvre",
+      "🏆 Artisan certifié Qualibat"
+    ]
+  },
+  "services": [
+    {
+      "id": "depannage-urgence",
+      "name": "Dépannage d'Urgence 24/7",
+      "icon": "⚡",
+      "description": "Fuite d'eau, WC bouché, chaudière en panne ? Nous intervenons en urgence 7j/7, jour et nuit.",
+      "image": "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=800&h=600&fit=crop",
+      "features": [
+        "Intervention sous 2h dans Aix",
+        "Disponible 24h/24, 7j/7",
+        "Diagnostic rapide et précis",
+        "Dépannage définitif, pas de rustine"
+      ],
+      "priceRange": "À partir de 80€ (hors fourniture)",
+      "commonIssues": [
+        "Fuite d'eau (robinet, WC, canalisation)",
+        "Chasse d'eau qui coule en permanence",
+        "WC bouchés",
+        "Chaudière en panne",
+        "Ballon d'eau chaude défaillant"
+      ]
+    },
+    {
+      "id": "installation-sanitaire",
+      "name": "Installation Sanitaire",
+      "icon": "🚿",
+      "description": "Pose de salle de bain complète, douche à l'italienne, baignoire, WC suspendu. Travail soigné garanti.",
+      "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?w=800&h=600&fit=crop",
+      "features": [
+        "Salle de bain clé en main",
+        "Douche à l'italienne sur mesure",
+        "Remplacement baignoire par douche",
+        "Installation WC suspendu",
+        "Meuble vasque design"
+      ],
+      "priceRange": "Devis personnalisé gratuit",
+      "delivery": "Chantier propre et soigné"
+    },
+    {
+      "id": "renovation-plomberie",
+      "name": "Rénovation Plomberie Complète",
+      "icon": "🔧",
+      "description": "Mise aux normes, remplacement tuyauterie cuivre/PER, installation chauffe-eau thermodynamique.",
+      "image": "https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?w=800&h=600&fit=crop",
+      "features": [
+        "Remplacement tuyauterie ancienne",
+        "Passage cuivre vers PER",
+        "Mise aux normes PMR",
+        "Installation chauffe-eau thermodynamique",
+        "Optimisation réseau d'eau"
+      ],
+      "priceRange": "À partir de 2500€ selon surface",
+      "guarantee": "Garantie décennale"
+    },
+    {
+      "id": "chauffage",
+      "name": "Chauffage & Chaudière",
+      "icon": "🔥",
+      "description": "Entretien annuel obligatoire, dépannage, remplacement chaudière gaz/fioul. Artisan RGE.",
+      "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&h=600&fit=crop",
+      "features": [
+        "Entretien chaudière annuel (80€)",
+        "Dépannage tous types de chaudières",
+        "Remplacement chaudière gaz condensation",
+        "Installation pompe à chaleur",
+        "Artisan RGE - Aides CEE"
+      ],
+      "priceRange": "Entretien 80€ | Installation à partir de 3500€"
+    },
+    {
+      "id": "recherche-fuite",
+      "name": "Recherche de Fuite Sans Casse",
+      "icon": "🔍",
+      "description": "Détection électronique précise des fuites cachées (murs, sol). Technologie infrarouge et gaz traceur.",
+      "image": "https://images.unsplash.com/photo-1581578017093-cd30ed5aa2d3?w=800&h=600&fit=crop",
+      "features": [
+        "Caméra thermique infrarouge",
+        "Gaz traceur haute précision",
+        "Inspection vidéo canalisations",
+        "Rapport détaillé avec photos",
+        "Réparation ciblée sans casse inutile"
+      ],
+      "priceRange": "À partir de 150€ (recherche seule)"
+    },
+    {
+      "id": "debouchage",
+      "name": "Débouchage Canalisation",
+      "icon": "🌊",
+      "description": "Débouchage WC, évier, douche, canalisation. Furet électrique, hydrocurage haute pression.",
+      "image": "https://images.unsplash.com/photo-1607473256339-faf0d76c81c1?w=800&h=600&fit=crop",
+      "features": [
+        "Débouchage WC, évier, douche",
+        "Furet électrique professionnel",
+        "Hydrocurage haute pression",
+        "Inspection caméra avant/après",
+        "Traitement préventif"
+      ],
+      "priceRange": "À partir de 90€"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Sophie M.",
+      "location": "Aix Centre",
+      "rating": 5,
+      "date": "Il y a 2 semaines",
+      "text": "Fuite d'eau dans la cuisine à 22h, panique totale ! J'appelle Plomberie Aixoise, ils sont là en 1h30. Réparation nickel, prix honnête. Je recommande à 100% !",
+      "service": "Dépannage urgence",
+      "avatar": "https://i.pravatar.cc/150?img=1"
+    },
+    {
+      "name": "Marc D.",
+      "location": "Luynes",
+      "rating": 5,
+      "date": "Il y a 1 mois",
+      "text": "Rénovation complète de notre salle de bain. Travail impeccable, chantier propre chaque soir. Ils ont respecté le devis et les délais. Très pro !",
+      "service": "Rénovation salle de bain",
+      "avatar": "https://i.pravatar.cc/150?img=12"
+    },
+    {
+      "name": "Caroline B.",
+      "location": "Jas de Bouffan",
+      "rating": 5,
+      "date": "Il y a 3 semaines",
+      "text": "Entretien chaudière annuel, rendez-vous à l'heure, travail rapide et soigné. Ils ont détecté un problème avant qu'il devienne grave. Merci !",
+      "service": "Entretien chaudière",
+      "avatar": "https://i.pravatar.cc/150?img=5"
+    },
+    {
+      "name": "Jean-Pierre L.",
+      "location": "Puyricard",
+      "rating": 5,
+      "date": "Il y a 2 mois",
+      "text": "WC bouchés un dimanche matin, ils sont intervenus dans l'après-midi. Efficace, rapide, tarif correct pour un dimanche. Artisan sérieux et sympa.",
+      "service": "Débouchage",
+      "avatar": "https://i.pravatar.cc/150?img=14"
+    },
+    {
+      "name": "Isabelle T.",
+      "location": "Les Milles",
+      "rating": 5,
+      "date": "Il y a 1 semaine",
+      "text": "Recherche de fuite difficile (derrière le mur). Ils ont trouvé en 30 minutes avec leur caméra thermique. Réparation précise sans tout casser. Top !",
+      "service": "Recherche de fuite",
+      "avatar": "https://i.pravatar.cc/150?img=9"
+    },
+    {
+      "name": "Thomas R.",
+      "location": "Aix Sud",
+      "rating": 5,
+      "date": "Il y a 3 semaines",
+      "text": "Installation d'une douche à l'italienne, résultat magnifique ! Très bon conseil sur le choix des matériaux. Je referai appel à eux sans hésiter.",
+      "service": "Installation douche",
+      "avatar": "https://i.pravatar.cc/150?img=13"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Intervenez-vous vraiment 24h/24 et 7j/7 ?",
+      "answer": "Oui, nous sommes disponibles pour les urgences plomberie tous les jours, y compris dimanche et jours fériés. Pour une fuite importante, un WC bouché ou une chaudière en panne, appelez-nous à toute heure, nous intervenons rapidement."
+    },
+    {
+      "question": "Quel est le délai d'intervention pour une urgence à Aix ?",
+      "answer": "Dans le centre d'Aix-en-Provence et les quartiers proches (Jas de Bouffan, Luynes, Les Milles), nous intervenons en moins de 2h. Pour les zones plus éloignées (Puyricard, Venelles), comptez 2h à 3h maximum."
+    },
+    {
+      "question": "Proposez-vous un devis gratuit ?",
+      "answer": "Oui, tous nos devis sont gratuits et sans engagement. Pour les travaux importants (rénovation salle de bain, remplacement chaudière), nous nous déplaçons gratuitement pour établir un devis précis et détaillé."
+    },
+    {
+      "question": "Êtes-vous couvert par une assurance décennale ?",
+      "answer": "Absolument, nous disposons d'une assurance décennale à jour qui couvre tous nos travaux de plomberie. Vous recevez systématiquement une copie de notre attestation avec chaque devis."
+    },
+    {
+      "question": "Acceptez-vous les paiements en plusieurs fois ?",
+      "answer": "Oui, pour les chantiers de plus de 1500€, nous proposons un paiement échelonné (30% à la commande, 40% en cours de chantier, 30% à la fin). Paiement par chèque, virement ou CB."
+    },
+    {
+      "question": "Peut-on bénéficier d'aides pour le remplacement d'une chaudière ?",
+      "answer": "Oui, nous sommes certifiés RGE, ce qui vous permet de bénéficier des aides de l'État (MaPrimeRénov', CEE). Nous vous accompagnons dans toutes vos démarches administratives."
+    },
+    {
+      "question": "Combien coûte un dépannage plomberie en urgence ?",
+      "answer": "Le tarif démarre à 80€ pour un dépannage simple en journée (hors fourniture). Pour une intervention de nuit (20h-8h), weekend ou jour férié, un supplément de 50% s'applique. Le devis est établi avant toute intervention."
+    },
+    {
+      "question": "Quelle garantie sur vos travaux ?",
+      "answer": "Nous garantissons toutes nos interventions : 1 an sur la main d'œuvre, 2 ans sur les pièces de remplacement, et 10 ans (décennale) sur les travaux structurels de plomberie."
+    }
+  ],
+  "zones": [
+    "Aix-en-Provence centre",
+    "Jas de Bouffan",
+    "Les Milles",
+    "Luynes",
+    "Puyricard",
+    "Venelles",
+    "Meyreuil",
+    "Bouc-Bel-Air",
+    "Gardanne",
+    "Fuveau"
+  ],
+  "gallery": [
+    {
+      "title": "Rénovation salle de bain complète",
+      "image": "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&h=600&fit=crop",
+      "location": "Aix Centre"
+    },
+    {
+      "title": "Installation douche à l'italienne",
+      "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&h=600&fit=crop",
+      "location": "Jas de Bouffan"
+    },
+    {
+      "title": "Pose WC suspendu Geberit",
+      "image": "https://images.unsplash.com/photo-1595514535116-2fc104a3676f?w=800&h=600&fit=crop",
+      "location": "Luynes"
+    },
+    {
+      "title": "Installation chaudière gaz condensation",
+      "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&h=600&fit=crop",
+      "location": "Les Milles"
+    },
+    {
+      "title": "Remplacement tuyauterie cuivre",
+      "image": "https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?w=800&h=600&fit=crop",
+      "location": "Puyricard"
+    },
+    {
+      "title": "Recherche de fuite caméra thermique",
+      "image": "https://images.unsplash.com/photo-1581578017093-cd30ed5aa2d3?w=800&h=600&fit=crop",
+      "location": "Venelles"
+    }
+  ],
+  "seo": {
+    "title": "Plombier Aix-en-Provence 24/7 | Dépannage Urgence | Devis Gratuit",
+    "description": "Plombier expert à Aix-en-Provence. Dépannage urgence 24h/24, salle de bain, chaudière, recherche de fuite. ⭐ 4.9/5 - 127 avis. Devis gratuit 04 42 XX XX XX",
+    "keywords": "plombier aix-en-provence, plomberie aix, dépannage plomberie aix, plombier urgence aix, fuite eau aix, chaudière aix, salle de bain aix, plombier 13090, plombier 13100, plombier 13540"
+  }
+}

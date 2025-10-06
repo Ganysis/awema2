@@ -1,0 +1,552 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+
+const meta = {
+  title: "Ressources Gratuites BTP - Guides, Outils, Formations | AWEMA",
+  description: "Téléchargez nos guides business BTP, outils Excel, templates et accédez à l'Academy AWEMA. Valeur 500€ offerte à tous nos clients.",
+};
+
+const guides = [
+  {
+    title: "Guide Avis Google Master",
+    description: "Comment passer de 3 à 100 avis en 6 mois",
+    pages: "15 pages",
+    value: "97€",
+    downloads: "1247",
+    icon: "FaStar",
+    badge: "BEST-SELLER",
+    topics: [
+      "Stratégie collecte d'avis",
+      "Templates de demande",
+      "Automatisation du process",
+      "Gestion avis négatifs"
+    ]
+  },
+  {
+    title: "GMB Domination Totale",
+    description: "Le guide ultime pour dominer Google Maps",
+    pages: "20 pages",
+    value: "127€",
+    downloads: "892",
+    icon: "FaGoogle",
+    badge: "NOUVEAU",
+    topics: [
+      "Optimisation complète GMB",
+      "Posts stratégiques",
+      "Photos qui convertissent",
+      "Ranking factors secrets"
+    ]
+  },
+  {
+    title: "Guide Devis Parfait BTP",
+    description: "Créez des devis qui closent à 70%",
+    pages: "10 pages",
+    value: "67€",
+    downloads: "756",
+    icon: "FaFileInvoice",
+    badge: "",
+    topics: [
+      "Structure gagnante",
+      "Pricing psychologique",
+      "Urgency & Scarcity",
+      "Templates pro"
+    ]
+  },
+  {
+    title: "Photos Chantier Pro",
+    description: "Avant/après qui vendent vos prestations",
+    pages: "8 pages",
+    value: "47€",
+    downloads: "634",
+    icon: "FaCamera",
+    badge: "",
+    topics: [
+      "Matériel recommandé",
+      "Angles parfaits",
+      "Retouche rapide",
+      "Publication stratégique"
+    ]
+  },
+  {
+    title: "Réseaux Sociaux BTP",
+    description: "Facebook, Instagram, LinkedIn pour artisans",
+    pages: "25 pages",
+    value: "147€",
+    downloads: "523",
+    icon: "FaShareAlt",
+    badge: "COMPLET",
+    topics: [
+      "Stratégie par réseau",
+      "Calendrier éditorial",
+      "Publicité payante ROI",
+      "Automatisation posts"
+    ]
+  },
+  {
+    title: "WhatsApp Business Pro",
+    description: "Convertir les prospects par message",
+    pages: "12 pages",
+    value: "77€",
+    downloads: "412",
+    icon: "FaWhatsapp",
+    badge: "NOUVEAU",
+    topics: [
+      "Configuration optimale",
+      "Catalogues produits",
+      "Réponses automatiques",
+      "Broadcast lists"
+    ]
+  }
+];
+
+const tools = [
+  {
+    title: "Dashboard Business BTP",
+    description: "Tableau de bord Excel tout-en-un",
+    format: "Excel",
+    icon: "FaChartBar",
+    features: [
+      "Suivi CA temps réel",
+      "Rentabilité par chantier",
+      "Prévisions trésorerie",
+      "KPIs automatiques"
+    ]
+  },
+  {
+    title: "Calculateur Rentabilité",
+    description: "Calcul marge et prix de vente optimal",
+    format: "Excel",
+    icon: "FaCalculator",
+    features: [
+      "Coûts directs/indirects",
+      "Marge souhaitée",
+      "Seuil rentabilité",
+      "Comparatif concurrence"
+    ]
+  },
+  {
+    title: "Tracker Prospects",
+    description: "CRM simple pour suivre vos leads",
+    format: "Excel",
+    icon: "FaUsers",
+    features: [
+      "Pipeline commercial",
+      "Taux conversion",
+      "Relances automatiques",
+      "Source des leads"
+    ]
+  },
+  {
+    title: "Planning Chantiers",
+    description: "Gantt pour organiser vos projets",
+    format: "Excel",
+    icon: "FaCalendarAlt",
+    features: [
+      "Vue calendrier",
+      "Charge équipes",
+      "Jalons projet",
+      "Alertes retard"
+    ]
+  }
+];
+
+const academy = {
+  courses: [
+    {
+      title: "Masterclass GMB",
+      duration: "2h30",
+      level: "Débutant",
+      students: "247"
+    },
+    {
+      title: "Facebook Ads BTP",
+      duration: "1h45",
+      level: "Intermédiaire",
+      students: "189"
+    },
+    {
+      title: "SEO Local Avancé",
+      duration: "3h15",
+      level: "Expert",
+      students: "143"
+    },
+    {
+      title: "Email Marketing BTP",
+      duration: "1h30",
+      level: "Débutant",
+      students: "201"
+    }
+  ],
+  benefits: [
+    "Formations vidéo HD",
+    "Supports téléchargeables",
+    "Groupe WhatsApp privé",
+    "Q&A mensuel avec Yann",
+    "Certificat de réussite",
+    "Mises à jour à vie"
+  ]
+};
+
+const access = {
+  local: {
+    guides: "3 guides au choix",
+    tools: "2 outils Excel",
+    academy: "❌ Non inclus",
+    support: "Email uniquement"
+  },
+  zone: {
+    guides: "Tous les guides",
+    tools: "Tous les outils",
+    academy: "✅ Accès complet",
+    support: "WhatsApp + Email"
+  },
+  region: {
+    guides: "Tous les guides + bonus",
+    tools: "Tous les outils + custom",
+    academy: "✅ Accès VIP",
+    support: "Support dédié"
+  }
+};
+---
+
+<Base {...meta}>
+  <PageHeader title="Ressources BTP Gratuites" />
+
+  <!-- Hero Section -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10 text-center">
+          <h1 class="mb-6">
+            <span class="text-primary">500€ de ressources</span> offertes à tous nos clients
+          </h1>
+          <p class="text-lg mb-8">
+            Guides business, outils Excel, formations vidéo... Tout ce qu'il faut pour cartonner dans le BTP.
+            Créés par Yann, testés sur le terrain, approuvés par 300+ artisans.
+          </p>
+          <div class="flex gap-4 justify-center flex-wrap mb-8">
+            <div class="bg-white rounded-lg px-6 py-3 shadow">
+              <span class="font-bold text-2xl text-primary">27</span>
+              <span class="ml-2">Ressources</span>
+            </div>
+            <div class="bg-white rounded-lg px-6 py-3 shadow">
+              <span class="font-bold text-2xl text-primary">8492</span>
+              <span class="ml-2">Téléchargements</span>
+            </div>
+            <div class="bg-white rounded-lg px-6 py-3 shadow">
+              <span class="font-bold text-2xl text-primary">500€</span>
+              <span class="ml-2">Valeur totale</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guides Section -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">📚 Guides Business BTP</h2>
+          <p>PDF haute valeur pour transformer votre entreprise</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {guides.map((guide) => (
+          <div class="lg:col-6">
+            <div class="bg-white rounded-lg shadow-lg p-6 h-full hover:shadow-xl transition-shadow">
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center">
+                  <DynamicIcon
+                    icon={guide.icon}
+                    className="text-3xl text-primary mr-3"
+                    client:load
+                  />
+                  <div>
+                    <h3 class="mb-1">{guide.title}</h3>
+                    {guide.badge && (
+                      <span class="inline-block bg-primary text-white text-xs px-2 py-1 rounded">
+                        {guide.badge}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="line-through text-gray-400 text-sm">{guide.value}</div>
+                  <div class="text-green-600 font-bold">GRATUIT</div>
+                </div>
+              </div>
+              <p class="mb-4 text-gray-600">{guide.description}</p>
+              <div class="mb-4">
+                <div class="text-sm text-gray-500 mb-2">Ce que vous allez apprendre :</div>
+                <ul class="space-y-1">
+                  {guide.topics.map((topic) => (
+                    <li class="flex items-start text-sm">
+                      <span class="text-green-500 mr-2">✓</span>
+                      <span>{topic}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div class="flex items-center justify-between pt-4 border-t">
+                <div class="text-sm text-gray-500">
+                  📄 {guide.pages} • 📥 {guide.downloads} downloads
+                </div>
+                <button class="btn btn-sm btn-primary">
+                  Télécharger
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Section -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">🛠️ Outils Excel BTP</h2>
+          <p>Templates prêts à l'emploi pour gérer votre business</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {tools.map((tool) => (
+          <div class="sm:col-6 lg:col-3">
+            <div class="bg-white rounded-lg shadow p-6 h-full hover:shadow-lg transition-shadow">
+              <div class="text-center mb-4">
+                <DynamicIcon
+                  icon={tool.icon}
+                  className="text-4xl text-primary"
+                  client:load
+                />
+              </div>
+              <h4 class="mb-3">{tool.title}</h4>
+              <p class="text-sm text-gray-600 mb-4">{tool.description}</p>
+              <ul class="space-y-2 mb-4">
+                {tool.features.map((feature) => (
+                  <li class="text-xs flex items-start">
+                    <span class="text-green-500 mr-1">•</span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <button class="btn btn-sm btn-outline-primary w-full">
+                📊 Télécharger {tool.format}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Academy Section -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">🎓 AWEMA Academy</h2>
+          <p>Formations vidéo pour maîtriser le digital BTP</p>
+        </div>
+      </div>
+      <div class="row gy-5">
+        <div class="lg:col-6">
+          <h3 class="mb-6">Formations Disponibles</h3>
+          <div class="space-y-4">
+            {academy.courses.map((course) => (
+              <div class="bg-light rounded-lg p-4">
+                <div class="flex justify-between items-start mb-2">
+                  <h4 class="text-lg">{course.title}</h4>
+                  <span class="bg-primary text-white text-xs px-2 py-1 rounded">
+                    {course.level}
+                  </span>
+                </div>
+                <div class="flex items-center text-sm text-gray-600">
+                  <span>⏱️ {course.duration}</span>
+                  <span class="mx-2">•</span>
+                  <span>👥 {course.students} inscrits</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="lg:col-6">
+          <h3 class="mb-6">Avantages Academy</h3>
+          <div class="bg-primary/10 rounded-lg p-6">
+            <ul class="space-y-3">
+              {academy.benefits.map((benefit) => (
+                <li class="flex items-center">
+                  <span class="text-primary mr-3">✓</span>
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
+            <div class="mt-6 p-4 bg-white rounded">
+              <div class="text-sm text-gray-600 mb-2">Valeur totale</div>
+              <div class="flex items-center justify-between">
+                <span class="line-through text-gray-400">497€</span>
+                <span class="text-green-600 font-bold text-xl">
+                  Inclus formule ZONE & RÉGION
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Access by Plan -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Accès Selon Votre Formule</h2>
+          <p>Plus votre formule est complète, plus vous avez de ressources</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-center mb-4">LOCAL</h3>
+            <div class="text-center text-2xl font-bold text-gray-600 mb-6">797€ + 79€/mois</div>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="mr-2">📚</span>
+                <span>{access.local.guides}</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">🛠️</span>
+                <span>{access.local.tools}</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">🎓</span>
+                <span>{access.local.academy}</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">💬</span>
+                <span>{access.local.support}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-primary/10 rounded-lg shadow-lg p-6 border-2 border-primary">
+            <div class="text-center mb-4">
+              <span class="bg-primary text-white px-3 py-1 rounded text-sm">POPULAIRE</span>
+              <h3 class="mt-2">ZONE</h3>
+            </div>
+            <div class="text-center text-2xl font-bold text-primary mb-6">1297€ + 97€/mois</div>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="mr-2">📚</span>
+                <span class="font-semibold">{access.zone.guides}</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">🛠️</span>
+                <span class="font-semibold">{access.zone.tools}</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">🎓</span>
+                <span class="font-semibold">{access.zone.academy}</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">💬</span>
+                <span class="font-semibold">{access.zone.support}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-center mb-4">RÉGION</h3>
+            <div class="text-center text-2xl font-bold text-gray-600 mb-6">1797€ + 127€/mois</div>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="mr-2">📚</span>
+                <span>{access.region.guides}</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">🛠️</span>
+                <span>{access.region.tools}</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">🎓</span>
+                <span>{access.region.academy}</span>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-2">💬</span>
+                <span>{access.region.support}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-8">
+        <a href="/pricing" class="btn btn-primary">
+          Voir toutes les formules en détail
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <div class="bg-gradient-to-r from-primary to-primary-dark rounded-lg p-8 text-white text-center">
+            <h2 class="text-white mb-4">
+              Rejoignez 2000+ Artisans Qui Reçoivent Nos Tips
+            </h2>
+            <p class="mb-6">
+              Chaque semaine : 1 stratégie digitale testée sur le terrain + 1 outil gratuit
+            </p>
+            <form class="flex gap-3 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="votre@email.com"
+                class="flex-1 px-4 py-3 rounded text-dark"
+                required
+              />
+              <button type="submit" class="btn btn-white">
+                S'inscrire
+              </button>
+            </form>
+            <p class="text-sm mt-4 opacity-90">
+              🔒 Zéro spam. Désinscription en 1 clic.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center text-center">
+        <div class="lg:col-8">
+          <h2 class="mb-4">
+            Accédez à Toutes Ces Ressources
+          </h2>
+          <p class="mb-8 text-lg">
+            + Site web premium + Google My Business + Support inclus
+          </p>
+          <a href="/contact" class="btn btn-primary btn-lg">
+            Commencer avec AWEMA
+          </a>
+          <p class="mt-4 text-sm text-gray-600">
+            ⚡ Offre limitée : -20% sur la création jusqu'au 31/01
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

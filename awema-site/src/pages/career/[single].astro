@@ -1,0 +1,134 @@
+---
+import Accordion from "@/helpers/Accordion";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getSinglePage("career");
+
+  const paths = posts.map((post) => ({
+    params: {
+      single: post.id,
+    },
+    props: { post },
+  }));
+  return paths;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title } = post.data;
+---
+
+<Base {...post.data}>
+  <PageHeader title={title} />
+
+  <section class="section">
+    <div class="container">
+      <div class="lg:col-11 mx-auto">
+        <div class="content">
+          <Content />
+        </div>
+        <Accordion client:idle title="Apply for Job">
+          <div class="lg:col-8">
+            <div class="bg-whtie shadow p-5">
+              <form>
+                <div class="row">
+                  <div class="lg:col-6">
+                    <div class="mb-6">
+                      <label for="name" class="form-label !text-base !mb-1">
+                        Full Name <span class="text-text-dark">*</span>
+                      </label>
+                      <input
+                        id="name"
+                        name="name"
+                        class="form-input"
+                        placeholder="John Doe"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="lg:col-6">
+                    <div class="mb-6">
+                      <label for="lastName" class="form-label !text-base !mb-1">
+                        Last Name <span class="text-text-dark">*</span>
+                      </label>
+                      <input
+                        id="lastName"
+                        name="lastName"
+                        class="form-input"
+                        placeholder="John Doe"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <label for='emailname"' class="form-label !text-base !mb-1">
+                    Working mail <span class="text-text-dark">*</span>
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    class="form-input"
+                    placeholder="jack@gmail.com"
+                    type="email"
+                  />
+                </div>
+
+                <div class="mb-6">
+                  <label for="company" class="form-label !text-base !mb-1">
+                    Current Company</label
+                  >
+                  <input
+                    id="company"
+                    name="company"
+                    class="form-input"
+                    placeholder="Squarespace"
+                    type="text"
+                  />
+                </div>
+
+                <div class="mb-6">
+                  <label for="resume" class="form-label !text-base !mb-1"
+                    >Resume/CV <span class="text-text-dark">*</span></label
+                  >
+
+                  <input
+                    id="resume"
+                    name="resume"
+                    class="form-input"
+                    placeholder="Squarespace"
+                    type="file"
+                  />
+
+                  <small
+                    >only doc, pdf or docx file allowed and file size will be
+                    less than 2MB
+                  </small>
+                </div>
+
+                <div class="">
+                  <label
+                    for="currnetCompnay"
+                    class="form-label !text-base !mb-1"
+                  >
+                    Current Company</label
+                  >
+                  <textarea
+                    rows="3"
+                    id="currnetCompnay"
+                    name="currnetCompnay"
+                    class="form-input"
+                    placeholder="Squarespace"></textarea>
+                </div>
+              </form>
+            </div>
+          </div>
+        </Accordion>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#E3F2FD"/>
+
+  <!-- Pompe à chaleur -->
+  <rect x="120" y="80" width="160" height="100" rx="10" fill="#0066CC"/>
+  <rect x="130" y="90" width="140" height="80" rx="5" fill="#1976D2"/>
+
+  <!-- Ventilateur -->
+  <circle cx="200" cy="130" r="30" fill="#263238"/>
+  <path d="M200 130 L200 100 Q210 105, 215 115 Z" fill="#90CAF9"/>
+  <path d="M200 130 L230 130 Q225 140, 215 145 Z" fill="#90CAF9"/>
+  <path d="M200 130 L200 160 Q190 155, 185 145 Z" fill="#90CAF9"/>
+  <path d="M200 130 L170 130 Q175 120, 185 115 Z" fill="#90CAF9"/>
+
+  <!-- Indicateurs -->
+  <circle cx="250" cy="110" r="5" fill="#4CAF50"/>
+  <circle cx="250" cy="125" r="5" fill="#FFC107"/>
+
+  <!-- Tuyaux -->
+  <rect x="90" y="125" width="30" height="10" fill="#FF5252"/>
+  <rect x="280" y="125" width="30" height="10" fill="#2196F3"/>
+
+  <!-- Texte -->
+  <text x="200" y="250" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#0066CC" text-anchor="middle">
+    Pompe à Chaleur
+  </text>
+</svg>

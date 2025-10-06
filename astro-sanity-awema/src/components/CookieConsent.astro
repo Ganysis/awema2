@@ -1,0 +1,119 @@
+---
+// Composant de consentement cookies RGPD
+---
+
+<div id="cookie-consent" class="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-primary shadow-2xl z-[999] transform translate-y-full transition-transform duration-500" style="display: none;">
+  <div class="container mx-auto px-4 py-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex-1">
+        <h3 class="font-bold text-lg mb-2">🍪 Nous utilisons des cookies</h3>
+        <p class="text-sm text-gray-600">
+          Nous utilisons des cookies pour améliorer votre expérience, analyser notre trafic et mesurer l'efficacité de nos campagnes.
+          <a href="/pages/privacy-policy" class="text-primary hover:underline">En savoir plus</a>
+        </p>
+      </div>
+
+      <div class="flex gap-3 flex-wrap justify-center">
+        <button
+          id="cookie-refuse"
+          class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition font-medium text-sm"
+        >
+          Refuser
+        </button>
+        <button
+          id="cookie-accept"
+          class="px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:from-blue-700 hover:to-cyan-700 transition font-bold text-sm shadow-lg"
+        >
+          Accepter
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Vérifier le consentement au chargement
+  function checkCookieConsent() {
+    const consent = localStorage.getItem('awema-cookie-consent');
+    const banner = document.getElementById('cookie-consent');
+
+    if (!consent && banner) {
+      // Afficher le bandeau après un court délai
+      setTimeout(() => {
+        banner.style.display = 'block';
+        setTimeout(() => {
+          banner.classList.remove('translate-y-full');
+        }, 100);
+      }, 1000);
+    }
+  }
+
+  // Accepter les cookies
+  function acceptCookies() {
+    localStorage.setItem('awema-cookie-consent', 'accepted');
+    localStorage.setItem('awema-cookie-date', new Date().toISOString());
+    hideBanner();
+
+    // Activer Google Analytics et Clarity
+    if (typeof gtag !== 'undefined') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted'
+      });
+    }
+
+    // Recharger pour activer les scripts
+    window.location.reload();
+  }
+
+  // Refuser les cookies
+  function refuseCookies() {
+    localStorage.setItem('awema-cookie-consent', 'refused');
+    localStorage.setItem('awema-cookie-date', new Date().toISOString());
+    hideBanner();
+
+    // Désactiver Google Analytics et Clarity
+    if (typeof gtag !== 'undefined') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied'
+      });
+    }
+  }
+
+  // Cacher le bandeau
+  function hideBanner() {
+    const banner = document.getElementById('cookie-consent');
+    if (banner) {
+      banner.classList.add('translate-y-full');
+      setTimeout(() => {
+        banner.style.display = 'none';
+      }, 500);
+    }
+  }
+
+  // Initialisation
+  document.addEventListener('DOMContentLoaded', () => {
+    checkCookieConsent();
+
+    const acceptBtn = document.getElementById('cookie-accept');
+    const refuseBtn = document.getElementById('cookie-refuse');
+
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', acceptCookies);
+    }
+
+    if (refuseBtn) {
+      refuseBtn.addEventListener('click', refuseCookies);
+    }
+  });
+
+  // Vérifier au chargement de la page
+  checkCookieConsent();
+</script>
+
+<style>
+  #cookie-consent {
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  }
+</style>

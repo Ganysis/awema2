@@ -1,0 +1,72 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+type Props = CollectionEntry<"homepage">["data"]["clients_logo_slider"];
+const { enable, logos } = Astro.props;
+---
+
+{
+  enable && (
+    <section class="section bg-transparent overflow-hidden pb-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-12" data-aos="fade-left">
+            <div class="swiper brand-carousel">
+              <div class="swiper-wrapper">
+                {logos.map((logo) => {
+                  return (
+                    <div class="swiper-slide">
+                      <div class="d-flex align-items-center justify-content-center grayscale opacity-80 hover:opacity-100 hover:grayscale-0 transition text-center">
+                        <Image
+                          width={174}
+                          height={42}
+                          class="mx-auto w-auto h-auto"
+                          src={logo}
+                          alt="brand-logo"
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import { Swiper } from "swiper";
+  import "swiper/css";
+  import "swiper/css/pagination";
+  import { Autoplay } from "swiper/modules";
+
+  document.addEventListener("astro:page-load", () => {
+    new Swiper(".brand-carousel", {
+      loop: true,
+      slidesPerView: 2,
+      modules: [Autoplay],
+      speed: 500,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      breakpoints: {
+        1200: {
+          slidesPerView: 6,
+        },
+        991: {
+          slidesPerView: 5,
+        },
+        767: {
+          slidesPerView: 4,
+        },
+        480: {
+          slidesPerView: 3,
+        },
+      },
+    });
+  });
+</script>

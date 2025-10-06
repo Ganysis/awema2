@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#FFF8E1"/>
+
+  <!-- Escalier en bois -->
+  <!-- Marches -->
+  <rect x="120" y="200" width="80" height="20" fill="#8B4513"/>
+  <rect x="140" y="180" width="80" height="20" fill="#A0522D"/>
+  <rect x="160" y="160" width="80" height="20" fill="#8B4513"/>
+  <rect x="180" y="140" width="80" height="20" fill="#A0522D"/>
+  <rect x="200" y="120" width="80" height="20" fill="#8B4513"/>
+
+  <!-- Contremarches -->
+  <rect x="140" y="180" width="20" height="20" fill="#6D4C41"/>
+  <rect x="160" y="160" width="20" height="20" fill="#6D4C41"/>
+  <rect x="180" y="140" width="20" height="20" fill="#6D4C41"/>
+  <rect x="200" y="120" width="20" height="20" fill="#6D4C41"/>
+
+  <!-- Rampe -->
+  <line x1="120" y1="190" x2="280" y2="110" stroke="#5D4037" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Balustres -->
+  <rect x="135" y="160" width="5" height="30" fill="#5D4037"/>
+  <rect x="175" y="140" width="5" height="30" fill="#5D4037"/>
+  <rect x="215" y="120" width="5" height="30" fill="#5D4037"/>
+  <rect x="255" y="100" width="5" height="30" fill="#5D4037"/>
+
+  <!-- Main courante -->
+  <circle cx="280" cy="110" r="6" fill="#5D4037"/>
+
+  <!-- Veines du bois -->
+  <path d="M140 200 Q160 202, 180 200" stroke="#3E2723" stroke-width="1" fill="none" opacity="0.4"/>
+  <path d="M180 180 Q200 182, 220 180" stroke="#3E2723" stroke-width="1" fill="none" opacity="0.4"/>
+
+  <!-- Texte -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#8B4513" text-anchor="middle">
+    Escaliers Bois
+  </text>
+</svg>

@@ -1,0 +1,35 @@
+.btn {
+  @apply inline-block rounded border border-transparent px-6 py-3.5 font-medium capitalize cursor-pointer focus:outline-none transition-colors transition-shadow transition-transform duration-300 cursor-pointer;
+
+  &.has-icon {
+    @apply pr-12 relative overflow-hidden;
+
+    .icon {
+      @apply absolute px-2.5 flex items-center justify-center right-0 top-1/2 -translate-y-1/2 bg-primary backdrop-brightness-200 h-full;
+
+      svg {
+        @apply w-4 h-4 transition;
+      }
+    }
+
+    &:hover .icon svg {
+      @apply translate-x-[3px];
+    }
+  }
+}
+
+.btn-sm {
+  @apply rounded-sm px-6 py-[9px] font-medium text-[15px] focus:outline-none cursor-pointer;
+}
+
+.btn-primary {
+  @apply bg-primary/90 hover:bg-primary text-white no-underline hover:-translate-y-[3px] hover:shadow-primary transition transition-shadow transition-transform duration-300 cursor-pointer;
+}
+
+.btn-outline-primary {
+  @apply border-primary border bg-transparent text-text no-underline hover:text-white hover:bg-primary hover:shadow hover:-translate-y-[3px] transition ease-linear duration-200 cursor-pointer;
+}
+
+.btn-outline-secondary {
+  @apply border-border hover:border-tertiary focus:border-tertiary bg-transparent text-text-dark no-underline hover:-translate-y-[3px] cursor-pointer;
+}

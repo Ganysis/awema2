@@ -1,0 +1,250 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { markdownify, plainify, slugify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+const { data } = (await getEntry(
+  "career",
+  "-index"
+)) as CollectionEntry<"career">;
+const { title, intro, banner, benifits, flexibility, gallery } = data;
+const careers = await getSinglePage("career");
+---
+
+<Base>
+  <PageHeader title={title!} />
+
+  <section class="section">
+    <div class="container">
+      <div class="row items-center justify-center gy-5 lg:gy-0">
+        <div class="lg:col-6 lg:order-1 order-2">
+          <h2 class="mb-6" set:html={markdownify(intro?.title!)} />
+          <p class="mb-6" set:html={markdownify(intro?.content!)} />
+
+          {
+            intro?.button.enable && (
+              <button class="btn btn-primary has-icon" type="submit">
+                {plainify(intro.button.label)}
+                <span class="icon">
+                  <DynamicIcon width={26} height={26} icon="FaAngleRight" />
+                </span>
+              </button>
+            )
+          }
+        </div>
+        <div class="lg:col-6 text-center lg:order-2 order-1">
+          <div class="inline-block has-shadow shadow-right has-shapes">
+            <Image
+              class="rounded"
+              src={intro?.image!}
+              width={461}
+              height={468}
+              alt={intro?.title!}
+            />
+
+            <div class="shape-1 shape-md bg-secondary rounded-full opacity-50">
+            </div>
+            <div class="shape-2 shape-xl bg-tertiary rounded-circle opacity-50">
+            </div>
+            <div class="shape-3 shape-lg bg-primary rounded-circle opacity-50">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-lg horizontal-accordion bg-light has-shapes">
+    <Image
+      class={"absolute top-0 left-0 w-full h-6 md:h-auto"}
+      width={732}
+      height={1050}
+      alt={""}
+      src={"/images/brushes/section-top.svg"}
+    />
+
+    <Image
+      class={"absolute bottom-0 left-0 w-full h-6 md:h-auto"}
+      width={732}
+      height={1050}
+      alt={""}
+      src={"/images/brushes/section-bottom.svg"}
+    />
+    <div class="container">
+      <div class="row justify-center">
+        <div class="md:col-8 sm:col-10 lg:col-6 text-center">
+          <h2 class="mb-4" set:html={markdownify(flexibility?.title!)} />
+          <p set:html={markdownify(flexibility?.content!)} />
+        </div>
+      </div>
+
+      <div class="lg:col-9 mx-auto">
+        <div class="row mt-12 g-4">
+          {
+            flexibility?.flexibility_items.map((flexibility_item, index) => (
+              <div class="md:col-6 flexibility-item">
+                <div class="bg-white rounded shadow p-7">
+                  <div class="flex justify-between mb-4 lg:mb-7">
+                    <h5 class="text-text-dark">
+                      {index < 9 ? `0${index + 1}` : index + 1}
+                    </h5>
+                    <DynamicIcon
+                      client:load
+                      className="w-7 h-7 icon"
+                      icon={flexibility_item.icon}
+                    />
+                  </div>
+                  <h4
+                    class="mb-3 lg:mb-5"
+                    set:html={markdownify(flexibility_item.name)}
+                  />
+                  <p set:html={markdownify(flexibility_item.content)} />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="shape-1 shape-sm bg-secondary/40"></div>
+    <div class="shape-2 shape-sm bg-primary/50"></div>
+    <div class="shape-3 shape-sm bg-tertiary/40"></div>
+    <div class="shape-4 shape-sm bg-secondary/50"></div>
+    <div class="shape-5 shape-xs bg-primary/50"></div>
+    <div class="shape-6 shape-xs-2 bg-tertiary/60"></div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="md:col-8 sm:col-10 lg:col-6 text-center">
+          <h2 class="mb-4" set:html={markdownify(benifits?.title!)} />
+          <p set:html={markdownify(benifits?.content!)} />
+        </div>
+      </div>
+
+      <div class="row g-4 mt-12">
+        {
+          benifits?.benifits_items.map((benifit, i) => (
+            <div
+              class="md:col-6 lg:col-4 has-colord-icon"
+              data-aos="fade-up"
+              data-dealy={i * 100}
+            >
+              <div class="p-6 sm:max-w-md mx-auto md:max-w-auto">
+                <DynamicIcon
+                  className="mx-auto w-8 h-8 mb-4 mb- icon"
+                  client:load
+                  icon={benifit.icon}
+                />
+                <h5
+                  class="text-center font-semibold mb-3"
+                  set:html={markdownify(benifit.name)}
+                />
+                <p
+                  class="text-text-dark text-center"
+                  set:html={markdownify(benifit.content)}
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section-lg horizontal-accordion bg-light has-shapes">
+    <Image
+      class={"absolute top-0 left-0 w-full h-6 md:h-auto"}
+      width={732}
+      height={1050}
+      alt={""}
+      src={"/images/brushes/section-top.svg"}
+    />
+
+    <Image
+      class={"absolute bottom-0 left-0 w-full h-6 md:h-auto"}
+      width={732}
+      height={1050}
+      alt={""}
+      src={"/images/brushes/section-bottom.svg"}
+    />
+    <div class="container">
+      <div class="lg:col-9 mx-auto">
+        <div class="row mt-12 g-4 justify-center items-center">
+          {
+            gallery?.gallery_items.map((gallery_item) => (
+              <div class={`lg:col-${gallery_item.width} md:col-4 sm:col-6`}>
+                <Image
+                  class={"h-auto w-auto mx-auto"}
+                  src={gallery_item.image}
+                  alt={"Gallary image"}
+                  width={463}
+                  height={276}
+                  format="webp"
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="shape-1 shape-sm bg-secondary/40"></div>
+    <div class="shape-2 shape-sm bg-primary/50"></div>
+    <div class="shape-3 shape-sm bg-tertiary/40"></div>
+    <div class="shape-4 shape-sm bg-secondary/50"></div>
+    <div class="shape-5 shape-xs bg-primary/50"></div>
+    <div class="shape-6 shape-xs-2 bg-tertiary/60"></div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="md:col-8 sm:col-10 lg:col-6 text-center">
+          <h2 class="mb-4" set:html={markdownify(banner?.title!)} />
+          <p set:html={markdownify(banner?.description!)} />
+        </div>
+      </div>
+
+      <div class="lg:col-8 mx-auto">
+        <div class="row g-4 mt-10">
+          {
+            careers.map((career) => {
+              const { data, id } = career;
+              const { job_type, title } = data;
+              return (
+                <div class="md:col-6">
+                  <div class="bg-whtie max-w-lg mx-auto md:max-w-auto rounded shadow p-6 py-10 text-center">
+                    <h4
+                      class="font-medium mb-2"
+                      set:html={markdownify(title!)}
+                    />
+                    <p class=" mb-2.5" set:html={markdownify(job_type!)} />
+                    <a
+                      class="font-medium inline-block text-primary hover:text-primary/80 hover:-translate-y-[3px] text-[15px] transition group duration-300 ease-in-out"
+                      href={`career/${slugify(id)}`}
+                      class="text-primary"
+                    >
+                      View Listing{" "}
+                      <DynamicIcon
+                        client:load
+                        className="ml-0.5 inline-block text-inherit group-hover:translate-x-[2px] transition ease-in-out duration-500"
+                        icon="FaArrowRight"
+                      />
+                    </a>
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

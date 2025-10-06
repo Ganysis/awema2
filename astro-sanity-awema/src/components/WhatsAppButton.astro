@@ -1,0 +1,280 @@
+---
+export interface Props {
+  phoneNumber?: string;
+  message?: string;
+  position?: 'left' | 'right';
+}
+
+const {
+  phoneNumber = '33972553586', // Format international sans le +
+  message = 'Bonjour, je souhaite obtenir ma maquette gratuite',
+  position = 'right'
+} = Astro.props;
+
+// Encode message for WhatsApp URL
+const encodedMessage = encodeURIComponent(message);
+const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+---
+
+<a
+  href={whatsappUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={`whatsapp-button ${position}`}
+  aria-label="Contactez-nous sur WhatsApp"
+>
+  <div class="whatsapp-tooltip">
+    <span>Discutons de votre projet !</span>
+  </div>
+  <div class="whatsapp-icon">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0C10.7452 0 0 10.7452 0 24C0 28.176 1.116 32.088 3.048 35.472L0 48L12.816 45C16.092 46.776 19.908 47.784 24 47.784V48Z" fill="#25D366"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4C13.072 4 4 13.072 4 24C4 28.072 5.22 31.86 7.34 35.012L5.148 42.308L12.668 40.18C15.732 42.108 19.74 43.22 24 43.22C34.928 43.22 44 34.148 44 24C44 13.072 34.928 4 24 4ZM17.368 14.832C17.732 14.036 18.196 13.968 18.56 13.968C18.86 13.968 19.16 13.968 19.46 13.968C19.76 13.968 20.224 13.868 20.624 14.668C21.024 15.468 22.024 17.968 22.124 18.268C22.224 18.568 22.324 18.868 22.124 19.268C21.924 19.668 21.824 19.868 21.524 20.168C21.224 20.468 20.924 20.868 20.624 21.068C20.324 21.368 20.024 21.668 20.324 22.268C20.624 22.868 21.624 24.468 23.124 25.768C25.024 27.468 26.624 27.968 27.224 28.268C27.824 28.568 28.124 28.468 28.424 28.068C28.724 27.668 29.724 26.468 30.024 25.868C30.324 25.268 30.624 25.368 31.024 25.568C31.424 25.768 33.924 27.068 34.524 27.368C35.124 27.668 35.524 27.768 35.624 27.968C35.724 28.168 35.724 29.068 35.324 30.068C34.924 31.068 33.024 32.068 32.124 32.168C31.224 32.268 30.324 32.668 26.824 31.268C22.524 29.568 19.724 25.168 19.424 24.768C19.124 24.368 17.324 21.968 17.324 19.468C17.324 16.968 18.624 15.768 19.124 15.168C19.624 14.568 20.224 14.468 20.524 14.468C20.824 14.468 21.124 14.468 21.424 14.468C21.724 14.468 22.024 14.368 22.424 15.168C22.824 15.968 23.824 18.468 23.924 18.768C24.024 19.068 24.024 19.468 23.824 19.868C23.624 20.268 23.524 20.568 23.224 20.868C22.924 21.168 22.624 21.568 22.324 21.768C22.024 21.968 21.724 22.268 21.924 22.868C22.124 23.468 23.124 25.068 24.624 26.368C26.524 28.068 28.124 28.568 28.724 28.868C29.324 29.168 29.624 29.068 29.924 28.668C30.224 28.268 31.224 27.068 31.524 26.468C31.824 25.868 32.124 25.968 32.524 26.168C32.924 26.368 35.424 27.668 36.024 27.968C36.624 28.268 37.024 28.368 37.124 28.568C37.224 28.768 37.224 29.668 36.824 30.668C36.424 31.668 34.524 32.668 33.624 32.768C32.724 32.868 31.824 33.268 28.324 31.868C24.024 30.168 21.224 25.768 20.924 25.368C20.624 24.968 18.324 21.968 18.324 18.868C18.324 15.768 19.924 14.268 20.524 13.668C21.024 13.168 21.724 12.968 22.424 12.968C22.724 12.968 23.024 12.968 23.324 12.968C23.624 12.968 24.024 12.868 24.424 13.668C24.824 14.468 25.824 16.968 25.924 17.268C26.024 17.568 26.024 17.968 25.824 18.368C25.624 18.768 25.524 19.068 25.224 19.368C24.924 19.668 24.624 20.068 24.324 20.268C24.024 20.468 23.724 20.768 23.924 21.368C24.124 21.968 25.124 23.568 26.624 24.868C28.524 26.568 30.124 27.068 30.724 27.368C31.324 27.668 31.624 27.568 31.924 27.168C32.224 26.768 33.224 25.568 33.524 24.968C33.824 24.368 34.124 24.468 34.524 24.668C34.924 24.868 37.424 26.168 38.024 26.468C38.624 26.768 39.024 26.868 39.124 27.068C39.224 27.268 39.224 28.168 38.824 29.168C38.424 30.168 36.524 31.168 35.624 31.268C34.724 31.368 33.824 31.768 30.324 30.368C26.024 28.668 23.224 24.268 22.924 23.868C22.624 23.468 20.324 20.468 20.324 17.368C20.324 14.268 21.924 12.768 22.524 12.168C23.024 11.668 23.724 11.468 24.424 11.468C24.724 11.468 25.024 11.468 25.324 11.468C25.624 11.468 26.024 11.368 26.424 12.168C26.824 12.968 27.824 15.468 27.924 15.768C28.024 16.068 28.024 16.468 27.824 16.868C27.624 17.268 27.524 17.568 27.224 17.868C26.924 18.168 26.624 18.568 26.324 18.768C26.024 18.968 25.724 19.268 25.924 19.868C26.124 20.468 27.124 22.068 28.624 23.368C30.524 25.068 32.124 25.568 32.724 25.868C33.324 26.168 33.624 26.068 33.924 25.668C34.224 25.268 35.224 24.068 35.524 23.468C35.824 22.868 36.124 22.968 36.524 23.168C36.924 23.368 39.424 24.668 40.024 24.968C40.624 25.268 41.024 25.368 41.124 25.568C41.224 25.768 41.224 26.668 40.824 27.668C40.424 28.668 38.524 29.668 37.624 29.768C36.724 29.868 35.824 30.268 32.324 28.868C28.024 27.168 25.224 22.768 24.924 22.368C24.624 21.968 22.324 18.968 22.324 15.868C22.324 12.768 23.924 11.268 24.524 10.668C25.024 10.168 25.724 9.968 26.424 9.968C26.724 9.968 27.024 9.968 27.324 9.968C27.624 9.968 28.024 9.868 28.424 10.668L17.368 14.832Z" fill="white"/>
+    </svg>
+  </div>
+  <span class="whatsapp-pulse"></span>
+</a>
+
+<style>
+  .whatsapp-button {
+    position: fixed;
+    bottom: 2rem;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: #25d366;
+    border-radius: 50%;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+    transition: all 0.3s ease;
+    animation: bounceIn 0.6s ease, floatingButton 3s ease-in-out infinite;
+  }
+
+  .whatsapp-button.right {
+    right: 2rem;
+  }
+
+  .whatsapp-button.left {
+    left: 2rem;
+  }
+
+  .whatsapp-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.4);
+  }
+
+  .whatsapp-button:hover .whatsapp-tooltip {
+    opacity: 1;
+    transform: translateX(-110%) translateY(-50%);
+  }
+
+  .whatsapp-icon {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .whatsapp-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .whatsapp-tooltip {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateX(-100%) translateY(-50%);
+    background: #1f2937;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .whatsapp-button.left .whatsapp-tooltip {
+    left: auto;
+    right: 0;
+    transform: translateX(100%) translateY(-50%);
+  }
+
+  .whatsapp-button.left:hover .whatsapp-tooltip {
+    transform: translateX(110%) translateY(-50%);
+  }
+
+  .whatsapp-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -6px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid #1f2937;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+  }
+
+  .whatsapp-button.left .whatsapp-tooltip::after {
+    right: auto;
+    left: -6px;
+    border-left: none;
+    border-right: 6px solid #1f2937;
+  }
+
+  .whatsapp-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #25d366;
+    opacity: 0.5;
+    animation: pulse-ring 2s infinite;
+    pointer-events: none;
+  }
+
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes floatingButton {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 640px) {
+    .whatsapp-button {
+      width: 55px;
+      height: 55px;
+      bottom: 1.5rem;
+    }
+
+    .whatsapp-button.right {
+      right: 1.5rem;
+    }
+
+    .whatsapp-button.left {
+      left: 1.5rem;
+    }
+
+    .whatsapp-icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    .whatsapp-tooltip {
+      display: none; /* Hide tooltip on mobile */
+    }
+  }
+
+  /* Very small screens */
+  @media (max-width: 380px) {
+    .whatsapp-button {
+      width: 50px;
+      height: 50px;
+      bottom: 1rem;
+    }
+
+    .whatsapp-button.right {
+      right: 1rem;
+    }
+
+    .whatsapp-button.left {
+      left: 1rem;
+    }
+
+    .whatsapp-icon {
+      width: 28px;
+      height: 28px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const whatsappButton = document.querySelector('.whatsapp-button');
+
+    // Track clicks for analytics
+    whatsappButton?.addEventListener('click', () => {
+      // Send event to analytics
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'click', {
+          'event_category': 'WhatsApp',
+          'event_label': 'WhatsApp Button Click'
+        });
+      }
+
+      // Optional: Show a brief confirmation
+      const originalTooltip = whatsappButton.querySelector('.whatsapp-tooltip span');
+      if (originalTooltip) {
+        const originalText = originalTooltip.textContent;
+        originalTooltip.textContent = 'Redirection vers WhatsApp...';
+        setTimeout(() => {
+          originalTooltip.textContent = originalText;
+        }, 2000);
+      }
+    });
+
+    // Optional: Hide when scrolling near footer
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // Near bottom of page
+      if (currentScroll + windowHeight > documentHeight - 200) {
+        whatsappButton?.style.setProperty('transform', 'translateY(100px)');
+        whatsappButton?.style.setProperty('opacity', '0');
+      } else {
+        whatsappButton?.style.removeProperty('transform');
+        whatsappButton?.style.removeProperty('opacity');
+      }
+
+      lastScroll = currentScroll;
+    });
+  });
+</script>

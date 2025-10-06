@@ -1,0 +1,455 @@
+---
+import TabList from "@/components/HomeTab";
+import Counter from "@/helpers/Counter";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import Base from "@/layouts/Base.astro";
+import { markdownify, plainify } from "@/lib/utils/textConverter";
+import BrandSlider from "@/partials/BrandSlider.astro";
+import Testimonial from "@/partials/Testimonial.astro";
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+const { data } = (await getEntry(
+  "homepage",
+  "-index"
+)) as CollectionEntry<"homepage">;
+const {
+  banner,
+  clients_logo_slider,
+  homepage_tab,
+  tools,
+  achivement,
+  about_us,
+  testimonial,
+  workflow,
+} = data;
+---
+
+<Base {...data}>
+  <!-- Banner -->
+  {
+    banner.enable && (
+      <section
+        class="section bg-light relative"
+        data-aos="fade-in"
+        data-aos-delay="150"
+      >
+        <Image
+          class={"absolute bottom-0 left-0 w-full h-auto"}
+          width={732}
+          height={1050}
+          alt={""}
+          src={"/images/brushes/banner.svg"}
+          format="webp"
+          loading={"lazy"}
+        />
+        <div class="container">
+          <div class="row gy-5 lg:gy-0">
+            <div class="lg:col-6 xl:col-5 order-1 lg:order-0">
+              <h2 class="h1 mb-6" set:html={markdownify(banner.title)} />
+              <p set:html={markdownify(banner.content)} />
+              {banner.form?.enable && (
+                <form action={banner.form.form_action} class="block mt-8">
+                  <div class="row gy-3 md:gy-0 g-0 justify-between">
+                    <div class="md:col-7">
+                      <input
+                        type="email"
+                        placeholder="name@gmail.com"
+                        class="form-input"
+                      />
+                    </div>
+                    <div class="md:col-5">
+                      <button
+                        aria-label={plainify(banner.form.button_label)}
+                        class="btn btn-primary flex-1 h-full has-icon w-full"
+                        type="submit"
+                      >
+                        {plainify(banner.form.button_label)}
+                        <span class="icon">
+                          <DynamicIcon
+                            width={26}
+                            height={26}
+                            icon="FaAngleRight"
+                          />
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="has-divider text-center my-6">
+                    <span class="bg-light px-3 relative z-10 uppercase text-text-dark font-medium">
+                      Or
+                    </span>
+                  </div>
+
+                  {banner.button?.enable && (
+                    <>
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary w-full flex text-center space-x-2 items-center justify-center group"
+                      >
+                        <Image
+                          class={"inline-block transition-none duration-0"}
+                          src={"/images/brands/google.png"}
+                          width={16}
+                          height={15}
+                          alt="google"
+                          format="webp"
+                          loading={"lazy"}
+                        />
+                        <span class="group-hover:text-text-light transition">
+                          Sign Up With Google
+                        </span>
+                      </button>
+                      <p
+                        class="mt-4 text-text-light  content"
+                        set:html={markdownify(banner.button.content)}
+                      />
+                    </>
+                  )}
+                </form>
+              )}
+            </div>
+            <div class="lg:col-6 xl:col-7 order-0 lg:order-1">
+              <div class="relative text-center">
+                <button
+                  type="button"
+                  class="video-play-btn"
+                  data-src={banner.video?.video_embed_link}
+                  data-modal
+                  data-target="video-modal"
+                  aria-label="play-button"
+                  aria-labelledby="video-modal"
+                >
+                  <svg
+                    width="1.8em"
+                    height="1.8em"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                  </svg>
+                </button>
+
+                <Image
+                  class="mx-auto"
+                  width={704}
+                  height={492}
+                  format="webp"
+                  src={banner.image}
+                  alt={"banner-img"}
+                  loading={"lazy"}
+                />
+
+                <div class="shape-lg bg-tertiary rounded-circle" />
+                <div class="shape-md bg-primary rounded-circle" />
+                <div class="shape-sm bg-secondary rounded-circle" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- /Banner -->
+
+  <!-- Brand slider -->
+  <BrandSlider {...clients_logo_slider} />
+
+  <!-- HOW IT WORKS -->
+  {
+    homepage_tab.enable && (
+      <section data-aos="fade-in" class="section" data-aos="fade-in">
+        <div class="container">
+          <div class="row justify-center">
+            <div class="md:col-8 sm:col-10 lg:col-6 text-center">
+              <h2 class="mb-3" set:html={markdownify(homepage_tab.title)} />
+              <p set:html={markdownify(homepage_tab.content)} />
+            </div>
+          </div>
+          <TabList client:load {...homepage_tab} />
+        </div>
+      </section>
+    )
+  }
+
+  {
+    tools.enable && (
+      <section class="section-lg bg-light relative">
+        <Image
+          class={"absolute top-0 left-0 w-full h-6 md:h-auto"}
+          width={732}
+          height={1050}
+          alt={""}
+          src={"/images/brushes/section-top.svg"}
+          format="webp"
+          loading={"lazy"}
+        />
+
+        <Image
+          class={"absolute bottom-0 left-0 w-full h-6 md:h-auto"}
+          width={732}
+          height={1050}
+          alt={""}
+          src={"/images/brushes/section-bottom.svg"}
+          format="webp"
+          loading={"lazy"}
+        />
+
+        <div class="container">
+          <div class="lg:col-11 mx-auto">
+            <div class="row items-center gy-4 lg:gy-0 justify-center">
+              <div class="md:col-8 lg:col-4">
+                <h2 class="mb-4" set:html={markdownify(tools.title)} />
+                <p set:html={markdownify(tools.content)} />
+              </div>
+              <div class="lg:col-6 h-[300px] sm:h-[370px]  lg:h-96">
+                <ul class="in-circle flex items-center justify-center -translate-y-1/2 scale-[0.6] sm:scale-[0.8] lg:scale-100">
+                  {tools.logos.map((logo, index) => {
+                    const isEven = index % 2 === 0;
+
+                    const width =
+                      index === 0
+                        ? "w-[180px] h-[180px]"
+                        : !isEven
+                          ? "w-[114px] h-[114px]"
+                          : "w-[82px] h-[82px]";
+
+                    return (
+                      <li
+                        class={`${width} bg-white flex items-center justify-center rounded-full`}
+                      >
+                        <Image
+                          class={"w-auto h-auto"}
+                          src={logo}
+                          alt={"brand-logo"}
+                          width={index === 1 ? 134 : !isEven ? 89 : 46}
+                          height={index === 1 ? 35 : !isEven ? 28 : 15}
+                          format="webp"
+                          loading={"lazy"}
+                        />
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    achivement.enable && (
+      <section class="section">
+        <div class="container">
+          <div class="row gy-5 lg:gy-0">
+            <div class="lg:col-6">
+              <div class="row">
+                <div class="md:col-6 lg:col-12">
+                  <h2
+                    class="mb-3.5 "
+                    set:html={markdownify(achivement.title)}
+                  />
+                  <p
+                    class="pb-8 lg:border-b lg:border-border/80"
+                    set:html={markdownify(achivement.content)}
+                  />
+                </div>
+                <div class="md:col-6 lg:col-12">
+                  <div class="counter-list w-full">
+                    {achivement.funfacts.map((fact) => (
+                      <div class="inline-block">
+                        <h2 class="mb-2.5 min-h-[48px]">
+                          <Counter
+                            client:load
+                            count={fact.count}
+                            suffix={fact.extension}
+                          />
+                        </h2>
+                        <p
+                          class="text-text-light"
+                          set:html={markdownify(fact.name)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="lg:col-6">
+              <div class="row g-4 colored-icons">
+                {achivement.services.map((service, i) => (
+                  <div class="sm:col-6">
+                    <div
+                      data-aos="fade-up"
+                      data-aos-delay={i * 100}
+                      class="icon-box h-full bg-whtie shadow px-8 py-10 text-center rounded"
+                    >
+                      <DynamicIcon
+                        client:load
+                        className="w-14 h-14 inline-block mb-6"
+                        icon={service.icon}
+                      />
+                      <h3
+                        class="leading-8 h5"
+                        set:html={markdownify(service.name)}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    workflow.enable && (
+      <section class="section-lg bg-light relative" data-aos="fade-in">
+        <Image
+          class={"absolute top-0 left-0 w-full h-6 md:h-auto"}
+          width={732}
+          height={1050}
+          alt={""}
+          src={"/images/brushes/section-top.svg"}
+          format="webp"
+          loading={"lazy"}
+        />
+
+        <Image
+          class={"absolute bottom-0 left-0 w-full h-6 md:h-auto"}
+          width={732}
+          height={1050}
+          alt={""}
+          src={"/images/brushes/section-bottom.svg"}
+          format="webp"
+          loading={"lazy"}
+        />
+
+        <div class="container">
+          <div class="row gy-5 lg:gy-0 items-center justify-between">
+            <div class="lg:col-6 order-1 lg:order-2">
+              <Image
+                class={"mx-auto"}
+                src={workflow.image}
+                width={697}
+                height={439}
+                alt={workflow.title}
+                format="webp"
+                loading={"lazy"}
+              />
+            </div>
+            <div class="lg:col-5 order-2 lg:order-1">
+              <h2 class="mb-6" set:html={markdownify(workflow.title)} />
+              <p set:html={markdownify(workflow.content)} />
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    about_us.enable && (
+      <section class="section pb-0">
+        <div class="container">
+          <div class="row gy-5 lg:gy-0">
+            <div class="lg:col-5 lg:order-1 order-2">
+              <h2 class="mb-5" set:html={markdownify(about_us.title)} />
+              <p
+                class="pb-4 mb-5 border-border/50 border-b"
+                set:html={markdownify(about_us.content)}
+              />
+              <ul class="space-y-4">
+                {about_us.bulletpoints.map((item) => (
+                  <li class="flex ">
+                    <DynamicIcon
+                      className="mr-3 flex-none text-primary stroke-[3px]"
+                      client:load
+                      icon="FaCheck"
+                    />
+                    <p set:html={markdownify(item)} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="lg:col-6 lg:order-2 order-1">
+              <div class="lg:text-center">
+                <div class="inline-block has-shadow shadow-right has-shapes">
+                  <Image
+                    class="rounded inline-block"
+                    src={about_us.image}
+                    width={423}
+                    height={469}
+                    format="webp"
+                    loading={"lazy"}
+                    alt={plainify(about_us.title)}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    testimonial.enable && (
+      <section class="section has-shapes testimonials-section">
+        <div class="container">
+          <div class="row">
+            <div class="lg:col-6 mx-auto">
+              <div class="text-center">
+                <h2 class="mb-5" set:html={markdownify(testimonial.title)} />
+                <p set:html={markdownify(testimonial.content)} />
+              </div>
+            </div>
+          </div>
+          <Testimonial testimonialItems={testimonial.testimonial_item} />
+          <div class="text-center mt-12">
+            {testimonial.button?.enable && (
+              <a
+                class="btn btn-primary has-icon inline-block"
+                href={testimonial.button.link}
+              >
+                {testimonial.button.label}
+                <span class="icon">
+                  <DynamicIcon width={26} height={26} icon="FaAngleRight" />
+                </span>
+              </a>
+            )}
+          </div>
+        </div>
+        <div class="shape-1 shape-sm bg-secondary/40" />
+        <div class="shape-2 shape-sm bg-primary/50" />
+        <div class="shape-3 shape-sm bg-tertiary/40" />
+        <div class="shape-4 shape-sm bg-secondary/50" />
+        <div class="shape-5 shape-xs bg-primary/50" />
+        <div class="shape-6 shape-xs-2 bg-tertiary/60" />
+      </section>
+    )
+  }
+
+  <div id="video-modal" class="overlay">
+    <div class="modal-body overflow-y-auto p-6 sm:p-10 max-w-3xl xl:max-w-4xl">
+      <div
+        class="h-auto bg-white shadow relative flex-grow-0 max-h-screen rounded w-full overflow-hidden"
+      >
+        <iframe
+          class="w-full aspect-video bg-gray-300"
+          src=""
+          title="YouTube video player"
+          style="border: none;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</Base>

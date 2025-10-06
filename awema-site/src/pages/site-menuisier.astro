@@ -1,0 +1,363 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+
+const meta = {
+  title: "Site Internet Menuisier - Création Web Artisan | AWEMA",
+  meta_title: "Création Site Menuisier ➤ Site Vitrine 797€ | AWEMA",
+  description: "Site web professionnel pour menuisier. Montrez vos plus belles réalisations, générez des devis qualifiés. Site vitrine 797€ tout compris.",
+  image: "/images/metiers/menuisier.jpg"
+};
+
+const benefits = [
+  {
+    icon: "🛠️",
+    title: "Portfolio Réalisations",
+    description: "Galerie photos HD de vos créations sur-mesure pour séduire les clients"
+  },
+  {
+    icon: "📐",
+    title: "Devis Personnalisés",
+    description: "Formulaire détaillé par type de projet (cuisine, dressing, escalier...)"
+  },
+  {
+    icon: "🏡",
+    title: "SEO Local Menuiserie",
+    description: "Visible sur 'menuisier + ville' et 'agencement intérieur'"
+  },
+  {
+    icon: "⭐",
+    title: "Avis Clients Vérifiés",
+    description: "Système de collecte d'avis pour vos projets terminés"
+  }
+];
+
+const services = [
+  "Cuisines sur mesure",
+  "Dressing et placards",
+  "Escaliers bois",
+  "Parquets massifs",
+  "Terrasses bois",
+  "Portes et fenêtres",
+  "Agencement magasin",
+  "Mobilier sur mesure"
+];
+
+const searchVolumes = [
+  { keyword: "Menuisier", volume: "3.600/mois", competition: "Moyenne" },
+  { keyword: "Cuisine sur mesure", volume: "5.400/mois", competition: "Élevée" },
+  { keyword: "Dressing sur mesure", volume: "2.900/mois", competition: "Moyenne" },
+  { keyword: "Escalier bois", volume: "1.900/mois", competition: "Faible" }
+];
+
+const testimonial = {
+  name: "François Durand",
+  company: "Menuiserie Durand, Bordeaux",
+  text: "Depuis le site AWEMA, je reçois 3-4 demandes de devis par semaine pour des projets sur mesure. Les clients arrivent déjà convaincus grâce au portfolio.",
+  results: "15 projets haut de gamme en 4 mois"
+};
+---
+
+<Base {...meta}>
+  <PageHeader title="Site Internet Menuisier" />
+
+  <!-- Hero Section -->
+  <section class="section">
+    <div class="container">
+      <div class="row gy-5 items-center">
+        <div class="lg:col-7">
+          <h1 class="mb-6">
+            Site Internet <span class="text-primary">Menuisier</span>
+            <br/>Portfolio Digital de vos Créations
+          </h1>
+          <p class="text-lg mb-6">
+            <strong>Les projets sur mesure se vendent avec des photos.</strong>
+            87% des clients veulent voir vos réalisations avant de vous contacter.
+          </p>
+          <p class="mb-8">
+            Un menuisier sans portfolio en ligne perd les meilleurs projets.
+            Les clients CSP+ cherchent sur Google et choisissent celui qui montre son savoir-faire.
+            <strong> Notre solution : site vitrine optimisé avec galerie pro.</strong>
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <a href="/contact?metier=menuisier" class="btn btn-primary btn-lg">
+              Créer mon Site Menuisier
+            </a>
+            <a href="/pricing" class="btn btn-outline-primary btn-lg">
+              Voir les Tarifs
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-5">
+          <div class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="font-bold mb-4">Spécialités Mises en Avant :</h3>
+            <div class="grid grid-cols-2 gap-3">
+              {services.map((service) => (
+                <div class="flex items-center text-sm">
+                  <span class="text-primary mr-2">✓</span>
+                  <span>{service}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Pourquoi un Site est Vital pour un Menuisier</h2>
+          <p>Le bois se travaille avec passion, montrez-le avec fierté</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {benefits.map((benefit) => (
+          <div class="lg:col-3">
+            <div class="bg-white rounded-lg p-6 h-full shadow text-center">
+              <div class="text-4xl mb-4">{benefit.icon}</div>
+              <h3 class="h5 mb-3">{benefit.title}</h3>
+              <p class="text-sm">{benefit.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Volumes -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Potentiel de Recherches Menuiserie</h2>
+          <p>Volume réel de clients qui cherchent un menuisier chaque mois</p>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse bg-white rounded-lg shadow">
+          <thead>
+            <tr class="bg-primary text-white">
+              <th class="p-4 text-left">Recherche</th>
+              <th class="p-4 text-center">Volume/mois</th>
+              <th class="p-4 text-center">Concurrence</th>
+              <th class="p-4 text-center">Opportunité</th>
+            </tr>
+          </thead>
+          <tbody>
+            {searchVolumes.map((item, i) => (
+              <tr class={i % 2 === 0 ? 'bg-gray-50' : ''}>
+                <td class="p-4 font-semibold">{item.keyword}</td>
+                <td class="p-4 text-center text-primary font-bold">{item.volume}</td>
+                <td class="p-4 text-center">
+                  <span class={`px-2 py-1 rounded text-sm ${
+                    item.competition === 'Élevée' ? 'bg-red-100 text-red-700' :
+                    item.competition === 'Moyenne' ? 'bg-orange-100 text-orange-700' :
+                    'bg-green-100 text-green-700'
+                  }`}>
+                    {item.competition}
+                  </span>
+                </td>
+                <td class="p-4 text-center">
+                  {item.competition === 'Faible' ? '🔥 Excellente' :
+                   item.competition === 'Moyenne' ? '✅ Bonne' : '⚡ À saisir'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Specific -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Fonctionnalités Spéciales Menuisier</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow">
+            <h3 class="h5 mb-4">🖼️ Galerie Par Catégorie</h3>
+            <ul class="space-y-2 text-sm">
+              <li>• Albums par type (cuisine, escalier...)</li>
+              <li>• Photos avant/après transformation</li>
+              <li>• Zoom HD sur détails techniques</li>
+              <li>• Légendes avec essences de bois</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow">
+            <h3 class="h5 mb-4">📋 Devis Intelligent</h3>
+            <ul class="space-y-2 text-sm">
+              <li>• Formulaire par type de projet</li>
+              <li>• Upload de plans/croquis</li>
+              <li>• Budget indicatif</li>
+              <li>• Délais souhaités</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow">
+            <h3 class="h5 mb-4">🎯 SEO Menuiserie</h3>
+            <ul class="space-y-2 text-sm">
+              <li>• Pages par spécialité</li>
+              <li>• Blog conseils bois/entretien</li>
+              <li>• Mots-clés "sur mesure"</li>
+              <li>• Référencement showroom</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <div class="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-8">
+            <div class="flex mb-4">
+              {[...Array(5)].map(() => (
+                <span class="text-yellow-400 text-xl">★</span>
+              ))}
+            </div>
+            <blockquote class="text-lg italic mb-6">
+              "{testimonial.text}"
+            </blockquote>
+            <div class="border-t pt-4">
+              <p class="font-bold">{testimonial.name}</p>
+              <p class="text-sm text-gray-600">{testimonial.company}</p>
+              <p class="text-sm font-semibold text-primary mt-2">{testimonial.results}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Preview -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Investissement Site Menuisier</h2>
+        </div>
+      </div>
+      <div class="row gy-4 justify-center">
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-8 shadow-lg text-center">
+            <h3 class="text-xl mb-4">Site Vitrine Menuisier</h3>
+            <div class="text-3xl font-bold text-primary mb-2">797€</div>
+            <p class="text-sm text-gray-600 mb-6">+ 79€/mois maintenance</p>
+            <ul class="text-left space-y-3 mb-8">
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span class="text-sm">Galerie photos illimitée</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span class="text-sm">Pages par spécialité</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span class="text-sm">Formulaire devis sur mesure</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span class="text-sm">SEO local 3 villes</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span class="text-sm">Google My Business optimisé</span>
+              </li>
+            </ul>
+            <a href="/contact?metier=menuisier&formule=vitrine" class="btn btn-primary w-full">
+              Démarrer Maintenant
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Création en 7 Jours</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-3">
+          <div class="text-center">
+            <div class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
+            <h3 class="h6 mb-2">Brief Menuiserie</h3>
+            <p class="text-sm">On analyse vos spécialités, zone, et objectifs commerciaux</p>
+          </div>
+        </div>
+        <div class="lg:col-3">
+          <div class="text-center">
+            <div class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
+            <h3 class="h6 mb-2">Design Sur Mesure</h3>
+            <p class="text-sm">Création visuelle qui sublime vos réalisations bois</p>
+          </div>
+        </div>
+        <div class="lg:col-3">
+          <div class="text-center">
+            <div class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
+            <h3 class="h6 mb-2">Contenu Optimisé</h3>
+            <p class="text-sm">Textes SEO + photos de vos plus beaux projets</p>
+          </div>
+        </div>
+        <div class="lg:col-3">
+          <div class="text-center">
+            <div class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
+            <h3 class="h6 mb-2">Mise en Ligne</h3>
+            <p class="text-sm">Site 100% fonctionnel avec formation incluse</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="section bg-gradient-to-r from-primary to-secondary text-white">
+    <div class="container">
+      <div class="row justify-center text-center">
+        <div class="lg:col-10">
+          <h2 class="text-white mb-6">
+            Vos Concurrents Menuisiers Ont Déjà un Site Pro
+          </h2>
+          <p class="text-xl mb-8">
+            Les projets sur mesure à forte marge vont vers ceux qui inspirent confiance en ligne.
+            <br/>Ne laissez plus passer ces opportunités.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/contact?metier=menuisier&urgent=true" class="btn btn-white btn-lg">
+              Je Veux Mon Site Menuisier
+            </a>
+            <a href="tel:+33612345678" class="btn btn-outline-white btn-lg">
+              📞 Conseil Gratuit
+            </a>
+          </div>
+          <p class="mt-6 text-sm opacity-90">
+            ⚡ Livraison garantie en 7 jours
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <CallToAction /> -->
+</Base>

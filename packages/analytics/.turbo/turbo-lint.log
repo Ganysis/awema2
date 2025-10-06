@@ -1,0 +1,4 @@
+
+> @awema/analytics@0.0.1 lint /home/Ganyc/Desktop/awema/awema2/packages/analytics
+> eslint src --ext .ts,.tsx
+

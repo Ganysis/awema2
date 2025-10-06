@@ -1,0 +1,186 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getEntry } from "astro:content";
+
+const entry = await getEntry("pages", "-index");
+const { contact_form_action } = entry?.data || {};
+---
+
+<Base
+  title="Merci pour votre demande - AWEMA"
+  meta_title="Merci - AWEMA"
+  description="Votre demande a été envoyée avec succès. Nous vous répondrons dans les 24 heures."
+  noindex={true}
+>
+  <section class="section pt-20 pb-20">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10 text-center">
+          <!-- Icône de succès -->
+          <div class="mb-8 inline-flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
+            <svg class="h-10 w-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+
+          <!-- Titre -->
+          <h1 class="mb-6 text-4xl font-bold lg:text-5xl">
+            Demande envoyée avec succès ! ✅
+          </h1>
+
+          <!-- Message principal -->
+          <div class="mb-8 rounded-lg bg-gradient-to-br from-green-50 to-blue-50 border-2 border-green-200 p-6">
+            <p class="mb-4 text-xl font-semibold text-gray-800">
+              Votre demande a bien été reçue
+            </p>
+            <p class="text-lg text-gray-700">
+              Un expert AWEMA vous contactera sous <strong>24 heures</strong> pour échanger sur votre projet.
+            </p>
+          </div>
+
+          <!-- Prochaines étapes -->
+          <div class="mb-10 text-left mx-auto max-w-2xl">
+            <h2 class="mb-6 text-2xl font-bold text-center">📋 Que se passe-t-il maintenant ?</h2>
+            <div class="space-y-4">
+              <div class="flex items-start gap-4 rounded-lg border border-gray-200 p-4">
+                <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold">
+                  1
+                </div>
+                <div>
+                  <h3 class="font-semibold mb-1">Analyse de votre demande</h3>
+                  <p class="text-gray-600 text-sm">Étude approfondie de vos besoins et objectifs</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 rounded-lg border border-gray-200 p-4">
+                <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold">
+                  2
+                </div>
+                <div>
+                  <h3 class="font-semibold mb-1">Proposition sur mesure</h3>
+                  <p class="text-gray-600 text-sm">Devis détaillé adapté à votre projet et budget</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 rounded-lg border border-gray-200 p-4">
+                <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold">
+                  3
+                </div>
+                <div>
+                  <h3 class="font-semibold mb-1">Échange personnalisé</h3>
+                  <p class="text-gray-600 text-sm">Appel ou visio pour répondre à vos questions</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 rounded-lg border border-gray-200 p-4">
+                <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600 font-bold">
+                  ✓
+                </div>
+                <div>
+                  <h3 class="font-semibold mb-1">Démarrage rapide</h3>
+                  <p class="text-gray-600 text-sm">Lancement de votre projet sous 48h après validation</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chiffres clés -->
+          <div class="mb-10 grid gap-6 sm:grid-cols-3">
+            <div class="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100 p-6">
+              <div class="text-3xl font-bold text-blue-600 mb-2">24h</div>
+              <div class="text-sm text-gray-700">Délai de réponse</div>
+            </div>
+            <div class="rounded-lg bg-gradient-to-br from-green-50 to-green-100 p-6">
+              <div class="text-3xl font-bold text-green-600 mb-2">100%</div>
+              <div class="text-sm text-gray-700">Satisfaction client</div>
+            </div>
+            <div class="rounded-lg bg-gradient-to-br from-purple-50 to-purple-100 p-6">
+              <div class="text-3xl font-bold text-purple-600 mb-2">48h</div>
+              <div class="text-sm text-gray-700">Début des travaux</div>
+            </div>
+          </div>
+
+          <!-- Nos services -->
+          <div class="mb-10 rounded-lg bg-gray-50 p-6">
+            <h2 class="mb-4 text-xl font-bold text-center">🚀 Nos expertises</h2>
+            <div class="grid gap-4 sm:grid-cols-3">
+              <div class="text-center">
+                <div class="mb-2 text-3xl">🌐</div>
+                <h3 class="font-semibold mb-1">Sites Web</h3>
+                <p class="text-sm text-gray-600">Pour artisans BTP</p>
+              </div>
+              <div class="text-center">
+                <div class="mb-2 text-3xl">☁️</div>
+                <h3 class="font-semibold mb-1">Infrastructure Cloud</h3>
+                <p class="text-sm text-gray-600">Migration & optimisation</p>
+              </div>
+              <div class="text-center">
+                <div class="mb-2 text-3xl">📍</div>
+                <h3 class="font-semibold mb-1">Google My Business</h3>
+                <p class="text-sm text-gray-600">Optimisation locale</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
+            <a
+              href="/"
+              class="btn btn-primary"
+            >
+              Retour à l'accueil
+            </a>
+            <a
+              href="/ressources"
+              class="btn btn-outline-primary"
+            >
+              Voir nos ressources
+            </a>
+          </div>
+
+          <!-- Contact d'urgence -->
+          <div class="rounded-lg border-2 border-orange-200 bg-orange-50 p-6">
+            <p class="mb-3 font-semibold text-orange-900">
+              🚨 Besoin urgent ? Appelez-nous directement :
+            </p>
+            <a
+              href="tel:+33617540383"
+              class="text-2xl font-bold text-orange-600 hover:text-orange-700"
+            >
+              06 17 54 03 83
+            </a>
+            <p class="mt-2 text-sm text-gray-600">
+              Disponible du lundi au vendredi, 9h-18h
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script de tracking Google Ads (Conversion) -->
+  <script is:inline>
+    // Attendre que gtag soit chargé
+    window.addEventListener('load', function() {
+      // Event de conversion pour Google Ads
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-17628944043',
+          'value': 1.0,
+          'currency': 'EUR'
+        });
+        console.log('[AWEMA] Conversion Google Ads envoyée');
+      }
+
+      // Event de conversion pour Google Tag Manager
+      if (typeof dataLayer !== 'undefined') {
+        dataLayer.push({
+          'event': 'form_submission',
+          'form_type': 'contact',
+          'form_destination': 'lead'
+        });
+        console.log('[AWEMA] Event GTM envoyé');
+      }
+    });
+  </script>
+</Base>

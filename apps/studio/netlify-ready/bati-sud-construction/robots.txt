@@ -1,5 +1,0 @@
-
-User-agent: *
-Allow: /
-
-Sitemap: https://bati-sud-construction.netlify.app/sitemap.xml

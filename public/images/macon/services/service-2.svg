@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#F5F5F5"/>
+
+  <!-- Maison en construction -->
+  <!-- Fondations -->
+  <rect x="100" y="200" width="200" height="30" fill="#424242"/>
+
+  <!-- Murs -->
+  <rect x="100" y="120" width="15" height="80" fill="#9E9E9E"/>
+  <rect x="285" y="120" width="15" height="80" fill="#9E9E9E"/>
+  <rect x="115" y="180" width="170" height="20" fill="#9E9E9E"/>
+
+  <!-- Dalles de béton -->
+  <rect x="115" y="160" width="170" height="20" fill="#757575"/>
+
+  <!-- Charpente -->
+  <polygon points="100,120 200,70 300,120" fill="none" stroke="#8D6E63" stroke-width="4"/>
+  <line x1="150" y1="95" x2="250" y2="95" stroke="#8D6E63" stroke-width="3"/>
+  <line x1="125" y1="107" x2="275" y2="107" stroke="#8D6E63" stroke-width="3"/>
+
+  <!-- Échafaudage -->
+  <rect x="320" y="100" width="4" height="100" fill="#FF9800"/>
+  <rect x="340" y="100" width="4" height="100" fill="#FF9800"/>
+  <rect x="320" y="120" width="24" height="2" fill="#FF9800"/>
+  <rect x="320" y="140" width="24" height="2" fill="#FF9800"/>
+  <rect x="320" y="160" width="24" height="2" fill="#FF9800"/>
+  <rect x="318" y="160" width="28" height="8" fill="#FFA726"/>
+
+  <!-- Bétonnière -->
+  <circle cx="60" cy="180" r="25" fill="#616161" transform="rotate(30 60 180)"/>
+  <rect x="55" y="190" width="10" height="20" fill="#424242"/>
+  <rect x="45" y="210" width="30" height="5" fill="#424242"/>
+  <circle cx="50" cy="218" r="4" fill="#263238"/>
+  <circle cx="70" cy="218" r="4" fill="#263238"/>
+
+  <!-- Texte -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#6B7280" text-anchor="middle">
+    Extension Maison
+  </text>
+</svg>

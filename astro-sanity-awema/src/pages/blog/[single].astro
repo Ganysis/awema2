@@ -1,0 +1,108 @@
+---
+import BlogCard from "@/components/BlogCard.astro";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import dateFormat from "@/lib/utils/dateFormat";
+import similarItems from "@/lib/utils/similarItems";
+import { markdownify } from "@/lib/utils/textConverter";
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getSinglePage("blog");
+
+  const paths = posts.map((post) => ({
+    params: {
+      single: post.id,
+    },
+    props: { post },
+  }));
+  return paths;
+}
+
+const posts = await getSinglePage("blog");
+
+type Props = {
+  post: CollectionEntry<"blog">;
+};
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const similarPost = similarItems(post, posts);
+
+const { title, image } = post.data;
+---
+
+<Base {...post.data}>
+  <section class="section pt-50">
+    <div class="container">
+      <div class="row justify-center items-center">
+        <div class="lg:col-8 mb-10" data-aos="fade-in">
+          {
+            image && (
+              <Image
+                class="rounded mx-auto"
+                src={image}
+                width={370}
+                height={430}
+                alt={title!}
+              />
+            )
+          }
+        </div>
+
+        <div class="lg:col-8" data-aos="fade-in" data-aos-delay="50">
+          {
+            post.data.categories && (
+              <div class="post-category mb-4">
+                {post.data.categories.map((catagory) => (
+                  <a class="font-semibold" href="#!">
+                    {catagory}
+                  </a>
+                ))}
+              </div>
+            )
+          }
+
+          <h2 class="my-4" set:html={markdownify(title)} />
+          <div class="text-primary font-medium">
+            {
+              post.data.author && (
+                <a href="#!" set:html={markdownify(post.data.author)} />
+              )
+            }
+            <span class="mx-2">|</span>
+            <span set:html={markdownify(dateFormat(post.data.date!))} />
+            <span class="mx-2">|</span>
+            <span>10 Mins Read</span>
+          </div>
+
+          <div class="content">
+            <Content />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pt-0">
+    <div class="container">
+      <div class="row justify-center items-center" data-aos="fade-up">
+        <div class="text-center mb-14">
+          <h2>Similar Articles</h2>
+        </div>
+      </div>
+      <div class="row justify-center items-center gy-5 md:g-4">
+        {
+          similarPost.map((post) => (
+            <div class="lg:col-4 md:col-6">
+              <BlogCard post={post} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

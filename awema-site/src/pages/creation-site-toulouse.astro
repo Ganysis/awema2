@@ -1,0 +1,369 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+
+const meta = {
+  title: "Création Site Internet Toulouse - Artisan BTP | AWEMA",
+  meta_title: "Création Site Web Toulouse 31 ➤ Spécialiste BTP | AWEMA",
+  description: "Création site internet pour artisans BTP à Toulouse et Haute-Garonne. Site vitrine 797€. Plombier, électricien, menuisier... Visibilité Google garantie.",
+  image: "/images/villes/toulouse.jpg"
+};
+
+const stats = {
+  artisans: "29 clients à Toulouse",
+  croissance: "+42% d'activité BTP",
+  delai: "7 jours livraison",
+  satisfaction: "96% satisfaits"
+};
+
+const quartiersToulouse = [
+  "Capitole - Hypercentre",
+  "Saint-Cyprien",
+  "Les Chalets",
+  "Compans-Caffarelli",
+  "Saint-Michel",
+  "Saint-Aubin",
+  "Minimes - Barrière de Paris",
+  "Bonnefoy",
+  "Rangueil",
+  "Côte Pavée",
+  "Montaudran",
+  "Jolimont",
+  "Balma",
+  "Blagnac",
+  "Colomiers"
+];
+
+const metiersRecherches = [
+  { metier: "Plombier Toulouse", volume: "7.200/mois", tendance: "↗ +15%" },
+  { metier: "Électricien Toulouse", volume: "5.400/mois", tendance: "↗ +12%" },
+  { metier: "Menuisier Toulouse", volume: "3.300/mois", tendance: "↗ +18%" },
+  { metier: "Peintre Toulouse", volume: "4.900/mois", tendance: "↗ +8%" },
+  { metier: "Maçon Toulouse", volume: "4.100/mois", tendance: "↗ +22%" }
+];
+
+const specificitesBTP = [
+  {
+    icon: "🏢",
+    titre: "Airbus & Aerospace",
+    description: "40.000 employés = forte demande résidentielle premium"
+  },
+  {
+    icon: "🎓",
+    titre: "135.000 Étudiants",
+    description: "Rénovation studios, colocation, petits travaux"
+  },
+  {
+    icon: "📈",
+    titre: "+15.000 habitants/an",
+    description: "Construction neuve, extensions, aménagements"
+  },
+  {
+    icon: "🏘️",
+    titre: "Écoquartiers",
+    description: "Cartoucherie, Montaudran... projets éco-responsables"
+  }
+];
+---
+
+<Base {...meta}>
+  <PageHeader title="Création Site BTP Toulouse" />
+
+  <!-- Hero Section Toulouse -->
+  <section class="section bg-gradient-to-b from-pink-50 to-white">
+    <div class="container">
+      <div class="row gy-5 items-center">
+        <div class="lg:col-7">
+          <h1 class="mb-6">
+            Création Site Internet <span class="text-primary">Toulouse</span>
+            <br/>La Ville Rose Cherche ses Artisans
+          </h1>
+          <p class="text-lg mb-6">
+            <strong>29 artisans toulousains</strong> dominent Google grâce à AWEMA.
+            Dans la capitale de l'aéronautique, votre expertise mérite d'être visible.
+          </p>
+          <p class="mb-8">
+            Toulouse = ville la plus dynamique de France. +15.000 nouveaux habitants/an =
+            explosion de la demande BTP. Les meilleurs chantiers vont aux artisans visibles en ligne.
+            <strong> Notre solution : positionnement local agressif sur le 31.</strong>
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <a href="/contact?ville=toulouse" class="btn btn-primary btn-lg">
+              Démarrer à Toulouse
+            </a>
+            <a href="#aerospace" class="btn btn-outline-primary btn-lg">
+              Marché Aerospace
+            </a>
+          </div>
+          <div class="flex flex-wrap gap-6 text-sm">
+            {Object.entries(stats).map(([key, value]) => (
+              <div>
+                <span class="font-bold text-primary">{value}</span>
+                <span class="text-gray-600 ml-1">{key}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="lg:col-5">
+          <div class="bg-white rounded-lg p-6 shadow-lg">
+            <h3 class="mb-4">📍 Quartiers Stratégiques</h3>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              {quartiersToulouse.slice(0, 10).map(q => (
+                <div class="flex items-center">
+                  <span class="text-pink-500 mr-1">•</span>
+                  <span>{q}</span>
+                </div>
+              ))}
+            </div>
+            <div class="mt-4 pt-4 border-t text-xs text-center text-gray-600">
+              + Tournefeuille, Ramonville, Muret...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marché BTP Toulouse -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Explosion du BTP Toulousain</h2>
+          <p>Les chiffres qui prouvent le potentiel énorme</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {metiersRecherches.map(m => (
+          <div class="lg:col-4">
+            <div class="bg-white rounded-lg p-5 shadow hover:shadow-lg transition">
+              <div class="font-semibold mb-2">{m.metier}</div>
+              <div class="text-2xl font-bold text-primary">{m.volume}</div>
+              <div class="text-sm text-green-600 mt-1">{m.tendance}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="mt-8 p-6 bg-primary/10 rounded-lg text-center">
+        <p class="text-lg font-semibold">
+          Total : <span class="text-primary text-2xl">24.900 recherches/mois</span>
+        </p>
+        <p class="text-sm mt-2">Et ça augmente chaque mois avec l'arrivée de nouveaux habitants !</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spécificités Aerospace -->
+  <section id="aerospace" class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Toulouse : Capitale Européenne de l'Aéronautique</h2>
+          <p>Un marché BTP unique avec des opportunités en or</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {specificitesBTP.map(item => (
+          <div class="lg:col-6">
+            <div class="bg-white rounded-lg p-6 shadow h-full">
+              <div class="flex items-start">
+                <div class="text-3xl mr-4">{item.icon}</div>
+                <div>
+                  <h3 class="font-bold mb-2">{item.titre}</h3>
+                  <p class="text-sm text-gray-600">{item.description}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Stories -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Ils Cartonnent à Toulouse avec AWEMA</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="bg-gradient-to-b from-white to-gray-50 rounded-lg p-6 shadow">
+            <div class="text-5xl font-bold text-primary mb-2">x4</div>
+            <h4 class="font-bold mb-2">Rénovation Occitane</h4>
+            <p class="text-sm text-gray-600">Multiplication des demandes en 3 mois. Spécialisé Airbus employees.</p>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-gradient-to-b from-white to-gray-50 rounded-lg p-6 shadow">
+            <div class="text-5xl font-bold text-primary mb-2">#1</div>
+            <h4 class="font-bold mb-2">Élec'Toulouse</h4>
+            <p class="text-sm text-gray-600">Position Google sur "électricien urgence Toulouse". 50+ appels/semaine.</p>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-gradient-to-b from-white to-gray-50 rounded-lg p-6 shadow">
+            <div class="text-5xl font-bold text-primary mb-2">147</div>
+            <h4 class="font-bold mb-2">Plomberie Garonne</h4>
+            <p class="text-sm text-gray-600">Avis Google en 8 mois. Leader incontesté zone Capitole.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stratégie Toulouse -->
+  <section class="section bg-gradient-to-r from-pink-500 to-purple-600 text-white">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <h2 class="text-white text-center mb-8">Notre Stratégie Toulouse 31</h2>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-white mb-4">🎯 Ciblage Précis</h3>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <span class="mr-2">✓</span>
+                  <div>
+                    <strong>Zone Airbus :</strong> Blagnac, Colomiers
+                    <br/><span class="text-sm opacity-90">CSP++ avec budgets élevés</span>
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <span class="mr-2">✓</span>
+                  <div>
+                    <strong>Quartiers Étudiants :</strong> Rangueil, Mirail
+                    <br/><span class="text-sm opacity-90">Volume important, petits travaux</span>
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <span class="mr-2">✓</span>
+                  <div>
+                    <strong>Centre Historique :</strong> Capitole, Carmes
+                    <br/><span class="text-sm opacity-90">Rénovation appartements anciens</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-white mb-4">🚀 Actions Spécifiques</h3>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <span class="mr-2">✓</span>
+                  <span>Pages dédiées écoquartiers (Cartoucherie...)</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="mr-2">✓</span>
+                  <span>Content bilingue FR/EN pour expats Airbus</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="mr-2">✓</span>
+                  <span>SEO "rénovation appartement haussmannien"</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="mr-2">✓</span>
+                  <span>Partenariats CE grandes entreprises</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarifs Toulouse -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Formules Toulouse Métropole</h2>
+        </div>
+      </div>
+      <div class="row gy-4 justify-center">
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-8 shadow-lg text-center border-2 border-primary">
+            <div class="bg-primary text-white px-3 py-1 rounded-full text-xs inline-block mb-4">
+              BEST SELLER TOULOUSE
+            </div>
+            <h3>ZONE Toulouse</h3>
+            <div class="text-3xl font-bold text-primary my-4">1297€</div>
+            <p class="text-sm text-gray-600 mb-6">+ 97€/mois</p>
+            <ul class="text-left space-y-3 text-sm mb-6">
+              <li>✓ 5 zones (Centre, Airbus, Unis...)</li>
+              <li>✓ 80 mots-clés ciblés</li>
+              <li>✓ GMB multi-quartiers</li>
+              <li>✓ Blog actualités BTP 31</li>
+              <li>✓ Système avis automatisé</li>
+            </ul>
+            <a href="/contact?ville=toulouse&formule=zone" class="btn btn-primary w-full">
+              Choisir cette Formule
+            </a>
+            <p class="text-xs mt-3 text-gray-600">
+              Choisi par 65% des artisans toulousains
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Croissance -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Toulouse : La Croissance Folle</h2>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-lg p-6 text-center shadow">
+          <div class="text-3xl font-bold text-primary mb-2">+15.000</div>
+          <div class="text-sm">Nouveaux habitants/an</div>
+        </div>
+        <div class="bg-white rounded-lg p-6 text-center shadow">
+          <div class="text-3xl font-bold text-primary mb-2">+8%</div>
+          <div class="text-sm">Croissance immobilier</div>
+        </div>
+        <div class="bg-white rounded-lg p-6 text-center shadow">
+          <div class="text-3xl font-bold text-primary mb-2">40.000</div>
+          <div class="text-sm">Emplois Airbus</div>
+        </div>
+        <div class="bg-white rounded-lg p-6 text-center shadow">
+          <div class="text-3xl font-bold text-primary mb-2">N°1</div>
+          <div class="text-sm">Ville où investir</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="section bg-gradient-to-r from-purple-900 to-pink-900 text-white">
+    <div class="container">
+      <div class="row justify-center text-center">
+        <div class="lg:col-10">
+          <h2 class="text-white mb-6">
+            Toulouse Explose, Explosez avec Elle ! 🚀
+          </h2>
+          <p class="text-xl mb-8">
+            La ville rose devient la ville d'or pour les artisans BTP.
+            <br/>Ne ratez pas le train de la croissance toulousaine.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/contact?ville=toulouse&urgent=true" class="btn btn-white btn-lg">
+              Créer Mon Site Toulouse
+            </a>
+            <a href="tel:+33612345678" class="btn btn-outline-white btn-lg">
+              📞 Conseil Gratuit
+            </a>
+          </div>
+          <p class="mt-6 text-sm opacity-90">
+            ⚡ Promo Janvier : -20% pour les artisans du 31
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

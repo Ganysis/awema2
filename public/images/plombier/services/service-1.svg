@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#E3F2FD"/>
+  
+  <!-- Tuyauterie -->
+  <rect x="50" y="100" width="300" height="20" rx="10" fill="#0066CC"/>
+  <rect x="180" y="100" width="20" height="120" rx="10" fill="#0066CC"/>
+  <rect x="50" y="200" width="300" height="20" rx="10" fill="#0066CC"/>
+  
+  <!-- Robinet -->
+  <circle cx="190" cy="150" r="25" fill="#1976D2"/>
+  <rect x="175" y="135" width="30" height="8" fill="#90CAF9"/>
+  <rect x="185" y="120" width="10" height="20" fill="#90CAF9"/>
+  
+  <!-- Gouttes d'eau -->
+  <ellipse cx="190" cy="180" rx="3" ry="5" fill="#2196F3" opacity="0.7"/>
+  <ellipse cx="195" cy="190" rx="3" ry="5" fill="#2196F3" opacity="0.5"/>
+  
+  <!-- Texte -->
+  <text x="200" y="260" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#0066CC" text-anchor="middle">
+    Dépannage Urgent
+  </text>
+</svg>

@@ -1,0 +1,537 @@
+---
+import Base from "@/layouts/Base.astro";
+
+const seoData = {
+  meta_title: "Ressources Gratuites BTP | Guides, Outils Excel, Formations | AWEMA",
+  meta_description: "Accédez à 500€ de ressources offertes : guides business, outils Excel automatisés, formations vidéo. Réservé aux clients AWEMA.",
+};
+
+const guides = [
+  {
+    icon: "⭐",
+    title: "Guide Avis Google Master",
+    pages: "28 pages",
+    description: "La méthode EGSL pour obtenir 100+ avis 5 étoiles",
+    topics: [
+      "30 techniques de collecte testées",
+      "Scripts SMS/Email qui convertissent",
+      "Gestion des bad reviews",
+      "Automatisation complète",
+      "Templates de réponses",
+      "QR codes efficaces"
+    ],
+    badge: "BEST-SELLER"
+  },
+  {
+    icon: "📍",
+    title: "Guide GMB Domination",
+    pages: "35 pages",
+    description: "Optimisation Google My Business de A à Z",
+    topics: [
+      "Configuration avancée profil",
+      "Posts qui génèrent des appels",
+      "Photos optimales (angles, lumière)",
+      "Questions/Réponses stratégiques",
+      "Rank tracking local",
+      "Veille concurrence"
+    ]
+  },
+  {
+    icon: "💰",
+    title: "Guide Devis Gagnants",
+    pages: "22 pages",
+    description: "Convertir 70% de vos devis",
+    topics: [
+      "Psychologie du pricing BTP",
+      "Templates par métier",
+      "Mentions légales obligatoires",
+      "Techniques de close testées",
+      "Calculateur de marge inclus",
+      "Relances efficaces"
+    ]
+  },
+  {
+    icon: "📸",
+    title: "Guide Photos Chantier",
+    pages: "18 pages",
+    description: "Photos avant/après qui vendent",
+    topics: [
+      "Matériel recommandé (smartphone OK)",
+      "Angles et lumière optimaux",
+      "Retouche simple et rapide",
+      "Organisation galerie",
+      "Droits à l'image clients",
+      "Apps recommandées"
+    ]
+  },
+  {
+    icon: "📱",
+    title: "Guide Réseaux Sociaux BTP",
+    pages: "42 pages",
+    description: "365 idées de posts + stratégie complète",
+    topics: [
+      "Calendrier éditorial annuel",
+      "100 idées posts Facebook",
+      "Stories Instagram efficaces",
+      "LinkedIn pour B2B",
+      "Hashtags par métier",
+      "Publicités locales ROI"
+    ],
+    badge: "NOUVEAU"
+  }
+];
+
+const tools = [
+  {
+    icon: "📊",
+    title: "Dashboard Business BTP",
+    format: "Excel automatisé",
+    description: "Pilotez votre activité en temps réel",
+    features: [
+      "CA et marges automatiques",
+      "Pipeline commercial visuel",
+      "Sources de leads tracking",
+      "ROI par canal marketing",
+      "Alertes seuils critiques"
+    ]
+  },
+  {
+    icon: "💹",
+    title: "Calculateur Rentabilité",
+    format: "Excel avec formules",
+    description: "Ne perdez plus d'argent sur vos chantiers",
+    features: [
+      "Calcul coûts complets",
+      "Prix psychologiques BTP",
+      "Seuil de rentabilité",
+      "Simulations devis",
+      "Comparaison concurrence"
+    ]
+  },
+  {
+    icon: "📅",
+    title: "Planning Chantiers Pro",
+    format: "Excel Gantt",
+    description: "Organisation équipes optimale",
+    features: [
+      "Planning Gantt automatique",
+      "Charge par personne",
+      "Alertes retards",
+      "Gestion congés intégrée",
+      "Export PDF client"
+    ]
+  },
+  {
+    icon: "🎯",
+    title: "Tracker Prospects",
+    format: "CRM Excel simple",
+    description: "Ne perdez plus aucune opportunité",
+    features: [
+      "Pipeline visuel",
+      "Taux conversion auto",
+      "Relances programmées",
+      "Historique complet",
+      "Stats par commercial"
+    ]
+  }
+];
+
+const formations = [
+  {
+    title: "Google My Business Master",
+    duration: "1h30",
+    date: "1er mardi du mois",
+    topics: ["Optimisation profil", "Collecte avis", "Posts efficaces"]
+  },
+  {
+    title: "WhatsApp Business Pro",
+    duration: "45min",
+    date: "2ème mardi",
+    topics: ["Catalogues produits", "Messages auto", "Broadcast lists"]
+  },
+  {
+    title: "Facebook Ads Local",
+    duration: "1h15",
+    date: "3ème mardi",
+    topics: ["Ciblage géographique", "Budget optimal", "Créatives qui convertissent"]
+  },
+  {
+    title: "Photos & Vidéos Chantier",
+    duration: "45min",
+    date: "4ème mardi",
+    topics: ["Smartphone pro", "Montage rapide", "Droits d'image"]
+  }
+];
+
+const academy = {
+  stats: [
+    { number: "300+", label: "Membres actifs" },
+    { number: "12", label: "Formations/an" },
+    { number: "4.8/5", label: "Note moyenne" },
+    { number: "89%", label: "Taux présence" }
+  ],
+  benefits: [
+    "Replays illimités",
+    "Groupe WhatsApp VIP",
+    "Q&A avec Clément",
+    "Cas pratiques réels",
+    "Certificat annuel"
+  ]
+};
+---
+
+<Base {...seoData}>
+  <!-- Hero Section -->
+  <section class="section bg-gradient-to-br from-primary/5 to-white">
+    <div class="container">
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+          🎁 Réservé aux clients AWEMA
+        </div>
+
+        <h1 class="h1 mb-4" data-aos="fade-up">
+          500€ de ressources business offertes
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+          <strong>Les outils exacts qu'on utilise chez EGSL.</strong><br/>
+          Guides, Excel automatisés, formations... Tout pour cartonner.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guides Business -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 mb-4">📚 Guides Business Premium</h2>
+        <p class="text-lg text-gray-600">PDF téléchargeables immédiatement après commande</p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+        {guides.map(guide => (
+          <div class="bg-white rounded-xl shadow-lg p-6 relative hover:shadow-xl transition-shadow" data-aos="fade-up">
+            {guide.badge && (
+              <div class="absolute -top-3 -right-3">
+                <span class="bg-primary text-white px-3 py-1 rounded-full text-xs font-bold">
+                  {guide.badge}
+                </span>
+              </div>
+            )}
+
+            <div class="text-center mb-4">
+              <span class="text-4xl">{guide.icon}</span>
+              <h3 class="h4 mt-3 mb-1">{guide.title}</h3>
+              <p class="text-sm text-gray-500">{guide.pages}</p>
+            </div>
+
+            <p class="text-gray-600 mb-4">{guide.description}</p>
+
+            <ul class="space-y-2">
+              {guide.topics.map(topic => (
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">•</span>
+                  <span class="text-sm">{topic}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="mt-6 pt-4 border-t text-center">
+              <p class="text-xs text-gray-500">
+                Valeur : 97€ • Offert
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Outils Excel -->
+  <section class="section bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 mb-4">📊 Outils Excel Automatisés</h2>
+        <p class="text-lg text-gray-600">Tableaux prêts à l'emploi, formules incluses</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        {tools.map(tool => (
+          <div class="bg-white rounded-xl shadow-lg p-6" data-aos="fade-up">
+            <div class="flex items-start mb-4">
+              <span class="text-3xl mr-4">{tool.icon}</span>
+              <div>
+                <h3 class="h4 mb-1">{tool.title}</h3>
+                <p class="text-sm text-gray-500">{tool.format}</p>
+              </div>
+            </div>
+
+            <p class="text-gray-600 mb-4">{tool.description}</p>
+
+            <ul class="space-y-2">
+              {tool.features.map(feature => (
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="mt-4 pt-4 border-t">
+              <p class="text-xs text-gray-500">
+                Valeur : 67€ • Offert • Compatible Excel/Google Sheets
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-8">
+        <p class="text-sm text-gray-600">
+          💡 <strong>Astuce :</strong> Ces outils nous font gagner 10h/semaine chez EGSL
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Templates Documents -->
+  <section class="section">
+    <div class="container">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="h2 mb-4">📄 Templates Documents Pro</h2>
+          <p class="text-lg text-gray-600">Modèles juridiquement validés</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8">
+          <div class="grid md:grid-cols-3 gap-6">
+            <div>
+              <h4 class="font-bold mb-3">Devis & Factures</h4>
+              <ul class="space-y-2 text-sm">
+                <li>• 10 modèles devis métier</li>
+                <li>• Factures design pro</li>
+                <li>• Avoirs types</li>
+                <li>• Situations travaux</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold mb-3">Contrats & Légal</h4>
+              <ul class="space-y-2 text-sm">
+                <li>• CGV par métier</li>
+                <li>• Contrats chantier</li>
+                <li>• PV réception</li>
+                <li>• RGPD compliance</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold mb-3">Communication</h4>
+              <ul class="space-y-2 text-sm">
+                <li>• Emails commerciaux</li>
+                <li>• Relances impayés</li>
+                <li>• Demande avis clients</li>
+                <li>• Newsletter types</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-6 border-t text-center">
+            <p class="text-sm text-gray-600">
+              <strong>30+ documents</strong> • Word/PDF éditables • Valeur 197€
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWEMA Academy -->
+  <section class="section bg-primary text-white">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 text-white mb-4">🎓 AWEMA Academy</h2>
+        <p class="text-xl opacity-90">Formations live mensuelles (ZONE & RÉGION uniquement)</p>
+      </div>
+
+      <div class="max-w-5xl mx-auto">
+        <!-- Stats Academy -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          {academy.stats.map(stat => (
+            <div class="bg-white/10 backdrop-blur rounded-lg p-4 text-center">
+              <div class="text-2xl font-bold">{stat.number}</div>
+              <div class="text-sm opacity-90">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Programme mensuel -->
+        <div class="bg-white/10 backdrop-blur rounded-xl p-8 mb-8">
+          <h3 class="h3 text-white text-center mb-6">Programme mensuel</h3>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            {formations.map(formation => (
+              <div class="bg-white/10 rounded-lg p-4">
+                <div class="flex justify-between items-start mb-2">
+                  <h4 class="font-bold">{formation.title}</h4>
+                  <span class="text-xs bg-white/20 px-2 py-1 rounded">{formation.duration}</span>
+                </div>
+                <p class="text-sm opacity-90 mb-2">{formation.date}</p>
+                <ul class="space-y-1">
+                  {formation.topics.map(topic => (
+                    <li class="text-sm opacity-80">• {topic}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Benefits -->
+        <div class="text-center">
+          <h3 class="h4 text-white mb-4">Inclus dans l'Academy</h3>
+          <div class="flex flex-wrap justify-center gap-4">
+            {academy.benefits.map(benefit => (
+              <div class="bg-white/10 backdrop-blur px-4 py-2 rounded-full text-sm">
+                {benefit}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Communauté -->
+  <section class="section">
+    <div class="container">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="h2 mb-8">💬 La Communauté AWEMA</h2>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+          <div class="bg-gray-50 rounded-xl p-6">
+            <div class="text-3xl mb-3">📱</div>
+            <h3 class="font-bold mb-2">WhatsApp VIP</h3>
+            <p class="text-sm text-gray-600">
+              Groupes par métier<br/>
+              Entraide quotidienne<br/>
+              Partage de chantiers
+            </p>
+          </div>
+
+          <div class="bg-gray-50 rounded-xl p-6">
+            <div class="text-3xl mb-3">🤝</div>
+            <h3 class="font-bold mb-2">Meetups Locaux</h3>
+            <p class="text-sm text-gray-600">
+              Apéros trimestriels<br/>
+              Visites chantiers<br/>
+              Speed business
+            </p>
+          </div>
+
+          <div class="bg-gray-50 rounded-xl p-6">
+            <div class="text-3xl mb-3">🏆</div>
+            <h3 class="font-bold mb-2">Certification</h3>
+            <p class="text-sm text-gray-600">
+              "Artisan Digital 2025"<br/>
+              Badge site + réseaux<br/>
+              Kit presse local
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
+          <p class="text-lg font-bold text-blue-900 mb-2">
+            "La vraie valeur, c'est le réseau"
+          </p>
+          <p class="text-gray-700">
+            Chez EGSL, 30% de nos nouveaux chantiers viennent de recommandations
+            d'autres artisans du réseau AWEMA. C'est ça la force de la communauté.
+          </p>
+          <p class="text-sm text-gray-600 mt-3">
+            - Clément Lo Cricchio, fondateur
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comment accéder -->
+  <section class="section bg-gray-50">
+    <div class="container">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="h2 text-center mb-8">Comment accéder aux ressources ?</h2>
+
+        <div class="space-y-4">
+          <div class="bg-white rounded-lg p-6 shadow">
+            <div class="flex items-start">
+              <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">1</div>
+              <div>
+                <h4 class="font-bold mb-1">Choisissez votre formule</h4>
+                <p class="text-gray-600">LOCAL (797€), ZONE (1297€) ou RÉGION (1797€)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow">
+            <div class="flex items-start">
+              <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">2</div>
+              <div>
+                <h4 class="font-bold mb-1">Accès immédiat après paiement</h4>
+                <p class="text-gray-600">Espace membre avec tous les téléchargements</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow">
+            <div class="flex items-start">
+              <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">3</div>
+              <div>
+                <h4 class="font-bold mb-1">Invitation WhatsApp & Academy</h4>
+                <p class="text-gray-600">Rejoignez la communauté dans les 24h</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow">
+            <div class="flex items-start">
+              <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">4</div>
+              <div>
+                <h4 class="font-bold mb-1">Mises à jour à vie</h4>
+                <p class="text-gray-600">Nouveaux guides et outils ajoutés régulièrement</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center max-w-3xl mx-auto">
+        <h2 class="h2 mb-4">Prêt à accéder à ces ressources ?</h2>
+        <p class="text-xl text-gray-600 mb-8">
+          <strong>500€ de valeur offerte</strong> avec chaque formule.<br/>
+          Les mêmes outils qui ont fait passer EGSL de 3 à 30 chantiers/mois.
+        </p>
+
+        <div class="flex flex-wrap gap-4 justify-center mb-8">
+          <a href="/tarifs" class="btn btn-primary btn-xl">
+            Voir nos formules
+          </a>
+          <a href="/fondateur-v2" class="btn btn-outline-primary btn-xl">
+            Mon histoire EGSL
+          </a>
+        </div>
+
+        <div class="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4 inline-block">
+          <p class="text-sm">
+            <strong>💡 Le saviez-vous ?</strong> Le guide "127 avis Google" seul nous a rapporté +40% d'appels chez EGSL
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

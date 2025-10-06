@@ -1,0 +1,99 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  testimonialItems: CollectionEntry<"homepage">["data"]["testimonial"]["testimonial_item"];
+};
+
+const { testimonialItems } = Astro.props;
+---
+
+{
+  (
+    <div class="testimonial-slider mt-12 swiper">
+      <div class="swiper-wrapper">
+        {testimonialItems.map((item) => (
+          <div class="swiper-slide bg-white testimonial-item">
+            <div class="p-6 border border-border/50 shadow rounded bg-white relative">
+              <svg
+                class="icon"
+                viewBox="0 0 40 35"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.75001 35L13.75 35C15.8203 35 17.5 33.3203 17.5 31.25L17.5 21.25C17.5 19.1797 15.8203 17.5 13.75 17.5L7.50001 17.5L7.50001 12.5C7.50001 9.74219 9.74219 7.5 12.5 7.5L13.125 7.5C14.1641 7.5 15 6.66406 15 5.625L15 1.875C15 0.83594 14.1641 2.25865e-06 13.125 2.34949e-06L12.5 2.40413e-06C5.59375 3.00789e-06 5.05862e-06 5.59375 5.66238e-06 12.5L7.30156e-06 31.25C7.48255e-06 33.3203 1.6797 35 3.75001 35ZM26.25 35L36.25 35C38.3203 35 40 33.3203 40 31.25L40 21.25C40 19.1797 38.3203 17.5 36.25 17.5L30 17.5L30 12.5C30 9.74219 32.2422 7.5 35 7.5L35.625 7.5C36.6641 7.5 37.5 6.66406 37.5 5.625L37.5 1.875C37.5 0.835938 36.6641 2.91637e-07 35.625 3.82475e-07L35 4.37114e-07C28.0937 1.04088e-06 22.5 5.59375 22.5 12.5L22.5 31.25C22.5 33.3203 24.1797 35 26.25 35Z"
+                  fill="currentColor"
+                />
+              </svg>
+              <p class="h5" set:html={markdownify(item.content)} />
+              <Image
+                class="absolute top-full w-8 h-4 bg-transparent"
+                width={32}
+                height={16}
+                src="/images/testimonials/arrow.png"
+                alt=""
+                format="webp"
+                loading={"lazy"}
+              />
+            </div>
+            <div class="flex items-center mt-9">
+              <Image
+                src={item.image}
+                alt={item.name}
+                width={60}
+                height={60}
+                format="webp"
+                loading={"lazy"}
+                class="inline rounded-full mr-3"
+              />
+              <div class="pt-1">
+                <p class="text-xl" set:html={item.name} />
+                <p set:html={markdownify(item.designation)} />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="testimonial-slider-pagination mt-9" />
+    </div>
+  )
+}
+
+<script>
+  import { Swiper } from "swiper";
+  import "swiper/css";
+  import { Pagination } from "swiper/modules";
+  document.addEventListener("astro:page-load", () => {
+    new Swiper(".testimonial-slider", {
+      modules: [Pagination],
+      loop: true,
+      spaceBetween: 24,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      observer: true,
+      pagination: {
+        el: ".testimonial-slider-pagination",
+        type: "bullets",
+        clickable: true,
+        bulletClass: `slider-bulet`,
+        bulletActiveClass: "active",
+      },
+
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+        },
+        992: {
+          slidesPerView: 3,
+          // loopedSlides: 2,
+          centeredSlides: true,
+        },
+      },
+    });
+  });
+</script>

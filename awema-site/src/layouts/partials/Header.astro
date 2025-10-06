@@ -1,0 +1,323 @@
+---
+import Logo from "@/components/Logo.astro";
+import config from "@/config/config.json";
+import menu from "@/config/menu.json";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import type { INavigationLink } from "@/types";
+const { main }: { main: INavigationLink[] } = menu;
+const { navigation_buttons, settings } = config;
+const { pathname } = Astro.url;
+---
+
+<header
+  data-aos="fade-in"
+  class={`header z-30 ${settings.sticky_header ? "sticky top-0" : "relative"}`}
+>
+  <nav class="navbar container">
+    <!-- logo -->
+    <div class="order-0">
+      <Logo />
+    </div>
+    {/* navbar toggler */}
+    <input id="nav-toggle" type="checkbox" class="hidden" />
+    <label
+      id="show-button"
+      for="nav-toggle"
+      class="order-2 mr-4 md:order-2 ml-auto flex cursor-pointer items-center text-text-dark lg:order-1 lg:hidden bg-white rounded w-11 h-11 flex-none text-center"
+    >
+      <svg class="h-5 fill-current mx-auto" viewBox="0 0 20 20">
+        <title>Menu Open</title>
+        <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
+      </svg>
+    </label>
+    <label
+      id="hide-button"
+      for="nav-toggle"
+      class="order-1 ml-auto hidden cursor-pointer items-center text-text-dark lg:order-1 bg-white rounded mr-4 w-11 h-11 flex-none"
+    >
+      <svg class="h-4 fill-current mx-auto" viewBox="0 0 20 20">
+        <title>Menu Close</title>
+        <polygon
+          points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
+          transform="rotate(45 10 10)"></polygon>
+      </svg>
+    </label>
+    <!-- /navbar toggler -->
+    <ul
+      id="nav-menu"
+      class="navbar-nav order-3 w-full lg:order-1 lg:flex lg:w-auto bg-white lg:bg-transparent"
+    >
+      {
+        main.map((menu) => (
+          <>
+            {menu.hasChildren ? (
+              <li class="nav-item nav-dropdown group relative">
+                <div
+                  class={`nav-link inline-flex items-center ${
+                    menu.children?.map(({ url }) => url).includes(pathname) ||
+                    menu.children
+                      ?.map(({ url }) => `${url}/`)
+                      .includes(pathname)
+                      ? "active"
+                      : ""
+                  }`}
+                >
+                  {menu.name}
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
+                <ul class={`nav-dropdown-list`}>
+                  {menu.children?.map((child) => {
+                    // const path = pathname.slice(0, -1);
+                    return (
+                      <li class="nav-dropdown-item">
+                        <a
+                          href={child.url}
+                          class={`nav-dropdown-link ${
+                            pathname === `/${child.name + child.url}` ||
+                            pathname === child.url
+                              ? "text-primary "
+                              : ""
+                          }`}
+                        >
+                          {child.name}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </li>
+            ) : (
+              <li class="nav-item">
+                <a
+                  href={menu.url}
+                  class={`nav-link inline-block ${
+                    (pathname === `${menu.url}/` || pathname === menu.url) &&
+                    "active"
+                  }`}
+                >
+                  {menu.name}
+                </a>
+              </li>
+            )}
+          </>
+        ))
+      }
+
+      <li class="mt-4 inline-block lg:hidden">
+        <button
+          type="button"
+          data-modal
+          data-target="register-modal"
+          class="btn btn-outline-primary btn-sm"
+        >
+          {navigation_buttons[0].label}
+        </button>
+      </li>
+      <li class="mt-4 inline-block lg:hidden">
+        <button
+          data-modal
+          data-target="login-modal"
+          type="button"
+          class="btn group hover:text-primary"
+        >
+          {navigation_buttons[1].label}
+          <DynamicIcon
+            className="inline-block ml-1 group-hover:translate-x-0.5 transition-transform"
+            client:load
+            icon="FaArrowRight"
+          />
+        </button>
+      </li>
+    </ul>
+
+    <div class="order-2 flex items-center md:order-2 lg:ml-0 space-x-4">
+      <!-- Numéro de téléphone visible -->
+      <a href="tel:0617540383" class="hidden lg:flex items-center text-primary font-semibold hover:text-primary-dark transition">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+        </svg>
+        <span>06.17.54.03.83</span>
+      </a>
+      {
+        navigation_buttons[0].enable && (
+          <button
+            data-modal
+            data-target="register-modal"
+            class="btn-outline-primary btn-sm hidden lg:inline-block"
+          >
+            {navigation_buttons[0].label}
+          </button>
+        )
+      }
+      {
+        navigation_buttons[1].enable && (
+          <button
+            data-modal
+            data-target="login-modal"
+            class="btn-sm hidden lg:inline-block group hover:text-primary"
+          >
+            {navigation_buttons[1].label}
+            <DynamicIcon
+              className="inline-block ml-1 group-hover:translate-x-0.5 transition-transform"
+              client:load
+              icon="FaArrowRight"
+            />
+          </button>
+        )
+      }
+    </div>
+  </nav>
+</header>
+
+<div id="register-modal" class="overlay h-screen">
+  <div
+    class="modal-body max-w-lg max-h-[calc(100vh_-_50px)] h-full overflow-y-auto rounded"
+  >
+    <div class="bg-white shadow relative flex-grow-0 w-full rounded">
+      <form>
+        <div
+          class="flex justify-between border-b sticky top-0 rounded-tl rounded-tr bg-white border-b-border p-6 pb-3 mb-3"
+        >
+          <h4>Sign up now</h4>
+          <button modal-close type="button"> <DynamicIcon icon="FaX" /></button>
+        </div>
+        <div class="p-6">
+          <div class="row">
+            <div class="lg:col-6">
+              <div class="mb-6">
+                <label for="registerName" class="form-label !text-base !mb-1">
+                  Full Name <span class="text-text-dark">*</span>
+                </label>
+                <input
+                  id="registerName"
+                  name="name"
+                  class="form-input"
+                  placeholder="John Doe"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div class="lg:col-6">
+              <div class="mb-6">
+                <label for="lastName" class="form-label !text-base !mb-1">
+                  Last Name <span class="text-text-dark">*</span>
+                </label>
+                <input
+                  id="lastName"
+                  name="lastName"
+                  class="form-input"
+                  placeholder="John Doe"
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="mb-6">
+            <label for="mail" class="form-label !text-base !mb-1">
+              Working mail <span class="text-text-dark">*</span>
+            </label>
+            <input
+              id="mail"
+              name="email"
+              class="form-input"
+              placeholder="jack@gmail.com"
+              type="email"
+            />
+          </div>
+
+          <div class="mb-6">
+            <label for="registerPassword" class="form-label !text-base !mb-1">
+              Password <span class="text-text-dark">*</span>
+            </label>
+            <input
+              id="registerPassword"
+              name="password"
+              class="form-input"
+              placeholder="jack@gmail.com"
+              type="password"
+            />
+          </div>
+
+          <div>
+            <label for="rePassword" class="form-label !text-base !mb-1">
+              Password <span class="text-text-dark">*</span>
+            </label>
+            <input
+              id="rePassword"
+              name="password"
+              class="form-input"
+              placeholder="jack@gmail.com"
+              type="password"
+            />
+          </div>
+          <button aria-label="sign up" class="btn btn-primary mt-5"
+            >Sign Up</button
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="login-modal" class="overlay h-screen">
+  <div
+    class="modal-body max-w-lg max-h-[calc(100vh_-_50px)] h-full overflow-y-auto rounded"
+  >
+    <div class="bg-white shadow relative flex-grow-0 w-full rounded">
+      <form>
+        <div
+          class="flex justify-between border-b sticky top-0 rounded-tl rounded-tr bg-white border-b-border p-6 pb-3 mb-3"
+        >
+          <h4>Welcome back</h4>
+          <button modal-close type="button"> <DynamicIcon icon="FaX" /></button>
+        </div>
+        <div class="p-6">
+          <div class="mb-6">
+            <label for="name" class="form-label !text-base !mb-1">
+              Email Address <span class="text-text-dark">*</span>
+            </label>
+            <input
+              id="name"
+              name="name"
+              class="form-input"
+              placeholder="John Doe"
+              type="email"
+            />
+          </div>
+          <div class="mb-6">
+            <label for="password" class="form-label !text-base !mb-1">
+              Password <span class="text-text-dark">*</span>
+            </label>
+            <input
+              id="password"
+              name="name"
+              class="form-input"
+              placeholder="John Doe"
+              type="password"
+            />
+          </div>
+
+          <button aria-label="sign in" class="btn btn-primary mt-5"
+            >Sign In</button
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener("astro:page-load", function () {
+    const navLinks = document.querySelectorAll(".nav-dropdown .nav-link");
+    navLinks.forEach((navlink) => {
+      navlink.addEventListener("click", function (e) {
+        // Only toggle on mobile
+        if (window.innerWidth < 1024) {
+          this.nextElementSibling.classList.toggle("active");
+        }
+      });
+    });
+  });
+</script>

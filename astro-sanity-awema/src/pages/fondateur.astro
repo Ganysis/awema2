@@ -1,0 +1,272 @@
+---
+import Base from "@/layouts/Base.astro";
+
+const seoData = {
+  meta_title: "Clément, consultant web et fondateur AWEMA | Mon histoire",
+  meta_description: "Découvrez comment j'aide les artisans BTP à développer leur activité grâce au digital et pourquoi AWEMA existe.",
+};
+---
+
+<Base {...seoData}>
+  <!-- Hero Section Fondateur -->
+  <section class="section bg-gradient-to-b from-white to-gray-50">
+    <div class="container">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h1 class="h1 mb-4">Je suis Clément, fondateur d'AWEMA</h1>
+          <p class="text-xl text-gray-600">
+            Consultant web spécialisé BTP, j'aide les artisans
+            à développer leur activité grâce au digital.
+          </p>
+        </div>
+
+        <!-- Photo et intro -->
+        <div class="grid md:grid-cols-2 gap-8 items-center mb-12">
+          <div>
+            <img
+              src="/images/clement-awema.jpg"
+              alt="Clément LO CRICCHIO, fondateur AWEMA"
+              class="rounded-lg shadow-xl"
+            />
+            <p class="text-sm text-gray-500 mt-2 text-center">
+              Clément LO CRICCHIO, 2025
+            </p>
+          </div>
+          <div>
+            <h2 class="h3 mb-4">Mon parcours</h2>
+            <ul class="space-y-3 text-gray-700">
+              <li class="flex items-start">
+                <span class="text-primary mr-2">→</span>
+                <span><strong>2018</strong> : Consultant web freelance</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-primary mr-2">→</span>
+                <span><strong>2019-2022</strong> : Spécialisation secteur BTP</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-primary mr-2">→</span>
+                <span><strong>2023</strong> : Lancement AWEMA</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-primary mr-2">→</span>
+                <span><strong>2024</strong> : 100+ artisans accompagnés</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-primary mr-2">→</span>
+                <span><strong>Aujourd'hui</strong> : Consultant en portage salarial</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Histoire détaillée -->
+        <div class="prose prose-lg max-w-none">
+          <div class="bg-blue-50 border-l-4 border-primary p-6 mb-8">
+            <h3 class="h4 mb-3">Le constat qui m'a poussé à créer AWEMA</h3>
+            <p>
+              En travaillant avec des artisans BTP, j'ai constaté que 90% d'entre eux
+              n'ont pas de site web, ou pire, ont payé 3000-5000€ pour un site
+              qui ne génère aucun chantier.
+            </p>
+          </div>
+
+          <h3 class="h3 mb-4">La mission AWEMA</h3>
+          <p class="mb-4">
+            <strong>Rendre le digital accessible aux artisans BTP.</strong>
+            Des sites performants, à prix juste, qui génèrent vraiment des demandes de devis.
+          </p>
+
+          <p class="mb-6">
+            Aujourd'hui, AWEMA accompagne plus de 100 artisans partout en France,
+            avec des sites optimisés pour le référencement local et la génération de leads.
+          </p>
+
+          <h3 class="h3 mb-4">Ce qui ne va pas dans le web BTP</h3>
+          <p class="mb-4">
+            En analysant le marché, j'ai identifié les problèmes récurrents :
+          </p>
+
+          <ul class="mb-6">
+            <li>Les agences web ne comprennent rien au secteur BTP</li>
+            <li>Les prix sont délirants (3000-5000€ + abonnements cachés)</li>
+            <li>Les sites créés sont beaux mais ne génèrent pas de business</li>
+            <li>Les artisans sont perdus avec des outils complexes</li>
+          </ul>
+
+          <p class="mb-6">
+            <strong>J'ai décidé d'utiliser mon expérience pour aider les artisans.</strong>
+            Pas avec du marketing bullshit, mais avec ce qui marche vraiment sur le terrain.
+          </p>
+
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 mb-8">
+            <h3 class="h4 mb-3">Ma mission avec AWEMA</h3>
+            <p>
+              Permettre à chaque artisan d'avoir un site qui génère vraiment des chantiers,
+              à un prix honnête, avec un accompagnement par quelqu'un qui comprend le métier.
+            </p>
+          </div>
+        </div>
+
+        <!-- Preuves et résultats -->
+        <div class="grid md:grid-cols-3 gap-6 my-12">
+          <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+            <div class="text-3xl font-bold text-primary mb-2">x10</div>
+            <p class="text-gray-600">CA de mon entreprise BTP en 2 ans</p>
+          </div>
+          <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+            <div class="text-3xl font-bold text-primary mb-2">300+</div>
+            <p class="text-gray-600">Artisans accompagnés depuis 2023</p>
+          </div>
+          <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+            <div class="text-3xl font-bold text-primary mb-2">3847</div>
+            <p class="text-gray-600">Prospects générés pour nos clients</p>
+          </div>
+        </div>
+
+        <!-- Pourquoi me faire confiance -->
+        <div class="bg-gray-100 rounded-xl p-8 mb-12">
+          <h3 class="h3 mb-6 text-center">Pourquoi me faire confiance ?</h3>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h4 class="font-bold mb-3">✅ Je suis dans le BTP</h4>
+              <p class="text-gray-700">
+                Je gère toujours mon entreprise. Je connais les contraintes,
+                les clients chiants, les devis qui tombent à l'eau, la concurrence déloyale...
+              </p>
+            </div>
+            <div>
+              <h4 class="font-bold mb-3">✅ J'ai testé sur moi</h4>
+              <p class="text-gray-700">
+                Tout ce que je propose, je l'ai d'abord fait pour ma boîte.
+                Si ça ne marche pas, je ne le vends pas.
+              </p>
+            </div>
+            <div>
+              <h4 class="font-bold mb-3">✅ Prix transparents</h4>
+              <p class="text-gray-700">
+                Pas de frais cachés, pas de bullshit.
+                1497€ + 79€/mois, tout est inclus. Point.
+              </p>
+            </div>
+            <div>
+              <h4 class="font-bold mb-3">✅ Dispo 7j/7</h4>
+              <p class="text-gray-700">
+                Mon numéro perso : 06 17 54 03 83.
+                Appelez-moi, même le dimanche si c'est urgent.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mon engagement -->
+        <div class="bg-primary text-white rounded-xl p-8 text-center">
+          <h3 class="h3 text-white mb-4">Mon engagement personnel</h3>
+          <p class="text-lg mb-6">
+            "Je m'engage à vous créer un site qui génère vraiment des chantiers.
+            Pas du joli qui ne sert à rien. Du concret qui remplit votre carnet de commandes."
+          </p>
+          <div class="flex items-center justify-center mb-6">
+            <img
+              src="/images/signature-yann.png"
+              alt="Signature Yann"
+              class="h-20 invert"
+            />
+          </div>
+          <p class="italic">
+            Yann, co-gérant BTP et fondateur AWEMA
+          </p>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mt-12">
+          <h3 class="h3 mb-4">Discutons de votre projet</h3>
+          <p class="text-lg text-gray-600 mb-8">
+            Pas de commercial, pas de bullshit.
+            C'est moi qui vous réponds directement.
+          </p>
+
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a
+              href="tel:0617540383"
+              class="btn btn-primary btn-xl"
+            >
+              📞 06 17 54 03 83
+            </a>
+            <a
+              href="https://wa.me/33756910218"
+              class="btn btn-outline-primary btn-xl"
+            >
+              💬 WhatsApp
+            </a>
+            <a
+              href="/contact"
+              class="btn btn-outline-primary btn-xl"
+            >
+              📝 Demande de devis
+            </a>
+          </div>
+
+          <p class="mt-6 text-sm text-gray-500">
+            Réponse garantie en moins de 2h (heures de bureau)
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section FAQ Fondateur -->
+  <section class="section bg-gray-50">
+    <div class="container">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="h2 text-center mb-8">Questions fréquentes</h2>
+
+        <div class="space-y-4">
+          <details class="bg-white rounded-lg p-6 shadow">
+            <summary class="font-bold cursor-pointer">
+              Tu gères encore ton entreprise BTP ?
+            </summary>
+            <p class="mt-3 text-gray-600">
+              Oui ! Je suis sur les chantiers 2-3 jours par semaine.
+              AWEMA, c'est les autres jours et les soirées.
+              Ça me permet de rester connecté aux vraies problématiques terrain.
+            </p>
+          </details>
+
+          <details class="bg-white rounded-lg p-6 shadow">
+            <summary class="font-bold cursor-pointer">
+              Pourquoi pas devenir une agence web à 100% ?
+            </summary>
+            <p class="mt-3 text-gray-600">
+              Parce que je perdrais ma légitimité.
+              C'est justement parce que je suis dans le BTP que je comprends vos besoins.
+              Le jour où je quitte le terrain, je perds cette connexion.
+            </p>
+          </details>
+
+          <details class="bg-white rounded-lg p-6 shadow">
+            <summary class="font-bold cursor-pointer">
+              C'est vraiment toi qui répond ?
+            </summary>
+            <p class="mt-3 text-gray-600">
+              Au téléphone et WhatsApp, oui c'est moi directement.
+              Pour les emails et le support technique, j'ai une petite équipe.
+              Mais je supervise tout personnellement.
+            </p>
+          </details>
+
+          <details class="bg-white rounded-lg p-6 shadow">
+            <summary class="font-bold cursor-pointer">
+              Tu peux vraiment gérer 300+ clients ?
+            </summary>
+            <p class="mt-3 text-gray-600">
+              Grâce à l'automatisation et une équipe de 3 personnes, oui.
+              Les sites tournent tout seuls une fois lancés.
+              On intervient seulement pour les modifications et le support.
+            </p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

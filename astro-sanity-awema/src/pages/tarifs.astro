@@ -1,0 +1,361 @@
+---
+import Base from "@/layouts/Base.astro";
+
+const services = [
+  {
+    id: "sites-web",
+    icon: "🌐",
+    title: "Sites Web BTP",
+    subtitle: "Pour artisans du bâtiment",
+    description: "Sites ultra-rapides, optimisés SEO local, livrés en 48-72h. Formules clés en main avec Google My Business.",
+    priceRange: "À partir de 697€ HT",
+    priceDetail: "+ 97€/mois maintenance",
+    features: [
+      "2 formules (ESSENTIEL, PREMIUM)",
+      "Design professionnel adapté à votre métier",
+      "SEO local multi-villes",
+      "Machine à avis Google",
+      "Livraison ultra-rapide (24-48h)"
+    ],
+    cta: "Voir les formules sites web",
+    ctaLink: "/tarifs-sites-web",
+    badge: "🔥 OFFRE LANCEMENT",
+    popular: true
+  },
+  {
+    id: "migration-cloud",
+    icon: "☁️",
+    title: "Migration Cloud",
+    subtitle: "Modernisez votre infrastructure",
+    description: "Passez au Cloud (AWS, OVH, Azure) pour plus de performance, sécurité et économies. Migration complète avec accompagnement.",
+    priceRange: "Sur devis",
+    priceDetail: "Selon infrastructure actuelle",
+    features: [
+      "Audit infrastructure actuelle",
+      "Migration vers Cloud (AWS/OVH/Azure)",
+      "Formation équipe",
+      "Support 3 mois post-migration",
+      "Économies 30-50% garanties"
+    ],
+    cta: "Découvrir la migration Cloud",
+    ctaLink: "/migration-cloud",
+    badge: null,
+    popular: false
+  },
+  {
+    id: "audit-infrastructure",
+    icon: "🔍",
+    title: "Audit Infrastructure IT",
+    subtitle: "Identifiez vos failles et économisez",
+    description: "Audit complet en 1 jour : serveurs, réseau, sécurité, sauvegardes. Rapport détaillé avec plan d'action et économies chiffrées.",
+    priceRange: "À partir de 1200€ HT",
+    priceDetail: "Tarif adapté à votre taille",
+    features: [
+      "Audit sur site 1 journée",
+      "Rapport 30-50 pages",
+      "6 domaines analysés",
+      "Plan d'action priorisé",
+      "Économies moyennes 15k€/an"
+    ],
+    cta: "Découvrir l'audit IT",
+    ctaLink: "/audit-infrastructure",
+    badge: null,
+    popular: false
+  }
+];
+
+const seoData = {
+  meta_title: "Tarifs 2025 : Sites Web 697€, Cloud, Audit IT 1200€ | AWEMA",
+  meta_description: "Tarifs transparents AWEMA : Site web BTP 697€ + 97€/mois, migration cloud sur devis, audit infrastructure 1200€. Expert IT Aix-Marseille. Devis gratuit 24h, intervention PACA + France.",
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Services AWEMA - Sites Web & Infrastructure IT",
+  "provider": {
+    "@type": "Organization",
+    "name": "AWEMA",
+    "url": "https://awema.fr",
+    "telephone": "06 17 54 03 83",
+    "email": "contact@awema.fr",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Velaux",
+      "addressCountry": "FR"
+    }
+  },
+  "serviceType": "Web Development & IT Infrastructure",
+  "areaServed": {
+    "@type": "Country",
+    "name": "France"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services AWEMA",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Site Web BTP",
+          "description": "Sites ultra-rapides pour artisans BTP"
+        },
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "697",
+          "priceCurrency": "EUR",
+          "description": "+ 97€/mois maintenance"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Migration Cloud",
+          "description": "Migration infrastructure vers AWS, OVH ou Azure"
+        },
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "priceCurrency": "EUR",
+          "description": "Sur devis selon infrastructure"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Audit Infrastructure IT",
+          "description": "Audit complet infrastructure en 1 jour"
+        },
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "1200",
+          "priceCurrency": "EUR",
+          "description": "À partir de 1200€ HT"
+        }
+      }
+    ]
+  }
+};
+---
+
+<Base {...seoData} schema={schema}>
+  <!-- Hero Section -->
+  <section class="relative min-h-[70vh] flex items-center bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white overflow-hidden">
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <div class="container relative z-10 py-20">
+      <div class="row justify-center">
+        <div class="lg:col-10 text-center">
+          <div class="inline-block bg-blue-600/90 backdrop-blur-sm px-4 py-2 rounded-full mb-6 shadow-lg">
+            <span class="text-white font-semibold">💰 Nos Tarifs</span>
+          </div>
+
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-lg" data-aos="fade-up">
+            3 Services. 1 Mission : <span class="text-blue-400">Votre Réussite Digitale</span>
+          </h1>
+
+          <p class="text-xl md:text-2xl mb-10 text-gray-200 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+            Sites web performants, infrastructure Cloud moderne, et IT sécurisée.<br/>
+            <strong class="text-white">Des solutions adaptées à vos besoins et votre budget.</strong>
+          </p>
+
+          <div class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+              <div class="text-4xl font-bold text-blue-400 mb-2">300+</div>
+              <div class="text-sm text-gray-200">Clients satisfaits</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+              <div class="text-4xl font-bold text-blue-400 mb-2">4.9/5</div>
+              <div class="text-sm text-gray-200">Note moyenne</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+              <div class="text-4xl font-bold text-blue-400 mb-2">24h</div>
+              <div class="text-sm text-gray-200">Réponse garantie</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="section py-20 bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Choisissez Votre Service
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Tarifs transparents, sans surprise. Devis gratuit sous 24h.
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        {services.map((service, index) => (
+          <div
+            class={`bg-white rounded-2xl shadow-xl overflow-hidden ${service.popular ? 'ring-4 ring-blue-500 transform scale-105' : ''}`}
+            data-aos="fade-up"
+            data-aos-delay={100 * index}
+          >
+            {service.badge && (
+              <div class="bg-gradient-to-r from-blue-600 to-blue-500 text-white text-center py-2 px-4 font-bold">
+                {service.badge}
+              </div>
+            )}
+
+            <div class="p-8 md:p-12">
+              <div class="flex flex-col md:flex-row gap-8 items-center">
+                <!-- Icon & Title -->
+                <div class="md:w-1/3 text-center md:text-left">
+                  <div class="text-6xl mb-4">{service.icon}</div>
+                  <h3 class="text-3xl font-bold mb-2">{service.title}</h3>
+                  <p class="text-lg text-blue-600 font-semibold mb-4">{service.subtitle}</p>
+                  <p class="text-gray-600 mb-4">{service.description}</p>
+                </div>
+
+                <!-- Features -->
+                <div class="md:w-1/3">
+                  <h4 class="font-bold mb-4 text-lg">Inclus :</h4>
+                  <ul class="space-y-2">
+                    {service.features.map((feature) => (
+                      <li class="flex items-start gap-2">
+                        <span class="text-green-500 mt-1">✓</span>
+                        <span class="text-sm text-gray-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <!-- Pricing & CTA -->
+                <div class="md:w-1/3 text-center md:text-right">
+                  <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6 mb-6">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
+                      {service.priceRange}
+                    </div>
+                    <div class="text-sm text-gray-600">
+                      {service.priceDetail}
+                    </div>
+                  </div>
+
+                  <a
+                    href={service.ctaLink}
+                    class={`inline-block px-8 py-4 rounded-lg font-bold transition-all hover:scale-105 shadow-lg text-lg w-full ${
+                      service.popular
+                        ? 'bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white'
+                        : 'bg-white border-2 border-blue-500 text-blue-600 hover:bg-blue-50'
+                    }`}
+                  >
+                    {service.cta} →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparatif Services -->
+  <section class="section bg-white py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Comparatif Rapide
+        </h2>
+        <p class="text-xl text-gray-600">
+          Quel service correspond le mieux à vos besoins ?
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full bg-white rounded-lg shadow-lg">
+          <thead>
+            <tr class="border-b">
+              <th class="text-left p-6 font-bold">Critère</th>
+              <th class="text-center p-6 bg-blue-50">
+                <div class="font-bold text-lg">Sites Web BTP</div>
+                <div class="text-sm text-gray-600">Artisans</div>
+              </th>
+              <th class="text-center p-6">
+                <div class="font-bold text-lg">Migration Cloud</div>
+                <div class="text-sm text-gray-600">PME/ETI</div>
+              </th>
+              <th class="text-center p-6">
+                <div class="font-bold text-lg">Audit IT</div>
+                <div class="text-sm text-gray-600">Toutes tailles</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b">
+              <td class="p-6 font-medium">Durée intervention</td>
+              <td class="p-6 text-center bg-blue-50">48-72h</td>
+              <td class="p-6 text-center">2-4 semaines</td>
+              <td class="p-6 text-center">1 jour + 5j rapport</td>
+            </tr>
+            <tr class="border-b">
+              <td class="p-6 font-medium">Tarif de base</td>
+              <td class="p-6 text-center bg-blue-50">697€ HT</td>
+              <td class="p-6 text-center">Sur devis</td>
+              <td class="p-6 text-center">1200€ HT</td>
+            </tr>
+            <tr class="border-b">
+              <td class="p-6 font-medium">Mensuel</td>
+              <td class="p-6 text-center bg-blue-50">97€/mois</td>
+              <td class="p-6 text-center">Variable</td>
+              <td class="p-6 text-center">-</td>
+            </tr>
+            <tr class="border-b">
+              <td class="p-6 font-medium">Livrable</td>
+              <td class="p-6 text-center bg-blue-50">Site web clé en main</td>
+              <td class="p-6 text-center">Infra Cloud opérationnelle</td>
+              <td class="p-6 text-center">Rapport 30-50 pages</td>
+            </tr>
+            <tr>
+              <td class="p-6 font-medium">Idéal pour</td>
+              <td class="p-6 text-center bg-blue-50">Visibilité locale</td>
+              <td class="p-6 text-center">Modernisation IT</td>
+              <td class="p-6 text-center">Diagnostic complet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="relative bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white py-20">
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <div class="container relative z-10">
+      <div class="text-center max-w-3xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+          Pas sûr du service qu'il vous faut ?
+        </h2>
+        <p class="text-xl text-gray-200 mb-8">
+          Appelez-moi, on en discute 10 minutes et je vous oriente gratuitement.<br/>
+          <strong class="text-white">Aucune obligation, juste du conseil honnête.</strong>
+        </p>
+
+        <div class="flex flex-wrap gap-4 justify-center mb-8">
+          <a href="tel:0617540383" class="inline-block px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white rounded-lg font-bold transition-all hover:scale-105 shadow-2xl text-lg">
+            📞 06 17 54 03 83
+          </a>
+          <a href="https://wa.me/33617540383" class="inline-block px-8 py-4 bg-white/10 backdrop-blur-lg border-2 border-white/30 hover:bg-white/20 text-white rounded-lg font-bold transition-all text-lg">
+            💬 WhatsApp
+          </a>
+          <a href="/contact" class="inline-block px-8 py-4 bg-white/10 backdrop-blur-lg border-2 border-white/30 hover:bg-white/20 text-white rounded-lg font-bold transition-all text-lg">
+            📝 Devis gratuit
+          </a>
+        </div>
+
+        <p class="text-sm text-gray-300">
+          Réponse garantie sous 24h • 300+ clients satisfaits • Note 4.9/5
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

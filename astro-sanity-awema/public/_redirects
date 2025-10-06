@@ -1,0 +1,10 @@
+# Redirections Cloudflare Pages pour AWEMA
+
+# Redirection www vers domaine principal
+https://www.awema.fr/*  https://awema.fr/:splat  301!
+
+# API routes vers Cloudflare Functions
+/api/*  /api/:splat  200
+
+# SPA fallback pour les routes dynamiques (si nécessaire)
+# /*  /index.html  200

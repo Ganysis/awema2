@@ -1,0 +1,137 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+
+const meta = {
+  title: "Création Site Internet Lyon - Artisan BTP | AWEMA",
+  meta_title: "Création Site Web Lyon 69 ➤ Spécialiste BTP | AWEMA",
+  description: "Création site internet pour artisans BTP à Lyon et Rhône. Site vitrine 797€. Plombier, électricien, menuisier... Visibilité Google garantie.",
+  image: "/images/villes/lyon.jpg"
+};
+
+const stats = {
+  artisans: "32 clients à Lyon",
+  quartiers: "9 arrondissements",
+  delai: "7 jours livraison",
+  satisfaction: "98% satisfaits"
+};
+
+const quartiersLyon = [
+  "Lyon 1er - Pentes Croix-Rousse",
+  "Lyon 2e - Presqu'île",
+  "Lyon 3e - Part-Dieu",
+  "Lyon 4e - Croix-Rousse",
+  "Lyon 5e - Vieux Lyon",
+  "Lyon 6e - Parc Tête d'Or",
+  "Lyon 7e - Jean Macé",
+  "Lyon 8e - Monplaisir",
+  "Lyon 9e - Vaise",
+  "Villeurbanne",
+  "Caluire-et-Cuire",
+  "Écully",
+  "Oullins",
+  "Saint-Genis-Laval"
+];
+
+const metiersRecherches = [
+  { metier: "Plombier Lyon", volume: "8.100/mois" },
+  { metier: "Électricien Lyon", volume: "6.600/mois" },
+  { metier: "Chauffagiste Lyon", volume: "4.400/mois" },
+  { metier: "Menuisier Lyon", volume: "3.600/mois" }
+];
+---
+
+<Base {...meta}>
+  <PageHeader title="Création Site BTP Lyon" />
+
+  <!-- Hero Section -->
+  <section class="section bg-gradient-to-b from-red-50 to-white">
+    <div class="container">
+      <div class="row gy-5 items-center">
+        <div class="lg:col-7">
+          <h1 class="mb-6">
+            Création Site Internet <span class="text-primary">Lyon</span>
+            <br/>Expert Artisans BTP Rhône-Alpes
+          </h1>
+          <p class="text-lg mb-6">
+            <strong>32 artisans lyonnais</strong> ont boosté leur activité avec AWEMA.
+            De la Presqu'île à Villeurbanne, nous connaissons le marché rhodanien.
+          </p>
+          <p class="mb-8">
+            Lyon = 2e ville de France = forte demande BTP.
+            Les Lyonnais cherchent des artisans de confiance sur Google.
+            <strong>Notre solution lyonnaise : site performant + référencement local.</strong>
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <a href="/contact?ville=lyon" class="btn btn-primary btn-lg">
+              Démarrer à Lyon
+            </a>
+            <a href="/pricing" class="btn btn-outline-primary btn-lg">
+              Voir les tarifs
+            </a>
+          </div>
+          <div class="flex flex-wrap gap-6 text-sm">
+            {Object.entries(stats).map(([key, value]) => (
+              <div>
+                <span class="font-bold text-primary">{value}</span>
+                <span class="text-gray-600 ml-1">{key}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="lg:col-5">
+          <div class="bg-white rounded-lg p-6 shadow-lg">
+            <h3 class="mb-4">📍 Zones Couvertes</h3>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              {quartiersLyon.slice(0, 10).map(q => (
+                <div class="flex items-center">
+                  <span class="text-red-500 mr-1">•</span>
+                  <span>{q.split(' - ')[0]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Volumes Recherche -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Potentiel de Clients à Lyon</h2>
+        </div>
+      </div>
+      <div class="row gy-3">
+        {metiersRecherches.map(m => (
+          <div class="lg:col-3">
+            <div class="bg-white rounded p-4 shadow text-center">
+              <div class="font-bold">{m.metier}</div>
+              <div class="text-2xl text-primary font-bold mt-2">{m.volume}</div>
+              <div class="text-xs text-gray-600">recherches Google</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section bg-gradient-to-r from-red-600 to-red-800 text-white">
+    <div class="container">
+      <div class="row justify-center text-center">
+        <div class="lg:col-8">
+          <h2 class="text-white mb-6">Dominez Google à Lyon</h2>
+          <p class="text-xl mb-8">
+            32 artisans lyonnais nous font confiance. Pourquoi pas vous ?
+          </p>
+          <a href="/contact?ville=lyon" class="btn btn-white btn-lg">
+            Commencer Maintenant
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,66 @@
+{
+  "site": {
+    "title": "AWEMA - Sites Web pour Artisans du BTP",
+    "base_url": "https://awema.fr",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.png",
+    "logo": "/images/awema-logo.png",
+    "logo_darkmode": "/images/awema-logo.png",
+    "logo_width": "120",
+    "logo_height": "40",
+    "logo_text": ""
+  },
+
+  "settings": {
+    "search": true,
+    "sticky_header": true,
+    "theme_switcher": true,
+    "default_theme": "system",
+    "pagination": 2,
+    "summary_length": 200,
+    "blog_folder": "blog"
+  },
+
+  "params": {
+    "contact_form_action": "#",
+    "copyright": "Copyright © 2025 Designed & Developed by [Themefisher](https://themefisher.com)",
+    "footer_content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore dolore magna aliquyam eratnonumy onsetetur",
+    "call_to_action": {
+      "content": "Join 75,000+ Growing Business That Use Copper To Their Brand",
+      "button": {
+        "enable": true,
+        "label": "Get Started With Us",
+        "href": "#"
+      }
+    },
+    "subscribe": {
+      "enable": true,
+      "action": "#"
+    }
+  },
+
+  "navigation_buttons": [
+    {
+      "enable": true,
+      "label": "Sign Up",
+      "link": ""
+    },
+    {
+      "enable": true,
+      "label": "Login",
+      "link": ""
+    }
+  ],
+
+  "google_tag_manager": {
+    "enable": false,
+    "gtm_id": "GTM-XXXXXX"
+  },
+
+  "metadata": {
+    "meta_author": "Themefisher",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "copper with astro and tailwind css"
+  }
+}

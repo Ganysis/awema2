@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#FFF8E1"/>
+
+  <!-- Parquet -->
+  <!-- Lames de parquet -->
+  <rect x="50" y="140" width="300" height="15" fill="#8B4513"/>
+  <rect x="50" y="157" width="300" height="15" fill="#A0522D"/>
+  <rect x="50" y="174" width="300" height="15" fill="#D2691E"/>
+  <rect x="50" y="191" width="300" height="15" fill="#8B4513"/>
+  <rect x="50" y="208" width="300" height="15" fill="#A0522D"/>
+
+  <!-- Joints entre lames -->
+  <line x1="120" y1="140" x2="120" y2="223" stroke="#654321" stroke-width="1"/>
+  <line x1="200" y1="140" x2="200" y2="223" stroke="#654321" stroke-width="1"/>
+  <line x1="280" y1="140" x2="280" y2="223" stroke="#654321" stroke-width="1"/>
+
+  <!-- Veines du bois -->
+  <path d="M60 145 Q100 147, 140 145" stroke="#5D4037" stroke-width="1" fill="none" opacity="0.5"/>
+  <path d="M150 162 Q190 164, 230 162" stroke="#5D4037" stroke-width="1" fill="none" opacity="0.5"/>
+  <path d="M240 179 Q280 181, 320 179" stroke="#5D4037" stroke-width="1" fill="none" opacity="0.5"/>
+  <path d="M70 196 Q110 198, 150 196" stroke="#5D4037" stroke-width="1" fill="none" opacity="0.5"/>
+  <path d="M160 213 Q200 215, 240 213" stroke="#5D4037" stroke-width="1" fill="none" opacity="0.5"/>
+
+  <!-- Perspective -->
+  <polygon points="50,140 350,140 330,120 70,120" fill="#D2691E" opacity="0.3"/>
+
+  <!-- Plinthes -->
+  <rect x="50" y="223" width="300" height="10" fill="#6D4C41"/>
+
+  <!-- Rabot (outil) -->
+  <rect x="160" y="80" width="80" height="30" fill="#795548" transform="rotate(-10 200 95)"/>
+  <rect x="175" y="105" width="50" height="5" fill="#C0C0C0" transform="rotate(-10 200 95)"/>
+
+  <!-- Texte -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#8B4513" text-anchor="middle">
+    Pose de Parquet
+  </text>
+</svg>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#E3F2FD"/>
+
+  <!-- Caméra d'inspection -->
+  <rect x="100" y="120" width="200" height="10" fill="#37474F"/>
+  <circle cx="300" cy="125" r="20" fill="#263238"/>
+  <circle cx="300" cy="125" r="15" fill="#0066CC"/>
+  <circle cx="300" cy="125" r="8" fill="#2196F3"/>
+
+  <!-- Cable -->
+  <path d="M100 125 Q50 125, 50 100" stroke="#37474F" stroke-width="5" fill="none"/>
+
+  <!-- Écran de contrôle -->
+  <rect x="140" y="60" width="120" height="80" rx="5" fill="#263238"/>
+  <rect x="150" y="70" width="100" height="60" fill="#000000"/>
+
+  <!-- Image sur écran -->
+  <circle cx="200" cy="100" r="20" fill="#0066CC" opacity="0.7"/>
+  <rect x="185" y="90" width="30" height="20" fill="#FF5252" opacity="0.5"/>
+
+  <!-- Texte -->
+  <text x="200" y="260" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#0066CC" text-anchor="middle">
+    Détection de Fuites
+  </text>
+</svg>

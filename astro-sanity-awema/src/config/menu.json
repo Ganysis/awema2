@@ -1,0 +1,97 @@
+{
+  "main": [
+    {
+      "name": "Accueil",
+      "url": "/"
+    },
+    {
+      "name": "Services",
+      "url": "#",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Site Web Artisan",
+          "url": "/site-internet-artisan"
+        },
+        {
+          "name": "Migration Cloud",
+          "url": "/migration-cloud"
+        },
+        {
+          "name": "Audit Infrastructure",
+          "url": "/audit-infrastructure"
+        }
+      ]
+    },
+    {
+      "name": "Tarifs",
+      "url": "/tarifs"
+    },
+    {
+      "name": "Réalisations",
+      "url": "/realisations"
+    },
+    {
+      "name": "Mon Histoire",
+      "url": "/mon-histoire"
+    },
+    {
+      "name": "Blog",
+      "url": "/blog"
+    },
+    {
+      "name": "Contact",
+      "url": "/contact"
+    }
+  ],
+  "footer": [
+    {
+      "name": "Navigation",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Accueil",
+          "url": "/"
+        },
+        {
+          "name": "Nos Formules",
+          "url": "/tarifs"
+        },
+        {
+          "name": "Réalisations",
+          "url": "/realisations"
+        },
+        {
+          "name": "Mon Histoire",
+          "url": "/mon-histoire"
+        },
+        {
+          "name": "Blog",
+          "url": "/blog"
+        },
+        {
+          "name": "Contact",
+          "url": "/contact"
+        }
+      ]
+    },
+    {
+      "name": "Services",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Site Web Artisan",
+          "url": "/site-internet-artisan"
+        },
+        {
+          "name": "Migration Cloud",
+          "url": "/migration-cloud"
+        },
+        {
+          "name": "Audit Infrastructure",
+          "url": "/audit-infrastructure"
+        }
+      ]
+    }
+  ]
+}

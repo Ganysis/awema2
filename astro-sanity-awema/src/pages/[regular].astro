@@ -1,0 +1,79 @@
+---
+import Base from "@/layouts/Base.astro";
+import { markdownify, slugify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("pages");
+
+  const paths = pages.map((page) => ({
+    params: {
+      regular: page.id,
+    },
+    props: { page },
+  }));
+  return paths;
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+const { title, sidelist } = page.data;
+---
+
+<Base {...page.data}>
+  <PageHeader title={title} />
+  <section class="section">
+    <div class="container">
+      {
+        page.id !== "changelog" ? (
+          <div class="lg:col-8 mx-auto">
+            <div class="content">
+              <Content />
+            </div>
+          </div>
+        ) : (
+          <div class="row">
+            <div class="lg:col-4 lg:block hidden">
+              <div class="sticky top-0">
+                <ul class="sidelist">
+                  {sidelist?.map((list, i) => (
+                    <li class={i === 0 ? "text-primary" : ""}>
+                      <a
+                        href={`#${slugify(list)}`}
+                        class={
+                          "h5 font-semibold border-bottom border-b border-border/40 duration-300 py-6 block hover:text-primary"
+                        }
+                        set:html={markdownify(list)}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div class="lg:col-8 border-l border-border">
+              <div class="content">
+                <Content />
+              </div>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const sidelist = document.querySelector(".sidelist");
+    const children = Array.from(sidelist?.children || []);
+    children.forEach((el) => {
+      el.addEventListener("click", () => {
+        children.forEach((child) => {
+          child.classList.remove("text-primary");
+        });
+        el.classList.add("text-primary");
+      });
+    });
+  });
+</script>

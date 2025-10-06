@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#FFF3E0"/>
+
+  <!-- Panneau solaire -->
+  <rect x="100" y="80" width="200" height="120" rx="5" fill="#1565C0" transform="rotate(-15 200 140)"/>
+
+  <!-- Cellules solaires -->
+  <rect x="110" y="90" width="40" height="40" fill="#0D47A1" transform="rotate(-15 200 140)"/>
+  <rect x="155" y="90" width="40" height="40" fill="#0D47A1" transform="rotate(-15 200 140)"/>
+  <rect x="200" y="90" width="40" height="40" fill="#0D47A1" transform="rotate(-15 200 140)"/>
+  <rect x="245" y="90" width="40" height="40" fill="#0D47A1" transform="rotate(-15 200 140)"/>
+
+  <rect x="110" y="135" width="40" height="40" fill="#0D47A1" transform="rotate(-15 200 140)"/>
+  <rect x="155" y="135" width="40" height="40" fill="#0D47A1" transform="rotate(-15 200 140)"/>
+  <rect x="200" y="135" width="40" height="40" fill="#0D47A1" transform="rotate(-15 200 140)"/>
+  <rect x="245" y="135" width="40" height="40" fill="#0D47A1" transform="rotate(-15 200 140)"/>
+
+  <!-- Soleil -->
+  <circle cx="320" cy="50" r="20" fill="#FFD600"/>
+  <line x1="320" y1="20" x2="320" y2="10" stroke="#FFD600" stroke-width="3"/>
+  <line x1="340" y1="30" x2="345" y2="25" stroke="#FFD600" stroke-width="3"/>
+  <line x1="350" y1="50" x2="360" y2="50" stroke="#FFD600" stroke-width="3"/>
+
+  <!-- Câble -->
+  <path d="M200 180 L200 230" stroke="#FF6600" stroke-width="4"/>
+
+  <!-- Texte -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FF6600" text-anchor="middle">
+    Photovoltaïque
+  </text>
+</svg>

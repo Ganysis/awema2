@@ -1,0 +1,181 @@
+---
+import Counter from "@/helpers/Counter";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import Base from "@/layouts/Base.astro";
+import { markdownify, plainify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+import { Image } from "astro:assets";
+import { getEntry, type CollectionEntry } from "astro:content";
+const { data } = (await getEntry(
+  "about",
+  "-index"
+)) as CollectionEntry<"about">;
+const { mission, funfacts, title, vision, featured_testimonial } = data;
+---
+
+<Base {...data}>
+  <PageHeader title={title} />
+
+  {
+    mission.enable && (
+      <section class="section" data-aos="fade-in" data-aos-delay="150">
+        <div class="container">
+          <div class="row items-center justify-around gy-5">
+            <div class="lg:col-5 md:col-8 sm:col-10 lg:order-1 order-2">
+              <h2 class="mb-4" set:html={markdownify(mission.title)} />
+              <p
+                class="pb-4 mb-5 border-border/50 border-b"
+                set:html={markdownify(mission.content)}
+              />
+              <ul class="space-y-4">
+                {mission.bulletpoints.map((point) => (
+                  <li class="flex ">
+                    <DynamicIcon
+                      className="mr-3 flex-none text-primary stroke-[3px]"
+                      client:load
+                      icon="FaCheck"
+                    />
+                    <p set:html={markdownify(point)} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="lg:col-5 md:col-8 sm:col-10 overflow-hidden lg:order-2 order-1">
+              <div class="text-center pb-12">
+                <div class="inline-block has-shadow shadow-right has-shapes">
+                  <Image
+                    class="mx-autom rounded inline-block"
+                    src={mission.image}
+                    width={423}
+                    height={469}
+                    alt={plainify(mission.title)}
+                  />
+                  <div class="shape-1 shape-md bg-secondary rounded-full opacity-50" />
+                  <div class="shape-2 shape-xl bg-tertiary rounded-circle opacity-50" />
+                  <div class="shape-3 shape-lg bg-primary rounded-circle opacity-50" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    funfacts.enable && (
+      <section class="section pt-0">
+        <div class="container">
+          <div class="shadow">
+            <div class="has-colored-text row overflow-hidden">
+              {funfacts.funfacts_item.map((item, index) => (
+                <div
+                  class="lg:col-3 sm:col-6 text-center"
+                  data-aos-delay={index * 100}
+                  data-aos="fade-up"
+                >
+                  <div class="py-7">
+                    <div
+                      class={` ${
+                        index + 1 === funfacts.funfacts_item.length
+                          ? ""
+                          : "border-r border-light"
+                      }`}
+                    >
+                      <p class="mb-2" set:html={markdownify(item.name)} />
+                      <h2 class="text-black h-12">
+                        <Counter
+                          client:idle
+                          count={item.count}
+                          suffix={item.extension}
+                          duration={0.9}
+                        />
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    vision.enable && (
+      <section class="section-lg has-shapes bg-light relative overflow-hidden">
+        <Image
+          class={"absolute top-0 left-0 w-full h-6 md:h-auto"}
+          width={732}
+          height={1050}
+          alt={""}
+          src={"/images/brushes/section-top.svg"}
+        />
+        <Image
+          class={"absolute bottom-0 left-0 w-full h-6 md:h-auto"}
+          width={732}
+          height={1050}
+          alt={""}
+          src={"/images/brushes/section-bottom.svg"}
+        />
+
+        <div class="container">
+          <div class="row justify-arround items-center">
+            <div class="lg:col-6">
+              <div class="inline-block has-shadow shadow-left has-shapes">
+                <Image
+                  width={423}
+                  height={468}
+                  src={vision.image}
+                  alt={plainify(vision.title)}
+                />
+                <div class="shape-1 shape-md bg-secondary opacity-50" />
+                <div class="shape-2 shape-xl bg-tertiary opacity-50" />
+                <div class="shape-3 shape-lg bg-primary opacity-50" />
+              </div>
+            </div>
+            <div class="lg:col-6">
+              <h2 class="mb-4" set:html={markdownify(vision.title)} />
+              <p set:html={markdownify(vision.content)} />
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    featured_testimonial?.enable && (
+      <section class="section">
+        <div class="container">
+          <div class="row gy-4">
+            <div class="lg:col-6">
+              <Image
+                src={featured_testimonial.image}
+                width={660}
+                height={468}
+                alt={featured_testimonial.name}
+              />
+            </div>
+
+            <div class="lg:col-6">
+              <div class="flex flex-col justify-center h-full">
+                <h2
+                  class="pb-4 border-b border-b-theme-text-light"
+                  set:html={markdownify(featured_testimonial.quote)}
+                />
+                <p class="space-x-2 mt-3">
+                  <span set:html={markdownify(featured_testimonial.name)} />
+                  <span
+                    set:html={markdownify(featured_testimonial.designation)}
+                  />
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+</Base>

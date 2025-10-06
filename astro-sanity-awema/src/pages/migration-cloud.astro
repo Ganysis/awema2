@@ -1,0 +1,828 @@
+---
+import Base from "@/layouts/Base.astro";
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Migration Cloud Infrastructure",
+    "provider": {
+      "@type": "Organization",
+      "name": "AWEMA",
+      "url": "https://awema.fr"
+    },
+    "serviceType": "Cloud Migration Services",
+    "areaServed": {
+      "@type": "Country",
+      "name": "France"
+    },
+    "description": "Migration professionnelle de vos serveurs vers le Cloud (AWS, OVH, Azure). Réduisez vos coûts IT de 30-50% tout en gagnant en performance et sécurité.",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "description": "Migration Cloud complète sur devis - Tarif adapté à votre infrastructure (nombre de serveurs, complexité, données)"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Combien coûte une migration Cloud ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Une migration Cloud démarre à 2500€ HT selon la complexité (nombre de serveurs, données, applications). Audit gratuit pour évaluer précisément vos besoins."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Combien de temps dure une migration ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Entre 2 et 6 semaines selon la taille de votre infrastructure. La migration se fait en douceur, sans interruption de service."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelles économies puis-je espérer ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "En moyenne 30 à 50% d'économies sur vos coûts IT (serveurs physiques, maintenance, électricité, climatisation). Le ROI est atteint en 6-12 mois."
+        }
+      }
+    ]
+  }
+];
+---
+
+<Base
+  title="Migration Cloud PME - Économisez 30-50% | Expert Aix-Marseille"
+  meta_title="Migration Cloud AWS OVH Azure | -30% Coûts IT | AWEMA Aix-Marseille"
+  description="Migration cloud PME (AWS, OVH, Azure) : -30% coûts IT, +50% performance, sécurité renforcée. Expert Aix-Marseille. Audit gratuit. Devis sur mesure."
+  schema={schema}
+>
+
+  <!-- SECTION 1: Hero -->
+  <section class="relative min-h-[90vh] flex items-center bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white overflow-hidden">
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <div class="container relative z-10 py-20">
+      <div class="row items-center">
+        <div class="lg:col-7" data-aos="fade-right">
+          <div class="inline-block bg-blue-600/90 backdrop-blur-sm px-4 py-2 rounded-full mb-6 shadow-lg">
+            <span class="text-white font-semibold">☁️ Migration Cloud Professionnelle</span>
+          </div>
+
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-lg">
+            Réduisez vos coûts IT de <span class="text-blue-400">30 à 50%</span>
+          </h1>
+
+          <p class="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
+            Migrez vos serveurs physiques vers le Cloud.<br/>
+            <strong class="text-white">Performance × 3, Coûts ÷ 2</strong>
+          </p>
+
+          <div class="space-y-4 mb-10">
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-white"><strong>Audit gratuit</strong> - Évaluation complète de votre infra</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-white"><strong>Migration sans interruption</strong> - Zéro downtime</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-white"><strong>Accompagnement 3 mois</strong> - Formation de vos équipes</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-white"><strong>AWS, OVH, Azure</strong> - On choisit le meilleur pour vous</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#audit" class="btn bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-8 py-4 text-lg font-bold rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300">
+              Audit gratuit
+            </a>
+            <a href="#economies" class="btn border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg font-bold rounded-lg transition-all duration-300">
+              Calculer mes économies
+            </a>
+          </div>
+
+          <p class="text-sm text-gray-300 mt-4">
+            🚀 <strong>Intervention rapide</strong> : Démarrage sous 7 jours
+          </p>
+        </div>
+
+        <div class="lg:col-5 mt-10 lg:mt-0" data-aos="fade-left">
+          <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl">
+            <h3 class="text-2xl font-bold mb-6 text-white">Nos partenaires Cloud :</h3>
+            <div class="space-y-6">
+              <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:bg-white/10 transition">
+                <h4 class="text-xl font-bold text-white mb-2">Amazon Web Services</h4>
+                <p class="text-sm text-gray-300">Leader mondial du Cloud</p>
+              </div>
+
+              <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:bg-white/10 transition">
+                <h4 class="text-xl font-bold text-white mb-2">OVHcloud</h4>
+                <p class="text-sm text-gray-300">Champion européen, données en France</p>
+              </div>
+
+              <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:bg-white/10 transition">
+                <h4 class="text-xl font-bold text-white mb-2">Microsoft Azure</h4>
+                <p class="text-sm text-gray-300">Écosystème Microsoft intégré</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Problèmes actuels -->
+  <section class="section bg-gray-50 py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Votre infrastructure IT vous coûte trop cher ?
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          La majorité des PME paient 2× trop cher à cause de serveurs physiques vieillissants.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="0">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
+            <div class="text-4xl mb-4">💸</div>
+            <h3 class="text-xl font-bold mb-3 text-red-600">Coûts explosifs</h3>
+            <p class="text-gray-600">
+              Matériel à 15 000€, maintenance 500€/mois, électricité 200€/mois, climatisation... La facture explose.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-orange-500 h-full">
+            <div class="text-4xl mb-4">🐌</div>
+            <h3 class="text-xl font-bold mb-3 text-orange-600">Performances dégradées</h3>
+            <p class="text-gray-600">
+              Votre serveur a 5 ans ? Il rame. Vos équipes perdent du temps. Les clients s'impatientent.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-purple-500 h-full">
+            <div class="text-4xl mb-4">🔥</div>
+            <h3 class="text-xl font-bold mb-3 text-purple-600">Risques majeurs</h3>
+            <p class="text-gray-600">
+              Panne = entreprise à l'arrêt. Incendie = données perdues. Vol = catastrophe. Vous dormez mal.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-yellow-500 h-full">
+            <div class="text-4xl mb-4">🔧</div>
+            <h3 class="text-xl font-bold mb-3 text-yellow-600">Maintenance chronophage</h3>
+            <p class="text-gray-600">
+              Patches, mises à jour, backups manuels... Votre DSI passe son temps à maintenir au lieu d'innover.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-blue-500 h-full">
+            <div class="text-4xl mb-4">📈</div>
+            <h3 class="text-xl font-bold mb-3 text-blue-600">Évolutivité impossible</h3>
+            <p class="text-gray-600">
+              Vous grandissez ? Il faut racheter du matériel. Période creuse ? Vous payez quand même le fixe.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="500">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
+            <div class="text-4xl mb-4">🎲</div>
+            <h3 class="text-xl font-bold mb-3 text-red-600">RGPD à risque</h3>
+            <p class="text-gray-600">
+              Backups non chiffrés, accès non contrôlés... Une faille de sécurité = amende CNIL jusqu'à 20M€.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12" data-aos="fade-up">
+        <p class="text-2xl font-bold text-gray-800 mb-4">
+          <span class="text-primary">Le Cloud élimine tous ces problèmes.</span> Pour moitié prix.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: Solution Cloud -->
+  <section class="section bg-white py-20">
+    <div class="container">
+      <div class="row items-center">
+        <div class="lg:col-6" data-aos="fade-right">
+          <h2 class="text-4xl md:text-5xl font-bold mb-6">
+            Passez au Cloud <span class="text-primary">sans risque</span>
+          </h2>
+          <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+            Je migre votre infrastructure complète vers AWS, OVH ou Azure. Vos équipes ne voient aucune différence, sauf que tout va plus vite.
+          </p>
+
+          <div class="space-y-6 mb-10">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">💰</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold mb-2">Réduction coûts 30-50%</h3>
+                <p class="text-gray-600">Plus de matériel à acheter, plus d'électricité, plus de maintenance. Vous payez uniquement ce que vous consommez.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">⚡</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold mb-2">Performance × 3</h3>
+                <p class="text-gray-600">Serveurs dernière génération, SSD ultra-rapides, réseau mondial. Vos applications volent.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">🔒</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold mb-2">Sécurité militaire</h3>
+                <p class="text-gray-600">Backups automatiques quotidiens, chiffrement end-to-end, redondance multi-datacenters. Conformité RGPD garantie.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">📊</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold mb-2">Scalabilité infinie</h3>
+                <p class="text-gray-600">Besoin de plus de puissance ? +20% en 5 minutes. Période creuse ? Réduisez et économisez.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#audit" class="btn btn-primary btn-lg inline-flex items-center gap-2">
+            Demander un audit gratuit
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="lg:col-6 mt-10 lg:mt-0" data-aos="fade-left">
+          <div class="relative -mx-4 sm:mx-0 overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=800&auto=format&fit=crop&q=80"
+              alt="Infrastructure Cloud moderne - Serveurs datacenter"
+              loading="lazy"
+              class="w-full rounded-none sm:rounded-2xl shadow-2xl"
+              style="display: block;"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Process de migration -->
+  <section class="section bg-gray-50 py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Comment se déroule la migration ?
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Un processus éprouvé sur +50 migrations. Zéro interruption de service.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <!-- Étape 1 -->
+        <div class="flex gap-6 mb-12" data-aos="fade-right">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+              1
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold mb-3">Audit gratuit (2-3 jours)</h3>
+            <p class="text-gray-700 text-lg mb-4">
+              J'analyse votre infrastructure actuelle : serveurs, applications, données, usages. Je vous propose la meilleure solution Cloud (AWS, OVH, Azure) adaptée à vos besoins ET votre budget.
+            </p>
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+              <p class="text-gray-700"><strong>Livrable :</strong> Rapport complet + estimation économies + devis détaillé</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 2 -->
+        <div class="flex gap-6 mb-12" data-aos="fade-left">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+              2
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold mb-3">Préparation Cloud (1 semaine)</h3>
+            <p class="text-gray-700 text-lg mb-4">
+              Je configure votre environnement Cloud : réseau, sécurité, sauvegardes, monitoring. Je crée un environnement de test pour valider que tout fonctionne AVANT la migration.
+            </p>
+            <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+              <p class="text-gray-700"><strong>Livrable :</strong> Infrastructure Cloud prête + accès test</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="flex gap-6 mb-12" data-aos="fade-right">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-gradient-to-br from-orange-600 to-orange-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+              3
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold mb-3">Migration progressive (1-3 semaines)</h3>
+            <p class="text-gray-700 text-lg mb-4">
+              Je migre vos serveurs un par un, en dehors des heures de bureau. Zéro interruption : vos équipes travaillent normalement. Tests intensifs après chaque migration.
+            </p>
+            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+              <p class="text-gray-700"><strong>Livrable :</strong> Infrastructure 100% Cloud opérationnelle</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 4 -->
+        <div class="flex gap-6" data-aos="fade-left">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-600 to-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+              4
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold mb-3">Accompagnement 3 mois</h3>
+            <p class="text-gray-700 text-lg mb-4">
+              Formation de vos équipes IT, optimisation des coûts, support prioritaire. Je reste à vos côtés jusqu'à ce que vous soyez 100% autonome.
+            </p>
+            <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+              <p class="text-gray-700"><strong>Livrable :</strong> Documentation complète + formation équipe + support 3 mois</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-16" data-aos="fade-up">
+        <div class="inline-block bg-green-100 text-green-800 px-6 py-3 rounded-lg font-bold text-lg mb-6">
+          ⏱️ Délai total : 2 à 6 semaines selon taille infrastructure
+        </div>
+        <br/>
+        <a href="#audit" class="btn btn-primary btn-lg">
+          Lancer mon audit gratuit
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: Avantages Cloud -->
+  <section id="economies" class="section bg-white py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Pourquoi migrer vers le Cloud maintenant ?
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Les avantages concrets d'une infrastructure Cloud moderne.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="lg:col-4 md:col-6" data-aos="fade-up">
+          <div class="bg-gradient-to-br from-blue-50 to-white rounded-xl shadow-lg border border-blue-100 p-8 h-full">
+            <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mb-6">
+              <span class="text-3xl">💰</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">Économies 30-50%</h3>
+            <p class="text-gray-700 mb-4">
+              Éliminez les coûts de matériel, maintenance, électricité, climatisation. Payez uniquement ce que vous consommez.
+            </p>
+            <ul class="space-y-2 text-gray-600">
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Pas d'investissement matériel</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Facture prévisible mensuelle</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>ROI en 6-12 mois</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="bg-gradient-to-br from-green-50 to-white rounded-xl shadow-lg border border-green-100 p-8 h-full">
+            <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mb-6">
+              <span class="text-3xl">⚡</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">Performance × 3</h3>
+            <p class="text-gray-700 mb-4">
+              Serveurs dernière génération, SSD NVMe, réseau 10 Gbps. Vos applications volent, vos équipes gagnent du temps.
+            </p>
+            <ul class="space-y-2 text-gray-600">
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Temps de réponse divisé par 3</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Disponibilité 99.9%</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Backups automatiques quotidiens</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="bg-gradient-to-br from-purple-50 to-white rounded-xl shadow-lg border border-purple-100 p-8 h-full">
+            <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mb-6">
+              <span class="text-3xl">🔒</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">Sécurité maximale</h3>
+            <p class="text-gray-700 mb-4">
+              Chiffrement, redondance multi-datacenters, conformité RGPD. Vos données sont 100× plus sûres qu'en local.
+            </p>
+            <ul class="space-y-2 text-gray-600">
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Certifications ISO 27001, SOC 2</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Données en France (RGPD)</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Protection DDoS incluse</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12" data-aos="fade-up">
+        <a href="#audit" class="btn btn-primary btn-lg">
+          Demander un audit gratuit
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: Technologies Cloud -->
+  <section class="section relative bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white py-20">
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <div class="container relative z-10">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white drop-shadow-lg">
+          AWS, OVH ou Azure ? On choisit ensemble
+        </h2>
+        <p class="text-xl text-gray-200 max-w-3xl mx-auto">
+          Chaque entreprise est différente. Je vous aide à choisir le Cloud qui correspond à vos besoins.
+        </p>
+      </div>
+
+      <div class="text-center mt-12" data-aos="fade-up">
+        <p class="text-xl text-gray-200">
+          Je vous aide à choisir la solution Cloud adaptée à vos besoins et votre budget.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: FAQ -->
+  <section class="section bg-white py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Questions fréquentes
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Les réponses aux questions que se posent les dirigeants avant de migrer.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto space-y-4">
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Combien coûte une migration Cloud ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p>Cela dépend de votre infrastructure actuelle :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li><strong>PME simple (1-2 serveurs) :</strong> À partir de 2500€ HT</li>
+              <li><strong>PME moyenne (3-5 serveurs) :</strong> Entre 5000€ et 10 000€ HT</li>
+              <li><strong>Grande entreprise (6+ serveurs) :</strong> Sur devis après audit</li>
+            </ul>
+            <p class="mt-3"><strong>Important :</strong> L'audit gratuit vous donne un chiffrage précis. Les économies mensuelles remboursent généralement la migration en 6-12 mois.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Y a-t-il des interruptions de service pendant la migration ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Non, zéro interruption.</strong></p>
+            <p class="mt-3">Voici comment ça se passe :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>Je crée votre infrastructure Cloud en parallèle de votre infrastructure actuelle</li>
+              <li>Je synchronise vos données progressivement</li>
+              <li>Le basculement final se fait en dehors des heures de bureau (samedi soir ou dimanche)</li>
+              <li>Lundi matin, vos équipes travaillent normalement sans rien remarquer</li>
+            </ul>
+            <p class="mt-3">En 10 ans et +50 migrations, je n'ai jamais eu d'interruption de service.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Mes données sont-elles sécurisées dans le Cloud ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Le Cloud est 100× plus sûr que vos serveurs physiques.</strong></p>
+            <p class="mt-3">Voici pourquoi :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li><strong>Chiffrement :</strong> Données chiffrées au repos et en transit (AES-256)</li>
+              <li><strong>Backups automatiques :</strong> Quotidiens, multi-datacenters, testés régulièrement</li>
+              <li><strong>Sécurité physique :</strong> Datacenters avec biométrie, vidéo 24/7, gardiennage</li>
+              <li><strong>Certifications :</strong> ISO 27001, SOC 2, HDS (Hébergement Données Santé)</li>
+              <li><strong>Redondance :</strong> Vos données sont dupliquées sur 3 zones géographiques minimum</li>
+            </ul>
+            <p class="mt-3"><strong>RGPD :</strong> Avec OVHcloud, vos données restent en France. Conformité garantie.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Quelles économies puis-je espérer concrètement ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>En moyenne, mes clients économisent 30 à 50% sur leurs coûts IT.</strong></p>
+            <p class="mt-3">Voici les postes d'économies :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li><strong>Matériel :</strong> Plus de serveurs à acheter tous les 5 ans (-15 000€ à -50 000€)</li>
+              <li><strong>Maintenance :</strong> Fini les contrats de maintenance (-500€/mois en moyenne)</li>
+              <li><strong>Électricité :</strong> Un serveur consomme 200-300€/mois (-70%)</li>
+              <li><strong>Climatisation :</strong> Salle serveur = clim 24/7 (-150€/mois)</li>
+              <li><strong>Espace physique :</strong> Récupérez 10-20m² de bureaux</li>
+              <li><strong>Temps IT :</strong> Vos équipes se concentrent sur l'innovation, pas la maintenance</li>
+            </ul>
+            <p class="mt-3"><strong>Exemple réel :</strong> PME 40 personnes, économie de 22 800€/an. ROI en 8 mois.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Combien de temps dure une migration ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Entre 2 et 6 semaines selon la taille de votre infrastructure.</strong></p>
+            <p class="mt-3">Timeline typique :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li><strong>Semaine 1 :</strong> Audit + choix du Cloud + devis</li>
+              <li><strong>Semaine 2 :</strong> Préparation infrastructure Cloud</li>
+              <li><strong>Semaines 3-5 :</strong> Migration progressive des serveurs</li>
+              <li><strong>Semaine 6 :</strong> Tests finaux + formation équipe</li>
+            </ul>
+            <p class="mt-3">Pour une petite PME (1-2 serveurs), on peut boucler en 2 semaines.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Est-ce que je peux revenir en arrière si ça ne me convient pas ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Oui, mais vous n'en aurez jamais envie.</strong></p>
+            <p class="mt-3">Techniquement :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>Je conserve vos anciens serveurs 3 mois après migration (backup de sécurité)</li>
+              <li>Si vraiment vous voulez revenir, je peux re-migrer vers du physique</li>
+              <li>Mais en 10 ans, je n'ai jamais eu un seul client qui veuille revenir en arrière</li>
+            </ul>
+            <p class="mt-3"><strong>La réalité :</strong> Après 1 mois de Cloud, mes clients se demandent pourquoi ils n'ont pas migré plus tôt.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: CTA Final -->
+  <section id="audit" class="section relative bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white py-20">
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <div class="container relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white drop-shadow-lg" data-aos="fade-up">
+          Prêt à réduire vos coûts IT de 30-50% ?
+        </h2>
+        <p class="text-xl text-gray-200 mb-12 leading-relaxed" data-aos="fade-up" data-aos-delay="100">
+          Audit gratuit de votre infrastructure. Devis sous 48h. Zéro engagement.
+        </p>
+
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 mb-10" data-aos="zoom-in">
+          <div class="row g-4">
+            <div class="lg:col-4">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-3xl">📊</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-white">Audit gratuit</h3>
+                <p class="text-gray-200">Analyse complète de votre infra actuelle</p>
+              </div>
+            </div>
+            <div class="lg:col-4">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-3xl">💰</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-white">Calcul économies</h3>
+                <p class="text-gray-200">Combien vous allez économiser (€/mois)</p>
+              </div>
+            </div>
+            <div class="lg:col-4">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-3xl">📄</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-white">Devis détaillé</h3>
+                <p class="text-gray-200">Prix fixe, pas de surprise</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4" data-aos="fade-up" data-aos-delay="200">
+          <a href="/contact" class="inline-block px-10 py-5 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white rounded-lg font-bold transition-all hover:scale-105 shadow-2xl text-xl">
+            Demander mon audit gratuit
+          </a>
+          <p class="text-gray-300">
+            ou appelez directement : <a href="tel:0617540383" class="font-bold text-white hover:text-blue-400">06 17 54 03 83</a>
+          </p>
+        </div>
+
+        <div class="mt-12 grid md:grid-cols-3 gap-6 text-sm text-gray-300" data-aos="fade-up" data-aos-delay="300">
+          <div class="flex items-center justify-center gap-2">
+            <span class="text-green-400">✓</span>
+            <span>Audit gratuit sans engagement</span>
+          </div>
+          <div class="flex items-center justify-center gap-2">
+            <span class="text-green-400">✓</span>
+            <span>Réponse sous 24h</span>
+          </div>
+          <div class="flex items-center justify-center gap-2">
+            <span class="text-green-400">✓</span>
+            <span>Démarrage sous 7 jours</span>
+          </div>
+        </div>
+
+        <!-- Formulaire de contact -->
+        <div class="max-w-2xl mx-auto mt-16" data-aos="fade-up" data-aos-delay="400">
+          <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+            <h3 class="text-2xl font-bold mb-6 text-center text-white">Demandez votre audit gratuit</h3>
+
+            <form action="/api/contact" method="POST" class="space-y-6">
+              <input type="hidden" name="subject" value="Demande audit Migration Cloud" />
+
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-gray-200 mb-2">Nom complet *</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Jean Dupont"
+                  />
+                </div>
+
+                <div>
+                  <label for="company" class="block text-sm font-medium text-gray-200 mb-2">Entreprise *</label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    required
+                    class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="SARL Exemple"
+                  />
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label for="email" class="block text-sm font-medium text-gray-200 mb-2">Email *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="contact@entreprise.fr"
+                  />
+                </div>
+
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-gray-200 mb-2">Téléphone *</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    required
+                    class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="06 12 34 56 78"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="servers" class="block text-sm font-medium text-gray-200 mb-2">Nombre de serveurs actuels</label>
+                <select
+                  id="servers"
+                  name="servers"
+                  class="w-full px-4 py-3 rounded-lg border border-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent [&>option]:bg-slate-800 [&>option]:text-white"
+                  style="background-color: #1e293b; color: white; color-scheme: dark;"
+                >
+                  <option value="1-2" style="background-color: #1e293b; color: white;">1-2 serveurs</option>
+                  <option value="3-5" style="background-color: #1e293b; color: white;">3-5 serveurs</option>
+                  <option value="6-10" style="background-color: #1e293b; color: white;">6-10 serveurs</option>
+                  <option value="10+" style="background-color: #1e293b; color: white;">Plus de 10 serveurs</option>
+                  <option value="inconnu" style="background-color: #1e293b; color: white;">Je ne sais pas</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-200 mb-2">Décrivez votre projet *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  required
+                  class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                  placeholder="Décrivez votre infrastructure actuelle et vos objectifs..."
+                ></textarea>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="consent"
+                  name="consent"
+                  required
+                  class="mt-1 w-4 h-4 rounded border-white/20 bg-white/10 text-blue-500 focus:ring-2 focus:ring-blue-500"
+                />
+                <label for="consent" class="text-sm text-gray-300">
+                  J'accepte d'être contacté par AWEMA concernant ma demande d'audit Cloud *
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white rounded-lg font-bold transition-all hover:scale-105 shadow-2xl text-lg"
+              >
+                Envoyer ma demande d'audit
+              </button>
+
+              <p class="text-center text-sm text-gray-400">
+                Réponse sous 24h • Audit 100% gratuit • Sans engagement
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Base>

@@ -1,0 +1,60 @@
+---
+import config from "@/config/config.json";
+import dateFormat from "@/lib/utils/dateFormat";
+import { markdownify, slugify } from "@/lib/utils/textConverter";
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+type setting = { summary_length: number; blog_folder: string };
+const { summary_length, blog_folder }: setting = config.settings;
+
+type Props = {
+  post: CollectionEntry<"blog">;
+};
+const { post } = Astro.props;
+const { title, image, date, categories } = post.data;
+---
+
+<div class="card border-none h-full">
+  <a class="flex flex-1 items-center" href={slugify(post.id)}>
+    {
+      image && (
+        <Image
+          class="mb-5 mx-auto"
+          src={image}
+          width={366}
+          height={425}
+          alt={title!}
+        />
+      )
+    }
+  </a>
+  <div class="p-4 pb-0">
+    <div class="post-category">
+      {
+        categories?.map((catagory) => (
+          <a
+            class="ml-1 font-semibold"
+            href={`/categories/${slugify(catagory)}`}
+            set:html={markdownify(catagory)}
+          />
+        ))
+      }
+    </div>
+    <a
+      class="h5 font-medium block my-2.5 hover:text-primary hover:underline decoration-1"
+      href={`/${blog_folder}/${slugify(post.id)}`}
+      set:html={markdownify(title!)}
+    />
+    <div class="font-semibold mb-2.5 text-text-light">
+      <span set:html={dateFormat(date!)} />
+      <span class="mx-2">|</span>
+      <span>10 Mins Read</span>
+    </div>
+    {
+      post.body && (
+        <p set:html={markdownify(post.body.slice(0, summary_length))} />
+      )
+    }
+  </div>
+</div>

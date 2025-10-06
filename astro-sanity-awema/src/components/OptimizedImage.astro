@@ -1,0 +1,128 @@
+---
+import { Image } from "astro:assets";
+
+export interface Props {
+  src: string | any;
+  alt: string;
+  title?: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: "eager" | "lazy";
+  decoding?: "async" | "auto" | "sync";
+  format?: "avif" | "webp" | "png" | "jpg" | "svg";
+  quality?: number;
+  densities?: number[];
+  widths?: number[];
+  sizes?: string;
+  pictureClass?: string;
+  fetchpriority?: "high" | "low" | "auto";
+  aspectRatio?: string;
+  placeholder?: "blur" | "dominant" | "none";
+}
+
+const {
+  src,
+  alt,
+  title,
+  width,
+  height,
+  class: className = "",
+  loading = "lazy",
+  decoding = "async",
+  format = "webp",
+  quality = 80,
+  densities = [1, 2],
+  widths,
+  sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+  pictureClass = "",
+  fetchpriority = "auto",
+  aspectRatio,
+  placeholder = "blur"
+} = Astro.props;
+
+// SEO-friendly alt text check
+if (!alt || alt.length < 5) {
+  console.warn(`Image ${src} has insufficient alt text: "${alt}"`);
+}
+
+// Generate title from alt if not provided
+const imageTitle = title || alt;
+
+// For critical images above the fold
+const isEager = loading === "eager";
+
+// Calculate aspect ratio for CLS prevention
+const calculatedAspectRatio = aspectRatio || (width && height ? `${width}/${height}` : "16/9");
+
+// Optimized widths for responsive images
+const optimizedWidths = widths || [320, 640, 768, 1024, 1280, 1536, 1920];
+
+// Container styles for aspect ratio
+const containerStyles = `aspect-ratio: ${calculatedAspectRatio}; position: relative; overflow: hidden;`;
+---
+
+<div class={`image-container ${pictureClass}`} style={containerStyles}>
+  <Image
+    src={src}
+    alt={alt}
+    title={imageTitle}
+    width={width}
+    height={height}
+    class={`${className} w-full h-full object-cover`}
+    loading={loading}
+    decoding={decoding}
+    format={format}
+    quality={quality}
+    densities={densities}
+    widths={optimizedWidths}
+    sizes={sizes}
+    fetchpriority={fetchpriority}
+    data-aos={!isEager ? "fade-in" : undefined}
+  />
+</div>
+
+<style>
+  .image-container {
+    background: linear-gradient(
+      to bottom,
+      rgba(243, 244, 246, 1),
+      rgba(229, 231, 235, 1)
+    );
+    contain: layout style paint;
+  }
+
+  .image-container img {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .image-container img[loading="lazy"] {
+    opacity: 0;
+  }
+
+  .image-container img.loaded {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  // Optimized lazy loading with Intersection Observer
+  if ('IntersectionObserver' in window) {
+    const images = document.querySelectorAll('img[loading="lazy"]');
+
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target as HTMLImageElement;
+          img.classList.add('loaded');
+          observer.unobserve(img);
+        }
+      });
+    }, {
+      rootMargin: '50px 0px',
+      threshold: 0.01
+    });
+
+    images.forEach(img => imageObserver.observe(img));
+  }
+</script>

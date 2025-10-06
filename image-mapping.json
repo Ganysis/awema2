@@ -1,0 +1,88 @@
+{
+  "banner": {
+    "src": "/images/banner.jpg",
+    "alt": "Jardin paysager magnifique"
+  },
+  "services": [
+    {
+      "src": "/images/service-1.jpg",
+      "alt": "Création de jardins"
+    },
+    {
+      "src": "/images/service-2.jpg",
+      "alt": "Entretien espaces verts"
+    },
+    {
+      "src": "/images/service-3.jpg",
+      "alt": "Élagage professionnel"
+    },
+    {
+      "src": "/images/service-4.jpg",
+      "alt": "Arrosage automatique"
+    },
+    {
+      "src": "/images/service-5.jpg",
+      "alt": "Allées et terrasses"
+    },
+    {
+      "src": "/images/service-6.jpg",
+      "alt": "Clôtures végétales"
+    }
+  ],
+  "gallery": [
+    {
+      "src": "/images/gallery-1.jpg",
+      "alt": "Jardin zen japonais"
+    },
+    {
+      "src": "/images/gallery-2.jpg",
+      "alt": "Pelouse parfaite"
+    },
+    {
+      "src": "/images/gallery-3.jpg",
+      "alt": "Piscine et jardin"
+    },
+    {
+      "src": "/images/gallery-4.jpg",
+      "alt": "Potager moderne"
+    },
+    {
+      "src": "/images/gallery-5.jpg",
+      "alt": "Jardin fleuri"
+    },
+    {
+      "src": "/images/gallery-6.jpg",
+      "alt": "Terrasse végétalisée"
+    }
+  ],
+  "projects": [
+    {
+      "src": "/images/project-1.jpg",
+      "alt": "Villa jardin méditerranéen"
+    },
+    {
+      "src": "/images/project-2.jpg",
+      "alt": "Parc public aménagement"
+    },
+    {
+      "src": "/images/project-3.jpg",
+      "alt": "Jardin d'entreprise"
+    },
+    {
+      "src": "/images/project-4.jpg",
+      "alt": "Toiture végétalisée"
+    },
+    {
+      "src": "/images/project-5.jpg",
+      "alt": "Jardin tropical"
+    },
+    {
+      "src": "/images/project-6.jpg",
+      "alt": "Espace vert urbain"
+    },
+    {
+      "src": "/images/project-7.jpg",
+      "alt": "Golf aménagement paysager"
+    }
+  ]
+}

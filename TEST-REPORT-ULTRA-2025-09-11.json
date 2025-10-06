@@ -1,0 +1,1385 @@
+{
+  "date": "2025-09-11T10:11:34.628Z",
+  "duration": 56.884,
+  "stats": {
+    "startTime": 1757585437695,
+    "totalTests": 133,
+    "passedTests": 97,
+    "failedTests": 5,
+    "warningTests": 24,
+    "skippedTests": 1,
+    "apiCalls": 0,
+    "apiResponseTime": [],
+    "filesChecked": 30,
+    "totalFileSize": 1579477,
+    "memoryUsage": [],
+    "cpuUsage": [],
+    "testCategories": {
+      "Templates": {
+        "success": 35,
+        "warning": 10,
+        "error": 0,
+        "skipped": 0,
+        "total": 45
+      },
+      "CMS": {
+        "success": 11,
+        "warning": 1,
+        "error": 0,
+        "skipped": 0,
+        "total": 12
+      },
+      "Déploiement": {
+        "success": 16,
+        "warning": 0,
+        "error": 0,
+        "skipped": 0,
+        "total": 16
+      },
+      "API": {
+        "success": 0,
+        "warning": 0,
+        "error": 1,
+        "skipped": 0,
+        "total": 1
+      },
+      "Build": {
+        "success": 0,
+        "warning": 2,
+        "error": 2,
+        "skipped": 0,
+        "total": 4
+      },
+      "Performance": {
+        "success": 6,
+        "warning": 0,
+        "error": 1,
+        "skipped": 0,
+        "total": 9,
+        "info": null
+      },
+      "Database": {
+        "success": 10,
+        "warning": 0,
+        "error": 1,
+        "skipped": 0,
+        "total": 11
+      },
+      "Sécurité": {
+        "success": 1,
+        "warning": 7,
+        "error": 0,
+        "skipped": 0,
+        "total": 12,
+        "info": null
+      },
+      "Dépendances": {
+        "success": 3,
+        "warning": 4,
+        "error": 0,
+        "skipped": 1,
+        "total": 8
+      },
+      "Services": {
+        "success": 15,
+        "warning": 0,
+        "error": 0,
+        "skipped": 0,
+        "total": 15
+      }
+    },
+    "coverage": {
+      "templates": 78,
+      "services": 100,
+      "api": 0,
+      "cms": 92,
+      "deployment": 0,
+      "security": 0,
+      "performance": 67,
+      "database": 91,
+      "dependencies": 0,
+      "build": 0,
+      "déploiement": 100,
+      "sécurité": 8,
+      "dépendances": 38
+    }
+  },
+  "results": [
+    {
+      "category": "Templates",
+      "test": "Validation architecte-minimal-japanese-fixed.ts",
+      "status": "success",
+      "details": "1085 lignes, 0 imports, 7 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.823Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation architecte-minimal-japanese.ts",
+      "status": "success",
+      "details": "2922 lignes, 0 imports, 19 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.826Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation architecte-moderne-modulaire.ts",
+      "status": "success",
+      "details": "1844 lignes, 3 imports, 6 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.828Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation architecte-zen-with-data.ts",
+      "status": "success",
+      "details": "1049 lignes, 0 imports, 5 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.829Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation artisan-electricien.template.ts",
+      "status": "warning",
+      "details": "Structure incomplète",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.830Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation artisan-luxury-modulaire.ts",
+      "status": "success",
+      "details": "1955 lignes, 4 imports, 25 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.832Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation artisan-plombier.template.ts",
+      "status": "warning",
+      "details": "Structure incomplète",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.833Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation btp-premium-templates.ts",
+      "status": "success",
+      "details": "917 lignes, 0 imports, 2 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.834Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation carreleur-dark-luxury.ts",
+      "status": "success",
+      "details": "2908 lignes, 0 imports, 18 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.837Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation corporate-elite-multipage-optimized.ts",
+      "status": "success",
+      "details": "977 lignes, 0 imports, 8 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.841Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation corporate-elite-optimized.ts",
+      "status": "success",
+      "details": "696 lignes, 0 imports, 15 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.842Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation corporate-elite-templates.ts",
+      "status": "success",
+      "details": "1321 lignes, 0 imports, 6 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.843Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation electricien-swiss-design.ts",
+      "status": "success",
+      "details": "1355 lignes, 0 imports, 1 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.845Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation electricien-swiss-modulaire.ts",
+      "status": "success",
+      "details": "1067 lignes, 3 imports, 7 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.847Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation fix-template-colors.ts",
+      "status": "success",
+      "details": "211 lignes, 0 imports, 0 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.849Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation macon-neo-bauhaus.ts",
+      "status": "success",
+      "details": "1756 lignes, 0 imports, 1 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.852Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation macon-ultra-modern.ts",
+      "status": "success",
+      "details": "1197 lignes, 0 imports, 8 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.856Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation menuisier-artisan-modulaire.ts",
+      "status": "success",
+      "details": "704 lignes, 3 imports, 5 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.857Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation menuisier-brutalist-moderne.ts",
+      "status": "success",
+      "details": "1526 lignes, 0 imports, 1 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.860Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation menuisier-split-screen.ts",
+      "status": "success",
+      "details": "650 lignes, 0 imports, 10 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.860Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation modern-tech-english.ts",
+      "status": "success",
+      "details": "1890 lignes, 4 imports, 22 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.862Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation paysagiste-nature-organic-modulaire-pro.ts",
+      "status": "success",
+      "details": "2045 lignes, 2 imports, 14 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.870Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation paysagiste-nature-organic-modulaire.ts",
+      "status": "success",
+      "details": "1685 lignes, 2 imports, 13 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.873Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation paysagiste-nature-organic.ts",
+      "status": "success",
+      "details": "3645 lignes, 0 imports, 19 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.877Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation plombier-magazine-style.ts",
+      "status": "success",
+      "details": "1541 lignes, 0 imports, 9 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.879Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation plombier-neomorphique-soft.ts",
+      "status": "success",
+      "details": "1617 lignes, 0 imports, 1 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.881Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation plombier-urgence-modulaire.ts",
+      "status": "success",
+      "details": "677 lignes, 3 imports, 4 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.882Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation plombier-urgence-premium-modulaire.ts",
+      "status": "success",
+      "details": "1823 lignes, 3 imports, 7 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.885Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation sydney-ultra-premium.ts",
+      "status": "success",
+      "details": "2429 lignes, 4 imports, 24 méthodes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.886Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Validation types.ts",
+      "status": "warning",
+      "details": "Structure incomplète",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: generateHomePage",
+      "status": "warning",
+      "details": "Non trouvée",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: generateHomePageInternal",
+      "status": "warning",
+      "details": "Non trouvée",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: generateNavigation",
+      "status": "warning",
+      "details": "Non trouvée",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: generateNavigationHTML",
+      "status": "warning",
+      "details": "Non trouvée",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: generateFooter",
+      "status": "warning",
+      "details": "Non trouvée",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: getConfig",
+      "status": "warning",
+      "details": "Non trouvée",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: analyzeStructure",
+      "status": "warning",
+      "details": "Non trouvée",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: generateHomePage",
+      "status": "success",
+      "details": "Présente",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: generateHomePageInternal",
+      "status": "success",
+      "details": "Présente",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: generateNavigation",
+      "status": "success",
+      "details": "Présente",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: generateNavigationHTML",
+      "status": "success",
+      "details": "Présente",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: generateFooter",
+      "status": "success",
+      "details": "Présente",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: getConfig",
+      "status": "success",
+      "details": "Présente",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Base: analyzeStructure",
+      "status": "success",
+      "details": "Présente",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "Templates",
+      "test": "Synthèse templates",
+      "status": "success",
+      "details": "8 modulaires, 22 non-modulaires, 6 backups",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.887Z",
+      "duration": 0
+    },
+    {
+      "category": "CMS",
+      "test": "cms-injector.service.ts",
+      "status": "success",
+      "details": "16.63 KB, Supabase, Partiel",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.931Z",
+      "duration": 0
+    },
+    {
+      "category": "CMS",
+      "test": "supabase-cms.service.ts",
+      "status": "success",
+      "details": "11.09 KB, Supabase, Partiel",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.932Z",
+      "duration": 0
+    },
+    {
+      "category": "CMS",
+      "test": "cms-integration.service.ts",
+      "status": "success",
+      "details": "18.77 KB, Supabase, Partiel",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.932Z",
+      "duration": 0
+    },
+    {
+      "category": "CMS",
+      "test": "cms-template-bridge.service.ts",
+      "status": "success",
+      "details": "12.94 KB, Supabase, Partiel",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.932Z",
+      "duration": 0
+    },
+    {
+      "category": "CMS",
+      "test": "cms-export-integration.ts",
+      "status": "success",
+      "details": "36.29 KB, Supabase, Partiel",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.932Z",
+      "duration": 0
+    },
+    {
+      "category": "CMS",
+      "test": "cms-page-editor.ts",
+      "status": "success",
+      "details": "28.89 KB, Local, Partiel",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.932Z",
+      "duration": 0
+    },
+    {
+      "category": "CMS",
+      "test": "cms-page-editor-enhanced.ts",
+      "status": "success",
+      "details": "44.31 KB, Local, Partiel",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.933Z",
+      "duration": 0
+    },
+    {
+      "category": "CMS",
+      "test": "cms-page-editor-simple.ts",
+      "status": "success",
+      "details": "18.34 KB, Supabase, Partiel",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.933Z",
+      "duration": 0
+    },
+    {
+      "category": "CMS",
+      "test": "cms-standalone.ts",
+      "status": "success",
+      "details": "30.05 KB, Local, CRUD",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.933Z",
+      "duration": 0
+    },
+    {
+      "category": "CMS",
+      "test": "cms-adapter.ts",
+      "status": "success",
+      "details": "3.74 KB, Supabase, Partiel",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.933Z",
+      "duration": 0
+    },
+    {
+      "category": "CMS",
+      "test": "cms-central-api.ts",
+      "status": "success",
+      "details": "1.23 KB, Local, Partiel",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.934Z",
+      "duration": 0
+    },
+    {
+      "category": "CMS",
+      "test": "Configuration Supabase",
+      "status": "warning",
+      "details": "Placeholders détectés",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.934Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "netlify-deploy-correct.service.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.963Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "netlify-deploy-real.service.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.964Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "netlify-deploy-working.service.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.964Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "static-export-simplified.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.964Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "export-service-fixed.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.964Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "auto-deploy.service.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.964Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "netlify-functions-generator.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.964Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "netlify-edge-functions.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.964Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "netlify-functions-supabase.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.964Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "Build command",
+      "status": "success",
+      "details": "Configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.965Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "Publish directory",
+      "status": "success",
+      "details": "Configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.965Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "Functions",
+      "status": "success",
+      "details": "Configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.965Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "Node version",
+      "status": "success",
+      "details": "Configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.965Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "Headers sécurité",
+      "status": "success",
+      "details": "Configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.965Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "Cache headers",
+      "status": "success",
+      "details": "Configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.965Z",
+      "duration": 0
+    },
+    {
+      "category": "Déploiement",
+      "test": "Redirections",
+      "status": "success",
+      "details": "Configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:37.965Z",
+      "duration": 0
+    },
+    {
+      "category": "API",
+      "test": "Serveur",
+      "status": "error",
+      "details": "Non accessible - Démarrez avec npm run dev",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:38.051Z",
+      "duration": 0
+    },
+    {
+      "category": "Build",
+      "test": "TypeScript",
+      "status": "error",
+      "details": "Command failed: npm run type-check\nturbo 2.5.4\n\n@awema/ai:type-check: ERROR: command finished with e",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:41.793Z",
+      "duration": 0
+    },
+    {
+      "category": "Build",
+      "test": "ESLint",
+      "status": "warning",
+      "details": "1 erreurs, 0 warnings",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:10:46.821Z",
+      "duration": 0
+    },
+    {
+      "category": "Build",
+      "test": "Prettier",
+      "status": "warning",
+      "details": "Formatage nécessaire",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:16.167Z",
+      "duration": 0
+    },
+    {
+      "category": "Build",
+      "test": "Next.js build",
+      "status": "error",
+      "details": "Échec après 3.8s",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:19.939Z",
+      "duration": 0
+    },
+    {
+      "category": "Performance",
+      "test": "Répertoire public",
+      "status": "success",
+      "details": "8.01 MB (174 fichiers)",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:19.953Z",
+      "duration": 0
+    },
+    {
+      "category": "Performance",
+      "test": "Répertoire lib/services",
+      "status": "success",
+      "details": "2.28 MB (133 fichiers)",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:19.962Z",
+      "duration": 0
+    },
+    {
+      "category": "Performance",
+      "test": "Répertoire lib/templates",
+      "status": "error",
+      "details": "4.46 MB (181 fichiers) - Dépasse limite",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:19.974Z",
+      "duration": 0
+    },
+    {
+      "category": "Performance",
+      "test": "Répertoire .next",
+      "status": "success",
+      "details": "1.88 MB (7 fichiers)",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:19.987Z",
+      "duration": 0
+    },
+    {
+      "category": "Performance",
+      "test": "Répertoire node_modules",
+      "status": "success",
+      "details": "109.43 KB (29 fichiers)",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.005Z",
+      "duration": 0
+    },
+    {
+      "category": "Performance",
+      "test": "Répertoire components",
+      "status": "success",
+      "details": "964.08 KB (79 fichiers)",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.030Z",
+      "duration": 0
+    },
+    {
+      "category": "Performance",
+      "test": "Répertoire styles",
+      "status": "success",
+      "details": "8.07 KB (2 fichiers)",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.042Z",
+      "duration": 0
+    },
+    {
+      "category": "Performance",
+      "test": "Mémoire Node.js",
+      "status": "info",
+      "details": "Heap: 6.45 MB/7.67 MB, RSS: 79.97 MB",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.043Z",
+      "duration": 0
+    },
+    {
+      "category": "Performance",
+      "test": "Uptime processus",
+      "status": "info",
+      "details": "0.7 minutes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.043Z",
+      "duration": 0
+    },
+    {
+      "category": "Database",
+      "test": "Schema Prisma",
+      "status": "success",
+      "details": "15 modèles, 7 enums, 18 relations, 30 index",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.100Z",
+      "duration": 0
+    },
+    {
+      "category": "Database",
+      "test": "Modèle User",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.100Z",
+      "duration": 0
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Client",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.100Z",
+      "duration": 0
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Project",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.100Z",
+      "duration": 0
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Content",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.100Z",
+      "duration": 0
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Media",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.101Z",
+      "duration": 0
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Template",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.101Z",
+      "duration": 0
+    },
+    {
+      "category": "Database",
+      "test": "Fichier SQLite",
+      "status": "success",
+      "details": "6.57 MB",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.101Z",
+      "duration": 0
+    },
+    {
+      "category": "Database",
+      "test": "Test SQLite",
+      "status": "error",
+      "details": "Command failed: sqlite3 /home/Ganyc/Desktop/awema/",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.107Z",
+      "duration": 0
+    },
+    {
+      "category": "Database",
+      "test": "Migrations",
+      "status": "success",
+      "details": "4 migrations",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.108Z",
+      "duration": 0
+    },
+    {
+      "category": "Database",
+      "test": "Dernière migration",
+      "status": "success",
+      "details": "migration_lock.toml",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.108Z",
+      "duration": 0
+    },
+    {
+      "category": "Sécurité",
+      "test": ".env.example",
+      "status": "success",
+      "details": "Pas de clés sensibles",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.109Z",
+      "duration": 0
+    },
+    {
+      "category": "Sécurité",
+      "test": "Variables env",
+      "status": "warning",
+      "details": "10 placeholders détectés",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.109Z",
+      "duration": 0
+    },
+    {
+      "category": "Sécurité",
+      "test": "Header X-Frame-Options",
+      "status": "warning",
+      "details": "Non configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.110Z",
+      "duration": 0
+    },
+    {
+      "category": "Sécurité",
+      "test": "Header X-Content-Type-Options",
+      "status": "warning",
+      "details": "Non configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.110Z",
+      "duration": 0
+    },
+    {
+      "category": "Sécurité",
+      "test": "Header X-XSS-Protection",
+      "status": "warning",
+      "details": "Non configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.110Z",
+      "duration": 0
+    },
+    {
+      "category": "Sécurité",
+      "test": "Header Referrer-Policy",
+      "status": "warning",
+      "details": "Non configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.110Z",
+      "duration": 0
+    },
+    {
+      "category": "Sécurité",
+      "test": "Header Content-Security-Policy",
+      "status": "warning",
+      "details": "Non configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.110Z",
+      "duration": 0
+    },
+    {
+      "category": "Sécurité",
+      "test": "Header Permissions-Policy",
+      "status": "warning",
+      "details": "Non configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.110Z",
+      "duration": 0
+    },
+    {
+      "category": "Sécurité",
+      "test": "Auth: auth.ts",
+      "status": "info",
+      "details": "Non implémenté",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.111Z",
+      "duration": 0
+    },
+    {
+      "category": "Sécurité",
+      "test": "Auth: auth.service.ts",
+      "status": "info",
+      "details": "Non implémenté",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.111Z",
+      "duration": 0
+    },
+    {
+      "category": "Sécurité",
+      "test": "Auth: middleware.ts",
+      "status": "info",
+      "details": "Non implémenté",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.111Z",
+      "duration": 0
+    },
+    {
+      "category": "Sécurité",
+      "test": "Auth: route.ts",
+      "status": "info",
+      "details": "Non implémenté",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.111Z",
+      "duration": 0
+    },
+    {
+      "category": "Dépendances",
+      "test": "Package.json",
+      "status": "success",
+      "details": "4 deps, 19 devDeps, 18 scripts",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.148Z",
+      "duration": 0
+    },
+    {
+      "category": "Dépendances",
+      "test": "next",
+      "status": "warning",
+      "details": "Non trouvé",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.148Z",
+      "duration": 0
+    },
+    {
+      "category": "Dépendances",
+      "test": "react",
+      "status": "warning",
+      "details": "Non trouvé",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.148Z",
+      "duration": 0
+    },
+    {
+      "category": "Dépendances",
+      "test": "typescript",
+      "status": "success",
+      "details": "^5.4.5",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.148Z",
+      "duration": 0
+    },
+    {
+      "category": "Dépendances",
+      "test": "prisma",
+      "status": "warning",
+      "details": "Non trouvé",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.148Z",
+      "duration": 0
+    },
+    {
+      "category": "Dépendances",
+      "test": "@prisma/client",
+      "status": "warning",
+      "details": "Non trouvé",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.148Z",
+      "duration": 0
+    },
+    {
+      "category": "Dépendances",
+      "test": "Audit npm",
+      "status": "skipped",
+      "details": "Non disponible",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:20.661Z",
+      "duration": 0
+    },
+    {
+      "category": "Dépendances",
+      "test": "Packages obsolètes",
+      "status": "success",
+      "details": "Tous à jour",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.529Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie html-generation",
+      "status": "success",
+      "details": "37 services, 969.90 KB, 27704 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.576Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie cms",
+      "status": "success",
+      "details": "20 services, 382.31 KB, 13298 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.576Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie deploy",
+      "status": "success",
+      "details": "25 services, 183.82 KB, 6398 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.576Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie ai-content",
+      "status": "success",
+      "details": "6 services, 101.32 KB, 2643 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.576Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie seo",
+      "status": "success",
+      "details": "2 services, 26.51 KB, 865 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.576Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie workflow",
+      "status": "success",
+      "details": "1 services, 17.55 KB, 518 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.576Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie analytics",
+      "status": "success",
+      "details": "1 services, 10.80 KB, 393 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.576Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie media",
+      "status": "success",
+      "details": "2 services, 10.66 KB, 402 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.576Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie other",
+      "status": "success",
+      "details": "30 services, 390.75 KB, 12226 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.576Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Critique: site-generator.service.ts",
+      "status": "success",
+      "details": "48.73 KB, 1439 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.577Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Critique: ultra-html-generator.service.ts",
+      "status": "success",
+      "details": "121.05 KB, 2812 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.577Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Critique: static-export-simplified.ts",
+      "status": "success",
+      "details": "938 B, 32 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.577Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Critique: netlify-deploy-correct.service.ts",
+      "status": "success",
+      "details": "16.28 KB, 476 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.577Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Critique: cms-injector.service.ts",
+      "status": "success",
+      "details": "16.63 KB, 553 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.578Z",
+      "duration": 0
+    },
+    {
+      "category": "Services",
+      "test": "Critique: supabase-cms.service.ts",
+      "status": "success",
+      "details": "11.09 KB, 422 lignes",
+      "metadata": {},
+      "timestamp": "2025-09-11T10:11:34.578Z",
+      "duration": 0
+    }
+  ],
+  "performance": [
+    {
+      "name": "Build",
+      "duration": 41887,
+      "memoryUsed": -2743712,
+      "timestamp": "2025-09-11T10:11:19.939Z"
+    },
+    {
+      "name": "Dependencies",
+      "duration": 14383,
+      "memoryUsed": 373408,
+      "timestamp": "2025-09-11T10:11:34.530Z"
+    },
+    {
+      "name": "Performance",
+      "duration": 160,
+      "memoryUsed": 486376,
+      "timestamp": "2025-09-11T10:11:20.099Z"
+    },
+    {
+      "name": "Templates",
+      "duration": 110,
+      "memoryUsed": 1439784,
+      "timestamp": "2025-09-11T10:10:37.931Z"
+    },
+    {
+      "name": "APIs",
+      "duration": 53,
+      "memoryUsed": 107072,
+      "timestamp": "2025-09-11T10:10:38.052Z"
+    },
+    {
+      "name": "Services",
+      "duration": 48,
+      "memoryUsed": 1092184,
+      "timestamp": "2025-09-11T10:11:34.578Z"
+    },
+    {
+      "name": "Security",
+      "duration": 39,
+      "memoryUsed": 386920,
+      "timestamp": "2025-09-11T10:11:20.147Z"
+    },
+    {
+      "name": "Deployment",
+      "duration": 37,
+      "memoryUsed": 162968,
+      "timestamp": "2025-09-11T10:10:37.999Z"
+    },
+    {
+      "name": "CMS",
+      "duration": 31,
+      "memoryUsed": 886616,
+      "timestamp": "2025-09-11T10:10:37.962Z"
+    },
+    {
+      "name": "Database",
+      "duration": 9,
+      "memoryUsed": -538440,
+      "timestamp": "2025-09-11T10:11:20.108Z"
+    }
+  ],
+  "coverage": {
+    "templates": 78,
+    "services": 100,
+    "api": 0,
+    "cms": 92,
+    "deployment": 0,
+    "security": 0,
+    "performance": 67,
+    "database": 91,
+    "dependencies": 0,
+    "build": 0,
+    "déploiement": 100,
+    "sécurité": 8,
+    "dépendances": 38
+  },
+  "globalScore": 73,
+  "verdict": "🟡 CORRECT - Améliorations nécessaires"
+}

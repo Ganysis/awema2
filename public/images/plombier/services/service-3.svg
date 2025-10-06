@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#E3F2FD"/>
+
+  <!-- Baignoire -->
+  <ellipse cx="200" cy="150" rx="120" ry="60" fill="#0066CC"/>
+  <ellipse cx="200" cy="140" rx="110" ry="50" fill="#1976D2"/>
+  <ellipse cx="200" cy="140" rx="100" ry="40" fill="#64B5F6"/>
+
+  <!-- Robinet -->
+  <rect x="195" y="80" width="10" height="40" fill="#90CAF9"/>
+  <circle cx="200" cy="75" r="15" fill="#1976D2"/>
+  <rect x="190" y="70" width="20" height="5" fill="#90CAF9"/>
+
+  <!-- Eau -->
+  <path d="M200 120 Q210 130, 200 140 Q190 130, 200 120" fill="#2196F3" opacity="0.6"/>
+
+  <!-- Pieds de baignoire -->
+  <rect x="90" y="180" width="10" height="30" fill="#455A64"/>
+  <rect x="300" y="180" width="10" height="30" fill="#455A64"/>
+
+  <!-- Texte -->
+  <text x="200" y="260" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#0066CC" text-anchor="middle">
+    Rénovation Salle de Bain
+  </text>
+</svg>

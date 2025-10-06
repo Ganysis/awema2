@@ -1,0 +1,128 @@
+---
+export interface Props {
+  name?: string;
+  description?: string;
+  url?: string;
+  logo?: string;
+  telephone?: string;
+  email?: string;
+  address?: {
+    streetAddress?: string;
+    addressLocality?: string;
+    postalCode?: string;
+    addressRegion?: string;
+    addressCountry?: string;
+  };
+  founder?: string;
+  foundingDate?: string;
+  numberOfEmployees?: string;
+}
+
+const {
+  name = "AWEMA",
+  description = "AWEMA - Création de sites web pour artisans BTP. Consultant en portage salarial spécialisé dans le digital pour le secteur du bâtiment.",
+  url = "https://awema.fr",
+  logo = "https://awema.fr/images/awema-logo.png",
+  telephone = "06.17.54.03.83",
+  email = "contact@awema.fr",
+  address = {
+    streetAddress: "236 Chemin d'Aix",
+    addressLocality: "Velaux",
+    postalCode: "13880",
+    addressRegion: "Provence-Alpes-Côte d'Azur",
+    addressCountry: "FR"
+  },
+  founder = "Clément LO CRICCHIO",
+  foundingDate = "2023-01-01",
+  numberOfEmployees = "1"
+} = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${url}#organization`,
+  name,
+  alternateName: "AWEMA Agency",
+  description,
+  url,
+  logo: {
+    "@type": "ImageObject",
+    url: logo,
+    width: "160",
+    height: "48"
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone,
+    email,
+    contactType: "customer service",
+    areaServed: "FR",
+    availableLanguage: ["French", "English"]
+  },
+  address: {
+    "@type": "PostalAddress",
+    ...address
+  },
+  founder: {
+    "@type": "Person",
+    name: founder
+  },
+  foundingDate,
+  numberOfEmployees: {
+    "@type": "QuantitativeValue",
+    value: numberOfEmployees
+  },
+  slogan: "Sites Web qui Convertissent pour le BTP",
+  knowsAbout: [
+    "Création de sites web",
+    "Marketing digital BTP",
+    "Référencement local",
+    "Sites internet artisans",
+    "Conversion optimization",
+    "Web design BTP"
+  ],
+  sameAs: [
+    "https://www.facebook.com/awema",
+    "https://www.linkedin.com/company/awema",
+    "https://twitter.com/awema_fr",
+    "https://www.instagram.com/awema_agency"
+  ],
+  makesOffer: [
+    {
+      "@type": "Offer",
+      name: "Site Vitrine Pro",
+      description: "Site web professionnel pour artisans - 5 à 10 pages",
+      price: "2000",
+      priceCurrency: "EUR"
+    },
+    {
+      "@type": "Offer",
+      name: "Site Premium",
+      description: "Site web premium avec fonctionnalités avancées - 20+ pages",
+      price: "4000",
+      priceCurrency: "EUR"
+    },
+    {
+      "@type": "Offer",
+      name: "Site Sur Mesure",
+      description: "Solution web personnalisée pour entreprises BTP",
+      price: "8000",
+      priceCurrency: "EUR"
+    }
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    reviewCount: "127",
+    bestRating: "5",
+    worstRating: "1"
+  },
+  award: [
+    "Meilleure Agence Web BTP 2024",
+    "Expert Certifié Google Ads",
+    "Partenaire Premium Cloudflare"
+  ]
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

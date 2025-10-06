@@ -1,0 +1,25 @@
+---
+const { title = "Prêt à dominer Google dans votre zone ?", subtitle = "Rejoignez 300+ artisans qui cartonnent grâce à AWEMA" } = Astro.props;
+---
+
+<section class="section bg-gradient-to-r from-primary to-purple-600 text-white">
+  <div class="container">
+    <div class="row justify-center text-center">
+      <div class="lg:col-10">
+        <h2 class="text-white mb-4">{title}</h2>
+        <p class="text-xl mb-8 opacity-90">{subtitle}</p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="/contact" class="btn btn-white btn-lg">
+            Demander une Démo Gratuite
+          </a>
+          <a href="tel:0617540383" class="btn btn-outline-white btn-lg">
+            📞 06.17.54.03.83
+          </a>
+        </div>
+        <p class="mt-6 text-sm opacity-75">
+          ⚡ Réponse en 2h • Site livré en 7 jours • Satisfait ou refait
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,36 @@
+---
+import BlogCard from "@/components/BlogCard.astro";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+
+const { data } = (await getEntry("blog", "-index")) as CollectionEntry<"blog">;
+const { banner } = data;
+const posts = await getSinglePage("blog");
+---
+
+<Base>
+  <PageHeader title="Blog" />
+  <section class="section" data-aos="fade-in" data-aos-delay="150">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-6 md:col-7 text-center mb-5">
+          <h2 class="mb-4" set:html={markdownify(banner?.title!)} />
+          <p set:html={markdownify(banner?.description!)} />
+        </div>
+      </div>
+      <div class="row mt-8 lg:mt-11 justify-center items-center">
+        {
+          posts.map((post) => (
+            <div class="lg:col-4 md:col-6 mb-5">
+              <BlogCard post={post} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

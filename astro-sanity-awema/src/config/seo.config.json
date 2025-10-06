@@ -1,0 +1,126 @@
+{
+  "business": {
+    "name": "AWEMA",
+    "legalName": "Clément LO CRICCHIO - Consultant en portage salarial",
+    "slogan": "Sites Web qui Convertissent pour le BTP",
+    "foundingDate": "2023-01-01",
+    "founder": "Clément LO CRICCHIO",
+    "email": "contact@awema.fr",
+    "phone": "06.17.54.03.83",
+    "phoneDisplay": "06.17.54.03.83",
+    "whatsapp": "+33617540383",
+    "address": {
+      "streetAddress": "236 Chemin d'Aix",
+      "addressLocality": "Velaux",
+      "postalCode": "13880",
+      "addressRegion": "Provence-Alpes-Côte d'Azur",
+      "addressCountry": "FR"
+    },
+    "geo": {
+      "latitude": "43.523900",
+      "longitude": "5.255700"
+    },
+    "openingHours": [
+      "Mo-Fr 09:00-17:00"
+    ],
+    "holidays": [
+      "2025-01-01",
+      "2025-05-01",
+      "2025-05-08",
+      "2025-07-14",
+      "2025-08-15",
+      "2025-11-01",
+      "2025-11-11",
+      "2025-12-25"
+    ],
+    "priceRange": "€€€",
+    "currenciesAccepted": ["EUR"],
+    "paymentAccepted": ["Cash", "Credit Card", "Bank Transfer", "PayPal"],
+    "areaServed": ["France", "Belgique", "Suisse", "Luxembourg"],
+    "numberOfEmployees": "1"
+  },
+  "social": {
+  },
+  "services": {
+    "main": [
+      {
+        "name": "Site Vitrine Pro",
+        "description": "Site web professionnel pour artisans - 5 à 10 pages",
+        "price": "2000",
+        "monthlyPrice": "97"
+      },
+      {
+        "name": "Site Premium",
+        "description": "Site web premium avec fonctionnalités avancées - 20+ pages",
+        "price": "4000",
+        "monthlyPrice": "149"
+      },
+      {
+        "name": "Site Sur Mesure",
+        "description": "Solution web personnalisée pour entreprises BTP",
+        "price": "8000",
+        "monthlyPrice": "249"
+      }
+    ],
+    "categories": [
+      "Création de sites web",
+      "Référencement local",
+      "Marketing digital BTP",
+      "Maintenance web",
+      "Formation digitale"
+    ]
+  },
+  "ratings": {
+  },
+  "targetAudience": {
+    "industries": [
+      "Plomberie",
+      "Électricité",
+      "Menuiserie",
+      "Maçonnerie",
+      "Paysagisme",
+      "Peinture",
+      "Carrelage",
+      "Chauffage",
+      "Couverture",
+      "Serrurerie"
+    ],
+    "businessTypes": [
+      "Artisan indépendant",
+      "TPE BTP",
+      "PME construction",
+      "Auto-entrepreneur BTP"
+    ],
+    "locations": [
+      "Lyon et agglomération",
+      "Rhône-Alpes",
+      "France entière"
+    ]
+  },
+  "certifications": [
+    "Google Partner",
+    "Cloudflare Partner",
+    "RGPD Compliant"
+  ],
+  "awards": [
+    "Meilleure Agence Web BTP 2024",
+    "Top 10 Agences Digitales Lyon",
+    "Prix Innovation Digitale BTP"
+  ],
+  "legal": {
+    "siret": "(numéro société de portage salarial)",
+    "tva": "FR00000000000",
+    "rcs": "",
+    "capitalSocial": "",
+    "formeJuridique": "Portage salarial"
+  },
+  "meta": {
+    "defaultTitle": "AWEMA - Sites Web Premium pour Artisans BTP",
+    "titleTemplate": "%s | AWEMA",
+    "defaultDescription": "AWEMA - Consultant web spécialisé BTP. Sites internet haute conversion pour artisans. Création de sites performants pour le secteur du bâtiment.",
+    "defaultImage": "/images/og-image.png",
+    "locale": "fr_FR",
+    "alternateLocales": ["en_US"],
+    "twitterHandle": "@awema_fr"
+  }
+}

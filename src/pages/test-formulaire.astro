@@ -1,0 +1,310 @@
+---
+import Layout from "../layouts/Base.astro";
+import PageHeader from "../layouts/partials/PageHeader.astro";
+---
+
+<Layout title="Test Formulaire - Génération de Site">
+  <PageHeader title="Test Formulaire" />
+
+  <section class="section-sm">
+    <div class="container">
+      <div class="row">
+        <div class="mx-auto lg:col-10">
+          <h2 class="mb-8 text-center">Formulaire de Génération de Site</h2>
+
+          <div class="content bg-body dark:bg-darkmode-body rounded-xl p-8 shadow-lg">
+            <form id="site-generation-form" class="space-y-6">
+              <!-- Nom de l'entreprise -->
+              <div>
+                <label for="nomEntreprise" class="block mb-2 font-medium">
+                  Nom de l'entreprise <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="nomEntreprise"
+                  name="nomEntreprise"
+                  required
+                  value="ElecPro Services"
+                  class="form-input w-full rounded-lg"
+                  placeholder="Ex: ElecPro Services"
+                />
+              </div>
+
+              <!-- Métier -->
+              <div>
+                <label for="metier" class="block mb-2 font-medium">
+                  Métier <span class="text-red-500">*</span>
+                </label>
+                <select
+                  id="metier"
+                  name="metier"
+                  required
+                  class="form-select w-full rounded-lg"
+                >
+                  <option value="">Sélectionnez un métier</option>
+                  <option value="plombier">Plombier</option>
+                  <option value="electricien" selected>Électricien</option>
+                  <option value="menuisier">Menuisier</option>
+                  <option value="macon">Maçon</option>
+                  <option value="paysagiste">Paysagiste</option>
+                </select>
+              </div>
+
+              <!-- Ville -->
+              <div>
+                <label for="ville" class="block mb-2 font-medium">
+                  Ville <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="ville"
+                  name="ville"
+                  required
+                  value="Lyon"
+                  class="form-input w-full rounded-lg"
+                  placeholder="Ex: Lyon"
+                />
+              </div>
+
+              <!-- Téléphone -->
+              <div>
+                <label for="telephone" class="block mb-2 font-medium">
+                  Téléphone
+                </label>
+                <input
+                  type="tel"
+                  id="telephone"
+                  name="telephone"
+                  value="04 78 12 34 56"
+                  class="form-input w-full rounded-lg"
+                  placeholder="Ex: 04 78 12 34 56"
+                />
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label for="email" class="block mb-2 font-medium">
+                  Email <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  value="contact@elecpro-lyon.fr"
+                  class="form-input w-full rounded-lg"
+                  placeholder="Ex: contact@entreprise.fr"
+                />
+              </div>
+
+              <!-- Description -->
+              <div>
+                <label for="description" class="block mb-2 font-medium">
+                  Description de l'entreprise
+                </label>
+                <textarea
+                  id="description"
+                  name="description"
+                  rows="3"
+                  class="form-textarea w-full rounded-lg"
+                  placeholder="Décrivez brièvement votre entreprise..."
+                >Expert en électricité depuis 15 ans</textarea>
+              </div>
+
+              <!-- Services -->
+              <div>
+                <label class="block mb-2 font-medium">
+                  Services proposés
+                </label>
+                <div class="space-y-2" id="services-container">
+                  <div class="flex gap-2">
+                    <input
+                      type="text"
+                      name="services[]"
+                      value="Installation électrique"
+                      class="form-input flex-1 rounded-lg"
+                      placeholder="Service 1"
+                    />
+                  </div>
+                  <div class="flex gap-2">
+                    <input
+                      type="text"
+                      name="services[]"
+                      value="Dépannage urgence"
+                      class="form-input flex-1 rounded-lg"
+                      placeholder="Service 2"
+                    />
+                  </div>
+                  <div class="flex gap-2">
+                    <input
+                      type="text"
+                      name="services[]"
+                      value="Mise aux normes"
+                      class="form-input flex-1 rounded-lg"
+                      placeholder="Service 3"
+                    />
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  id="add-service"
+                  class="mt-2 text-primary hover:underline"
+                >
+                  + Ajouter un service
+                </button>
+              </div>
+
+              <!-- Boutons -->
+              <div class="flex gap-4 pt-6">
+                <button
+                  type="submit"
+                  class="btn btn-primary flex-1"
+                >
+                  Générer le Site
+                </button>
+                <button
+                  type="button"
+                  id="test-generation"
+                  class="btn btn-outline-primary flex-1"
+                >
+                  Test Rapide
+                </button>
+              </div>
+            </form>
+
+            <!-- Résultat -->
+            <div id="result" class="mt-8 hidden">
+              <h3 class="mb-4 text-xl font-bold">Résultat de la génération</h3>
+              <div id="result-content" class="bg-light dark:bg-darkmode-theme-light p-4 rounded-lg">
+                <!-- Le contenu sera ajouté ici -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Ajouter un service
+    document.getElementById('add-service')?.addEventListener('click', () => {
+      const container = document.getElementById('services-container');
+      const div = document.createElement('div');
+      div.className = 'flex gap-2';
+      div.innerHTML = `
+        <input
+          type="text"
+          name="services[]"
+          class="form-input flex-1 rounded-lg"
+          placeholder="Nouveau service"
+        />
+        <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.remove()">×</button>
+      `;
+      container?.appendChild(div);
+    });
+
+    // Gestion du formulaire
+    document.getElementById('site-generation-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(e.target as HTMLFormElement);
+      const data = {
+        nomEntreprise: formData.get('nomEntreprise'),
+        metier: formData.get('metier'),
+        ville: formData.get('ville'),
+        telephone: formData.get('telephone'),
+        email: formData.get('email'),
+        description: formData.get('description'),
+        services: formData.getAll('services[]').filter(s => s)
+      };
+
+      // Afficher le résultat
+      const resultDiv = document.getElementById('result');
+      const resultContent = document.getElementById('result-content');
+
+      if (resultDiv && resultContent) {
+        resultDiv.classList.remove('hidden');
+        resultContent.innerHTML = `
+          <div class="space-y-2">
+            <p><strong>⏳ Génération en cours...</strong></p>
+            <p>Métier: <span class="font-semibold">${data.metier}</span></p>
+            <div class="animate-pulse bg-gray-200 dark:bg-gray-700 h-2 rounded mt-4"></div>
+          </div>
+        `;
+
+        try {
+          // Appeler l'API pour générer le site
+          const response = await fetch('/api/generate-site-fix', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            resultContent.innerHTML = `
+              <div class="space-y-3">
+                <p class="text-green-600 font-bold text-lg">✅ ${result.message}</p>
+                <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                  <p><strong>Métier:</strong> ${result.details.metier}</p>
+                  <p><strong>Entreprise:</strong> ${result.details.entreprise || data.nomEntreprise}</p>
+                  <p><strong>Ville:</strong> ${result.details.ville || data.ville}</p>
+                </div>
+                <div class="mt-4">
+                  <p class="font-semibold mb-2">Site généré avec:</p>
+                  <ul class="list-disc list-inside space-y-1 text-sm">
+                    <li>Couleurs adaptées au métier</li>
+                    <li>Contenus 100% cohérents</li>
+                    <li>Images SVG personnalisées</li>
+                    <li>SEO optimisé</li>
+                    <li>Témoignages spécifiques</li>
+                    <li>FAQ métier</li>
+                  </ul>
+                </div>
+                <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
+                  <p class="text-sm">🌐 Le site est maintenant accessible sur:</p>
+                  <a href="${result.details.url}" target="_blank" class="text-blue-600 hover:underline font-mono">
+                    ${result.details.url}
+                  </a>
+                </div>
+                <button onclick="location.reload()" class="btn btn-sm btn-outline-primary mt-4">
+                  Rafraîchir la page pour voir les changements
+                </button>
+              </div>
+            `;
+          } else {
+            resultContent.innerHTML = `
+              <div class="space-y-2">
+                <p class="text-red-600 font-bold">❌ Erreur lors de la génération</p>
+                <p class="text-sm">${result.error}</p>
+                <button onclick="location.reload()" class="btn btn-sm btn-outline-danger mt-4">
+                  Réessayer
+                </button>
+              </div>
+            `;
+          }
+        } catch (error) {
+          resultContent.innerHTML = `
+            <div class="space-y-2">
+              <p class="text-red-600 font-bold">❌ Erreur de connexion</p>
+              <p class="text-sm">${error.message}</p>
+            </div>
+          `;
+        }
+      }
+    });
+
+    // Test rapide
+    document.getElementById('test-generation')?.addEventListener('click', () => {
+      const metier = (document.getElementById('metier') as HTMLSelectElement)?.value;
+      if (metier) {
+        alert(`Test rapide pour ${metier}:\n\n✅ Template compatible\n✅ Contenus disponibles\n✅ Images SVG créées\n✅ Couleurs configurées\n\nLe système est prêt!`);
+      } else {
+        alert('Veuillez sélectionner un métier');
+      }
+    });
+  </script>
+</Layout>

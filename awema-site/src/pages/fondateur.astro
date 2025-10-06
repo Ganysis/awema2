@@ -1,0 +1,367 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { Image } from "astro:assets";
+
+const meta = {
+  title: "Yann, Fondateur AWEMA - Co-gérant BTP devenu expert digital",
+  description: "Découvrez comment Yann, co-gérant d'une entreprise BTP, a multiplié son CA par 10 grâce au digital et aide aujourd'hui 300+ artisans.",
+};
+
+const timeline = [
+  { year: "2015", event: "Co-gérant entreprise BTP (10 salariés)", detail: "Carnet de commandes vide, 3 avis Google" },
+  { year: "2017", event: "Découverte du marketing digital", detail: "Formation SEO + Google Ads en autodidacte" },
+  { year: "2019", event: "100 avis Google atteints", detail: "Position #1 sur ma ville, CA x3" },
+  { year: "2021", event: "CA multiplié par 10", detail: "35 salariés, leader régional" },
+  { year: "2023", event: "Création d'AWEMA", detail: "Pour aider les artisans à réussir" },
+  { year: "2025", event: "300+ clients accompagnés", detail: "3847 prospects générés pour nos clients" }
+];
+
+const results = {
+  before: {
+    title: "Mon entreprise BTP en 2015",
+    items: [
+      "3 avis Google (3.5 étoiles)",
+      "Page 3 sur Google",
+      "5 devis par mois",
+      "10 salariés",
+      "Carnet de commandes : 2 mois",
+      "Zone : 1 ville"
+    ]
+  },
+  after: {
+    title: "Mon entreprise BTP aujourd'hui",
+    items: [
+      "237 avis Google (4.9 étoiles)",
+      "Position #1 sur 10 requêtes",
+      "80+ devis par mois",
+      "35 salariés",
+      "Carnet de commandes : 8 mois",
+      "Zone : 1 département entier"
+    ]
+  }
+};
+
+const expertise = [
+  {
+    title: "Co-gérant BTP 10 ans",
+    desc: "Je connais vos défis : devis impayés, clients difficiles, concurrence déloyale, marges serrées..."
+  },
+  {
+    title: "Expert Google My Business",
+    desc: "J'ai hacké GMB avant que ce soit cool. 237 avis authentiques sur ma fiche, position #1 maintenue depuis 4 ans."
+  },
+  {
+    title: "Formateur reconnu",
+    desc: "J'ai formé 500+ artisans au digital. Interventions CMA, FFB, CAPEB. Certification Google Partner."
+  },
+  {
+    title: "Développeur passionné",
+    desc: "Je code mes propres outils. Stack moderne (Astro, React, Node.js). Sites 100/100 PageSpeed."
+  }
+];
+
+const values = [
+  {
+    icon: "🤝",
+    title: "Transparence totale",
+    desc: "Pas de bullshit. Je dis ce qui marche, ce qui ne marche pas. Résultats réels, pas de promesses en l'air."
+  },
+  {
+    icon: "⚡",
+    title: "Rapidité d'exécution",
+    desc: "7 jours pour un site complet. Pourquoi attendre 3 mois ? Le time to market est crucial."
+  },
+  {
+    icon: "📊",
+    title: "Data-driven",
+    desc: "Chaque décision basée sur les données. Analytics, heatmaps, A/B tests. La data ne ment pas."
+  },
+  {
+    icon: "🎯",
+    title: "ROI obsession",
+    desc: "Mon but : que vous récupériez votre investissement en 30 jours. En moyenne, nos clients font x5 en 6 mois."
+  }
+];
+
+const socialProof = [
+  { metric: "300+", label: "Artisans accompagnés" },
+  { metric: "3847", label: "Prospects générés" },
+  { metric: "8726", label: "Avis Google collectés" },
+  { metric: "94%", label: "Taux de satisfaction" }
+];
+---
+
+<Base {...meta}>
+  <PageHeader title="Le Fondateur" />
+
+  <!-- Hero Section -->
+  <section class="section">
+    <div class="container">
+      <div class="row items-center gy-5">
+        <div class="lg:col-6">
+          <div class="relative">
+            <img
+              src="/images/fondateur-yann.jpg"
+              alt="Yann, fondateur AWEMA"
+              class="rounded-lg shadow-lg"
+              width="500"
+              height="600"
+            />
+            <div class="absolute -bottom-4 -right-4 bg-primary text-white p-4 rounded-lg shadow-lg">
+              <div class="text-2xl font-bold">10 ans</div>
+              <div>d'expérience BTP</div>
+            </div>
+          </div>
+        </div>
+        <div class="lg:col-6">
+          <h1 class="mb-6">
+            Salut, moi c'est Yann 👋
+          </h1>
+          <p class="text-lg mb-6">
+            <strong>Co-gérant d'une entreprise BTP depuis 10 ans.</strong><br/>
+            J'ai galéré comme vous. Page 3 sur Google, 3 avis moyens, carnets vides...
+          </p>
+          <p class="mb-6">
+            Puis j'ai découvert le pouvoir du digital. En 2 ans, j'ai multiplié mon CA par 10,
+            passé de 10 à 35 salariés, et dominé Google dans ma région.
+          </p>
+          <p class="mb-6">
+            Aujourd'hui, avec AWEMA, je partage ma méthode avec les artisans qui veulent
+            vraiment réussir. <strong>Pas de blabla marketing, que du concret BTP.</strong>
+          </p>
+          <div class="flex gap-4 flex-wrap">
+            <a href="#mon-histoire" class="btn btn-primary">
+              Découvrir mon histoire
+            </a>
+            <a href="/contact" class="btn btn-outline-primary">
+              Discuter ensemble
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof Bar -->
+  <section class="section bg-primary text-white">
+    <div class="container">
+      <div class="row text-center">
+        {socialProof.map((item) => (
+          <div class="col-6 lg:col-3">
+            <div class="text-3xl font-bold mb-2">{item.metric}</div>
+            <div>{item.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Before/After -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Mes Résultats Concrets en BTP</h2>
+          <p>La preuve que ma méthode fonctionne ? Mon entreprise.</p>
+        </div>
+      </div>
+      <div class="row gy-5">
+        <div class="lg:col-6">
+          <div class="bg-red-50 rounded-lg p-8 h-full">
+            <h3 class="text-red-600 mb-6">❌ {results.before.title}</h3>
+            <ul class="space-y-3">
+              {results.before.items.map((item) => (
+                <li class="flex items-start">
+                  <span class="text-red-500 mr-2">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-6">
+          <div class="bg-green-50 rounded-lg p-8 h-full">
+            <h3 class="text-green-600 mb-6">✅ {results.after.title}</h3>
+            <ul class="space-y-3">
+              {results.after.items.map((item) => (
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section id="mon-histoire" class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Mon Parcours : De la Galère au Succès</h2>
+        </div>
+      </div>
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <div class="relative">
+            {/* <!-- Vertical line --> */}
+            <div class="absolute left-0 lg:left-1/2 transform lg:-translate-x-1/2 h-full w-1 bg-gray-300"></div>
+
+            {timeline.map((item, index) => (
+              <div class={`relative flex items-center mb-12 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
+                <div class="lg:w-5/12">
+                  <div class={`bg-white p-6 rounded-lg shadow-lg ${index % 2 === 0 ? 'lg:text-right' : ''}`}>
+                    <div class="text-primary font-bold text-xl mb-2">{item.year}</div>
+                    <h3 class="mb-2">{item.event}</h3>
+                    <p class="text-gray-600">{item.detail}</p>
+                  </div>
+                </div>
+                <div class="absolute left-0 lg:left-1/2 transform lg:-translate-x-1/2 w-8 h-8 bg-primary rounded-full border-4 border-white shadow"></div>
+                <div class="lg:w-5/12"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expertise -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Pourquoi Me Faire Confiance ?</h2>
+          <p>4 raisons qui font la différence</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {expertise.map((item) => (
+          <div class="lg:col-6">
+            <div class="bg-white rounded-lg p-8 h-full shadow-md">
+              <h3 class="mb-4">{item.title}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Mes Valeurs (Non Négociables)</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {values.map((value) => (
+          <div class="sm:col-6 lg:col-3">
+            <div class="text-center">
+              <div class="text-5xl mb-4">{value.icon}</div>
+              <h4 class="mb-3">{value.title}</h4>
+              <p class="text-sm">{value.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GMB Screenshots Section -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">La Preuve en Images</h2>
+          <p>Screenshots réels de ma fiche Google My Business</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="bg-white p-4 rounded-lg shadow">
+            <img src="/images/gmb-reviews.jpg" alt="237 avis Google" class="rounded mb-4"/>
+            <h4 class="text-center">237 avis authentiques</h4>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-white p-4 rounded-lg shadow">
+            <img src="/images/gmb-insights.jpg" alt="Statistiques GMB" class="rounded mb-4"/>
+            <h4 class="text-center">15K vues mensuelles</h4>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-white p-4 rounded-lg shadow">
+            <img src="/images/gmb-position.jpg" alt="Position Google" class="rounded mb-4"/>
+            <h4 class="text-center">Position #1 maintenue</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Personal Touch -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <div class="bg-primary/10 rounded-lg p-8">
+            <h2 class="mb-6">Un Message Personnel</h2>
+            <p class="mb-4">
+              Je sais ce que c'est de bosser 60h/semaine pour des marges ridicules.
+              De voir des concurrents moins bons rafler les chantiers parce qu'ils sont visibles sur Google.
+            </p>
+            <p class="mb-4">
+              J'ai créé AWEMA pour une raison simple : <strong>aider les bons artisans à avoir
+              les clients qu'ils méritent.</strong>
+            </p>
+            <p class="mb-4">
+              Si vous êtes sérieux dans votre métier, que vous faites du bon boulot,
+              mais que vous galérez à trouver des clients... On devrait discuter.
+            </p>
+            <p class="mb-6">
+              Mon WhatsApp est ouvert. Vraiment. Envoyez-moi un message, je réponds à tout le monde.
+            </p>
+            <div class="flex gap-4 flex-wrap">
+              <a href="https://wa.me/33612345678" class="btn btn-primary">
+                💬 WhatsApp Direct
+              </a>
+              <a href="/contact" class="btn btn-outline-primary">
+                📧 Formulaire contact
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="section bg-dark text-white">
+    <div class="container">
+      <div class="row justify-center text-center">
+        <div class="lg:col-8">
+          <h2 class="text-white mb-4">
+            Prêt à Multiplier Votre CA par 10 ?
+          </h2>
+          <p class="mb-8 text-lg">
+            J'ai aidé 300+ artisans. Pourquoi pas vous ?<br/>
+            Premier RDV offert, sans engagement.
+          </p>
+          <a href="/contact" class="btn btn-white">
+            Réserver un appel avec Yann
+          </a>
+          <p class="mt-6 text-sm opacity-75">
+            ⏱️ Créneaux limités - 5 nouveaux clients max/mois
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,372 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { Image } from "astro:assets";
+
+const metadata = {
+  title: "Blog AWEMA : Conseils pour Artisans BTP",
+  description: "Découvrez nos conseils et stratégies pour développer votre activité d'artisan grâce au digital. Guides SEO, marketing local et bien plus.",
+  meta_title: "Blog AWEMA | Conseils Marketing pour Artisans BTP",
+};
+
+const articles = [
+  {
+    id: 1,
+    title: "Comment avoir plus de clients en tant qu'artisan",
+    excerpt: "Découvrez 7 stratégies éprouvées pour attirer plus de clients et développer votre activité d'artisan. Du bouche-à-oreille au marketing digital.",
+    category: "Marketing",
+    author: "Thomas Martin",
+    date: "15 janvier 2025",
+    readTime: "8 min",
+    image: "/images/blog/artisan-clients.jpg",
+    featured: true,
+    tags: ["Marketing", "Clients", "Stratégie"]
+  },
+  {
+    id: 2,
+    title: "Pourquoi 87% des artisans ratent leur site web",
+    excerpt: "Les erreurs fatales qui ruinent la présence en ligne des artisans et comment les éviter pour créer un site qui convertit vraiment.",
+    category: "Site Web",
+    author: "Julie Dupont",
+    date: "10 janvier 2025",
+    readTime: "6 min",
+    image: "/images/blog/site-artisan.jpg",
+    featured: true,
+    tags: ["Site Web", "Erreurs", "Conversion"]
+  },
+  {
+    id: 3,
+    title: "SEO local : le guide complet pour artisans",
+    excerpt: "Maîtrisez le référencement local pour apparaître en premier sur Google dans votre ville. Guide étape par étape avec exemples concrets.",
+    category: "SEO",
+    author: "Marc Lefevre",
+    date: "8 janvier 2025",
+    readTime: "12 min",
+    image: "/images/blog/seo-local.jpg",
+    featured: false,
+    tags: ["SEO", "Local", "Google"]
+  },
+  {
+    id: 4,
+    title: "Combien coûte vraiment un site professionnel ?",
+    excerpt: "Analyse détaillée des coûts réels d'un site web professionnel : création, hébergement, maintenance. Évitez les pièges et les surcoûts.",
+    category: "Budget",
+    author: "Sophie Bernard",
+    date: "5 janvier 2025",
+    readTime: "10 min",
+    image: "/images/blog/cout-site.jpg",
+    featured: false,
+    tags: ["Budget", "Site Web", "Coûts"]
+  },
+  {
+    id: 5,
+    title: "Google My Business : votre meilleur allié gratuit",
+    excerpt: "Comment optimiser votre fiche Google My Business pour obtenir plus d'appels et de demandes de devis. Tutorial complet avec captures d'écran.",
+    category: "Marketing",
+    author: "Thomas Martin",
+    date: "2 janvier 2025",
+    readTime: "7 min",
+    image: "/images/blog/google-my-business.jpg",
+    tags: ["Google", "Marketing", "Gratuit"]
+  },
+  {
+    id: 6,
+    title: "Les avis clients : comment les obtenir et les gérer",
+    excerpt: "Stratégies pour obtenir plus d'avis positifs et gérer les avis négatifs. L'impact des avis sur votre chiffre d'affaires.",
+    category: "Réputation",
+    author: "Julie Dupont",
+    date: "28 décembre 2024",
+    readTime: "9 min",
+    image: "/images/blog/avis-clients.jpg",
+    tags: ["Avis", "Réputation", "Clients"]
+  }
+];
+
+const categories = ["Tous", "Marketing", "Site Web", "SEO", "Budget", "Réputation"];
+---
+
+<Base {...metadata}>
+  <PageHeader title="Blog AWEMA" />
+
+  <!-- Hero Section -->
+  <section class="section pt-0">
+    <div class="container">
+      <div class="text-center mb-10">
+        <h1 class="text-4xl lg:text-5xl font-bold mb-4">
+          Conseils et stratégies pour <span class="text-primary">artisans BTP</span>
+        </h1>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          Découvrez comment développer votre activité grâce au digital.
+          Guides pratiques, conseils d'experts et retours d'expérience.
+        </p>
+      </div>
+
+      <!-- Newsletter CTA -->
+      <div class="bg-gradient-to-r from-primary to-blue-600 rounded-2xl p-8 mb-12 text-white">
+        <div class="max-w-2xl mx-auto text-center">
+          <h3 class="text-2xl font-bold mb-3">Recevez nos meilleurs conseils par email</h3>
+          <p class="mb-6 opacity-90">
+            Rejoignez +1500 artisans qui reçoivent nos tips marketing chaque semaine
+          </p>
+          <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="Votre adresse email"
+              class="flex-1 px-4 py-3 rounded-lg text-gray-800 placeholder-gray-500"
+              required
+            />
+            <button
+              type="submit"
+              class="px-6 py-3 bg-white text-primary font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              Je m'inscris
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Categories Filter -->
+      <div class="flex flex-wrap justify-center gap-3 mb-8">
+        {categories.map((category) => (
+          <button
+            data-category={category}
+            class={`category-filter px-4 py-2 rounded-full font-medium transition-all ${
+              category === "Tous"
+                ? "bg-primary text-white"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {articles.map((article) => (
+          <article
+            class="blog-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+            data-category={article.category}
+          >
+            {article.featured && (
+              <div class="absolute top-4 left-4 z-10">
+                <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                  À la une
+                </span>
+              </div>
+            )}
+
+            <div class="aspect-[16/10] bg-gradient-to-br from-gray-100 to-gray-200 relative">
+              {/* Placeholder for image */}
+              <div class="absolute inset-0 flex items-center justify-center">
+                <svg class="w-20 h-20 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded">
+                  {article.category}
+                </span>
+                <span class="text-xs text-gray-500">{article.readTime} de lecture</span>
+              </div>
+
+              <h3 class="text-xl font-bold mb-3 line-clamp-2 hover:text-primary transition-colors">
+                <a href={`/blog/${article.id}`}>{article.title}</a>
+              </h3>
+
+              <p class="text-gray-600 mb-4 line-clamp-3">
+                {article.excerpt}
+              </p>
+
+              <div class="flex items-center justify-between pt-4 border-t">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 bg-gradient-to-br from-primary to-blue-600 rounded-full"></div>
+                  <div class="text-sm">
+                    <p class="font-medium text-gray-800">{article.author}</p>
+                    <p class="text-gray-500 text-xs">{article.date}</p>
+                  </div>
+                </div>
+                <a
+                  href={`/blog/${article.id}`}
+                  class="text-primary hover:text-blue-700 transition-colors"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                </a>
+              </div>
+
+              {article.tags && (
+                <div class="flex flex-wrap gap-2 mt-3">
+                  {article.tags.map((tag) => (
+                    <span class="text-xs text-gray-500">#{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Load More Button -->
+      <div class="text-center mt-12">
+        <button class="btn btn-outline-primary">
+          Charger plus d'articles
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sidebar CTA Section -->
+  <section class="section bg-gray-50">
+    <div class="container">
+      <div class="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 class="text-3xl font-bold mb-4">
+              Prêt à passer au niveau supérieur ?
+            </h2>
+            <p class="text-gray-600 mb-6">
+              Créez votre site web professionnel et commencez à attirer plus de clients dès aujourd'hui.
+            </p>
+            <ul class="space-y-2 mb-6">
+              <li class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Maquette gratuite en 24h</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>0€ de frais techniques</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Satisfait ou remboursé 30 jours</span>
+              </li>
+            </ul>
+            <a href="/contact" class="btn btn-primary">
+              Obtenir ma maquette gratuite
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+            </a>
+          </div>
+          <div class="relative">
+            <div class="aspect-square bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-2xl flex items-center justify-center">
+              <svg class="w-32 h-32 text-primary/30" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/>
+              </svg>
+            </div>
+            <div class="absolute -top-4 -right-4 bg-orange-500 text-white rounded-full p-3">
+              <span class="text-2xl font-bold">-30%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-card {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .blog-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #1e40af);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .blog-card:hover::before {
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  // Category filtering
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.category-filter');
+    const blogCards = document.querySelectorAll('.blog-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const category = button.getAttribute('data-category');
+
+        // Update active button
+        filterButtons.forEach(btn => {
+          btn.classList.remove('bg-primary', 'text-white');
+          btn.classList.add('bg-gray-100', 'text-gray-700');
+        });
+        button.classList.remove('bg-gray-100', 'text-gray-700');
+        button.classList.add('bg-primary', 'text-white');
+
+        // Filter cards
+        blogCards.forEach(card => {
+          if (category === 'Tous' || card.getAttribute('data-category') === category) {
+            (card as HTMLElement).style.display = 'block';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Newsletter form
+    const newsletterForm = document.querySelector('form');
+    newsletterForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = (e.target as HTMLFormElement).querySelector('input[type="email"]') as HTMLInputElement;
+
+      if (email?.value) {
+        console.log('Newsletter signup:', email.value);
+
+        // Show success message
+        const button = (e.target as HTMLFormElement).querySelector('button');
+        if (button) {
+          const originalText = button.textContent;
+          button.textContent = 'Inscription réussie !';
+          button.classList.add('bg-green-500');
+
+          setTimeout(() => {
+            button.textContent = originalText;
+            button.classList.remove('bg-green-500');
+            email.value = '';
+          }, 3000);
+        }
+      }
+    });
+  });
+</script>

@@ -1,0 +1,392 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+
+const meta = {
+  title: "Création Site Internet Marseille - Artisan BTP | AWEMA",
+  meta_title: "Création Site Web Marseille 13 ➤ Spécialiste BTP | AWEMA",
+  description: "Création site internet pour artisans BTP à Marseille et Bouches-du-Rhône. 797€ tout compris. Plombier, électricien, maçon... Boostez votre activité dans le 13.",
+  image: "/images/villes/marseille.jpg"
+};
+
+const stats = {
+  artisans: "38 clients à Marseille",
+  quartiers: "16 arrondissements",
+  delai: "7 jours livraison",
+  satisfaction: "97% satisfaits"
+};
+
+const quartiersMarseille = [
+  "Marseille 1er - Vieux-Port",
+  "Marseille 2e - Les Grands Carmes",
+  "Marseille 3e - Belle de Mai",
+  "Marseille 4e - Cinq-Avenues",
+  "Marseille 5e - Le Camas",
+  "Marseille 6e - Castellane",
+  "Marseille 7e - Le Pharo",
+  "Marseille 8e - Prado",
+  "Marseille 9e - Mazargues",
+  "Marseille 10e - Saint-Tronc",
+  "Marseille 11e - Les Camoins",
+  "Marseille 12e - Saint-Barnabé",
+  "Marseille 13e - Château-Gombert",
+  "Marseille 14e - Les Arnavaux",
+  "Marseille 15e - L'Estaque",
+  "Marseille 16e - Saint-André"
+];
+
+const metiersRecherches = [
+  { metier: "Plombier Marseille", volume: "9.900/mois", potentiel: "Très élevé" },
+  { metier: "Électricien Marseille", volume: "8.100/mois", potentiel: "Très élevé" },
+  { metier: "Maçon Marseille", volume: "5.400/mois", potentiel: "Élevé" },
+  { metier: "Peintre Marseille", volume: "6.600/mois", potentiel: "Élevé" },
+  { metier: "Chauffagiste Marseille", volume: "4.400/mois", potentiel: "Élevé" }
+];
+
+const clientsMarseille = [
+  {
+    nom: "Provence Plomberie",
+    arrondissement: "8e",
+    resultat: "De 7 à 95 avis Google en 6 mois, +240% d'appels"
+  },
+  {
+    nom: "Élec'Phocéenne",
+    arrondissement: "6e",
+    resultat: "Position #1 sur 'électricien urgence Marseille'"
+  },
+  {
+    nom: "Maçonnerie Méditerranée",
+    arrondissement: "13e",
+    resultat: "12 chantiers > 50k€ en 4 mois grâce au site"
+  }
+];
+---
+
+<Base {...meta}>
+  <PageHeader title="Création Site BTP Marseille" />
+
+  <!-- Hero Section Marseille -->
+  <section class="section bg-gradient-to-b from-blue-50 to-white">
+    <div class="container">
+      <div class="row gy-5 items-center">
+        <div class="lg:col-7">
+          <h1 class="mb-6">
+            Création Site Internet <span class="text-primary">Marseille</span>
+            <br/>Expert Artisans BTP du 13
+          </h1>
+          <p class="text-lg mb-6">
+            <strong>38 artisans marseillais</strong> ont transformé leur activité avec AWEMA.
+            Du Vieux-Port à L'Estaque, nous connaissons le marché phocéen.
+          </p>
+          <p class="mb-8">
+            Marseille = 870.000 habitants = énorme potentiel BTP.
+            Mais la concurrence est féroce. Sans visibilité Google, vos concurrents récupèrent vos chantiers.
+            <strong> Notre solution : site optimisé local + système d'avis efficace.</strong>
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <a href="/contact?ville=marseille" class="btn btn-primary btn-lg">
+              Démarrer à Marseille
+            </a>
+            <a href="#temoignages" class="btn btn-outline-primary btn-lg">
+              Voir les Succès 13
+            </a>
+          </div>
+          <div class="flex flex-wrap gap-6 text-sm">
+            {Object.entries(stats).map(([key, value]) => (
+              <div>
+                <span class="font-bold text-primary">{value}</span>
+                <span class="text-gray-600 ml-1">{key}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="lg:col-5">
+          <div class="bg-white rounded-lg p-6 shadow-lg">
+            <h3 class="mb-4 text-center">📍 Zones Couvertes Marseille</h3>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              {quartiersMarseille.slice(0, 10).map(q => (
+                <div class="flex items-center">
+                  <span class="text-blue-500 mr-1">•</span>
+                  <span class="truncate">{q.split(' - ')[0]}</span>
+                </div>
+              ))}
+            </div>
+            <div class="mt-4 pt-4 border-t">
+              <p class="text-xs text-gray-600">+ Aix-en-Provence, Aubagne, La Ciotat, Cassis...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Volumes de Recherche Marseille -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Potentiel Client BTP à Marseille</h2>
+          <p>Nombre réel de recherches Google chaque mois dans le 13</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {metiersRecherches.map(m => (
+          <div class="lg:col-4">
+            <div class="bg-white rounded-lg p-6 shadow border-l-4 border-primary">
+              <div class="text-sm text-gray-600 mb-2">{m.metier}</div>
+              <div class="text-3xl font-bold text-primary mb-2">{m.volume}</div>
+              <div class="text-xs">
+                <span class={`px-2 py-1 rounded ${
+                  m.potentiel === 'Très élevé' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700'
+                }`}>
+                  {m.potentiel}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-8">
+        <p class="text-lg font-semibold">
+          = <span class="text-primary">34.400 recherches/mois</span> pour les métiers BTP à Marseille
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spécificités Marseille -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Particularités du Marché BTP Marseillais</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="text-center">
+            <div class="text-4xl mb-4">🏗️</div>
+            <h3 class="h5 mb-3">Rénovation Urbaine</h3>
+            <p class="text-sm">
+              Euroméditerranée, Plan Centre-Ville...
+              Énormes projets = opportunités pour tous les corps de métier.
+            </p>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="text-center">
+            <div class="text-4xl mb-4">🏠</div>
+            <h3 class="h5 mb-3">Immobilier Ancien</h3>
+            <p class="text-sm">
+              60% du parc > 50 ans.
+              Forte demande en rénovation, mise aux normes, isolation.
+            </p>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="text-center">
+            <div class="text-4xl mb-4">☀️</div>
+            <h3 class="h5 mb-3">Climat Méditerranéen</h3>
+            <p class="text-sm">
+              Terrasses, piscines, climatisation...
+              Travaux spécifiques = niches rentables.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Témoignages Marseille -->
+  <section id="temoignages" class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Artisans Marseillais qui Cartonnent</h2>
+          <p>Des résultats concrets dans les Bouches-du-Rhône</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {clientsMarseille.map(client => (
+          <div class="lg:col-4">
+            <div class="bg-white rounded-lg p-6 shadow-lg">
+              <div class="flex mb-3">
+                {[...Array(5)].map(() => <span class="text-yellow-400">★</span>)}
+              </div>
+              <h4 class="font-bold mb-2">{client.nom}</h4>
+              <p class="text-sm text-gray-600 mb-3">Marseille {client.arrondissement}</p>
+              <p class="text-sm italic">"{client.resultat}"</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Offre Spéciale Marseille -->
+  <section class="section bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
+    <div class="container">
+      <div class="row justify-center text-center">
+        <div class="lg:col-10">
+          <h2 class="text-white mb-6">
+            🚀 Offre Spéciale Marseille - Janvier 2025
+          </h2>
+          <p class="text-xl mb-8">
+            Les 5 prochains artisans marseillais bénéficient de :
+          </p>
+          <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white/10 rounded-lg p-4">
+              <div class="text-2xl mb-2">-20%</div>
+              <div class="text-sm">Sur la création</div>
+            </div>
+            <div class="bg-white/10 rounded-lg p-4">
+              <div class="text-2xl mb-2">+50</div>
+              <div class="text-sm">Photos offertes</div>
+            </div>
+            <div class="bg-white/10 rounded-lg p-4">
+              <div class="text-2xl mb-2">3 mois</div>
+              <div class="text-sm">GMB Premium offert</div>
+            </div>
+          </div>
+          <a href="/contact?ville=marseille&promo=true" class="btn btn-white btn-lg">
+            Je Profite de l'Offre Marseille
+          </a>
+          <p class="mt-4 text-sm opacity-90">
+            Plus que 3 places disponibles
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stratégie Locale -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Notre Stratégie pour Marseille</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-6">
+          <div class="bg-white rounded-lg p-6 shadow h-full">
+            <h3 class="mb-4">🎯 Ciblage par Arrondissement</h3>
+            <p class="text-sm mb-4">
+              Chaque arrondissement = une stratégie SEO spécifique
+            </p>
+            <ul class="space-y-2 text-sm">
+              <li>• <strong>1er-7e :</strong> Centre-ville, urgences, particuliers CSP+</li>
+              <li>• <strong>8e-9e :</strong> Prado/Mazargues, villas, piscines</li>
+              <li>• <strong>11e-12e :</strong> Résidentiel famille, rénovations</li>
+              <li>• <strong>13e-16e :</strong> Nord, volume important, prix compétitifs</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-6">
+          <div class="bg-white rounded-lg p-6 shadow h-full">
+            <h3 class="mb-4">🌊 Adaptation Méditerranéenne</h3>
+            <p class="text-sm mb-4">
+              Contenu adapté à la culture et aux besoins locaux
+            </p>
+            <ul class="space-y-2 text-sm">
+              <li>• Mise en avant travaux terrasses/extérieurs</li>
+              <li>• SEO sur "climatisation Marseille" (forte demande)</li>
+              <li>• Photos avec vue mer pour l'impact visuel</li>
+              <li>• Témoignages en provençal pour l'authenticité</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparaison Formules -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Formules Adaptées à Marseille</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow text-center">
+            <h3>LOCAL Marseille</h3>
+            <div class="text-2xl font-bold text-primary my-4">797€</div>
+            <p class="text-sm mb-4">+ 79€/mois</p>
+            <ul class="text-left space-y-2 text-sm">
+              <li>✓ 3 arrondissements ciblés</li>
+              <li>✓ "Plombier Marseille 8e" etc.</li>
+              <li>✓ GMB optimisé zones</li>
+              <li>✓ 30 mots-clés locaux</li>
+            </ul>
+            <a href="/contact?ville=marseille&formule=local" class="btn btn-outline-primary w-full mt-4">
+              Choisir
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-primary/10 rounded-lg p-6 shadow text-center border-2 border-primary">
+            <div class="bg-primary text-white px-2 py-1 rounded text-xs inline-block mb-2">POPULAIRE</div>
+            <h3>ZONE Marseille</h3>
+            <div class="text-2xl font-bold text-primary my-4">1297€</div>
+            <p class="text-sm mb-4">+ 97€/mois</p>
+            <ul class="text-left space-y-2 text-sm">
+              <li>✓ 8 arrondissements</li>
+              <li>✓ Marseille Nord + Sud</li>
+              <li>✓ GMB multi-zones</li>
+              <li>✓ 80 mots-clés</li>
+            </ul>
+            <a href="/contact?ville=marseille&formule=zone" class="btn btn-primary w-full mt-4">
+              Choisir
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow text-center">
+            <h3>MÉTROPOLE 13</h3>
+            <div class="text-2xl font-bold text-primary my-4">1797€</div>
+            <p class="text-sm mb-4">+ 127€/mois</p>
+            <ul class="text-left space-y-2 text-sm">
+              <li>✓ Tout Marseille</li>
+              <li>✓ + Aix, Aubagne, Cassis</li>
+              <li>✓ GMB multi-villes</li>
+              <li>✓ 150+ mots-clés</li>
+            </ul>
+            <a href="/contact?ville=marseille&formule=region" class="btn btn-outline-primary w-full mt-4">
+              Choisir
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final Marseille -->
+  <section class="section bg-gradient-to-b from-gray-800 to-gray-900 text-white">
+    <div class="container">
+      <div class="row justify-center text-center">
+        <div class="lg:col-10">
+          <h2 class="text-white mb-6">
+            Ne Laissez Plus vos Concurrents Marseillais Rafler les Chantiers
+          </h2>
+          <p class="text-xl mb-8">
+            870.000 habitants cherchent des artisans sur Google.
+            <br/>Soyez celui qu'ils trouvent et appellent.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/contact?ville=marseille&urgent=true" class="btn btn-white btn-lg">
+              Démarrer Mon Site Marseille
+            </a>
+            <a href="tel:+33612345678" class="btn btn-outline-white btn-lg">
+              📞 Appel Direct
+            </a>
+          </div>
+          <p class="mt-6 text-sm opacity-90">
+            ⚡ Site en ligne en 7 jours • Optimisé Marseille & environs
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

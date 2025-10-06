@@ -1,0 +1,425 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+
+const meta = {
+  title: "Site Internet Peintre en Bâtiment - Création Web | AWEMA",
+  meta_title: "Création Site Peintre ➤ Site Vitrine 797€ | AWEMA",
+  description: "Site web professionnel pour peintre en bâtiment. Galerie avant/après, simulateur couleurs, devis en ligne. Améliorez votre visibilité Google.",
+  image: "/images/metiers/peintre.jpg"
+};
+
+const benefits = [
+  {
+    icon: "🎨",
+    title: "Galerie Avant/Après",
+    description: "Transformations spectaculaires qui vendent vos prestations"
+  },
+  {
+    icon: "🎯",
+    title: "Simulateur Couleurs",
+    description: "Outil interactif pour aider vos clients à visualiser"
+  },
+  {
+    icon: "📱",
+    title: "Devis Express",
+    description: "Estimation rapide selon surface et type de travaux"
+  },
+  {
+    icon: "⭐",
+    title: "Portfolio Tendances",
+    description: "Montrez votre maîtrise des dernières techniques déco"
+  }
+];
+
+const services = [
+  "Peinture intérieure",
+  "Peinture extérieure",
+  "Ravalement façade",
+  "Enduits décoratifs",
+  "Papier peint",
+  "Revêtements sols",
+  "Décoration murale",
+  "Peinture écologique",
+  "Isolation thermique",
+  "Traitement humidité"
+];
+
+const searchVolumes = [
+  { keyword: "Peintre en bâtiment", volume: "8.900/mois", competition: "Élevée" },
+  { keyword: "Peintre intérieur", volume: "2.400/mois", competition: "Moyenne" },
+  { keyword: "Ravalement façade", volume: "5.400/mois", competition: "Élevée" },
+  { keyword: "Devis peinture", volume: "12.100/mois", competition: "Très élevée" },
+  { keyword: "Peinture appartement", volume: "3.300/mois", competition: "Moyenne" }
+];
+
+const testimonial = {
+  name: "Sophie Laurent",
+  company: "Laurent Peinture & Déco, Nice",
+  text: "Le site AWEMA a complètement changé mon activité. Les photos avant/après font un effet wow, je reçois 15 demandes de devis par semaine maintenant. J'ai dû embaucher !",
+  results: "De 3 à 15 devis/semaine en 3 mois"
+};
+
+const colorTrends = [
+  { color: "#2C3E50", name: "Bleu Payne", trend: "Élégance moderne" },
+  { color: "#8B7355", name: "Terracotta", trend: "Chaleur naturelle" },
+  { color: "#6B8E23", name: "Vert Olive", trend: "Nature apaisante" },
+  { color: "#D4AF37", name: "Or Antique", trend: "Luxe discret" }
+];
+---
+
+<Base {...meta}>
+  <PageHeader title="Site Internet Peintre" />
+
+  <!-- Hero Section -->
+  <section class="section">
+    <div class="container">
+      <div class="row gy-5 items-center">
+        <div class="lg:col-7">
+          <h1 class="mb-6">
+            Site Internet <span class="text-primary">Peintre en Bâtiment</span>
+            <br/>Vos Transformations en Vitrine
+          </h1>
+          <p class="text-lg mb-6">
+            <strong>93% des clients veulent voir des photos avant/après.</strong>
+            Sans portfolio en ligne, vous perdez les chantiers de décoration rentables.
+          </p>
+          <p class="mb-8">
+            Les propriétaires cherchent l'inspiration sur Google avant de choisir leur peintre.
+            Un site avec galerie photos fait la différence entre un petit rafraîchissement et une rénovation complète.
+            <strong> Notre solution : site vitrine avec portfolio qui convertit.</strong>
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <a href="/contact?metier=peintre" class="btn btn-primary btn-lg">
+              Créer mon Site Peintre
+            </a>
+            <a href="#galerie" class="btn btn-outline-primary btn-lg">
+              Voir Exemple Galerie
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-5">
+          <div class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="font-bold mb-4">Prestations à Valoriser :</h3>
+            <div class="grid grid-cols-2 gap-3">
+              {services.map((service) => (
+                <div class="flex items-center text-sm">
+                  <span class="text-primary mr-2">✓</span>
+                  <span>{service}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Un Site qui Sublime votre Art</h2>
+          <p>La peinture transforme les espaces, votre site transforme votre business</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {benefits.map((benefit) => (
+          <div class="lg:col-3">
+            <div class="bg-white rounded-lg p-6 h-full shadow text-center">
+              <div class="text-4xl mb-4">{benefit.icon}</div>
+              <h3 class="h5 mb-3">{benefit.title}</h3>
+              <p class="text-sm">{benefit.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Color Trends -->
+  <section class="section" id="galerie">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Tendances Couleurs 2025</h2>
+          <p>Montrez votre expertise des dernières tendances déco</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {colorTrends.map((trend) => (
+          <div class="lg:col-3">
+            <div class="bg-white rounded-lg overflow-hidden shadow">
+              <div class="h-32" style={`background-color: ${trend.color}`}></div>
+              <div class="p-4">
+                <h3 class="h6 mb-2">{trend.name}</h3>
+                <p class="text-sm text-gray-600">{trend.trend}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Volumes -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Potentiel Client Peinture</h2>
+          <p>Volume de recherches mensuelles sur Google</p>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse bg-white rounded-lg shadow">
+          <thead>
+            <tr class="bg-primary text-white">
+              <th class="p-4 text-left">Recherche</th>
+              <th class="p-4 text-center">Volume/mois</th>
+              <th class="p-4 text-center">Concurrence</th>
+              <th class="p-4 text-center">Valeur Projet</th>
+            </tr>
+          </thead>
+          <tbody>
+            {searchVolumes.map((item, i) => (
+              <tr class={i % 2 === 0 ? 'bg-gray-50' : ''}>
+                <td class="p-4 font-semibold">{item.keyword}</td>
+                <td class="p-4 text-center text-primary font-bold">{item.volume}</td>
+                <td class="p-4 text-center">
+                  <span class={`px-2 py-1 rounded text-sm ${
+                    item.competition === 'Très élevée' ? 'bg-red-100 text-red-700' :
+                    item.competition === 'Élevée' ? 'bg-orange-100 text-orange-700' :
+                    'bg-yellow-100 text-yellow-700'
+                  }`}>
+                    {item.competition}
+                  </span>
+                </td>
+                <td class="p-4 text-center">
+                  {item.keyword.includes('appartement') ? '2-5k€' :
+                   item.keyword.includes('Ravalement') ? '10-30k€' :
+                   item.keyword.includes('Devis') ? '1-8k€' : '3-10k€'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Specific -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Fonctionnalités Uniques Peintre</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow">
+            <h3 class="h5 mb-4">📸 Galerie Interactive</h3>
+            <ul class="space-y-2 text-sm">
+              <li>• Slider avant/après spectaculaire</li>
+              <li>• Catégories par pièce</li>
+              <li>• Filtres par couleur/style</li>
+              <li>• Zoom HD sur finitions</li>
+              <li>• Légendes techniques</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow">
+            <h3 class="h5 mb-4">🎨 Outils Clients</h3>
+            <ul class="space-y-2 text-sm">
+              <li>• Calculateur surface/prix</li>
+              <li>• Nuancier interactif</li>
+              <li>• Conseils par pièce</li>
+              <li>• Guide préparation</li>
+              <li>• Inspirations tendances</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow">
+            <h3 class="h5 mb-4">💼 Business Booster</h3>
+            <ul class="space-y-2 text-sm">
+              <li>• Devis instantané email</li>
+              <li>• Calendrier disponibilités</li>
+              <li>• Promotions saisonnières</li>
+              <li>• Blog conseils déco</li>
+              <li>• Avis clients intégrés</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <div class="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-8">
+            <div class="flex mb-4">
+              {[...Array(5)].map(() => (
+                <span class="text-yellow-400 text-xl">★</span>
+              ))}
+            </div>
+            <blockquote class="text-lg italic mb-6">
+              "{testimonial.text}"
+            </blockquote>
+            <div class="border-t pt-4">
+              <p class="font-bold">{testimonial.name}</p>
+              <p class="text-sm text-gray-600">{testimonial.company}</p>
+              <p class="text-sm font-semibold text-primary mt-2">{testimonial.results}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Before/After Examples -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">L'Impact des Photos Avant/Après</h2>
+          <p>Ce type de contenu génère 300% plus d'engagement</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-6">
+          <div class="bg-white rounded-lg p-6 shadow">
+            <h3 class="h6 mb-4">❌ Sans Photos Pro</h3>
+            <ul class="space-y-3 text-sm">
+              <li class="flex items-start">
+                <span class="text-red-500 mr-2">•</span>
+                <span>3% de taux de conversion visiteur → contact</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-500 mr-2">•</span>
+                <span>Devis moyens : 800-1.500€</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-500 mr-2">•</span>
+                <span>Clients hésitants, négociation prix</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-500 mr-2">•</span>
+                <span>2-3 demandes par mois</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-6">
+          <div class="bg-gradient-to-b from-green-50 to-white rounded-lg p-6 shadow">
+            <h3 class="h6 mb-4">✅ Avec Galerie Pro</h3>
+            <ul class="space-y-3 text-sm">
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">•</span>
+                <span>12% de taux de conversion (+300%)</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">•</span>
+                <span>Devis moyens : 3.000-8.000€</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">•</span>
+                <span>Clients convaincus, moins de négociation</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">•</span>
+                <span>15-20 demandes par mois</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Investissement Site Peintre</h2>
+        </div>
+      </div>
+      <div class="row gy-4 justify-center">
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-8 shadow-lg text-center">
+            <h3 class="text-xl mb-4">Site Vitrine Peintre</h3>
+            <div class="text-3xl font-bold text-primary mb-2">797€</div>
+            <p class="text-sm text-gray-600 mb-6">+ 79€/mois maintenance</p>
+            <ul class="text-left space-y-3 mb-8">
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span class="text-sm">Galerie avant/après illimitée</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span class="text-sm">Calculateur devis intégré</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span class="text-sm">Blog conseils couleurs</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span class="text-sm">SEO local 3 villes</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span class="text-sm">Google My Business optimisé</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span class="text-sm">Formation photo incluse</span>
+              </li>
+            </ul>
+            <a href="/contact?metier=peintre&formule=vitrine" class="btn btn-primary w-full">
+              Commencer Maintenant
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="section bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+    <div class="container">
+      <div class="row justify-center text-center">
+        <div class="lg:col-10">
+          <h2 class="text-white mb-6">
+            Transformez votre Métier de Peintre en Business Rentable
+          </h2>
+          <p class="text-xl mb-8">
+            Les clients veulent voir avant de choisir. Sans portfolio en ligne, vous restez invisible.
+            <br/>Montrez vos plus belles transformations et multipliez vos demandes.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/contact?metier=peintre&urgent=true" class="btn btn-white btn-lg">
+              Créer Mon Site Peintre
+            </a>
+            <a href="tel:+33612345678" class="btn btn-outline-white btn-lg">
+              📞 Conseil Gratuit
+            </a>
+          </div>
+          <p class="mt-6 text-sm opacity-90">
+            ⚡ Site en ligne en 7 jours • Galerie photo incluse
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <CallToAction /> -->
+</Base>

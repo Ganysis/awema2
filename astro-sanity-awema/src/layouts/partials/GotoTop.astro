@@ -1,0 +1,32 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+---
+
+<button
+  aria-label="Go to top"
+  class="btn bg-primary p-2 rounded-sm fixed right-2.5 transition duration-300 bottom-24 md:bottom-24 hover:shadow-[0_2px_5px] hover:shadow-[var(--primary)] z-[150] opacity-0"
+  id="go-top"
+>
+  <DynamicIcon client:load className="w-6 h-6 text-white" icon="FaAngleUp" />
+</button>
+
+<script is:inline>
+  document.addEventListener("astro:page-load", () => {
+    const button = document.querySelector("#go-top");
+    button.addEventListener("click", function () {
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    });
+
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 100) {
+        button.classList.add("show");
+      } else {
+        button.classList.remove("show");
+      }
+    });
+  });
+</script>

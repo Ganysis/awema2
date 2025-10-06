@@ -1,0 +1,4 @@
+
+> @awema/build@0.0.1 lint /home/Ganyc/Desktop/awema/awema2/tools/build
+> eslint src --ext .ts
+

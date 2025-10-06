@@ -1,0 +1,277 @@
+---
+export interface Props {
+  type?: 'Organization' | 'LocalBusiness' | 'Service' | 'FAQPage' | 'BreadcrumbList';
+  data?: any;
+}
+
+const { type = 'Organization', data = {} } = Astro.props;
+
+// Schema pour AWEMA - Organisation principale
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://awema.fr/#organization",
+  "name": "AWEMA - Agence Web BTP Premium",
+  "alternateName": "AWEMA",
+  "url": "https://awema.fr",
+  "logo": "https://awema.fr/images/logo.png",
+  "image": "https://awema.fr/images/awema-office.jpg",
+  "description": "Création de sites web premium pour artisans BTP. Domination Google garantie. De 3 à 100 avis en 6 mois. 300+ clients satisfaits.",
+  "slogan": "Le Site BTP Qui Domine Google",
+  "foundingDate": "2023",
+  "founder": {
+    "@type": "Person",
+    "name": "Yann",
+    "jobTitle": "Fondateur & CEO",
+    "description": "Co-gérant BTP depuis 10 ans, expert Google My Business"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Rue de la République",
+    "addressLocality": "Lyon",
+    "addressRegion": "Auvergne-Rhône-Alpes",
+    "postalCode": "69000",
+    "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 45.764043,
+    "longitude": 4.835659
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33-6-12-34-56-78",
+      "contactType": "sales",
+      "contactOption": ["TollFree", "HearingImpairedSupported"],
+      "areaServed": "FR",
+      "availableLanguage": "French"
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33-6-12-34-56-78",
+      "contactType": "customer support",
+      "contactOption": "TollFree",
+      "areaServed": "FR",
+      "availableLanguage": "French"
+    }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/awema",
+    "https://www.linkedin.com/company/awema",
+    "https://www.instagram.com/awema",
+    "https://www.youtube.com/@awema"
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "312",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Plomberie Durand"
+      },
+      "reviewBody": "De 3 à 127 avis en 6 mois ! Position #1 sur plombier Lyon. Mon téléphone n'arrête plus."
+    }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services création sites BTP",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Formule LOCAL",
+          "description": "Site vitrine BTP 8-10 pages + GMB optimisé pour 3 villes"
+        },
+        "price": "797",
+        "priceCurrency": "EUR"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Formule ZONE",
+          "description": "Site vitrine BTP 12-15 pages + GMB premium pour 5 villes"
+        },
+        "price": "1297",
+        "priceCurrency": "EUR"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Formule RÉGION",
+          "description": "Site vitrine BTP 20+ pages + GMB expert pour 10 villes"
+        },
+        "price": "1797",
+        "priceCurrency": "EUR"
+      }
+    ]
+  },
+  "knowsAbout": [
+    "Création sites web BTP",
+    "Google My Business optimisation",
+    "SEO local artisans",
+    "Marketing digital BTP",
+    "Génération leads plombier",
+    "Site web électricien",
+    "Site internet menuisier",
+    "Référencement local"
+  ],
+  "areaServed": {
+    "@type": "Country",
+    "name": "France"
+  }
+};
+
+// Schema Service spécifique
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Création sites web BTP",
+  "provider": {
+    "@type": "Organization",
+    "name": "AWEMA",
+    "url": "https://awema.fr"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "France"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Formules sites BTP",
+    "itemListElement": [
+      {
+        "@type": "OfferCatalog",
+        "name": "Sites plombier",
+        "itemListElement": [
+          {"@type": "Offer", "name": "Site plombier Paris"},
+          {"@type": "Offer", "name": "Site plombier Lyon"},
+          {"@type": "Offer", "name": "Site plombier Marseille"}
+        ]
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Sites électricien",
+        "itemListElement": [
+          {"@type": "Offer", "name": "Site électricien Toulouse"},
+          {"@type": "Offer", "name": "Site électricien Nice"},
+          {"@type": "Offer", "name": "Site électricien Bordeaux"}
+        ]
+      }
+    ]
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "312"
+  }
+};
+
+// Schema FAQ optimisé SEO
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien coûte un site web BTP chez AWEMA ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "3 formules : LOCAL 797€+79€/mois (3 villes), ZONE 1297€+97€/mois (5 villes), RÉGION 1797€+127€/mois (10 villes). GMB optimisé inclus dans toutes les formules."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce qui est inclus dans l'optimisation Google My Business ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Configuration complète GMB, posts mensuels (4 à 30 selon formule), page collecte d'avis, QR codes, réponses aux avis, suivi performance. 70% de vos leads viennent de GMB."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps pour voir des résultats ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Premiers résultats sous 30-60 jours. Position top 3 Google Maps en 90 jours. Nos clients constatent +47% d'appels dès le 3ème mois. ROI moyen x5 en 6 mois."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment passer de 3 à 100 avis Google ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Notre système : page collecte dédiée + QR codes chantier + emails automatisés + SMS rappel + formation équipes. Moyenne clients : 100 avis authentiques en 6 mois."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la différence avec une agence web classique ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fondateur co-gérant BTP (légitimité terrain), stack moderne 0€/mois infrastructure, GMB toujours inclus, livraison 7 jours vs 3 mois, support WhatsApp 7j/7, guides business offerts."
+      }
+    }
+  ]
+};
+
+// Schema Breadcrumb pour navigation
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://awema.fr"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": data.currentPage || "Page",
+      "item": `https://awema.fr${Astro.url.pathname}`
+    }
+  ]
+};
+
+// Sélection du schema selon le type
+let schema;
+switch(type) {
+  case 'Service':
+    schema = serviceSchema;
+    break;
+  case 'FAQPage':
+    schema = faqSchema;
+    break;
+  case 'BreadcrumbList':
+    schema = breadcrumbSchema;
+    break;
+  case 'LocalBusiness':
+    schema = { ...organizationSchema, "@type": "LocalBusiness" };
+    break;
+  default:
+    schema = organizationSchema;
+}
+
+// Merge avec data custom si fourni
+if (data && Object.keys(data).length > 0) {
+  schema = { ...schema, ...data };
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

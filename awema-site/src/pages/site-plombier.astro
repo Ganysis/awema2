@@ -1,0 +1,534 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { Image } from "astro:assets";
+
+const meta = {
+  title: "Création Site Internet Plombier - Améliorer Votre Visibilité | AWEMA",
+  meta_title: "Site Plombier Pro ➤ Plus de Visibilité et d'Avis Clients | AWEMA",
+  description: "Création site plombier professionnel. ✅ 797€ + 79€/mois tout compris ✅ Amélioration visibilité Google ✅ Stratégie avis clients ✅ 127 plombiers accompagnés. Devis gratuit.",
+  image: "/images/metiers/plombier-hero.jpg"
+};
+
+const stats = {
+  clients: "127 plombiers",
+  avisGoogle: "89 avis moyens",
+  visibilite: "+47% de visibilité",
+  appels: "+35% d'appels"
+};
+
+const problemes = [
+  "Invisible sur Google (page 3+)",
+  "3 avis moyens, notation 3.5/5",
+  "Site WordPress lent et moche",
+  "Prospects qui appellent la concurrence",
+  "Carnet de commandes vide",
+  "Dépendance aux plateformes payantes"
+];
+
+const solutions = [
+  "Meilleure visibilité Google Maps",
+  "Plus d'avis clients positifs",
+  "Site rapide et professionnel",
+  "Plus d'appels qualifiés",
+  "Amélioration du taux de conversion",
+  "Moins de dépendance aux plateformes"
+];
+
+const services = [
+  {
+    title: "Site Vitrine Ultra-Rapide",
+    icon: "FaRocket",
+    points: [
+      "Pages optimisées SEO plomberie",
+      "Galerie avant/après travaux",
+      "Formulaire urgence 24/7",
+      "Click-to-call mobile"
+    ]
+  },
+  {
+    title: "Google My Business Optimisé",
+    icon: "FaGoogle",
+    points: [
+      "Fiche GMB complète",
+      "Posts hebdomadaires",
+      "Photos chantiers régulières",
+      "Réponses aux avis"
+    ]
+  },
+  {
+    title: "Collecte d'Avis 5 Étoiles",
+    icon: "FaStar",
+    points: [
+      "Page dédiée + QR code",
+      "SMS automatiques clients",
+      "Email post-intervention",
+      "Widget site intégré"
+    ]
+  },
+  {
+    title: "Contenu SEO Plomberie",
+    icon: "FaPenToSquare",
+    points: [
+      "Pages services détaillées",
+      "Articles conseils dépannage",
+      "FAQ problèmes courants",
+      "Guides tarifs transparents"
+    ]
+  }
+];
+
+const temoignages = [
+  {
+    nom: "Plomberie Express",
+    ville: "Paris 11ème",
+    avis: "De 5 à 147 avis en 8 mois ! Je suis passé de 2 appels par semaine à 5 par jour. J'ai dû embaucher un apprenti.",
+    formule: "ZONE",
+    avant: "5 avis, page 4",
+    apres: "147 avis, position #1"
+  },
+  {
+    nom: "Dépannage Sanitaire Pro",
+    ville: "Lyon 3ème",
+    avis: "ROI en 15 jours ! Le site + GMB ont transformé mon business. 38 nouveaux clients le premier mois.",
+    formule: "LOCAL",
+    avant: "Invisible Google",
+    apres: "Top 3 sur 3 villes"
+  },
+  {
+    nom: "AquaPlomb Services",
+    ville: "Marseille",
+    avis: "Le système de collecte d'avis est magique. Mes clients laissent des avis sans que je demande !",
+    formule: "RÉGION",
+    avant: "3 avis 3.5★",
+    apres: "189 avis 4.9★"
+  }
+];
+
+const tarifs = {
+  local: {
+    nom: "LOCAL PLOMBIER",
+    prix: "797€",
+    mensuel: "79€/mois",
+    villes: "3 villes",
+    pages: "8-10 pages",
+    gmb: "4 posts/mois",
+    ideal: "Plombier solo ou petite équipe"
+  },
+  zone: {
+    nom: "ZONE PLOMBIER",
+    prix: "1297€",
+    mensuel: "97€/mois",
+    villes: "5 villes",
+    pages: "12-15 pages",
+    gmb: "8 posts/mois",
+    ideal: "Entreprise 3-10 salariés"
+  },
+  region: {
+    nom: "RÉGION PLOMBIER",
+    prix: "1797€",
+    mensuel: "127€/mois",
+    villes: "10 villes",
+    pages: "20+ pages",
+    gmb: "30 posts/mois",
+    ideal: "Leader régional ambitieux"
+  }
+};
+
+const faq = [
+  {
+    question: "Pourquoi un site spécialisé plombier est essentiel ?",
+    reponse: "70% des clients cherchent un plombier sur Google. Sans site optimisé et GMB performant, vous perdez 7 clients sur 10 au profit de concurrents visibles. Notre solution vous positionne #1."
+  },
+  {
+    question: "Comment obtenir 100 avis Google rapidement ?",
+    reponse: "Notre système : QR code sur facture, SMS automatique 48h après intervention, email de suivi, page dédiée simple. En moyenne, 30% de vos clients satisfaits laissent un avis = 100 avis en 6 mois."
+  },
+  {
+    question: "Quelle formule choisir pour mon entreprise de plomberie ?",
+    reponse: "LOCAL (797€) pour débuter sur 3 villes proches. ZONE (1297€) pour dominer une agglomération (recommandé). RÉGION (1797€) pour devenir LA référence départementale."
+  },
+  {
+    question: "Combien de nouveaux clients puis-je espérer ?",
+    reponse: "Nos plombiers clients génèrent en moyenne 15-30 nouveaux clients/mois avec LOCAL, 30-50 avec ZONE, 50+ avec RÉGION. ROI moyen constaté : x5 en 6 mois."
+  },
+  {
+    question: "Le site fonctionne sur mobile ?",
+    reponse: "100% responsive et optimisé mobile. Click-to-call, formulaire urgence, navigation simple. 65% de vos visiteurs sont sur mobile, c'est notre priorité #1."
+  }
+];
+
+const motsCleSEO = [
+  "site internet plombier",
+  "création site web plomberie",
+  "site vitrine plombier chauffagiste",
+  "référencement plombier Google",
+  "avis Google plomberie",
+  "marketing digital plombier",
+  "leads plomberie",
+  "devis plombier en ligne",
+  "urgence plomberie 24/7"
+];
+---
+
+<Base {...meta}>
+  <PageHeader title="Site Internet Plombier Qui Cartonne" />
+
+  <!-- Hero Section -->
+  <section class="section bg-gradient-to-b from-blue-50 to-white">
+    <div class="container">
+      <div class="row gy-5 items-center">
+        <div class="lg:col-7">
+          <h1 class="mb-6">
+            Site Plombier : <span class="text-primary">Améliorez</span> Votre
+            <span class="text-primary"> Visibilité Google</span>
+          </h1>
+          <p class="text-lg mb-6">
+            <strong>127 plombiers</strong> ont amélioré leur visibilité avec nous.
+            Plus d'appels qualifiés, meilleure réputation en ligne.
+          </p>
+          <p class="mb-8">
+            Créé par Yann, co-gérant BTP qui comprend vos galères :
+            urgences du dimanche, impayés, concurrence déloyale...
+            Notre solution : <strong>visibilité maximale + avis 5 étoiles = clients premium.</strong>
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <a href="/contact?metier=plombier" class="btn btn-primary btn-lg">
+              💧 Dominer Google Maintenant
+            </a>
+            <a href="#tarifs" class="btn btn-outline-primary btn-lg">
+              Voir Tarifs Plombier
+            </a>
+          </div>
+          <div class="flex flex-wrap gap-6 text-sm">
+            {Object.entries(stats).map(([key, value]) => (
+              <div>
+                <span class="font-bold text-primary">{value}</span>
+                <span class="text-gray-600 ml-1">{key}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="lg:col-5">
+          <div class="relative">
+            <img
+              src="/images/mockups/site-plombier.jpg"
+              alt="Site plombier exemple"
+              class="rounded-lg shadow-2xl"
+              width="500"
+              height="600"
+            />
+            <div class="absolute -bottom-4 -left-4 bg-white p-4 rounded-lg shadow-lg">
+              <div class="flex items-center gap-2">
+                <div class="text-yellow-400 text-xl">★★★★★</div>
+                <div>
+                  <div class="font-bold">127 avis</div>
+                  <div class="text-sm text-gray-600">4.9/5 Google</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problème / Solution -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">La Dure Réalité des Plombiers en 2025</h2>
+          <p>Sans stratégie digitale, vous perdez 70% de vos prospects</p>
+        </div>
+      </div>
+      <div class="row gy-5">
+        <div class="lg:col-6">
+          <div class="bg-red-50 rounded-lg p-8 h-full">
+            <h3 class="text-red-600 mb-6">😞 SANS AWEMA</h3>
+            <ul class="space-y-4">
+              {problemes.map((probleme) => (
+                <li class="flex items-start">
+                  <span class="text-red-500 mr-3">✗</span>
+                  <span>{probleme}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-6">
+          <div class="bg-green-50 rounded-lg p-8 h-full">
+            <h3 class="text-green-600 mb-6">🚀 AVEC AWEMA</h3>
+            <ul class="space-y-4">
+              {solutions.map((solution) => (
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-3">✓</span>
+                  <span class="font-semibold">{solution}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Inclus -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Tout Ce Qu'il Faut Pour Dominer</h2>
+          <p>Solution complète pensée par et pour les plombiers</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {services.map((service) => (
+          <div class="sm:col-6 lg:col-3">
+            <div class="bg-white rounded-lg p-6 h-full shadow hover:shadow-lg transition">
+              <DynamicIcon
+                icon={service.icon}
+                className="text-3xl text-primary mb-4"
+                client:load
+              />
+              <h3 class="text-lg mb-4">{service.title}</h3>
+              <ul class="space-y-2">
+                {service.points.map((point) => (
+                  <li class="text-sm flex items-start">
+                    <span class="text-green-500 mr-2">•</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Témoignages Plombiers -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">127 Plombiers Cartonnent Avec AWEMA</h2>
+          <p>Résultats réels, pas de bullshit marketing</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {temoignages.map((temoignage) => (
+          <div class="lg:col-4">
+            <div class="bg-white rounded-lg p-6 shadow-lg h-full">
+              <div class="flex mb-4">
+                {[...Array(5)].map(() => (
+                  <span class="text-yellow-400">★</span>
+                ))}
+              </div>
+              <p class="italic mb-4">"{temoignage.avis}"</p>
+              <div class="border-t pt-4">
+                <div class="font-bold">{temoignage.nom}</div>
+                <div class="text-sm text-gray-600 mb-3">{temoignage.ville} • Formule {temoignage.formule}</div>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <div class="bg-red-50 p-2 rounded">
+                    <span class="text-red-600">Avant:</span> {temoignage.avant}
+                  </div>
+                  <div class="bg-green-50 p-2 rounded">
+                    <span class="text-green-600">Après:</span> {temoignage.apres}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarifs Plombier -->
+  <section id="tarifs" class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Tarifs Transparents Spécial Plombiers</h2>
+          <p>Investissement récupéré en 15-30 jours en moyenne</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg shadow p-8 h-full">
+            <h3 class="text-center mb-2">{tarifs.local.nom}</h3>
+            <div class="text-center mb-6">
+              <div class="text-3xl font-bold text-primary">{tarifs.local.prix}</div>
+              <div class="text-gray-600">création + {tarifs.local.mensuel}</div>
+            </div>
+            <ul class="space-y-3 mb-6">
+              <li>📍 {tarifs.local.villes}</li>
+              <li>📄 {tarifs.local.pages}</li>
+              <li>📝 GMB: {tarifs.local.gmb}</li>
+              <li>⭐ Page collecte avis</li>
+              <li>💬 Support WhatsApp</li>
+            </ul>
+            <p class="text-sm text-gray-600 mb-4">
+              <strong>Idéal:</strong> {tarifs.local.ideal}
+            </p>
+            <a href="/contact?metier=plombier&formule=local" class="btn btn-outline-primary w-full">
+              Choisir LOCAL
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-primary/5 rounded-lg shadow-lg p-8 h-full border-2 border-primary">
+            <div class="text-center mb-2">
+              <span class="bg-primary text-white px-3 py-1 rounded text-sm">BEST-SELLER</span>
+            </div>
+            <h3 class="text-center mb-2">{tarifs.zone.nom}</h3>
+            <div class="text-center mb-6">
+              <div class="text-3xl font-bold text-primary">{tarifs.zone.prix}</div>
+              <div class="text-gray-600">création + {tarifs.zone.mensuel}</div>
+            </div>
+            <ul class="space-y-3 mb-6">
+              <li class="font-semibold">📍 {tarifs.zone.villes}</li>
+              <li class="font-semibold">📄 {tarifs.zone.pages}</li>
+              <li class="font-semibold">📝 GMB: {tarifs.zone.gmb}</li>
+              <li>⭐ Page + QR code avis</li>
+              <li>💬 Support prioritaire</li>
+              <li>🎓 Academy incluse</li>
+            </ul>
+            <p class="text-sm text-gray-600 mb-4">
+              <strong>Idéal:</strong> {tarifs.zone.ideal}
+            </p>
+            <a href="/contact?metier=plombier&formule=zone" class="btn btn-primary w-full">
+              Choisir ZONE ⭐
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg shadow p-8 h-full">
+            <h3 class="text-center mb-2">{tarifs.region.nom}</h3>
+            <div class="text-center mb-6">
+              <div class="text-3xl font-bold text-primary">{tarifs.region.prix}</div>
+              <div class="text-gray-600">création + {tarifs.region.mensuel}</div>
+            </div>
+            <ul class="space-y-3 mb-6">
+              <li>📍 {tarifs.region.villes}</li>
+              <li>📄 {tarifs.region.pages}</li>
+              <li>📝 GMB: {tarifs.region.gmb} (1/jour!)</li>
+              <li>⭐ Widget avis intégré</li>
+              <li>💬 Support VIP dédié</li>
+              <li>🎓 Coaching personnalisé</li>
+            </ul>
+            <p class="text-sm text-gray-600 mb-4">
+              <strong>Idéal:</strong> {tarifs.region.ideal}
+            </p>
+            <a href="/contact?metier=plombier&formule=region" class="btn btn-outline-primary w-full">
+              Choisir RÉGION
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Processus -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Opérationnel en 7 Jours</h2>
+          <p>Process rodé sur 127 plombiers</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="flex flex-wrap justify-center gap-4">
+            {["J1: Brief téléphone", "J2: Maquette validée", "J3-5: Développement", "J6: GMB optimisé", "J7: Site en ligne!"].map((step, i) => (
+              <div class="flex items-center">
+                <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold">
+                  {i + 1}
+                </div>
+                <span class="ml-3">{step}</span>
+                {i < 4 && <span class="ml-4 text-primary">→</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Plombiers -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Questions Fréquentes Plombiers</h2>
+        </div>
+      </div>
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <div class="space-y-4">
+            {faq.map((item) => (
+              <details class="bg-white rounded-lg p-6 shadow">
+                <summary class="cursor-pointer font-semibold">
+                  {item.question}
+                </summary>
+                <p class="mt-4 text-gray-600">
+                  {item.reponse}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="section bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+    <div class="container">
+      <div class="row justify-center text-center">
+        <div class="lg:col-10">
+          <h2 class="text-white mb-6">
+            Rejoignez 127 Plombiers Qui Dominent Google
+          </h2>
+          <p class="text-xl mb-8">
+            Pendant que vous lisez, vos concurrents récoltent VOS clients sur Google.
+            <br/>Chaque jour sans site optimisé = 5-10 prospects perdus.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center mb-8">
+            <a href="/contact?metier=plombier&urgence=true" class="btn btn-white btn-lg">
+              🚨 Audit Gratuit Immédiat
+            </a>
+            <a href="https://wa.me/33612345678?text=Plombier%20interessé%20site%20AWEMA" class="btn btn-outline-white btn-lg">
+              💬 WhatsApp Direct
+            </a>
+          </div>
+          <p class="text-sm opacity-90">
+            ⚡ Offre Flash : -20% création jusqu'au 31/01 • Places limitées
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO Footer -->
+  <section class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="text-center text-sm text-gray-500">
+            <p class="mb-2">
+              <strong>Mots-clés:</strong> {motsCleSEO.join(" • ")}
+            </p>
+            <p>
+              AWEMA - Spécialiste sites internet plombiers depuis 2023 -
+              127 clients plombiers satisfaits - ROI garanti ou remboursé
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

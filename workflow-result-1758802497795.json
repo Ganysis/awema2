@@ -1,0 +1,74 @@
+{
+  "steps": [
+    {
+      "step": 1,
+      "name": "Validation",
+      "status": "✅"
+    },
+    {
+      "step": 2,
+      "name": "Base de données",
+      "status": "✅"
+    },
+    {
+      "step": 3,
+      "name": "Mockups",
+      "status": "⚠️ Simulé"
+    },
+    {
+      "step": 4,
+      "name": "Email",
+      "status": "⚠️ Simulé"
+    },
+    {
+      "step": 5,
+      "name": "Sélection",
+      "status": "✅"
+    },
+    {
+      "step": 6,
+      "name": "CMS",
+      "status": "⚠️ Token requis"
+    },
+    {
+      "step": 7,
+      "name": "Enrichissement IA",
+      "status": "✅"
+    },
+    {
+      "step": 8,
+      "name": "Build",
+      "status": "✅"
+    },
+    {
+      "step": 9,
+      "name": "Déploiement",
+      "status": "✅"
+    },
+    {
+      "step": 10,
+      "name": "Dashboard",
+      "status": "✅"
+    }
+  ],
+  "success": true,
+  "errors": [],
+  "finalWorkflow": {
+    "id": "workflow-local-1758802473093",
+    "clientId": "client-1758802472961",
+    "status": "DEPLOYED",
+    "createdAt": "2025-09-25T12:14:33.093Z",
+    "selectedTemplate": "sydney",
+    "enrichedContent": "**Plomberie Excellence Marseille : Votre Plombier de Confiance dans le 8ème**\n\nFace à une fuite d'eau urgente ou projetant la rénovation de votre salle de bain ? Plomberie Excellence Marseille est votre partenaire de confiance pour tous vos besoins en plomberie dans le 8ème arrondissement et ses alentours.\n\nNotre équipe d'artisans plombiers, experte et réactive, met son savoir-faire à votre service pour une intervention rapide et efficace. Que ce soit pour un **dépannage urgent 24h/24 et 7j/7**, l'installation de votre équipement sanitaire, la **rénovation complète de votre salle de bain**, la **détection précise de fuites** ou l'**entretien de votre chaudière**, nous garantissons un travail de qualité et des solutions durables.\n\nParfaitement implantés à **Marseille 8ème**, nous connaissons les spécificités des logements et immeubles du secteur. Cette expertise locale nous permet d'intervenir avec une grande réactivité et de vous proposer des conseils adaptés à votre habitat.\n\nLa satisfaction de nos clients est notre priorité. Nous nous engageons à respecter les délais annoncés et à utiliser des matériaux de qualité pour une tranquillité d'esprit totale.\n\n**Un problème de plomberie ou un projet en tête ? N'attendez plus ! Contactez Plomberie Excellence Marseille dès maintenant pour un devis gratuit et personnalisé.**",
+    "productionUrl": "https://plombier-local.pages.dev"
+  },
+  "dashboard": {
+    "workflowId": "workflow-local-1758802473093",
+    "clientName": "Plomberie Excellence Marseille",
+    "status": "DEPLOYED",
+    "selectedTemplate": "sydney",
+    "productionUrl": "https://plombier-local.pages.dev",
+    "enrichedContent": "Oui",
+    "deploymentStatus": "En ligne"
+  }
+}

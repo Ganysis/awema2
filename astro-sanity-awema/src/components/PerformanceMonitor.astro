@@ -1,0 +1,396 @@
+---
+export interface Props {
+  enabled?: boolean;
+  logToConsole?: boolean;
+  sendToAnalytics?: boolean;
+  showOverlay?: boolean;
+}
+
+const {
+  enabled = true,
+  logToConsole = import.meta.env.DEV,
+  sendToAnalytics = !import.meta.env.DEV,
+  showOverlay = import.meta.env.DEV
+} = Astro.props;
+---
+
+{enabled && (
+  <script define:vars={{ logToConsole, sendToAnalytics, showOverlay }}>
+    class PerformanceMonitor {
+      constructor() {
+        this.metrics = {
+          lcp: null,
+          fid: null,
+          cls: null,
+          fcp: null,
+          ttfb: null,
+          inp: null
+        };
+
+        this.thresholds = {
+          lcp: { good: 2500, needsImprovement: 4000 },
+          fid: { good: 100, needsImprovement: 300 },
+          cls: { good: 0.1, needsImprovement: 0.25 },
+          fcp: { good: 1800, needsImprovement: 3000 },
+          ttfb: { good: 800, needsImprovement: 1800 },
+          inp: { good: 200, needsImprovement: 500 }
+        };
+
+        this.init();
+      }
+
+      init() {
+        // Only run if PerformanceObserver is supported
+        if (!('PerformanceObserver' in window)) {
+          return;
+        }
+
+        // Measure Web Vitals
+        this.measureLCP();
+        this.measureFID();
+        this.measureCLS();
+        this.measureFCP();
+        this.measureTTFB();
+        this.measureINP();
+
+        // Navigation timing
+        this.measureNavigationTiming();
+
+        // Resource timing
+        this.measureResourceTiming();
+
+        // Create performance overlay if enabled
+        if (showOverlay) {
+          this.createOverlay();
+        }
+      }
+
+      measureLCP() {
+        try {
+          const observer = new PerformanceObserver((list) => {
+            const entries = list.getEntries();
+            const lastEntry = entries[entries.length - 1];
+            this.metrics.lcp = lastEntry.renderTime || lastEntry.loadTime;
+            this.reportMetric('LCP', this.metrics.lcp);
+          });
+          observer.observe({ type: 'largest-contentful-paint', buffered: true });
+        } catch (e) {
+          // Silent fail
+        }
+      }
+
+      measureFID() {
+        try {
+          const observer = new PerformanceObserver((list) => {
+            const entries = list.getEntries();
+            entries.forEach((entry) => {
+              this.metrics.fid = entry.processingStart - entry.startTime;
+              this.reportMetric('FID', this.metrics.fid);
+            });
+          });
+          observer.observe({ type: 'first-input', buffered: true });
+        } catch (e) {
+          // Silent fail
+        }
+      }
+
+      measureCLS() {
+        try {
+          let clsValue = 0;
+          let clsEntries = [];
+
+          const observer = new PerformanceObserver((list) => {
+            for (const entry of list.getEntries()) {
+              if (!entry.hadRecentInput) {
+                clsValue += entry.value;
+                clsEntries.push(entry);
+              }
+            }
+            this.metrics.cls = clsValue;
+            this.reportMetric('CLS', this.metrics.cls);
+          });
+          observer.observe({ type: 'layout-shift', buffered: true });
+        } catch (e) {
+          // Silent fail
+        }
+      }
+
+      measureFCP() {
+        try {
+          const observer = new PerformanceObserver((list) => {
+            const entries = list.getEntries();
+            entries.forEach((entry) => {
+              if (entry.name === 'first-contentful-paint') {
+                this.metrics.fcp = entry.startTime;
+                this.reportMetric('FCP', this.metrics.fcp);
+              }
+            });
+          });
+          observer.observe({ type: 'paint', buffered: true });
+        } catch (e) {
+          // Silent fail
+        }
+      }
+
+      measureTTFB() {
+        try {
+          const navigationTiming = performance.getEntriesByType('navigation')[0];
+          if (navigationTiming) {
+            this.metrics.ttfb = navigationTiming.responseStart - navigationTiming.fetchStart;
+            this.reportMetric('TTFB', this.metrics.ttfb);
+          }
+        } catch (e) {
+          // Silent fail
+        }
+      }
+
+      measureINP() {
+        try {
+          let worstINP = 0;
+          const observer = new PerformanceObserver((list) => {
+            for (const entry of list.getEntries()) {
+              if (entry.entryType === 'event' && entry.duration > worstINP) {
+                worstINP = entry.duration;
+                this.metrics.inp = worstINP;
+                this.reportMetric('INP', this.metrics.inp);
+              }
+            }
+          });
+          observer.observe({ type: 'event', buffered: true });
+        } catch (e) {
+          // Silent fail
+        }
+      }
+
+      measureNavigationTiming() {
+        if (performance.timing) {
+          const timing = performance.timing;
+          const metrics = {
+            domainLookup: timing.domainLookupEnd - timing.domainLookupStart,
+            tcpConnect: timing.connectEnd - timing.connectStart,
+            request: timing.responseStart - timing.requestStart,
+            response: timing.responseEnd - timing.responseStart,
+            domParsing: timing.domInteractive - timing.domLoading,
+            domContentLoaded: timing.domContentLoadedEventEnd - timing.navigationStart,
+            pageLoad: timing.loadEventEnd - timing.navigationStart
+          };
+
+          if (logToConsole) {
+            console.table(metrics);
+          }
+        }
+      }
+
+      measureResourceTiming() {
+        const resources = performance.getEntriesByType('resource');
+        const summary = {
+          images: { count: 0, totalSize: 0, totalDuration: 0 },
+          scripts: { count: 0, totalSize: 0, totalDuration: 0 },
+          stylesheets: { count: 0, totalSize: 0, totalDuration: 0 },
+          fonts: { count: 0, totalSize: 0, totalDuration: 0 }
+        };
+
+        resources.forEach(resource => {
+          const type = this.getResourceType(resource.name);
+          if (summary[type]) {
+            summary[type].count++;
+            summary[type].totalSize += resource.transferSize || 0;
+            summary[type].totalDuration += resource.duration || 0;
+          }
+        });
+
+        if (logToConsole) {
+          console.log('Resource Summary:', summary);
+        }
+      }
+
+      getResourceType(url) {
+        if (/\.(jpg|jpeg|png|gif|webp|svg|ico)/i.test(url)) return 'images';
+        if (/\.(js|mjs)/i.test(url)) return 'scripts';
+        if (/\.(css)/i.test(url)) return 'stylesheets';
+        if (/\.(woff|woff2|ttf|otf)/i.test(url)) return 'fonts';
+        return 'other';
+      }
+
+      reportMetric(name, value) {
+        if (value === null || value === undefined) return;
+
+        const rating = this.getRating(name.toLowerCase(), value);
+
+        // Log to console if enabled
+        if (logToConsole) {
+          const emoji = rating === 'good' ? '✅' : rating === 'needs-improvement' ? '⚠️' : '❌';
+          console.log(`${emoji} ${name}: ${value.toFixed(2)}ms (${rating})`);
+        }
+
+        // Send to analytics if enabled
+        if (sendToAnalytics && typeof gtag !== 'undefined') {
+          gtag('event', 'web_vitals', {
+            event_category: 'Web Vitals',
+            event_label: name,
+            value: Math.round(value),
+            metric_rating: rating,
+            non_interaction: true
+          });
+        }
+
+        // Update overlay if exists
+        this.updateOverlay(name, value, rating);
+      }
+
+      getRating(metric, value) {
+        const threshold = this.thresholds[metric];
+        if (!threshold) return 'unknown';
+
+        if (value <= threshold.good) return 'good';
+        if (value <= threshold.needsImprovement) return 'needs-improvement';
+        return 'poor';
+      }
+
+      createOverlay() {
+        const overlay = document.createElement('div');
+        overlay.id = 'performance-overlay';
+        overlay.innerHTML = `
+          <div class="performance-overlay-header">
+            <span>⚡ Performance</span>
+            <button id="performance-overlay-close">×</button>
+          </div>
+          <div class="performance-metrics">
+            <div class="metric" data-metric="lcp">
+              <span class="metric-name">LCP</span>
+              <span class="metric-value">-</span>
+            </div>
+            <div class="metric" data-metric="fid">
+              <span class="metric-name">FID</span>
+              <span class="metric-value">-</span>
+            </div>
+            <div class="metric" data-metric="cls">
+              <span class="metric-name">CLS</span>
+              <span class="metric-value">-</span>
+            </div>
+            <div class="metric" data-metric="fcp">
+              <span class="metric-name">FCP</span>
+              <span class="metric-value">-</span>
+            </div>
+            <div class="metric" data-metric="ttfb">
+              <span class="metric-name">TTFB</span>
+              <span class="metric-value">-</span>
+            </div>
+            <div class="metric" data-metric="inp">
+              <span class="metric-name">INP</span>
+              <span class="metric-value">-</span>
+            </div>
+          </div>
+        `;
+
+        const style = document.createElement('style');
+        style.textContent = `
+          #performance-overlay {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 99999;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          }
+
+          .performance-overlay-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+          }
+
+          #performance-overlay-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .performance-metrics {
+            display: grid;
+            gap: 5px;
+          }
+
+          .metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 5px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+          }
+
+          .metric.good {
+            background-color: rgba(34, 197, 94, 0.2);
+          }
+
+          .metric.needs-improvement {
+            background-color: rgba(251, 146, 60, 0.2);
+          }
+
+          .metric.poor {
+            background-color: rgba(239, 68, 68, 0.2);
+          }
+
+          .metric-name {
+            font-weight: bold;
+          }
+
+          .metric-value {
+            color: rgba(255, 255, 255, 0.8);
+          }
+        `;
+
+        document.head.appendChild(style);
+        document.body.appendChild(overlay);
+
+        // Add close functionality
+        document.getElementById('performance-overlay-close').addEventListener('click', () => {
+          overlay.remove();
+          style.remove();
+        });
+      }
+
+      updateOverlay(name, value, rating) {
+        const overlay = document.getElementById('performance-overlay');
+        if (!overlay) return;
+
+        const metricEl = overlay.querySelector(`[data-metric="${name.toLowerCase()}"]`);
+        if (metricEl) {
+          metricEl.className = `metric ${rating}`;
+          const valueEl = metricEl.querySelector('.metric-value');
+          if (name === 'CLS') {
+            valueEl.textContent = value.toFixed(3);
+          } else {
+            valueEl.textContent = `${Math.round(value)}ms`;
+          }
+        }
+      }
+    }
+
+    // Initialize performance monitoring
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        new PerformanceMonitor();
+      });
+    } else {
+      new PerformanceMonitor();
+    }
+  </script>
+)}

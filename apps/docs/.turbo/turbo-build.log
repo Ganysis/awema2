@@ -1,0 +1,16 @@
+
+> @awema/docs@0.0.1 build /home/Ganyc/Desktop/awema/awema2/apps/docs
+> next build
+
+  ▲ Next.js 14.2.4
+
+   Linting and checking validity of types ...
+
+> Build error occurred
+[Error: EACCES: permission denied, unlink '/home/Ganyc/Desktop/awema/awema2/apps/docs/.next/server/interception-route-rewrite-manifest.js'] {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'unlink',
+  path: '/home/Ganyc/Desktop/awema/awema2/apps/docs/.next/server/interception-route-rewrite-manifest.js'
+}
+ ELIFECYCLE  Command failed with exit code 1.

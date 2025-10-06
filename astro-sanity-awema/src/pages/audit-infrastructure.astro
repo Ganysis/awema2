@@ -1,0 +1,908 @@
+---
+import Base from "@/layouts/Base.astro";
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Audit Infrastructure IT",
+    "provider": {
+      "@type": "Organization",
+      "name": "AWEMA",
+      "url": "https://awema.fr"
+    },
+    "serviceType": "IT Infrastructure Audit",
+    "areaServed": {
+      "@type": "Country",
+      "name": "France"
+    },
+    "description": "Audit complet de votre infrastructure IT : serveurs, réseau, sécurité, sauvegarde. Identifiez vos failles et optimisez vos coûts IT.",
+    "offers": {
+      "@type": "Offer",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "priceCurrency": "EUR"
+      },
+      "description": "Audit infrastructure IT complet sur mesure - Tarif adapté à votre taille d'entreprise"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Combien coûte un audit infrastructure ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Le tarif est sur mesure selon la taille de votre entreprise, le nombre de postes, serveurs, et la complexité de votre infrastructure. Comptez à partir de 1200€ HT pour une TPE jusqu'à plusieurs milliers d'euros pour une infrastructure complexe. Devis gratuit sous 24h."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Que contient l'audit ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "L'audit analyse 6 domaines : serveurs et performances, réseau et connectivité, sécurité et vulnérabilités, sauvegardes et continuité, licences et conformité, coûts et optimisations. Rapport de 30+ pages avec plan d'action."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Combien de temps dure un audit ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "L'audit sur site dure 1 journée. Le rapport complet vous est livré sous 5 jours ouvrés avec présentation orale des résultats."
+        }
+      }
+    ]
+  }
+];
+---
+
+<Base
+  title="Audit Infrastructure IT 1200€ | Sécurité & Optimisation | AWEMA"
+  meta_title="Audit IT Complet 1200€ | Sécurité Réseau Serveurs | Aix-Marseille"
+  description="Audit IT complet dès 1200€ : serveurs, réseau, sécurité, sauvegardes. Rapport 30p en 5j. Expert Aix-Marseille. Économisez 15k€/an. Devis gratuit 24h."
+  schema={schema}
+>
+
+  <!-- SECTION 1: Hero -->
+  <section class="relative min-h-[90vh] flex items-center bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white overflow-hidden">
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <div class="container relative z-10 py-20">
+      <div class="row items-center">
+        <div class="lg:col-7" data-aos="fade-right">
+          <div class="inline-block bg-blue-600/90 backdrop-blur-sm px-4 py-2 rounded-full mb-6 shadow-lg">
+            <span class="text-white font-semibold">🔍 Audit Infrastructure IT</span>
+          </div>
+
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-lg">
+            Votre IT est-elle <span class="text-blue-400">vraiment sécurisée</span> ?
+          </h1>
+
+          <p class="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
+            Audit complet en 1 jour.<br/>
+            <strong class="text-white">Identifiez vos failles avant qu'il ne soit trop tard.</strong>
+          </p>
+
+          <div class="space-y-4 mb-10">
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-white"><strong>Rapport complet</strong> - 30+ pages avec plan d'action</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-white"><strong>6 domaines analysés</strong> - Serveurs, réseau, sécurité...</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-white"><strong>Livraison 5 jours</strong> - Avec présentation orale</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-white"><strong>Analyse financière détaillée</strong> - Budget et économies potentielles</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#commander" class="btn bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-8 py-4 text-lg font-bold rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300">
+              Commander mon audit
+            </a>
+            <a href="#contenu" class="btn border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg font-bold rounded-lg transition-all duration-300">
+              Voir ce qui est audité
+            </a>
+          </div>
+
+          <p class="text-sm text-gray-300 mt-4">
+            💰 <strong>Tarif sur mesure</strong> selon votre infrastructure (à partir de 1200€ HT)
+          </p>
+        </div>
+
+        <div class="lg:col-5 mt-10 lg:mt-0" data-aos="fade-left">
+          <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl">
+            <h3 class="text-2xl font-bold mb-6 text-white">Votre IT cache des bombes :</h3>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span class="text-white font-bold">⚠️</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-white mb-1">Failles de sécurité</h4>
+                  <p class="text-sm text-gray-300">73% des PME ont des ports ouverts inutiles</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span class="text-white font-bold">💸</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-white mb-1">Gaspillage financier</h4>
+                  <p class="text-sm text-gray-300">Licences inutilisées = 30% du budget IT</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span class="text-white font-bold">🔥</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-white mb-1">Backups défaillants</h4>
+                  <p class="text-sm text-gray-300">60% des PME n'ont jamais testé leurs sauvegardes</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span class="text-white font-bold">⏱️</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-white mb-1">Serveurs obsolètes</h4>
+                  <p class="text-sm text-gray-300">Matériel >5 ans = perte de 40% de performance</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Pourquoi faire un audit ? -->
+  <section class="section bg-gray-50 py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Pourquoi auditer votre infrastructure maintenant ?
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Un audit IT n'est pas une dépense, c'est un investissement qui se rembourse en quelques mois.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="lg:col-4 md:col-6" data-aos="fade-up">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
+            <div class="text-4xl mb-4">🚨</div>
+            <h3 class="text-xl font-bold mb-3 text-red-600">Éviter une cyberattaque</h3>
+            <p class="text-gray-600 mb-4">
+              Une PME piratée perd en moyenne <strong>120 000€</strong> (downtime, rançon, perte clients). L'audit identifie vos failles AVANT l'attaque.
+            </p>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Scan des vulnérabilités</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Analyse des accès non sécurisés</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Conformité RGPD vérifiée</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-blue-500 h-full">
+            <div class="text-4xl mb-4">💰</div>
+            <h3 class="text-xl font-bold mb-3 text-blue-600">Économiser 20-40% sur vos coûts IT</h3>
+            <p class="text-gray-600 mb-4">
+              Licences inutilisées, matériel surdimensionné, abonnements en double... Mes clients économisent en moyenne <strong>15 000€/an</strong>.
+            </p>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Analyse des licences gaspillées</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Optimisation matériel</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Recommandations alternatives</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-green-500 h-full">
+            <div class="text-4xl mb-4">⚡</div>
+            <h3 class="text-xl font-bold mb-3 text-green-600">Booster les performances</h3>
+            <p class="text-gray-600 mb-4">
+              Serveurs qui rament, réseau lent, apps qui plantent... L'audit révèle les goulots d'étranglement et propose des solutions rapides.
+            </p>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Mesure des performances réelles</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Identification des ralentissements</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500">✓</span>
+                <span>Quick wins (résultats immédiats)</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: Ce qui est audité -->
+  <section id="contenu" class="section bg-white py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          6 domaines analysés en profondeur
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Audit exhaustif de votre infrastructure IT. Rien n'est laissé au hasard.
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        <!-- Domaine 1 -->
+        <div class="bg-gradient-to-r from-blue-50 to-white p-8 rounded-xl shadow-lg border-l-4 border-blue-500" data-aos="fade-right">
+          <div class="flex items-start gap-6">
+            <div class="w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
+              <span class="text-3xl">🖥️</span>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold mb-3">1. Serveurs & Performances</h3>
+              <p class="text-gray-700 mb-4">
+                Analyse complète de vos serveurs physiques et virtuels : CPU, RAM, stockage, températures, logs d'erreurs.
+              </p>
+              <div class="grid md:grid-cols-2 gap-3 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>État du matériel (âge, obsolescence)</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Utilisation CPU/RAM/Disques</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Analyse des logs systèmes</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Virtualisation (VMware, Hyper-V...)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domaine 2 -->
+        <div class="bg-gradient-to-r from-purple-50 to-white p-8 rounded-xl shadow-lg border-l-4 border-purple-500" data-aos="fade-left">
+          <div class="flex items-start gap-6">
+            <div class="w-16 h-16 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
+              <span class="text-3xl">🌐</span>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold mb-3">2. Réseau & Connectivité</h3>
+              <p class="text-gray-700 mb-4">
+                Audit du réseau local (LAN), Wi-Fi, routeurs, switches, bande passante, redondance internet.
+              </p>
+              <div class="grid md:grid-cols-2 gap-3 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Architecture réseau (VLAN, segmentation)</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Débit internet réel vs contractuel</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Wi-Fi : couverture & sécurité</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Redondance liens internet</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domaine 3 -->
+        <div class="bg-gradient-to-r from-red-50 to-white p-8 rounded-xl shadow-lg border-l-4 border-red-500" data-aos="fade-right">
+          <div class="flex items-start gap-6">
+            <div class="w-16 h-16 bg-red-500 rounded-xl flex items-center justify-center flex-shrink-0">
+              <span class="text-3xl">🔒</span>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold mb-3">3. Sécurité & Vulnérabilités</h3>
+              <p class="text-gray-700 mb-4">
+                Scan complet des failles de sécurité, pare-feu, antivirus, accès non autorisés, conformité RGPD.
+              </p>
+              <div class="grid md:grid-cols-2 gap-3 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Scan de vulnérabilités (ports ouverts)</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Analyse pare-feu & règles</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Antivirus & protection endpoints</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Conformité RGPD données</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domaine 4 -->
+        <div class="bg-gradient-to-r from-green-50 to-white p-8 rounded-xl shadow-lg border-l-4 border-green-500" data-aos="fade-left">
+          <div class="flex items-start gap-6">
+            <div class="w-16 h-16 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
+              <span class="text-3xl">💾</span>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold mb-3">4. Sauvegardes & Continuité</h3>
+              <p class="text-gray-700 mb-4">
+                Vérification backups : fréquence, intégrité, tests de restauration, PRA (Plan Reprise Activité).
+              </p>
+              <div class="grid md:grid-cols-2 gap-3 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Stratégie de sauvegarde (3-2-1)</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Test de restauration réel</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>RTO/RPO (temps de reprise)</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Plan de continuité (PRA/PCA)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domaine 5 -->
+        <div class="bg-gradient-to-r from-orange-50 to-white p-8 rounded-xl shadow-lg border-l-4 border-orange-500" data-aos="fade-right">
+          <div class="flex items-start gap-6">
+            <div class="w-16 h-16 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
+              <span class="text-3xl">📋</span>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold mb-3">5. Licences & Conformité</h3>
+              <p class="text-gray-700 mb-4">
+                Inventaire licences (Windows, Office, logiciels métiers), détection licences inutilisées, conformité légale.
+              </p>
+              <div class="grid md:grid-cols-2 gap-3 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Inventaire licences Windows/Office</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Licences inutilisées (gaspillage)</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Logiciels métiers & maintenance</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Conformité BSA/SSII</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domaine 6 -->
+        <div class="bg-gradient-to-r from-cyan-50 to-white p-8 rounded-xl shadow-lg border-l-4 border-cyan-500" data-aos="fade-left">
+          <div class="flex items-start gap-6">
+            <div class="w-16 h-16 bg-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
+              <span class="text-3xl">💸</span>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold mb-3">6. Coûts & Optimisations</h3>
+              <p class="text-gray-700 mb-4">
+                Analyse TCO (Total Cost Ownership), recommandations économies, alternatives Cloud, ROI des investissements.
+              </p>
+              <div class="grid md:grid-cols-2 gap-3 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Calcul TCO actuel</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Économies potentielles chiffrées</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Alternatives Cloud (AWS, OVH, Azure)</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Roadmap investissements 3 ans</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Process -->
+  <section class="section bg-gray-50 py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Comment se déroule l'audit ?
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Un processus simple et non intrusif. Vous continuez à travailler normalement.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <!-- Étape 1 -->
+        <div class="flex gap-6 mb-12" data-aos="fade-right">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+              1
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold mb-3">Pré-audit téléphonique (30min)</h3>
+            <p class="text-gray-700 text-lg mb-4">
+              Échange téléphonique pour comprendre votre contexte, vos problématiques, vos attentes. Préparation de l'audit sur site.
+            </p>
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+              <p class="text-gray-700"><strong>Livrable :</strong> Liste matériel à préparer + planification intervention</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 2 -->
+        <div class="flex gap-6 mb-12" data-aos="fade-left">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+              2
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold mb-3">Audit sur site (1 journée)</h3>
+            <p class="text-gray-700 text-lg mb-4">
+              Je viens analyser votre infrastructure : accès serveurs, réseau, pare-feu, tests performances, scan sécurité. Non intrusif, vous travaillez normalement.
+            </p>
+            <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+              <p class="text-gray-700"><strong>Durée :</strong> 1 journée sur site (9h-17h) • Intervention discrète</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="flex gap-6 mb-12" data-aos="fade-right">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-gradient-to-br from-orange-600 to-orange-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+              3
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold mb-3">Analyse & Rédaction rapport (3 jours)</h3>
+            <p class="text-gray-700 text-lg mb-4">
+              Je compile toutes les données, analyse les résultats, rédige le rapport détaillé avec recommandations chiffrées.
+            </p>
+            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+              <p class="text-gray-700"><strong>Livrable :</strong> Rapport PDF 30-50 pages + fichier Excel budget prévisionnel</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 4 -->
+        <div class="flex gap-6" data-aos="fade-left">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-600 to-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+              4
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold mb-3">Présentation résultats (1h)</h3>
+            <p class="text-gray-700 text-lg mb-4">
+              Présentation orale du rapport, explication des failles critiques, plan d'action priorisé, réponses à vos questions.
+            </p>
+            <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+              <p class="text-gray-700"><strong>Format :</strong> Visio ou sur site • Vous repartez avec un plan d'action clair</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-16" data-aos="fade-up">
+        <div class="inline-block bg-green-100 text-green-800 px-6 py-3 rounded-lg font-bold text-lg mb-6">
+          ⏱️ Délai total : 5 jours ouvrés de la commande au rapport final
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: Tarif -->
+  <section class="section bg-white py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Tarification sur mesure
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Chaque infrastructure est unique. Votre tarif est adapté à votre réalité.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-12 rounded-2xl border-4 border-blue-500 shadow-2xl" data-aos="zoom-in">
+          <div class="text-center mb-8">
+            <div class="inline-block bg-blue-500 text-white px-6 py-2 rounded-full font-bold text-lg mb-4">
+              AUDIT INFRASTRUCTURE COMPLET
+            </div>
+            <div class="text-6xl font-bold text-blue-600 mb-3">Sur mesure</div>
+            <div class="text-2xl text-gray-600 font-semibold mb-4">Tarif adapté à votre infrastructure</div>
+            <div class="inline-block bg-white px-6 py-3 rounded-lg shadow-md">
+              <p class="text-lg text-gray-700">À partir de <strong class="text-blue-600 text-2xl">1200€ HT</strong></p>
+            </div>
+          </div>
+
+          <div class="bg-white p-8 rounded-xl shadow-lg mb-8">
+            <h3 class="text-2xl font-bold mb-6 text-center">🎯 Critères de tarification :</h3>
+            <div class="space-y-4 mb-6">
+              <div class="flex items-start gap-3">
+                <span class="text-blue-500 text-xl">📊</span>
+                <div>
+                  <strong>Taille de l'entreprise</strong>
+                  <p class="text-gray-600 text-sm">Nombre de postes de travail, sites géographiques</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-blue-500 text-xl">🖥️</span>
+                <div>
+                  <strong>Infrastructure serveurs</strong>
+                  <p class="text-gray-600 text-sm">Nombre de serveurs physiques/virtuels, complexité</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-blue-500 text-xl">🌐</span>
+                <div>
+                  <strong>Environnement réseau</strong>
+                  <p class="text-gray-600 text-sm">Architecture réseau, sites distants, VPN, pare-feu</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-blue-500 text-xl">🔐</span>
+                <div>
+                  <strong>Applications métiers</strong>
+                  <p class="text-gray-600 text-sm">Nombre d'applications critiques, bases de données</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-blue-500 text-xl">⏱️</span>
+                <div>
+                  <strong>Durée d'intervention</strong>
+                  <p class="text-gray-600 text-sm">1 à 5 jours selon la complexité de l'infrastructure</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-blue-100 to-cyan-100 p-6 rounded-xl border-l-4 border-blue-500">
+              <h4 class="font-bold mb-3 text-lg">📋 Toujours inclus :</h4>
+              <div class="grid md:grid-cols-2 gap-3 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Audit complet sur site</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Rapport PDF détaillé</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>6 domaines analysés</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Plan d'action priorisé</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Budget prévisionnel 3 ans</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Présentation résultats</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Analyse coûts détaillée</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-500">✓</span>
+                  <span>Support 30j post-audit</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-blue-100 p-6 rounded-xl border-l-4 border-blue-500 mb-8">
+            <p class="text-gray-700 text-lg">
+              <strong>💡 Bénéfice concret :</strong> L'audit identifie en moyenne <strong>15 000€ d'économies annuelles</strong> pour une PME (licences, optimisation matériel, contrats).
+            </p>
+          </div>
+
+          <div class="text-center">
+            <a href="#commander" class="inline-block px-10 py-5 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white rounded-lg font-bold transition-all hover:scale-105 shadow-2xl text-xl">
+              Demander mon devis gratuit
+            </a>
+            <p class="text-gray-600 mt-4">
+              Réponse sous 24h • Appelez : <a href="tel:0617540383" class="font-bold text-blue-600 hover:text-blue-700">06 17 54 03 83</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 bg-gray-50 p-6 rounded-xl" data-aos="fade-up">
+          <h4 class="font-bold text-center mb-4">💡 Exemples de tarifs indicatifs :</h4>
+          <div class="grid md:grid-cols-3 gap-4 text-center">
+            <div class="bg-white p-4 rounded-lg shadow">
+              <div class="font-bold text-lg mb-1">TPE</div>
+              <div class="text-sm text-gray-600 mb-2">< 10 postes, 1-2 serveurs</div>
+              <div class="text-2xl font-bold text-blue-600">1200€ HT</div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow border-2 border-blue-500">
+              <div class="font-bold text-lg mb-1">PME</div>
+              <div class="text-sm text-gray-600 mb-2">10-50 postes, 3-10 serveurs</div>
+              <div class="text-2xl font-bold text-blue-600">1800-3500€ HT</div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+              <div class="font-bold text-lg mb-1">ETI/Grande entreprise</div>
+              <div class="text-sm text-gray-600 mb-2">> 50 postes, infrastructure complexe</div>
+              <div class="text-2xl font-bold text-blue-600">Sur devis</div>
+            </div>
+          </div>
+          <p class="text-center text-sm text-gray-600 mt-4">
+            * Tarifs indicatifs - Devis personnalisé sous 24h après pré-audit téléphonique gratuit
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: FAQ -->
+  <section class="section bg-gray-50 py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Questions fréquentes
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Les réponses aux questions que se posent les dirigeants avant de commander un audit.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto space-y-4">
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            L'audit va-t-il perturber notre activité ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Non, zéro interruption.</strong></p>
+            <p class="mt-3">L'audit est entièrement non intrusif :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>Vos équipes continuent à travailler normalement</li>
+              <li>Aucune coupure de service</li>
+              <li>Accès lecture seule aux serveurs (pas de modification)</li>
+              <li>Tests de performances hors heures de bureau si besoin</li>
+            </ul>
+            <p class="mt-3">Intervention discrète, impact zéro sur votre production.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Que contient exactement le rapport d'audit ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Un rapport ultra-détaillé de 30-50 pages :</strong></p>
+            <ul class="list-disc pl-6 mt-3 space-y-2">
+              <li><strong>Executive Summary</strong> : Résumé 2 pages pour la direction</li>
+              <li><strong>Inventaire complet</strong> : Liste matériel, licences, configurations</li>
+              <li><strong>Analyse par domaine</strong> : 6 chapitres détaillés (serveurs, réseau, sécurité...)</li>
+              <li><strong>Failles critiques</strong> : Vulnérabilités à corriger en priorité</li>
+              <li><strong>Plan d'action</strong> : Roadmap chiffrée sur 3 ans</li>
+              <li><strong>Budget prévisionnel</strong> : Investissements + économies attendues</li>
+              <li><strong>Annexes techniques</strong> : Screenshots, logs, résultats scans</li>
+            </ul>
+            <p class="mt-3">Format PDF + fichier Excel budget.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Quelles économies puis-je espérer concrètement ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>En moyenne, mes clients économisent 15 000€/an.</strong></p>
+            <p class="mt-3">Postes d'économies typiques :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-2">
+              <li><strong>Licences inutilisées :</strong> 3000-5000€/an (Office, Windows Server, logiciels métiers)</li>
+              <li><strong>Matériel surdimensionné :</strong> 2000-4000€/an (serveurs sous-utilisés)</li>
+              <li><strong>Optimisation Cloud :</strong> 5000-10 000€/an (migration vers Cloud moins cher)</li>
+              <li><strong>Abonnements en double :</strong> 1000-2000€/an (stockage, SaaS...)</li>
+              <li><strong>Électricité :</strong> 500-1000€/an (extinction automatique, virtualisation)</li>
+            </ul>
+            <p class="mt-3"><strong>Exemple réel :</strong> PME 40 personnes = 18 500€ économisés la 1ère année.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Mes données sont-elles en sécurité pendant l'audit ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Confidentialité absolue garantie.</strong></p>
+            <ul class="list-disc pl-6 mt-3 space-y-2">
+              <li>Signature NDA (accord de confidentialité) avant intervention</li>
+              <li>Accès lecture seule aux serveurs (aucune modification)</li>
+              <li>Aucune extraction de données sensibles</li>
+              <li>Rapport anonymisé si besoin (pas de noms clients, pas d'IPs publiques)</li>
+              <li>Stockage sécurisé du rapport (chiffré AES-256)</li>
+            </ul>
+            <p class="mt-3">En 10 ans, zéro incident de sécurité ou de confidentialité.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Dois-je obligatoirement suivre toutes les recommandations ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Non, vous restez décisionnaire à 100%.</strong></p>
+            <p class="mt-3">L'audit vous donne :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>Un état des lieux objectif</li>
+              <li>Des recommandations priorisées (urgent → optionnel)</li>
+              <li>Des chiffrages pour chaque action</li>
+              <li>Le ROI estimé de chaque investissement</li>
+            </ul>
+            <p class="mt-3">Vous choisissez ce que vous voulez mettre en place, quand, et avec qui. Aucune obligation.</p>
+            <p class="mt-3"><strong>Mon rôle :</strong> Vous donner toutes les cartes pour prendre les bonnes décisions IT.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Pouvez-vous nous accompagner après l'audit ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Oui, plusieurs formules d'accompagnement :</strong></p>
+            <ul class="list-disc pl-6 mt-3 space-y-2">
+              <li><strong>Support 30j inclus :</strong> Réponses à vos questions post-audit (email/tél)</li>
+              <li><strong>Mise en œuvre recommandations :</strong> Je peux réaliser les actions identifiées (sur devis)</li>
+              <li><strong>Suivi trimestriel :</strong> Points de contrôle tous les 3 mois (forfait mensuel)</li>
+              <li><strong>Direction IT externalisée :</strong> Je deviens votre DSI à temps partiel</li>
+            </ul>
+            <p class="mt-3">Mais vous pouvez aussi faire réaliser les travaux par votre prestataire actuel ou une autre SSII.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: CTA Final -->
+  <section id="commander" class="section relative bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white py-20">
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <div class="container relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white drop-shadow-lg" data-aos="fade-up">
+          Prêt à sécuriser et optimiser votre IT ?
+        </h2>
+        <p class="text-xl text-gray-200 mb-12 leading-relaxed" data-aos="fade-up" data-aos-delay="100">
+          Rapport complet en 5 jours. ROI garanti dès la 1ère année.
+        </p>
+
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 mb-10" data-aos="zoom-in">
+          <div class="row g-4">
+            <div class="lg:col-4">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-3xl">🔍</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-white">Audit 1 jour</h3>
+                <p class="text-gray-200">Sur site, non intrusif</p>
+              </div>
+            </div>
+            <div class="lg:col-4">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-3xl">📊</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-white">Rapport 30-50p</h3>
+                <p class="text-gray-200">Plan d'action détaillé</p>
+              </div>
+            </div>
+            <div class="lg:col-4">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-3xl">💰</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-white">Analyse financière</h3>
+                <p class="text-gray-200">Budget & optimisation</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4" data-aos="fade-up" data-aos-delay="200">
+          <a href="/contact" class="inline-block px-10 py-5 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white rounded-lg font-bold transition-all hover:scale-105 shadow-2xl text-xl">
+            Commander mon audit - À partir de 1200€ HT
+          </a>
+          <p class="text-gray-300">
+            ou appelez directement : <a href="tel:0617540383" class="font-bold text-white hover:text-blue-400">06 17 54 03 83</a>
+          </p>
+        </div>
+
+        <div class="mt-12 grid md:grid-cols-3 gap-6 text-sm text-gray-300" data-aos="fade-up" data-aos-delay="300">
+          <div class="flex items-center justify-center gap-2">
+            <span class="text-green-400">✓</span>
+            <span>Livraison 5 jours</span>
+          </div>
+          <div class="flex items-center justify-center gap-2">
+            <span class="text-green-400">✓</span>
+            <span>Support 30j inclus</span>
+          </div>
+          <div class="flex items-center justify-center gap-2">
+            <span class="text-green-400">✓</span>
+            <span>Satisfaction garantie</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Base>

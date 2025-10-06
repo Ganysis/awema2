@@ -1,0 +1,350 @@
+---
+export interface Props {
+  delay?: number;
+}
+
+const { delay = 30000 } = Astro.props;
+---
+
+<div id="exit-intent-popup" class="exit-popup hidden">
+  <div class="exit-popup-overlay"></div>
+  <div class="exit-popup-content">
+    <button class="exit-popup-close" aria-label="Fermer">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="exit-popup-body">
+      <div class="exit-popup-icon">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="40" r="38" stroke="#f97316" stroke-width="4"/>
+          <path d="M30 40l10 10 20-20" stroke="#f97316" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <h2 class="exit-popup-title">Attendez ! Votre maquette gratuite vous attend</h2>
+
+      <div class="exit-popup-offer">
+        <span class="offer-badge">Offre exclusive</span>
+        <p class="offer-text">-30% sur votre première commande</p>
+      </div>
+
+      <p class="exit-popup-description">
+        Recevez une maquette personnalisée de votre futur site web en 24h, sans engagement
+      </p>
+
+      <form id="exit-intent-form" class="exit-popup-form">
+        <div class="form-group">
+          <input
+            type="email"
+            name="email"
+            placeholder="Votre adresse email"
+            required
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Votre numéro de téléphone"
+            required
+            class="form-input"
+            pattern="[0-9]{10}"
+          />
+        </div>
+        <button type="submit" class="form-submit">
+          Recevoir ma maquette gratuite
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/>
+          </svg>
+        </button>
+      </form>
+
+      <p class="exit-popup-footer">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" class="inline">
+          <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"/>
+        </svg>
+        Vos données sont sécurisées et ne seront jamais partagées
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .exit-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .exit-popup.hidden {
+    display: none;
+  }
+
+  .exit-popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+  }
+
+  .exit-popup-content {
+    position: relative;
+    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+    border-radius: 24px;
+    padding: 3rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.4s ease;
+  }
+
+  .exit-popup-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .exit-popup-close:hover {
+    transform: rotate(90deg);
+    background-color: #f3f4f6;
+  }
+
+  .exit-popup-body {
+    text-align: center;
+  }
+
+  .exit-popup-icon {
+    margin-bottom: 1.5rem;
+    animation: bounce 2s infinite;
+  }
+
+  .exit-popup-title {
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .exit-popup-offer {
+    background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+    border-radius: 16px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border: 2px dashed #f97316;
+  }
+
+  .offer-badge {
+    display: inline-block;
+    background: #f97316;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .offer-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ea580c;
+    margin: 0;
+  }
+
+  .exit-popup-description {
+    color: #6b7280;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .exit-popup-form {
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.2s;
+    background: white;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #1e40af;
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+  }
+
+  .form-submit {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -5px rgba(30, 64, 175, 0.3);
+  }
+
+  .exit-popup-footer {
+    color: #9ca3af;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @media (max-width: 640px) {
+    .exit-popup-content {
+      padding: 2rem;
+      width: 95%;
+    }
+
+    .exit-popup-title {
+      font-size: 1.5rem;
+    }
+
+    .offer-text {
+      font-size: 1.25rem;
+    }
+  }
+</style>
+
+<script define:vars={{ delay }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const popup = document.getElementById('exit-intent-popup');
+    const closeBtn = document.querySelector('.exit-popup-close');
+    const form = document.getElementById('exit-intent-form');
+    let shown = false;
+
+    // Check if already shown in this session
+    if (sessionStorage.getItem('exitIntentShown')) {
+      return;
+    }
+
+    // Show on exit intent
+    const showPopup = () => {
+      if (!shown) {
+        popup.classList.remove('hidden');
+        shown = true;
+        sessionStorage.setItem('exitIntentShown', 'true');
+      }
+    };
+
+    // Exit intent detection
+    document.addEventListener('mouseleave', (e) => {
+      if (e.clientY <= 0 && !shown) {
+        showPopup();
+      }
+    });
+
+    // Also show after delay
+    setTimeout(() => {
+      if (!shown) {
+        showPopup();
+      }
+    }, delay);
+
+    // Close popup
+    closeBtn.addEventListener('click', () => {
+      popup.classList.add('hidden');
+    });
+
+    // Close on overlay click
+    document.querySelector('.exit-popup-overlay').addEventListener('click', () => {
+      popup.classList.add('hidden');
+    });
+
+    // Handle form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      // Here you would send the data to your backend
+      console.log('Form submitted:', Object.fromEntries(formData));
+
+      // Show success message
+      form.innerHTML = `
+        <div style="padding: 2rem; background: #dcfce7; border-radius: 12px;">
+          <svg width="48" height="48" viewBox="0 0 20 20" fill="#16a34a" style="margin: 0 auto 1rem;">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+          </svg>
+          <p style="color: #16a34a; font-weight: 700; margin: 0;">Merci ! Votre maquette arrive dans votre boîte mail.</p>
+        </div>
+      `;
+
+      setTimeout(() => {
+        popup.classList.add('hidden');
+      }, 3000);
+    });
+  });
+</script>

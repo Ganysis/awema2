@@ -1,0 +1,510 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+
+const meta = {
+  title: "Générateur Messages WhatsApp Pro BTP - AWEMA",
+  meta_title: "Messages WhatsApp Pro ➤ Templates Artisans BTP",
+  description: "Générateur de messages WhatsApp professionnels pour artisans BTP. Templates personnalisables pour RDV, devis, relances. Gagnez du temps !",
+  image: "/images/outils/whatsapp.jpg"
+};
+---
+
+<Base {...meta}>
+  <PageHeader title="Générateur Messages WhatsApp Pro" />
+
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <!-- Introduction -->
+          <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-8">
+            <p class="font-semibold">
+              💬 92% des clients préfèrent WhatsApp pour communiquer avec leur artisan.
+              Créez des messages professionnels en 10 secondes !
+            </p>
+          </div>
+
+          <div class="grid lg:grid-cols-2 gap-8">
+            <!-- Générateur -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+              <h2 class="text-xl font-bold mb-6">📱 Créer votre Message</h2>
+
+              <!-- Type de message -->
+              <div class="mb-6">
+                <label class="form-label">Type de message</label>
+                <select id="type-message" class="form-input" onchange="changerTemplate()">
+                  <option value="confirmation-rdv">Confirmation RDV</option>
+                  <option value="en-route">J'arrive dans X minutes</option>
+                  <option value="devis-envoye">Devis envoyé</option>
+                  <option value="relance-devis">Relance devis</option>
+                  <option value="travaux-termines">Travaux terminés</option>
+                  <option value="demande-avis">Demande d'avis Google</option>
+                  <option value="report-rdv">Report de RDV</option>
+                  <option value="demande-acces">Demande accès logement</option>
+                  <option value="facturation">Facture disponible</option>
+                  <option value="urgence-disponible">Disponible pour urgence</option>
+                </select>
+              </div>
+
+              <!-- Personnalisation -->
+              <div class="space-y-4">
+                <div>
+                  <label class="form-label">Nom du client</label>
+                  <input
+                    type="text"
+                    id="nom-client"
+                    class="form-input"
+                    placeholder="M./Mme Dupont"
+                    oninput="updateMessage()"
+                  />
+                </div>
+
+                <div>
+                  <label class="form-label">Date/Heure</label>
+                  <input
+                    type="text"
+                    id="date-heure"
+                    class="form-input"
+                    placeholder="Lundi 15/01 à 14h"
+                    oninput="updateMessage()"
+                  />
+                </div>
+
+                <div>
+                  <label class="form-label">Travaux/Service</label>
+                  <input
+                    type="text"
+                    id="travaux"
+                    class="form-input"
+                    placeholder="réparation fuite"
+                    oninput="updateMessage()"
+                  />
+                </div>
+
+                <div>
+                  <label class="form-label">Montant (si applicable)</label>
+                  <input
+                    type="text"
+                    id="montant"
+                    class="form-input"
+                    placeholder="850€"
+                    oninput="updateMessage()"
+                  />
+                </div>
+
+                <div>
+                  <label class="form-label">Votre signature</label>
+                  <input
+                    type="text"
+                    id="signature"
+                    class="form-input"
+                    placeholder="Jean - Plomberie Express"
+                    value="[Votre nom] - [Votre entreprise]"
+                    oninput="updateMessage()"
+                  />
+                </div>
+              </div>
+
+              <!-- Options -->
+              <div class="mt-6 space-y-2">
+                <label class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="emoji"
+                    checked
+                    onchange="updateMessage()"
+                    class="mr-2"
+                  />
+                  <span>Ajouter des emojis</span>
+                </label>
+                <label class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="politesse"
+                    checked
+                    onchange="updateMessage()"
+                    class="mr-2"
+                  />
+                  <span>Formule de politesse</span>
+                </label>
+                <label class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="urgence"
+                    onchange="updateMessage()"
+                    class="mr-2"
+                  />
+                  <span>Mention urgence</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Aperçu et Actions -->
+            <div>
+              <!-- Aperçu WhatsApp -->
+              <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h3 class="font-bold mb-4">💬 Aperçu WhatsApp</h3>
+                <div class="bg-gray-100 rounded-lg p-4" style="background: url('/images/whatsapp-bg.png'); background-size: cover;">
+                  <div class="bg-green-100 rounded-lg p-3 max-w-sm">
+                    <p id="message-preview" class="text-sm whitespace-pre-wrap">
+Bonjour M./Mme Dupont 👋
+
+Je vous confirme notre RDV pour les travaux de réparation fuite.
+
+📅 Date : Lundi 15/01 à 14h
+🔧 Intervention : réparation fuite
+
+À tout à l'heure !
+
+[Votre nom] - [Votre entreprise]
+                    </p>
+                    <div class="text-xs text-gray-600 mt-2 text-right">14:32 ✓✓</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Boutons d'action -->
+              <div class="space-y-3">
+                <button
+                  onclick="copierMessage()"
+                  class="btn btn-primary w-full"
+                >
+                  📋 Copier le Message
+                </button>
+                <button
+                  onclick="envoyerWhatsApp()"
+                  class="btn btn-outline-primary w-full"
+                >
+                  📤 Ouvrir dans WhatsApp
+                </button>
+                <button
+                  onclick="sauvegarderTemplate()"
+                  class="btn btn-outline-primary w-full"
+                >
+                  💾 Sauvegarder comme Template
+                </button>
+              </div>
+
+              <!-- Statistiques -->
+              <div class="mt-6 bg-blue-50 rounded-lg p-4">
+                <h4 class="font-semibold mb-2">📊 Stats Message</h4>
+                <div class="text-sm space-y-1">
+                  <div>Caractères : <span id="nb-caracteres" class="font-bold">125</span>/1000</div>
+                  <div>Temps de lecture : <span id="temps-lecture" class="font-bold">8 sec</span></div>
+                  <div>Ton : <span id="ton-message" class="font-bold text-green-600">Professionnel</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Templates pré-définis -->
+          <div class="mt-12">
+            <h2 class="text-2xl font-bold mb-6">📝 Templates Pré-définis par Métier</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <!-- Template Plombier -->
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h3 class="font-bold mb-2">🔧 Plombier - Urgence</h3>
+                <p class="text-sm text-gray-600 mb-3">
+                  "Bonjour, j'ai bien reçu votre appel pour l'urgence.
+                  Je peux intervenir dans 45 min. Tarif urgence : 120€/h.
+                  Confirmez-vous ?"
+                </p>
+                <button onclick="utiliserTemplate('plombier-urgence')" class="text-primary text-sm hover:underline">
+                  Utiliser ce template →
+                </button>
+              </div>
+
+              <!-- Template Électricien -->
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h3 class="font-bold mb-2">⚡ Électricien - Diagnostic</h3>
+                <p class="text-sm text-gray-600 mb-3">
+                  "Suite à mon diagnostic, voici les travaux nécessaires :
+                  [Liste]. Devis : [X]€. Délai : [X] jours.
+                  Dispo pour en discuter."
+                </p>
+                <button onclick="utiliserTemplate('electricien-diagnostic')" class="text-primary text-sm hover:underline">
+                  Utiliser ce template →
+                </button>
+              </div>
+
+              <!-- Template Menuisier -->
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h3 class="font-bold mb-2">🪵 Menuisier - Mesures</h3>
+                <p class="text-sm text-gray-600 mb-3">
+                  "Bonjour, je passerai [date] pour prendre les mesures.
+                  Prévoyez 30min. Merci de dégager l'accès.
+                  À bientôt !"
+                </p>
+                <button onclick="utiliserTemplate('menuisier-mesures')" class="text-primary text-sm hover:underline">
+                  Utiliser ce template →
+                </button>
+              </div>
+
+              <!-- Template Maçon -->
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h3 class="font-bold mb-2">🧱 Maçon - Météo</h3>
+                <p class="text-sm text-gray-600 mb-3">
+                  "Bonjour, en raison de la météo, nous devons reporter
+                  les travaux à [date]. Désolé du contretemps.
+                  On reste en contact."
+                </p>
+                <button onclick="utiliserTemplate('macon-meteo')" class="text-primary text-sm hover:underline">
+                  Utiliser ce template →
+                </button>
+              </div>
+
+              <!-- Template Peintre -->
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h3 class="font-bold mb-2">🎨 Peintre - Couleurs</h3>
+                <p class="text-sm text-gray-600 mb-3">
+                  "Voici les échantillons couleurs : [photos].
+                  Qu'en pensez-vous ? Je peux passer demain
+                  pour en discuter."
+                </p>
+                <button onclick="utiliserTemplate('peintre-couleurs')" class="text-primary text-sm hover:underline">
+                  Utiliser ce template →
+                </button>
+              </div>
+
+              <!-- Template Multi -->
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h3 class="font-bold mb-2">✅ Tous - Satisfaction</h3>
+                <p class="text-sm text-gray-600 mb-3">
+                  "J'espère que tout fonctionne bien depuis notre intervention.
+                  Si vous êtes satisfait, un avis Google nous aiderait beaucoup 🙏
+                  [lien]"
+                </p>
+                <button onclick="utiliserTemplate('satisfaction')" class="text-primary text-sm hover:underline">
+                  Utiliser ce template →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Guide bonnes pratiques -->
+          <div class="mt-12 bg-yellow-50 rounded-lg p-8">
+            <h2 class="text-xl font-bold mb-6">💡 Bonnes Pratiques WhatsApp Pro</h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3 class="font-semibold mb-3">✅ À FAIRE</h3>
+                <ul class="space-y-2 text-sm">
+                  <li>• Répondre sous 2h en journée</li>
+                  <li>• Utiliser le prénom du client</li>
+                  <li>• Confirmer date, heure et travaux</li>
+                  <li>• Mettre des emojis (avec modération)</li>
+                  <li>• Photo du statut WhatsApp pro</li>
+                  <li>• Horaires dans le profil</li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-3">❌ À ÉVITER</h3>
+                <ul class="space-y-2 text-sm">
+                  <li>• Messages après 20h</li>
+                  <li>• Fautes d'orthographe</li>
+                  <li>• Audio de plus de 30 secondes</li>
+                  <li>• Trop de messages d'affilée</li>
+                  <li>• Langage trop familier</li>
+                  <li>• Envoyer sans relire</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="mt-12 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg p-8 text-center">
+            <h2 class="text-2xl font-bold mb-4">
+              Automatisez Votre Communication Client
+            </h2>
+            <p class="mb-6">
+              Avec un site AWEMA, intégration WhatsApp Business API :
+              réponses automatiques, catalogues produits, devis instantanés.
+            </p>
+            <a href="/contact?source=whatsapp-generator" class="btn btn-white">
+              Découvrir l'Intégration WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Templates de messages
+    const templates = {
+      'confirmation-rdv': {
+        message: `Bonjour {client} {emoji1}
+
+Je vous confirme notre RDV pour les travaux de {travaux}.
+
+📅 Date : {date}
+🔧 Intervention : {travaux}
+
+À tout à l'heure !
+
+{signature}`,
+        emoji1: '👋'
+      },
+      'en-route': {
+        message: `Bonjour {client} {emoji1}
+
+Je suis en route pour notre RDV {emoji2}
+J'arrive dans environ 30 minutes.
+
+Si besoin, je suis joignable au téléphone.
+
+{signature}`,
+        emoji1: '👋',
+        emoji2: '🚗'
+      },
+      'devis-envoye': {
+        message: `Bonjour {client},
+
+Je viens de vous envoyer le devis pour {travaux} {emoji1}
+
+💰 Montant : {montant} TTC
+📅 Délai : {date}
+✅ Validité : 30 jours
+
+N'hésitez pas si vous avez des questions !
+
+{signature}`,
+        emoji1: '📧'
+      },
+      'relance-devis': {
+        message: `Bonjour {client} {emoji1}
+
+Je reviens vers vous concernant le devis du {date} pour {travaux}.
+
+Avez-vous pu le consulter ?
+Des questions ? Je suis dispo pour en discuter {emoji2}
+
+{signature}`,
+        emoji1: '😊',
+        emoji2: '📞'
+      },
+      'travaux-termines': {
+        message: `Bonjour {client} {emoji1}
+
+Les travaux de {travaux} sont terminés {emoji2}
+
+J'espère que tout vous convient.
+La facture sera envoyée dans la journée.
+
+Merci de votre confiance !
+
+{signature}`,
+        emoji1: '✅',
+        emoji2: '🔧'
+      },
+      'demande-avis': {
+        message: `Bonjour {client} {emoji1}
+
+J'espère que tout fonctionne bien depuis notre intervention de {travaux}.
+
+Si vous êtes satisfait, pourriez-vous prendre 30 secondes pour laisser un avis Google ? {emoji2}
+Cela nous aide énormément : [lien]
+
+Merci d'avance !
+
+{signature}`,
+        emoji1: '😊',
+        emoji2: '🙏'
+      }
+    };
+
+    function changerTemplate() {
+      updateMessage();
+    }
+
+    function updateMessage() {
+      const type = document.getElementById('type-message').value;
+      const client = document.getElementById('nom-client').value || 'M./Mme Dupont';
+      const date = document.getElementById('date-heure').value || 'Lundi 15/01 à 14h';
+      const travaux = document.getElementById('travaux').value || 'réparation fuite';
+      const montant = document.getElementById('montant').value || '850€';
+      const signature = document.getElementById('signature').value || '[Votre nom] - [Votre entreprise]';
+      const useEmoji = document.getElementById('emoji').checked;
+      const usePolitesse = document.getElementById('politesse').checked;
+      const isUrgent = document.getElementById('urgence').checked;
+
+      let template = templates[type];
+      let message = template.message;
+
+      // Remplacements
+      message = message.replace(/{client}/g, client);
+      message = message.replace(/{date}/g, date);
+      message = message.replace(/{travaux}/g, travaux);
+      message = message.replace(/{montant}/g, montant);
+      message = message.replace(/{signature}/g, signature);
+
+      // Emojis
+      if (useEmoji) {
+        message = message.replace(/{emoji1}/g, template.emoji1 || '');
+        message = message.replace(/{emoji2}/g, template.emoji2 || '');
+      } else {
+        message = message.replace(/{emoji1}/g, '');
+        message = message.replace(/{emoji2}/g, '');
+      }
+
+      // Urgence
+      if (isUrgent) {
+        message = '🚨 URGENT 🚨\n\n' + message;
+      }
+
+      // Politesse
+      if (!usePolitesse) {
+        message = message.replace(/Merci.*!\n?/g, '');
+        message = message.replace(/N'hésitez.*!\n?/g, '');
+      }
+
+      // Mise à jour aperçu
+      document.getElementById('message-preview').textContent = message;
+
+      // Stats
+      const nbCar = message.length;
+      document.getElementById('nb-caracteres').textContent = nbCar;
+      document.getElementById('temps-lecture').textContent = Math.ceil(nbCar / 15) + ' sec';
+    }
+
+    function copierMessage() {
+      const message = document.getElementById('message-preview').textContent;
+      navigator.clipboard.writeText(message);
+
+      // Feedback visuel
+      const btn = event.target;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '✅ Copié !';
+      btn.classList.add('bg-green-600');
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.classList.remove('bg-green-600');
+      }, 2000);
+    }
+
+    function envoyerWhatsApp() {
+      const message = document.getElementById('message-preview').textContent;
+      const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    function sauvegarderTemplate() {
+      const message = document.getElementById('message-preview').textContent;
+      const nom = prompt('Nom du template :');
+      if (nom) {
+        localStorage.setItem('template_' + nom, message);
+        alert('Template sauvegardé !');
+      }
+    }
+
+    function utiliserTemplate(type) {
+      // Ici on pourrait pré-remplir les champs selon le template
+      alert('Template chargé ! Personnalisez les champs ci-dessus.');
+    }
+
+    // Init
+    updateMessage();
+  </script>
+</Base>

@@ -1,0 +1,341 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+// import CallToAction from "@/partials/CallToAction.astro";
+
+const meta = {
+  title: "FAQ AWEMA - Questions Fréquentes Sites BTP",
+  meta_title: "FAQ AWEMA ➤ Toutes les Réponses sur nos Sites BTP",
+  description: "Questions fréquentes sur la création de sites web pour artisans BTP. Tarifs, délais, SEO, maintenance, garanties... Tout est expliqué.",
+  image: "/images/faq.jpg"
+};
+
+const faqCategories = [
+  {
+    title: "💰 Tarifs & Paiement",
+    questions: [
+      {
+        q: "Combien coûte un site web AWEMA ?",
+        a: "Nous avons 3 formules transparentes : LOCAL à 797€ (3 villes), ZONE à 1297€ (5 villes), et RÉGION à 1797€ (10+ villes). À cela s'ajoute une maintenance mensuelle de 79€ à 127€ selon la formule. Pas de coûts cachés, tout est inclus : design, développement, SEO, formation."
+      },
+      {
+        q: "Puis-je payer en plusieurs fois ?",
+        a: "Oui ! Nous proposons un paiement en 3 fois sans frais : 40% à la commande, 40% à la livraison, 20% après 30 jours. Pour les projets supérieurs à 2000€, possibilité de paiement en 6 fois."
+      },
+      {
+        q: "Y a-t-il des frais cachés ?",
+        a: "Non, jamais. Le prix annoncé inclut tout : création du site, nom de domaine la première année, hébergement ultra-rapide, certificat SSL, maintenance technique, mises à jour de sécurité, et support WhatsApp illimité."
+      },
+      {
+        q: "Pourquoi une maintenance mensuelle ?",
+        a: "La maintenance couvre : hébergement premium (0€ d'infrastructure grâce à notre technologie), sauvegardes quotidiennes, mises à jour sécurité, support technique 7j/7, modifications mensuelles incluses (textes, photos), et rapports de performance. C'est moins cher qu'un hébergement classique avec plus de services."
+      },
+      {
+        q: "Que se passe-t-il si j'arrête la maintenance ?",
+        a: "Vous restez propriétaire de votre site. Nous vous fournissons tous les fichiers et codes. Vous devrez juste gérer vous-même l'hébergement (environ 30€/mois ailleurs) et la maintenance technique. 95% de nos clients gardent notre maintenance car elle est très avantageuse."
+      }
+    ]
+  },
+  {
+    title: "⏱️ Délais & Process",
+    questions: [
+      {
+        q: "En combien de temps mon site sera en ligne ?",
+        a: "7 jours ouvrés, c'est garanti. Jour 1-2 : Brief et maquette. Jour 3-4 : Développement. Jour 5-6 : Contenu et SEO. Jour 7 : Mise en ligne et formation. Si on dépasse, on vous offre 1 mois de maintenance gratuit."
+      },
+      {
+        q: "Comment se passe la création ?",
+        a: "1) Brief téléphonique (30 min) pour comprendre vos besoins. 2) Nous créons une maquette que vous validez. 3) Développement du site avec vos contenus. 4) Vous validez la version finale. 5) Mise en ligne et formation à l'utilisation. Simple et efficace."
+      },
+      {
+        q: "Dois-je fournir les textes et photos ?",
+        a: "Pour les photos : idéalement oui, vos réalisations sont uniques. Si vous n'en avez pas, nous utilisons des photos professionnelles libres de droits. Pour les textes : nous les rédigeons entièrement, optimisés SEO pour votre métier et votre zone."
+      },
+      {
+        q: "Puis-je voir le site avant la mise en ligne ?",
+        a: "Bien sûr ! Vous avez accès à une version de prévisualisation dès le jour 3. Vous pouvez demander des modifications jusqu'à validation finale. Nous ne mettons en ligne qu'après votre accord complet."
+      }
+    ]
+  },
+  {
+    title: "🔍 SEO & Visibilité",
+    questions: [
+      {
+        q: "Mon site sera-t-il visible sur Google ?",
+        a: "Oui, c'est notre spécialité. Chaque site est optimisé dès le départ : structure SEO parfaite, vitesse de chargement maximale (score 100/100), contenu optimisé pour vos mots-clés métier, référencement local sur votre zone. 94% de nos clients sont en première page Google sous 3 mois."
+      },
+      {
+        q: "Combien de temps pour être premier sur Google ?",
+        a: "Soyons honnêtes : personne ne peut garantir la 1ère position. Mais nos statistiques parlent : 70% de nos clients atteignent le top 3 sur leur ville principale en 3-6 mois. Facteurs clés : concurrence locale, ancienneté du domaine, nombre d'avis Google, et régularité des mises à jour."
+      },
+      {
+        q: "Comment optimisez-vous pour le local ?",
+        a: "Nous créons des pages dédiées pour chaque ville de votre zone (ex: 'Plombier Lyon 3', 'Plombier Villeurbanne'). Chaque page a du contenu unique, des mots-clés géolocalisés, et est reliée à votre fiche Google My Business. C'est LA technique qui marche."
+      },
+      {
+        q: "Le site aide-t-il pour Google My Business ?",
+        a: "Absolument ! Un site professionnel augmente la crédibilité de votre fiche GMB. Nous incluons : page dédiée collecte d'avis, boutons d'appel direct, schema.org pour les rich snippets, et lien optimisé vers GMB. Résultat : +73% de visibilité moyenne."
+      }
+    ]
+  },
+  {
+    title: "🛠️ Technique & Fonctionnalités",
+    questions: [
+      {
+        q: "Quelle technologie utilisez-vous ?",
+        a: "Nous utilisons Astro, le framework le plus rapide du marché. Sites statiques ultra-légers, hébergés sur Cloudflare (CDN mondial), avec un score performance 100/100. Vos concurrents utilisent WordPress (lent et vulnérable), nous sommes 10x plus rapides."
+      },
+      {
+        q: "Le site est-il adapté mobile ?",
+        a: "100% responsive, évidemment. 85% des recherches BTP se font sur mobile. Nos sites sont mobile-first : navigation tactile optimisée, boutons d'appel cliquables, formulaires simplifiés, temps de chargement < 1 seconde même en 4G."
+      },
+      {
+        q: "Puis-je modifier mon site moi-même ?",
+        a: "Oui, grâce à notre interface simple (CMS Sanity). Vous pouvez modifier textes, photos, ajouter des réalisations, publier des actualités. Formation incluse + vidéos tutos. Mais 80% des clients préfèrent nous demander, c'est inclus dans la maintenance."
+      },
+      {
+        q: "Qu'est-ce qui est inclus dans le site ?",
+        a: "Page d'accueil percutante, pages services détaillées, galerie photos/réalisations, formulaire de contact intelligent, page collecte d'avis, blog actualités, mentions légales, optimisation SEO complète, certificat SSL, et Google Analytics configuré."
+      },
+      {
+        q: "Et si je veux des fonctionnalités spéciales ?",
+        a: "Nous pouvons tout faire : système de devis en ligne, prise de RDV, calculateur de prix, espace client, boutique en ligne, multi-langue... Chaque fonctionnalité supplémentaire est devisée séparément, généralement entre 200€ et 800€."
+      }
+    ]
+  },
+  {
+    title: "🤝 Service & Support",
+    questions: [
+      {
+        q: "Quel support après la mise en ligne ?",
+        a: "Support WhatsApp 7j/7 avec Yann ou son équipe. Réponse en moins de 2h en journée, 12h le soir/week-end. Pour les urgences (site down), intervention en moins de 30 minutes. C'est inclus dans la maintenance, pas de ticket, pas d'attente."
+      },
+      {
+        q: "Qui s'occupe de mon projet ?",
+        a: "Un chef de projet dédié du début à la fin. Pas de sous-traitance offshore. Notre équipe : Yann (fondateur, ex-BTP), Thomas (développeur 15 ans d'XP), Julie (experte SEO ex-Google), Mohamed (support, ex-chef de chantier). Des gens qui comprennent votre métier."
+      },
+      {
+        q: "Comment se passent les modifications ?",
+        a: "Super simple : vous nous envoyez votre demande par WhatsApp ou email. Petites modifs (textes, photos) : fait dans la journée. Modifications importantes : sous 48h. Tout est inclus dans la maintenance jusqu'à 2h de modifications par mois."
+      },
+      {
+        q: "Proposez-vous de la formation ?",
+        a: "Oui ! Formation vidéo de 2h à la livraison pour gérer votre site. Accès à l'Academy AWEMA : 50+ vidéos sur le marketing digital BTP, guides PDF téléchargeables, webinaires mensuels avec Yann. Objectif : vous rendre autonome sur le digital."
+      }
+    ]
+  },
+  {
+    title: "🏆 Résultats & Garanties",
+    questions: [
+      {
+        q: "Quels résultats puis-je espérer ?",
+        a: "Nos moyennes sur 300+ clients : +15 à 30 appels/mois supplémentaires, x3 sur les demandes de devis en ligne, 50 à 100 avis Google en 6 mois. Bien sûr, cela dépend de votre implication (réactivité, qualité service, suivi des conseils)."
+      },
+      {
+        q: "Avez-vous des exemples de réussite ?",
+        a: "Plomberie Martinez (Lyon) : de 5 à 28 appels/semaine. Élec'Services (Paris) : +180% de devis en 4 mois. Menuiserie Durand (Bordeaux) : 15 projets haut de gamme grâce au portfolio. Tous ont rentabilisé leur site en moins de 2 mois."
+      },
+      {
+        q: "Quelles sont vos garanties ?",
+        a: "Satisfait ou refait pendant 30 jours. Site livré en 7 jours ou mois gratuit. Si votre site tombe : remboursement au prorata. Support réactif garanti. Nous sommes tellement confiants que 94% de nos clients restent plus de 2 ans."
+      },
+      {
+        q: "Pourquoi vous plutôt qu'une agence classique ?",
+        a: "1) Yann est un ancien du BTP, il comprend vos vrais besoins. 2) Prix 3x moins chers qu'une agence classique. 3) Technologie moderne (pas du WordPress de 2010). 4) Support par WhatsApp, pas de tickets. 5) ROI prouvé sur 300+ artisans."
+      }
+    ]
+  },
+  {
+    title: "❓ Questions Diverses",
+    questions: [
+      {
+        q: "Je n'y connais rien en informatique, c'est grave ?",
+        a: "Pas du tout ! 70% de nos clients sont 'nuls en informatique' (leurs mots). On s'occupe de tout le technique. Vous nous donnez vos infos, on fait le reste. Le site fini est simple à utiliser, et on reste dispo pour toute question."
+      },
+      {
+        q: "J'ai déjà un site, vous pouvez le reprendre ?",
+        a: "On préfère repartir de zéro avec notre technologie moderne. Mais on récupère tout ce qui a de la valeur : contenus, photos, référencement existant. Le nouveau site sera 10x plus performant. Migration gratuite incluse."
+      },
+      {
+        q: "Mon concurrent a un site AWEMA, c'est gênant ?",
+        a: "Chaque site est unique en design et contenu. Nous ne travaillons qu'avec un artisan par métier et par zone (rayon 5km). Si votre concurrent direct a déjà un site AWEMA, nous vous proposerons une zone adjacente ou déclinerons poliment."
+      },
+      {
+        q: "Puis-je voir des sites que vous avez créés ?",
+        a: "Bien sûr ! Demandez-nous le portfolio de votre métier. Nous avons 300+ sites en ligne. Exemples : plomberie-martinez.fr, elec-moderne.fr, menuiserie-durand.fr. Chacun génère 30+ leads par mois."
+      },
+      {
+        q: "Comment démarrer ?",
+        a: "Super simple : 1) Remplissez le formulaire contact ou appelez-nous. 2) Brief gratuit de 30min pour comprendre vos besoins. 3) Devis détaillé sous 24h. 4) Si OK, on démarre immédiatement. Votre site sera en ligne 7 jours après."
+      }
+    ]
+  }
+];
+---
+
+<Base {...meta}>
+  <PageHeader title="Questions Fréquentes" />
+
+  <!-- Hero Section -->
+  <section class="section bg-gradient-to-b from-primary/5 to-white">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h1 class="mb-6">
+            Toutes les Réponses à vos Questions
+          </h1>
+          <p class="text-lg">
+            300+ artisans nous ont posé ces questions avant de nous faire confiance.
+            <br/>Transparence totale, réponses honnêtes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Categories -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          {faqCategories.map((category, categoryIndex) => (
+            <div class="mb-12" id={`category-${categoryIndex}`}>
+              <h2 class="text-2xl font-bold mb-6">{category.title}</h2>
+              <div class="space-y-4">
+                {category.questions.map((item, index) => (
+                  <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                    <button
+                      class="w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition"
+                      onclick={`toggleFAQ('faq-${categoryIndex}-${index}')`}
+                    >
+                      <span class="font-semibold pr-4">{item.q}</span>
+                      <span class="text-primary text-2xl flex-shrink-0" id={`icon-${categoryIndex}-${index}`}>
+                        +
+                      </span>
+                    </button>
+                    <div
+                      id={`faq-${categoryIndex}-${index}`}
+                      class="hidden px-6 pb-6"
+                    >
+                      <p class="text-gray-700 leading-relaxed">{item.a}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Links -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-8">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Accès Rapide aux Catégories</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="flex flex-wrap justify-center gap-3">
+            {faqCategories.map((category, index) => (
+              <a
+                href={`#category-${index}`}
+                class="btn btn-outline-primary btn-sm"
+              >
+                {category.title.split(' ')[0]} ({category.questions.length})
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Still Have Questions -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <div class="bg-gradient-to-r from-primary to-secondary text-white rounded-lg p-8 text-center">
+            <h2 class="text-white mb-4">
+              Vous ne Trouvez pas votre Réponse ?
+            </h2>
+            <p class="text-lg mb-6">
+              Yann et son équipe sont disponibles pour répondre à toutes vos questions spécifiques.
+              <br/>Réponse garantie en moins de 2 heures.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+              <a href="/contact" class="btn btn-white">
+                📧 Poser ma Question
+              </a>
+              <a href="https://wa.me/33612345678" class="btn btn-outline-white">
+                💬 WhatsApp Direct
+              </a>
+              <a href="tel:+33972621547" class="btn btn-outline-white">
+                📞 Appeler
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Most Important Info Box -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <div class="bg-white rounded-lg shadow-lg p-8">
+            <h3 class="text-center mb-6">📌 L'Essentiel à Retenir</h3>
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="text-center">
+                <div class="text-3xl font-bold text-primary mb-2">797€</div>
+                <p class="text-sm">Site complet, tout inclus</p>
+              </div>
+              <div class="text-center">
+                <div class="text-3xl font-bold text-primary mb-2">7 jours</div>
+                <p class="text-sm">Livraison garantie</p>
+              </div>
+              <div class="text-center">
+                <div class="text-3xl font-bold text-primary mb-2">94%</div>
+                <p class="text-sm">Clients satisfaits</p>
+              </div>
+            </div>
+            <div class="text-center mt-8">
+              <a href="/pricing" class="btn btn-primary btn-lg">
+                Voir Nos Formules Détaillées
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <CallToAction /> -->
+
+  <!-- FAQ Toggle Script -->
+  <script>
+    function toggleFAQ(id) {
+      const element = document.getElementById(id);
+      const icon = document.getElementById(id.replace('faq-', 'icon-'));
+
+      if (element.classList.contains('hidden')) {
+        element.classList.remove('hidden');
+        icon.textContent = '−';
+      } else {
+        element.classList.add('hidden');
+        icon.textContent = '+';
+      }
+    }
+
+    // Open first question by default
+    document.addEventListener('DOMContentLoaded', () => {
+      toggleFAQ('faq-0-0');
+    });
+  </script>
+</Base>

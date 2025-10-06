@@ -1,0 +1,383 @@
+---
+import Base from "@/layouts/Base.astro";
+import { Image } from "astro:assets";
+
+const pricingPlans = [
+  {
+    name: "STARTER",
+    icon: "🚀",
+    setupPrice: 1490,
+    monthlyPrice: 79,
+    description: "Parfait pour démarrer votre présence en ligne",
+    features: [
+      { text: "Site vitrine 5 pages", included: true },
+      { text: "Design professionnel responsive", included: true },
+      { text: "Optimisation SEO de base", included: true },
+      { text: "Formulaire de contact", included: true },
+      { text: "Hébergement & nom de domaine inclus", included: true },
+      { text: "Certificat SSL (site sécurisé)", included: true },
+      { text: "Maintenance technique", included: true },
+      { text: "Support par email", included: true },
+      { text: "Prise de RDV en ligne", included: false },
+      { text: "Chat en direct", included: false },
+      { text: "Module e-commerce", included: false },
+    ]
+  },
+  {
+    name: "BUSINESS",
+    icon: "⭐",
+    setupPrice: 2990,
+    monthlyPrice: 149,
+    popular: true,
+    description: "La solution complète pour développer votre activité",
+    features: [
+      { text: "Site vitrine 10 pages", included: true },
+      { text: "Design premium personnalisé", included: true },
+      { text: "Optimisation SEO avancée", included: true },
+      { text: "Formulaire de devis intelligent", included: true },
+      { text: "Hébergement & nom de domaine inclus", included: true },
+      { text: "Certificat SSL (site sécurisé)", included: true },
+      { text: "Maintenance & mises à jour", included: true },
+      { text: "Support prioritaire", included: true },
+      { text: "Prise de RDV en ligne Calendly", included: true },
+      { text: "Chat en direct Crisp", included: true },
+      { text: "Galerie photos illimitée", included: true },
+      { text: "Blog intégré", included: true },
+      { text: "Google Analytics", included: true },
+      { text: "Module e-commerce", included: false },
+    ]
+  },
+  {
+    name: "PREMIUM",
+    icon: "👑",
+    setupPrice: 4990,
+    monthlyPrice: 249,
+    description: "Solution sur-mesure pour dominer votre marché",
+    features: [
+      { text: "Site illimité (pages)", included: true },
+      { text: "Design sur-mesure exclusif", included: true },
+      { text: "Optimisation SEO expert + suivi", included: true },
+      { text: "Tous les formulaires personnalisés", included: true },
+      { text: "Hébergement premium & domaine", included: true },
+      { text: "Certificat SSL (site sécurisé)", included: true },
+      { text: "Maintenance & évolutions incluses", included: true },
+      { text: "Support VIP 7j/7", included: true },
+      { text: "Prise de RDV avancée", included: true },
+      { text: "Chat & chatbot IA", included: true },
+      { text: "Galerie & portfolio avancés", included: true },
+      { text: "Blog & newsletter", included: true },
+      { text: "Analytics & reporting mensuel", included: true },
+      { text: "Module e-commerce complet", included: true },
+      { text: "Espace client privé", included: true },
+      { text: "Multi-langues", included: true },
+    ]
+  }
+];
+
+const comparisonFeatures = [
+  { feature: "Nombre de pages", starter: "5 pages", business: "10 pages", premium: "Illimité" },
+  { feature: "Design", starter: "Template pro", business: "Premium", premium: "Sur-mesure" },
+  { feature: "Délai de livraison", starter: "5 jours", business: "48h", premium: "48h" },
+  { feature: "Modifications/mois", starter: "2", business: "5", premium: "Illimité" },
+  { feature: "Référencement SEO", starter: "Base", business: "Avancé", premium: "Expert + Suivi" },
+  { feature: "Support", starter: "Email", business: "Prioritaire", premium: "VIP 7j/7" },
+  { feature: "Formation incluse", starter: "1h", business: "3h", premium: "Illimité" },
+  { feature: "Garantie satisfait", starter: "30 jours", business: "60 jours", premium: "90 jours" },
+];
+
+const seoData = {
+  meta_title: "Tarifs création site web artisan BTP | À partir de 79€/mois | AWEMA",
+  meta_description: "Découvrez nos formules de création de sites web pour artisans. De 1490€ à 4990€ de création + abonnement mensuel. Tout inclus, sans frais cachés.",
+};
+---
+
+<Base {...seoData}>
+  <!-- Hero Section -->
+  <section class="section bg-gradient-to-br from-primary/5 to-white">
+    <div class="container">
+      <div class="text-center">
+        <h1 class="h1 mb-4" data-aos="fade-up">
+          Des tarifs transparents, adaptés à vos besoins
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+          Choisissez la formule qui correspond à votre activité.
+          <br/>Sans engagement, sans frais cachés, avec une garantie satisfait ou remboursé.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="section">
+    <div class="container">
+      <!-- Toggle Mensuel/Setup -->
+      <div class="flex justify-center mb-12">
+        <div class="inline-flex rounded-lg bg-gray-100 p-1" data-aos="zoom-in">
+          <button class="px-6 py-3 rounded-md bg-white shadow font-medium">
+            Frais de création + Mensuel
+          </button>
+        </div>
+      </div>
+
+      <div class="row gy-4">
+        {pricingPlans.map((plan, index) => (
+          <div class="lg:col-4" data-aos="fade-up" data-aos-delay={100 + index * 100}>
+            <div class={`relative bg-white rounded-2xl shadow-xl p-8 h-full ${plan.popular ? 'ring-2 ring-primary transform scale-105' : ''}`}>
+              {plan.popular && (
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2">
+                  <span class="bg-gradient-to-r from-primary to-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                    LE PLUS POPULAIRE
+                  </span>
+                </div>
+              )}
+
+              <div class="text-center mb-8">
+                <span class="text-4xl mb-4 block">{plan.icon}</span>
+                <h2 class="h3 mb-3">{plan.name}</h2>
+                <p class="text-gray-600 mb-6">{plan.description}</p>
+
+                <div class="mb-6">
+                  <div class="mb-4 pb-4 border-b">
+                    <p class="text-sm text-gray-500 mb-1">Frais de création</p>
+                    <div class="text-4xl font-bold text-gray-900">
+                      {plan.setupPrice}€
+                      <span class="text-base font-normal text-gray-500"> une fois</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-500 mb-1">Puis</p>
+                    <div class="text-3xl font-bold text-primary">
+                      {plan.monthlyPrice}€
+                      <span class="text-base font-normal text-gray-500">/mois</span>
+                    </div>
+                  </div>
+                </div>
+
+                <a
+                  href="#contact"
+                  class={`btn btn-xl w-full ${plan.popular ? 'btn-primary' : 'btn-outline-primary'}`}
+                >
+                  Choisir {plan.name}
+                </a>
+              </div>
+
+              <div class="space-y-3">
+                {plan.features.map((feature) => (
+                  <div class="flex items-start">
+                    {feature.included ? (
+                      <svg class="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                    ) : (
+                      <svg class="w-5 h-5 text-gray-300 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                      </svg>
+                    )}
+                    <span class={feature.included ? 'text-gray-700' : 'text-gray-400'}>{feature.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 mb-4">Tableau comparatif détaillé</h2>
+        <p class="text-lg text-gray-600">Toutes les différences entre nos formules</p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full bg-white rounded-lg shadow-lg">
+          <thead>
+            <tr class="border-b">
+              <th class="text-left p-6">Fonctionnalités</th>
+              <th class="text-center p-6">
+                <div class="font-bold text-lg">STARTER</div>
+                <div class="text-sm text-gray-600">1490€ + 79€/mois</div>
+              </th>
+              <th class="text-center p-6 bg-primary/5">
+                <div class="font-bold text-lg">BUSINESS</div>
+                <div class="text-sm text-gray-600">2990€ + 149€/mois</div>
+                <div class="text-xs text-primary font-semibold mt-1">RECOMMANDÉ</div>
+              </th>
+              <th class="text-center p-6">
+                <div class="font-bold text-lg">PREMIUM</div>
+                <div class="text-sm text-gray-600">4990€ + 249€/mois</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonFeatures.map((row, index) => (
+              <tr class={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                <td class="p-6 font-medium">{row.feature}</td>
+                <td class="p-6 text-center">{row.starter}</td>
+                <td class="p-6 text-center bg-primary/5 font-medium">{row.business}</td>
+                <td class="p-6 text-center">{row.premium}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Garanties -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 mb-4">Nos garanties</h2>
+        <p class="text-lg text-gray-600">Votre satisfaction est notre priorité</p>
+      </div>
+
+      <div class="row gy-4">
+        <div class="md:col-3" data-aos="fade-up">
+          <div class="text-center">
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-3xl">✅</span>
+            </div>
+            <h3 class="h5 mb-2">Satisfait ou remboursé</h3>
+            <p class="text-gray-600">30 à 90 jours selon la formule</p>
+          </div>
+        </div>
+
+        <div class="md:col-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="text-center">
+            <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-3xl">🚫</span>
+            </div>
+            <h3 class="h5 mb-2">Sans engagement</h3>
+            <p class="text-gray-600">Résiliez à tout moment</p>
+          </div>
+        </div>
+
+        <div class="md:col-3" data-aos="fade-up" data-aos-delay="200">
+          <div class="text-center">
+            <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-3xl">💳</span>
+            </div>
+            <h3 class="h5 mb-2">Paiement sécurisé</h3>
+            <p class="text-gray-600">CB, virement ou prélèvement</p>
+          </div>
+        </div>
+
+        <div class="md:col-3" data-aos="fade-up" data-aos-delay="300">
+          <div class="text-center">
+            <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-3xl">🎓</span>
+            </div>
+            <h3 class="h5 mb-2">Formation incluse</h3>
+            <p class="text-gray-600">Pour être 100% autonome</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Pricing -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="lg:col-6">
+          <h3 class="h3 mb-6">Questions sur nos tarifs</h3>
+
+          <div class="space-y-4">
+            <div class="bg-white rounded-lg p-6">
+              <h4 class="font-bold mb-2">Pourquoi des frais de création + un abonnement ?</h4>
+              <p class="text-gray-600">
+                Les frais de création couvrent le développement initial de votre site (design, contenu, configuration).
+                L'abonnement mensuel inclut l'hébergement, la maintenance, les mises à jour et le support continu.
+              </p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6">
+              <h4 class="font-bold mb-2">Puis-je changer de formule ?</h4>
+              <p class="text-gray-600">
+                Oui ! Vous pouvez upgrader votre formule à tout moment.
+                La différence des frais de création sera à payer, et le nouveau tarif mensuel s'appliquera.
+              </p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6">
+              <h4 class="font-bold mb-2">Y a-t-il des frais supplémentaires ?</h4>
+              <p class="text-gray-600">
+                Non, tout est inclus : hébergement, nom de domaine, certificat SSL, emails professionnels,
+                maintenance et support. Aucune mauvaise surprise !
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-6">
+          <h3 class="h3 mb-6">Ce qui est inclus</h3>
+
+          <div class="bg-white rounded-lg p-6">
+            <h4 class="font-bold mb-4">Dans TOUTES nos formules :</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>Hébergement premium</strong> - Serveurs rapides et sécurisés</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>Nom de domaine</strong> - Votre-entreprise.fr inclus</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>Certificat SSL</strong> - Site sécurisé HTTPS</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>Emails professionnels</strong> - contact@votre-entreprise.fr</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>Responsive design</strong> - Parfait sur mobile et tablette</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>Interface de gestion</strong> - Modifiez facilement vos contenus</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>Maintenance technique</strong> - Mises à jour et sauvegardes</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>Support client</strong> - Une équipe à votre écoute</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section bg-primary text-white" id="contact">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="h2 mb-4 text-white">Prêt à créer votre site professionnel ?</h2>
+        <p class="text-xl mb-8 opacity-90">
+          Discutons de votre projet et trouvons ensemble la formule idéale
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="/contact" class="btn btn-white btn-xl">
+            Demander un devis personnalisé
+          </a>
+          <a href="tel:0756910218" class="btn btn-outline-white btn-xl">
+            07 56 91 02 18
+          </a>
+        </div>
+        <p class="mt-6 text-yellow-300">
+          💬 Réponse garantie en moins de 2h (heures de bureau)
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

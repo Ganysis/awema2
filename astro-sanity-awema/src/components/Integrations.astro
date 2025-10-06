@@ -1,0 +1,86 @@
+---
+// Composant pour toutes les intégrations tierces
+const googleAnalyticsId = import.meta.env.GOOGLE_ANALYTICS_ID || '';
+const crispId = import.meta.env.CRISP_CHAT_ID || '';
+const calendlyUrl = import.meta.env.CALENDLY_URL || 'https://calendly.com/awema';
+---
+
+<!-- Google Analytics 4 -->
+{googleAnalyticsId && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', googleAnalyticsId);
+    </script>
+  </>
+)}
+
+<!-- Crisp Chat -->
+{crispId && (
+  <script type="text/javascript">
+    window.$crisp=[];window.CRISP_WEBSITE_ID=crispId;(function(){
+      d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";
+      s.async=1;d.getElementsByTagName("head")[0].appendChild(s);
+    })();
+  </script>
+)}
+
+<!-- Schema.org LocalBusiness -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "AWEMA",
+  "description": "Agence web spécialisée dans la création de sites internet pour artisans du BTP",
+  "url": "https://awema.fr",
+  "telephone": "0617540383",
+  "email": "contact@awema.fr",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Velaux",
+    "addressRegion": "Provence-Alpes-Côte d'Azur",
+    "addressCountry": "FR"
+  },
+  "priceRange": "€€",
+  "openingHours": "Mo-Fr 09:00-18:00",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "300"
+  },
+  "sameAs": [
+    "https://www.facebook.com/awema",
+    "https://www.linkedin.com/company/awema",
+    "https://twitter.com/awema"
+  ]
+}
+</script>
+
+<!-- WhatsApp et Calendly SUPPRIMÉS pour éviter surcharge de pop-ups -->
+<!-- Le bouton d'appel mobile (MobileCallButton) suffit sur mobile -->
+<!-- Le bouton "Retour en haut" (GotoTop) est disponible partout -->
+
+<!-- Calendly désactivé pour optimiser les performances (840ms économisés !) -->
+<!-- Réactiver si nécessaire en décommentant ci-dessous -->
+<!--
+<div class="calendly-badge">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <script type="text/javascript" define:vars={{ calendlyUrl }}>
+    window.onload = function() {
+      if (typeof Calendly !== 'undefined') {
+        Calendly.initBadgeWidget({
+          url: calendlyUrl,
+          text: 'Prendre RDV',
+          color: '#2563eb',
+          textColor: '#ffffff',
+          branding: false
+        });
+      }
+    }
+  </script>
+</div>
+-->

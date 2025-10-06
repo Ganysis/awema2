@@ -1,0 +1,440 @@
+---
+import Base from "@/layouts/Base.astro";
+import { Image } from "astro:assets";
+
+const seoData = {
+  meta_title: "Clément Lo Cricchio | Co-gérant BTP & Expert IT | AWEMA Aix-Marseille",
+  meta_description: "Clément Lo Cricchio, fondateur AWEMA : co-gérant BTP depuis 1996, 300+ sites web créés, expert IT. Artisan devenu expert digital. Parcours unique Aix-Marseille.",
+};
+---
+
+<Base {...seoData}>
+  <!-- Hero Section -->
+  <section class="relative min-h-[70vh] flex items-center bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white overflow-hidden">
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <!-- Decorative Elements -->
+    <div class="absolute top-10 left-10 w-20 h-20 bg-blue-500/20 rounded-full blur-2xl"></div>
+    <div class="absolute bottom-10 right-10 w-32 h-32 bg-blue-400/20 rounded-full blur-3xl"></div>
+
+    <div class="container relative z-10 py-20">
+      <div class="row justify-center">
+        <div class="lg:col-10 text-center">
+          <div class="inline-block bg-blue-600/90 backdrop-blur-sm px-4 py-2 rounded-full mb-6 shadow-lg">
+            <span class="text-white font-semibold">🚀 Mon Histoire</span>
+          </div>
+
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-lg" data-aos="fade-up">
+            Co-gérant BTP, créateur digital et <span class="text-blue-400">expert IT</span>
+          </h1>
+          <p class="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+            L'histoire d'une double activité qui évolue avec les besoins de mes clients<br/>
+            De la création web à l'<strong class="text-white">infrastructure IT complète</strong>
+          </p>
+
+          <div class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto mt-10" data-aos="fade-up" data-aos-delay="200">
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+              <div class="text-4xl font-bold text-blue-400 mb-2">10 ans</div>
+              <div class="text-sm text-gray-200">Co-gérant BTP actif</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+              <div class="text-4xl font-bold text-blue-400 mb-2">300+</div>
+              <div class="text-sm text-gray-200">Clients accompagnés</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+              <div class="text-4xl font-bold text-blue-400 mb-2">3</div>
+              <div class="text-sm text-gray-200">Services complémentaires</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Story Section -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <article class="prose prose-lg max-w-none">
+            <!-- Introduction -->
+            <div data-aos="fade-up">
+              <h2 class="h3 mb-6 text-primary">Le présent : Co-gérant BTP depuis 10 ans et toujours actif</h2>
+              <p>
+                Je m'appelle Thomas, et je suis co-gérant d'une entreprise de plomberie-chauffage depuis 10 ans.
+                Je connais TOUJOURS les journées qui commencent à 6h du matin, les chantiers sous la pluie, les clients difficiles,
+                mais aussi la fierté du travail bien fait et la satisfaction de voir un projet terminé.
+                <strong>Car je vis encore tout ça au quotidien.</strong>
+              </p>
+              <p>
+                Je vis également la frustration. Celle de voir mes confrères artisans, tous talentueux et passionnés,
+                galérer pour trouver de nouveaux clients. Le bouche-à-oreille, c'est bien, mais ce n'est plus suffisant.
+                Les nouveaux artisans qui arrivent avec leurs sites web modernes raflent les marchés.
+                <strong>Je le vois tous les jours sur le terrain.</strong>
+              </p>
+            </div>
+
+            <!-- The Turning Point -->
+            <div class="my-12 p-8 bg-gradient-to-r from-primary/5 to-blue-50 rounded-2xl" data-aos="fade-up">
+              <h3 class="h4 mb-4">Le déclic : 2020, l'année où tout a commencé</h3>
+              <p class="text-gray-700 mb-4">
+                Avec le confinement, moins de chantiers. J'ai décidé d'utiliser ce temps pour créer le site web de mon entreprise BTP.
+                J'ai galéré pendant des semaines. WordPress, Wix, j'ai tout essayé. Les agences me demandaient entre 3000€ et 8000€.
+                Trop cher pour un investissement incertain.
+              </p>
+              <p class="text-gray-700 mb-4">
+                Alors j'ai appris. YouTube, forums, tutoriels... J'y passais mes soirées après les chantiers. Au bout de 3 mois, j'avais créé le site de mon entreprise.
+                Pas parfait, mais fonctionnel. Et là, miracle : <strong class="text-primary">+40% de demandes de devis pour mon entreprise BTP en 3 mois.</strong>
+              </p>
+              <div class="p-4 bg-white rounded-lg border-l-4 border-primary">
+                <p class="text-gray-800 font-medium mb-0">
+                  "Le téléphone de l'entreprise n'arrêtait plus de sonner. Des clients que nous n'aurions jamais touchés avant nous contactaient."
+                </p>
+              </div>
+            </div>
+
+            <!-- The Birth of AWEMA -->
+            <div data-aos="fade-up">
+              <h2 class="h3 mb-6 text-primary">2021 : La naissance d'AWEMA en parallèle de mon activité BTP</h2>
+              <p>
+                Mes confrères artisans ont vu les résultats de mon entreprise. "Tu peux me faire le même ?" est devenu la phrase que j'entendais
+                le plus souvent sur les chantiers. J'ai commencé par aider Pierre, un ami menuisier. Puis Marc, électricien. Puis Sophie, paysagiste.
+              </p>
+              <p>
+                En 6 mois, j'avais créé 20 sites, le soir après mes journées sur les chantiers. C'est là que j'ai compris :
+                je pouvais garder mon entreprise BTP ET aider mes confrères artisans à développer leur activité grâce au digital.
+                <strong>Cette double casquette est devenue ma force.</strong>
+              </p>
+              <p>
+                J'ai créé AWEMA comme activité parallèle. Le nom vient de "Awesome Web for Artisans"
+                (Sites Web Géniaux pour Artisans). Un peu prétentieux ? Peut-être. Mais c'était mon ambition :
+                créer les meilleurs sites possibles pour les artisans, <strong>par un artisan qui comprend vraiment leurs besoins car il les vit encore.</strong>
+              </p>
+            </div>
+
+            <!-- IT Services Evolution -->
+            <div class="my-12 p-8 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl border-l-4 border-blue-500" data-aos="fade-up">
+              <h3 class="h4 mb-4">2024 : Une évolution naturelle vers l'infrastructure IT</h3>
+              <p class="text-gray-700 mb-4">
+                Après 4 ans à créer des sites pour artisans et PME, j'ai constaté un besoin récurrent qui revenait sans cesse :
+                <strong>mes clients avaient aussi des problèmes d'infrastructure IT</strong>. Serveurs qui rament, sauvegardes inexistantes ou défaillantes,
+                factures Cloud qui explosent sans comprendre pourquoi, sécurité négligée...
+              </p>
+              <p class="text-gray-700 mb-4">
+                Fort de mon expérience technique acquise en créant 300+ sites et de formations continues en infrastructure IT et Cloud,
+                j'ai décidé d'étendre AWEMA à ces services complémentaires. Parce que si mes clients me font confiance pour leur site web,
+                pourquoi ne pas les accompagner aussi sur <strong>toute leur infrastructure digitale</strong> ?
+              </p>
+              <div class="grid md:grid-cols-3 gap-4 mt-6">
+                <div class="bg-white rounded-lg p-4 shadow-sm">
+                  <div class="text-2xl mb-2">🌐</div>
+                  <div class="font-bold text-sm text-gray-800 mb-1">Sites Web</div>
+                  <div class="text-xs text-gray-600">Ma spécialité d'origine</div>
+                </div>
+                <div class="bg-white rounded-lg p-4 shadow-sm">
+                  <div class="text-2xl mb-2">☁️</div>
+                  <div class="font-bold text-sm text-gray-800 mb-1">Migration Cloud</div>
+                  <div class="text-xs text-gray-600">Modernisation infra</div>
+                </div>
+                <div class="bg-white rounded-lg p-4 shadow-sm">
+                  <div class="text-2xl mb-2">🔍</div>
+                  <div class="font-bold text-sm text-gray-800 mb-1">Audit IT</div>
+                  <div class="text-xs text-gray-600">Sécurité & performance</div>
+                </div>
+              </div>
+              <p class="text-gray-700 mt-4 mb-0">
+                <strong class="text-blue-600">Aujourd'hui, j'accompagne mes clients sur 3 axes complémentaires :</strong><br/>
+                leur présence web pour trouver des clients, leur infrastructure IT pour travailler sereinement,
+                et leur transition Cloud pour optimiser leurs coûts et performances.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 mb-4" data-aos="fade-up">Mon parcours en dates clés</h2>
+        <p class="text-lg text-gray-600" data-aos="fade-up" data-aos-delay="100">
+          De l'artisan solo à l'accompagnement de 300+ professionnels
+        </p>
+      </div>
+
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <div class="timeline relative">
+            <!-- Timeline Line -->
+            <div class="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gray-300"></div>
+
+            <!-- Timeline Items -->
+            {[
+              {
+                year: "2010-2025",
+                title: "Co-gérant entreprise BTP (TOUJOURS EN COURS)",
+                description: "15 ans sur le terrain, je vis vos problèmes au quotidien",
+                icon: "🔧",
+                side: "left"
+              },
+              {
+                year: "2020",
+                title: "Création site pour mon entreprise BTP",
+                description: "+40% de devis en 3 mois pour mon entreprise, la révélation",
+                icon: "💡",
+                side: "right"
+              },
+              {
+                year: "2021",
+                title: "Lancement d'AWEMA en parallèle",
+                description: "20 premiers sites créés pour des confrères artisans",
+                icon: "🚀",
+                side: "left"
+              },
+              {
+                year: "2022",
+                title: "100 clients tout en gérant l'entreprise BTP",
+                description: "Double activité : chantiers le jour, sites web le soir",
+                icon: "💯",
+                side: "right"
+              },
+              {
+                year: "2023",
+                title: "200 clients",
+                description: "Équipe AWEMA renforcée, toujours actif dans le BTP",
+                icon: "📈",
+                side: "left"
+              },
+              {
+                year: "2024",
+                title: "Élargissement aux services IT",
+                description: "Migration Cloud et Audit Infrastructure : réponse aux besoins clients",
+                icon: "☁️",
+                side: "right"
+              },
+              {
+                year: "2025",
+                title: "300+ clients, 3 services complémentaires",
+                description: "Sites Web + Cloud + Audit IT = accompagnement digital complet",
+                icon: "🏆",
+                side: "left"
+              },
+              {
+                year: "2025",
+                title: "Objectif 500 clients multi-services",
+                description: "Stack optimisée, toujours co-gérant BTP actif",
+                icon: "🎯",
+                side: "right"
+              }
+            ].map((item, index) => (
+              <div class={`timeline-item ${item.side} mb-8`} data-aos="fade-up" data-aos-delay={index * 100}>
+                <div class={`flex items-center ${item.side === 'right' ? 'flex-row-reverse' : ''} gap-8`}>
+                  <div class="flex-1">
+                    {item.side === 'left' && (
+                      <div class="bg-white rounded-xl shadow-lg p-6 relative">
+                        <div class="absolute -right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-white rotate-45"></div>
+                        <div class="text-primary font-bold mb-2">{item.year}</div>
+                        <h3 class="h5 mb-2">{item.title}</h3>
+                        <p class="text-gray-600 text-sm">{item.description}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  <div class="timeline-dot relative z-10">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-2xl shadow-lg">
+                      {item.icon}
+                    </div>
+                  </div>
+
+                  <div class="flex-1">
+                    {item.side === 'right' && (
+                      <div class="bg-white rounded-xl shadow-lg p-6 relative">
+                        <div class="absolute -left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-white rotate-45"></div>
+                        <div class="text-primary font-bold mb-2">{item.year}</div>
+                        <h3 class="h5 mb-2">{item.title}</h3>
+                        <p class="text-gray-600 text-sm">{item.description}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 mb-4" data-aos="fade-up">Mes valeurs d'artisan toujours actif</h2>
+        <p class="text-lg text-gray-600" data-aos="fade-up" data-aos-delay="100">
+          Ce que je vis sur le terrain et que j'applique à tous mes services
+        </p>
+      </div>
+
+      <div class="row gy-4">
+        {[
+          {
+            title: "La parole donnée",
+            description: "Un devis est un engagement. Pas de frais cachés, pas de mauvaises surprises.",
+            icon: "🤝"
+          },
+          {
+            title: "Le travail bien fait",
+            description: "Chaque projet (site web, migration Cloud, audit) est traité avec la même exigence qu'un chantier.",
+            icon: "✨"
+          },
+          {
+            title: "L'écoute du client",
+            description: "Je parle votre langue, pas celle des développeurs. Zéro jargon technique.",
+            icon: "👂"
+          },
+          {
+            title: "La solidarité",
+            description: "Entre professionnels, on se serre les coudes. Tarifs justes et accompagnement sincère.",
+            icon: "💪"
+          }
+        ].map((value, index) => (
+          <div class="md:col-6 lg:col-3" data-aos="fade-up" data-aos-delay={index * 100}>
+            <div class="bg-white rounded-xl shadow-lg p-6 h-full text-center hover:shadow-xl transition-shadow">
+              <div class="text-4xl mb-4">{value.icon}</div>
+              <h3 class="h5 mb-3">{value.title}</h3>
+              <p class="text-gray-600 text-sm">{value.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 mb-4" data-aos="fade-up">Ce que disent mes clients</h2>
+        <p class="text-lg text-gray-600" data-aos="fade-up" data-aos-delay="100">
+          Artisans, PME, professionnels : ils me font confiance au quotidien
+        </p>
+      </div>
+
+      <div class="row gy-4">
+        {[
+          {
+            name: "Pierre M.",
+            job: "Menuisier à Lyon",
+            text: "Thomas comprend nos problèmes parce qu'il les VIT encore. On se croise sur les chantiers ! Son site m'a permis de doubler mon CA.",
+            rating: 5
+          },
+          {
+            name: "Marc D.",
+            job: "Électricien à Villeurbanne",
+            text: "Un confrère qui fait encore du BTP ET qui maîtrise le digital. C'est rare et ça fait toute la différence !",
+            rating: 5
+          },
+          {
+            name: "Sophie L.",
+            job: "Paysagiste à Caluire",
+            text: "Thomas est toujours sur le terrain, il sait de quoi on parle. 60% de mes clients viennent maintenant du site !",
+            rating: 5
+          }
+        ].map((testimonial, index) => (
+          <div class="lg:col-4" data-aos="fade-up" data-aos-delay={index * 100}>
+            <div class="bg-white rounded-xl shadow-lg p-6 h-full">
+              <div class="flex mb-4">
+                {[...Array(testimonial.rating)].map(() => (
+                  <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                  </svg>
+                ))}
+              </div>
+              <p class="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
+              <div>
+                <div class="font-bold text-gray-800">{testimonial.name}</div>
+                <div class="text-sm text-gray-600">{testimonial.job}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="section bg-gradient-to-r from-primary to-blue-600 text-white">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8 text-center">
+          <h2 class="h2 mb-6 text-white" data-aos="fade-up">
+            Rejoignez les 300+ professionnels qui ont transformé leur activité
+          </h2>
+          <p class="text-xl mb-8 opacity-90" data-aos="fade-up" data-aos-delay="100">
+            Site web, infrastructure IT, ou migration Cloud : je vous accompagne de A à Z
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
+            <a href="/#contact" class="btn btn-white btn-xl">
+              Parlons de votre projet
+            </a>
+            <a href="tel:0617540383" class="btn btn-outline-white btn-xl">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+              </svg>
+              06 17 54 03 83
+            </a>
+          </div>
+          <p class="mt-6 text-yellow-300 font-medium" data-aos="fade-up" data-aos-delay="300">
+            💬 Réponse en 2h, promis (toujours sur le terrain, je connais l'urgence)
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .timeline-item.left .timeline-dot {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .timeline-item.right .timeline-dot {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-item {
+      text-align: center;
+    }
+
+    .timeline-item .flex {
+      flex-direction: column !important;
+    }
+
+    .timeline-item.right .flex {
+      flex-direction: column !important;
+    }
+
+    .absolute.left-1\/2 {
+      display: none;
+    }
+  }
+
+  .prose {
+    color: #374151;
+  }
+
+  .prose p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .prose h2, .prose h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+</style>

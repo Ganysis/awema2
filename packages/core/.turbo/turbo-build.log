@@ -1,0 +1,11 @@
+
+> @awema/core@0.0.1 build /home/Ganyc/Desktop/awema/awema2/packages/core
+> tsc
+
+src/cli.ts(207,30): error TS2339: Property 'features' does not exist on type 'LandingPageConfig & { variant: string; }'.
+src/cli.ts(220,27): error TS2339: Property 'phone' does not exist on type 'LandingPageConfig & { variant: string; }'.
+src/cli.ts(221,27): error TS2339: Property 'email' does not exist on type 'LandingPageConfig & { variant: string; }'.
+src/cli.ts(230,27): error TS2339: Property 'phone' does not exist on type 'LandingPageConfig & { variant: string; }'.
+src/cli.ts(231,27): error TS2339: Property 'email' does not exist on type 'LandingPageConfig & { variant: string; }'.
+src/cli.ts(239,25): error TS2339: Property 'theme' does not exist on type 'LandingPageConfig & { variant: string; }'.
+ ELIFECYCLE  Command failed with exit code 2.

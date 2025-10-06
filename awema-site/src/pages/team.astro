@@ -1,0 +1,118 @@
+---
+import Social from "@/components/Social.astro";
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+
+const { data } = (await getEntry("team", "-index")) as CollectionEntry<"team">;
+const { banner, team_member, title } = data;
+
+const groups = [
+  ...new Set(team_member.map((member) => member.group.toLocaleLowerCase())),
+];
+---
+
+<Base {...data}>
+  <PageHeader title={title!} />
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="md:col-8 sm:col-10 lg:col-6 text-center">
+          <h2 class="mb-4" set:html={markdownify(banner.title)} />
+          <p set:html={markdownify(banner.description)} />
+        </div>
+      </div>
+      <ul
+        class="flex justify-center items-center flex-wrap mt-7 shuffle-filter"
+      >
+        <li class="selected" data-target="all">
+          <button
+            type="button"
+            class={`btn-outline-primary btn-sm border-2 hover:translate-y-[-3px] transition-transform m-3 inline-block capitalize py-3`}
+          >
+            All Together
+          </button>
+        </li>
+        {
+          groups.map((group) => (
+            <li data-target={group}>
+              <button
+                type="button"
+                class={`btn-outline-primary btn-sm border-2 hover:translate-y-[-3px] transition-transform m-3 inline-block capitalize py-3`}
+              >
+                {group}
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+
+      <ul
+        class="row justify-center items-center gy-5 gx-4 mt-5 lg:mt-12 shuffle-container"
+      >
+        {
+          team_member.map((member) => (
+            <li
+              data-groups={`["${member.group}","all"]`}
+              class="lg:col-4 sm:col-6"
+            >
+              <div class="text-center ">
+                <div class="has-shapes inline-block">
+                  <img
+                    class="mx-auto rounded-full"
+                    src={member.image}
+                    alt={member.name}
+                    width={250}
+                    height={250}
+                  />
+                  <div class="team-shapes">
+                    <div class="shape-2 shape-sm bg-primary/50 rounded-circle" />
+                    <div class="shape-1 shape-xs bg-secondary/50 rounded-circle" />
+                    <div class="shape-3 shape-sm-2 bg-tertiary/50 rounded-circle" />
+                  </div>
+                </div>
+                <div>
+                  <h5
+                    class="text-center font-medium mt-3.5"
+                    set:html={markdownify(member.name)}
+                  />
+                  <p
+                    class="mb-4 mt-2"
+                    set:html={markdownify(member.designation)}
+                  />
+                  <Social className="social-icons" source={member.social} />
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import Shuffle from "shufflejs";
+
+  document.addEventListener("astro:page-load", () => {
+    let element = document.querySelector(".shuffle-container") as HTMLElement;
+
+    let shuffleInstance = new Shuffle(element, {
+      itemSelector: "li",
+    });
+
+    const filter = document.querySelector(".shuffle-filter");
+    const filtterLists = Array.from(filter?.children || []);
+    filtterLists.forEach((list) => {
+      const button = list.querySelector("button");
+      button?.addEventListener("click", function (_) {
+        filtterLists.forEach((list) => list.classList.remove("selected"));
+        this.parentElement?.classList.add("selected");
+        const keyword = list.getAttribute("data-target");
+        shuffleInstance.filter(keyword);
+      });
+    });
+  });
+</script>

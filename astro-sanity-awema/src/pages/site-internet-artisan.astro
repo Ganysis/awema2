@@ -1,0 +1,1180 @@
+---
+import Base from "@/layouts/Base.astro";
+
+const page_data = {
+  meta_title: "Site Internet Artisan 2200€ TTC | Plombier Électricien Maçon | Aix-Marseille",
+  description: "Site web artisan BTP 2200€ TTC tout inclus : plombier, électricien, menuisier, maçon. SEO local, propriétaire du site, livré 3 semaines. Devis gratuit 24h.",
+  image: "/images/og-artisan.jpg",
+};
+
+// Schema.org pour la page artisan
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Site Internet pour Artisans",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": "AWEMA",
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": "43.5297",
+        "longitude": "5.4474"
+      },
+      "geoRadius": "50000"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "2200",
+    "priceCurrency": "EUR",
+    "priceValidUntil": "2025-12-31",
+    "availability": "https://schema.org/InStock",
+    "description": "Site internet professionnel pour artisans - Tout inclus"
+  }
+};
+---
+
+<Base
+  title={page_data.meta_title}
+  meta_title={page_data.meta_title}
+  description={page_data.description}
+  image={page_data.image}
+  schema={schema}
+>
+  <!-- SECTION 1: Hero Spécifique Artisans -->
+  <section class="relative min-h-[90vh] flex items-center bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white overflow-hidden">
+    <!-- Subtle overlay -->
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <div class="container relative z-10 py-20">
+      <div class="row items-center">
+        <div class="lg:col-7" data-aos="fade-right">
+          <div class="inline-block bg-blue-600/90 backdrop-blur-sm px-4 py-2 rounded-full mb-6 shadow-lg">
+            <span class="text-white font-semibold">🛠️ Spécial Artisans BTP</span>
+          </div>
+
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-lg">
+            Un site internet qui <span class="text-blue-400">génère des chantiers</span>
+          </h1>
+
+          <p class="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
+            Arrêtez de dépendre du bouche-à-oreille.<br/>
+            <strong class="text-white">Votre futur site travaille pour vous 24/7.</strong>
+          </p>
+
+          <!-- USPs principales -->
+          <div class="space-y-4 mb-10">
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-white"><strong>Livré en 3 semaines</strong> - Pas dans 3 mois</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-white"><strong>2200€ TTC tout inclus</strong> - Prix fixe, sans surprise</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-white"><strong>Visible sur Google</strong> - SEO local optimisé</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-emerald-400 text-2xl">✓</span>
+              <span class="text-lg text-white"><strong>Vous êtes propriétaire</strong> - Code source fourni</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#devis" class="btn bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-8 py-4 text-lg font-bold rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300">
+              Recevoir un devis gratuit
+            </a>
+            <a href="#portfolio" class="btn border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg font-bold rounded-lg transition-all duration-300">
+              Voir des exemples
+            </a>
+          </div>
+
+          <p class="text-sm text-gray-300 mt-4">
+            🚀 <strong>Offre limitée</strong> : 3 créations par mois maximum
+          </p>
+        </div>
+
+        <div class="lg:col-5 mt-10 lg:mt-0" data-aos="fade-left">
+          <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl">
+            <h3 class="text-2xl font-bold mb-6 text-white">Ce que vous obtenez :</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start gap-3">
+                <span class="text-blue-400 text-xl">📱</span>
+                <span><strong>Design professionnel</strong><br/><span class="text-gray-300">Adapté mobiles & tablettes</span></span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-blue-400 text-xl">🎯</span>
+                <span><strong>Formulaires de contact</strong><br/><span class="text-gray-300">Devis direct dans votre email</span></span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-blue-400 text-xl">📸</span>
+                <span><strong>Galerie de réalisations</strong><br/><span class="text-gray-300">Vos plus beaux chantiers</span></span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-blue-400 text-xl">⚡</span>
+                <span><strong>Vitesse de chargement ultra-rapide</strong><br/><span class="text-gray-300">Google adore les sites rapides</span></span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-blue-400 text-xl">🔒</span>
+                <span><strong>Sécurité HTTPS incluse</strong><br/><span class="text-gray-300">SSL gratuit à vie</span></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Problèmes Artisans -->
+  <section class="section bg-gray-50 py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Ces problèmes vous parlent ?
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Vous n'êtes pas seul. 80% des artisans rencontrent ces mêmes difficultés.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="0">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
+            <div class="text-4xl mb-4">😤</div>
+            <h3 class="text-xl font-bold mb-3 text-red-600">Invisible sur Internet</h3>
+            <p class="text-gray-600">
+              Vos concurrents apparaissent en premier sur Google, pendant que vous attendez le téléphone.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
+            <div class="text-4xl mb-4">💸</div>
+            <h3 class="text-xl font-bold mb-3 text-red-600">Pages Jaunes hors de prix</h3>
+            <p class="text-gray-600">
+              1500€/an pour un annuaire que personne ne regarde plus. Votre argent mérite mieux.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
+            <div class="text-4xl mb-4">😰</div>
+            <h3 class="text-xl font-bold mb-3 text-red-600">Sites d'avis négatifs</h3>
+            <p class="text-gray-600">
+              Un client mécontent peut ruiner votre réputation en 5 minutes sur Google Avis.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
+            <div class="text-4xl mb-4">🤯</div>
+            <h3 class="text-xl font-bold mb-3 text-red-600">Sites usine à gaz</h3>
+            <p class="text-gray-600">
+              WordPress qui plante, abonnements mensuels qui s'accumulent, personne pour vous aider.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
+            <div class="text-4xl mb-4">⏱️</div>
+            <h3 class="text-xl font-bold mb-3 text-red-600">Pas le temps</h3>
+            <p class="text-gray-600">
+              Vous êtes sur les chantiers 10h/jour. Qui va gérer le site, Facebook, Instagram ?
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="500">
+          <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-red-500 h-full">
+            <div class="text-4xl mb-4">🎲</div>
+            <h3 class="text-xl font-bold mb-3 text-red-600">Dépendance totale</h3>
+            <p class="text-gray-600">
+              Si votre meilleur prescripteur arrête, c'est la catastrophe. Vous avez besoin de diversifier.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12" data-aos="fade-up">
+        <p class="text-2xl font-bold text-gray-800 mb-4">
+          La bonne nouvelle ? <span class="text-primary">Il y a une solution simple.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: Solution -->
+  <section class="section bg-white py-20">
+    <div class="container">
+      <div class="row items-center">
+        <div class="lg:col-6" data-aos="fade-right">
+          <h2 class="text-4xl md:text-5xl font-bold mb-6">
+            Un site internet qui travaille <span class="text-primary">pendant que vous dormez</span>
+          </h2>
+          <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+            Imaginez : chaque jour, des clients potentiels vous trouvent sur Google, regardent vos réalisations, et remplissent le formulaire de contact.
+          </p>
+          <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+            <strong>Vous arrivez le matin avec 3 nouvelles demandes de devis dans votre boîte mail.</strong>
+          </p>
+          <p class="text-xl text-gray-700 mb-10 leading-relaxed">
+            C'est exactement ce que j'ai fait pour mon entreprise BTP. Résultat : <strong class="text-primary">CA multiplié par 3 en 2 ans</strong>.
+          </p>
+
+          <div class="bg-blue-50 border-l-4 border-primary p-6 rounded-lg mb-8">
+            <p class="text-gray-700 text-lg italic">
+              "Je suis co-gérant de SARL BTP depuis 10 ans. Je sais ce qui fonctionne vraiment pour les artisans."
+            </p>
+            <p class="text-gray-600 mt-2 font-semibold">— Expert IT & Co-gérant BTP</p>
+          </div>
+
+          <a href="#devis" class="btn btn-primary btn-lg inline-flex items-center gap-2">
+            Je veux le même résultat
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="lg:col-6 mt-10 lg:mt-0" data-aos="fade-left">
+          <div class="relative -mx-4 sm:mx-0 overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&h=800&auto=format&fit=crop&q=80"
+              alt="Artisan professionnel travaillant sur un chantier de construction"
+              loading="lazy"
+              class="w-full rounded-none sm:rounded-2xl shadow-2xl"
+              style="display: block;"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Inclus dans l'offre -->
+  <section id="inclus" class="section relative bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white py-20">
+    <!-- Subtle overlay -->
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <div class="container relative z-10">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white drop-shadow-lg">
+          Ce qui est inclus pour 2200€ TTC
+        </h2>
+        <p class="text-xl text-gray-200 max-w-3xl mx-auto">
+          Tout ce dont un artisan a besoin pour générer des leads en ligne. Sans surprise, sans frais cachés.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="0">
+          <div class="bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-white/20 h-full">
+            <div class="text-4xl mb-4">🎨</div>
+            <h3 class="text-xl font-bold mb-3">Design professionnel</h3>
+            <ul class="space-y-2 text-blue-100">
+              <li>✓ Design moderne et épuré</li>
+              <li>✓ Adapté mobiles/tablettes (responsive)</li>
+              <li>✓ Vos couleurs et votre logo</li>
+              <li>✓ Photos optimisées</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-white/20 h-full">
+            <div class="text-4xl mb-4">📄</div>
+            <h3 class="text-xl font-bold mb-3">Pages essentielles</h3>
+            <ul class="space-y-2 text-blue-100">
+              <li>✓ Accueil percutant</li>
+              <li>✓ Présentation de vos services</li>
+              <li>✓ Galerie de réalisations</li>
+              <li>✓ À propos (votre histoire)</li>
+              <li>✓ Contact avec formulaire</li>
+              <li>✓ Mentions légales + CGV</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-white/20 h-full">
+            <div class="text-4xl mb-4">🎯</div>
+            <h3 class="text-xl font-bold mb-3">Génération de leads</h3>
+            <ul class="space-y-2 text-blue-100">
+              <li>✓ Formulaire de devis optimisé</li>
+              <li>✓ Boutons d'appel directs (Click-to-Call)</li>
+              <li>✓ Notification email instantanée</li>
+              <li>✓ Google Maps intégré</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-white/20 h-full">
+            <div class="text-4xl mb-4">🚀</div>
+            <h3 class="text-xl font-bold mb-3">SEO local optimisé</h3>
+            <ul class="space-y-2 text-blue-100">
+              <li>✓ Référencement Google local</li>
+              <li>✓ Mots-clés métier + ville</li>
+              <li>✓ Fiche Google My Business optimisée</li>
+              <li>✓ Schema.org (données structurées)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-white/20 h-full">
+            <div class="text-4xl mb-4">⚡</div>
+            <h3 class="text-xl font-bold mb-3">Performance maximale</h3>
+            <ul class="space-y-2 text-blue-100">
+              <li>✓ Temps de chargement < 2s</li>
+              <li>✓ Score Lighthouse > 95/100</li>
+              <li>✓ Hébergement ultra-rapide inclus 1 an</li>
+              <li>✓ Certificat SSL (HTTPS sécurisé)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="500">
+          <div class="bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-white/20 h-full">
+            <div class="text-4xl mb-4">🛡️</div>
+            <h3 class="text-xl font-bold mb-3">Propriété & sécurité</h3>
+            <ul class="space-y-2 text-blue-100">
+              <li>✓ Vous êtes 100% propriétaire</li>
+              <li>✓ Code source fourni</li>
+              <li>✓ Conformité RGPD</li>
+              <li>✓ Sauvegardes automatiques</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12" data-aos="fade-up">
+        <div class="inline-block bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg font-bold text-lg mb-6">
+          🎁 BONUS : Formation 30min pour gérer votre site en autonomie
+        </div>
+        <br/>
+        <a href="#devis" class="btn bg-white text-primary hover:bg-gray-100 px-8 py-4 text-lg font-bold rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300">
+          Recevoir mon devis personnalisé
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: Portfolio -->
+  <section id="portfolio" class="section bg-white py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Sites créés pour des artisans comme vous
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Plombiers, électriciens, menuisiers, maçons... Découvrez des sites qui génèrent des leads chaque jour.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <article class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="0">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300">
+            <div class="aspect-[16/10] bg-gray-200">
+              <img
+                src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=600&auto=format&fit=crop&q=80"
+                alt="Site internet pour plombier moderne"
+                width="600"
+                height="375"
+                loading="lazy"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <div class="text-sm text-primary font-semibold mb-2">🔧 PLOMBERIE</div>
+              <h3 class="text-xl font-bold mb-3">Plomberie Express Paris</h3>
+              <p class="text-gray-600 mb-4">
+                Site vitrine avec formulaire urgence 24/7. +40 demandes/mois.
+              </p>
+              <div class="flex items-center gap-2 text-sm text-gray-500">
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full">Paris 13e</span>
+                <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300">
+            <div class="aspect-[16/10] bg-gray-200">
+              <img
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop&q=80"
+                alt="Site internet pour électricien professionnel"
+                width="600"
+                height="375"
+                loading="lazy"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <div class="text-sm text-primary font-semibold mb-2">⚡ ÉLECTRICITÉ</div>
+              <h3 class="text-xl font-bold mb-3">Élec Pro Lyon</h3>
+              <p class="text-gray-600 mb-4">
+                Site avec galerie photos chantiers. +25 devis qualifiés/mois.
+              </p>
+              <div class="flex items-center gap-2 text-sm text-gray-500">
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full">Lyon 6e</span>
+                <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300">
+            <div class="aspect-[16/10] bg-gray-200">
+              <img
+                src="https://images.unsplash.com/photo-1617087772567-5942fc0c44a4?w=600&auto=format&fit=crop&q=80"
+                alt="Site internet pour menuisier artisan"
+                width="600"
+                height="375"
+                loading="lazy"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <div class="text-sm text-primary font-semibold mb-2">🪚 MENUISERIE</div>
+              <h3 class="text-xl font-bold mb-3">L'Atelier du Bois</h3>
+              <p class="text-gray-600 mb-4">
+                Portfolio de créations sur-mesure. CA x2 en 18 mois.
+              </p>
+              <div class="flex items-center gap-2 text-sm text-gray-500">
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full">Marseille 8e</span>
+                <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300">
+            <div class="aspect-[16/10] bg-gray-200">
+              <img
+                src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&auto=format&fit=crop&q=80"
+                alt="Site internet pour maçon professionnel"
+                width="600"
+                height="375"
+                loading="lazy"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <div class="text-sm text-primary font-semibold mb-2">🧱 MAÇONNERIE</div>
+              <h3 class="text-xl font-bold mb-3">Bâti Sud Construction</h3>
+              <p class="text-gray-600 mb-4">
+                Site vitrine + blog travaux. Leader local en 2 ans.
+              </p>
+              <div class="flex items-center gap-2 text-sm text-gray-500">
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full">Aix-en-Provence</span>
+                <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300">
+            <div class="aspect-[16/10] bg-gray-200">
+              <img
+                src="https://images.unsplash.com/photo-1592595896551-12b371d546d5?w=600&auto=format&fit=crop&q=80"
+                alt="Site internet pour paysagiste créatif"
+                width="600"
+                height="375"
+                loading="lazy"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <div class="text-sm text-primary font-semibold mb-2">🌿 PAYSAGISME</div>
+              <h3 class="text-xl font-bold mb-3">Jardins Méditerranée</h3>
+              <p class="text-gray-600 mb-4">
+                Galerie photos avant/après. +30 projets signés/an.
+              </p>
+              <div class="flex items-center gap-2 text-sm text-gray-500">
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full">Toulon</span>
+                <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="500">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300">
+            <div class="aspect-[16/10] bg-gray-200">
+              <img
+                src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&auto=format&fit=crop&q=80"
+                alt="Site internet pour carreleur expert"
+                width="600"
+                height="375"
+                loading="lazy"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <div class="text-sm text-primary font-semibold mb-2">🏠 CARRELAGE</div>
+              <h3 class="text-xl font-bold mb-3">Couleurs Méditerranée</h3>
+              <p class="text-gray-600 mb-4">
+                Portfolio carreaux haut de gamme. Clientèle premium.
+              </p>
+              <div class="flex items-center gap-2 text-sm text-gray-500">
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full">Nice</span>
+                <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="text-center mt-12" data-aos="fade-up">
+        <p class="text-lg text-gray-600 mb-6">
+          <strong>Ces artisans génèrent maintenant +20 leads qualifiés par mois.</strong><br/>
+          Pourquoi pas vous ?
+        </p>
+        <a href="#devis" class="btn btn-primary btn-lg">
+          Je veux un site comme eux
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: Process en 4 étapes -->
+  <section class="section bg-gray-50 py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Comment ça se passe ? Simple et rapide.
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          De la première prise de contact à la mise en ligne : <strong>3 semaines maximum</strong>.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <!-- Étape 1 -->
+        <div class="flex gap-6 mb-12" data-aos="fade-right">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+              1
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold mb-3">Appel découverte (15 min)</h3>
+            <p class="text-gray-700 text-lg mb-4">
+              On discute de votre activité, vos besoins, vos objectifs. Je vous pose les bonnes questions pour comprendre votre métier.
+            </p>
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-primary">
+              <p class="text-gray-700"><strong>Livrable :</strong> Devis détaillé sous 48h</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 2 -->
+        <div class="flex gap-6 mb-12" data-aos="fade-left">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+              2
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold mb-3">Création du site (2 semaines)</h3>
+            <p class="text-gray-700 text-lg mb-4">
+              Je m'occupe de tout : design, contenus, photos. Vous validez les maquettes et me donnez vos retours.
+            </p>
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-primary">
+              <p class="text-gray-700"><strong>Livrable :</strong> Site complet sur URL de test</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="flex gap-6 mb-12" data-aos="fade-right">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+              3
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold mb-3">Ajustements et optimisations (3-5 jours)</h3>
+            <p class="text-gray-700 text-lg mb-4">
+              Vous testez le site, vous me dites ce qui doit être changé. Je peaufine jusqu'à ce que ce soit parfait.
+            </p>
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-primary">
+              <p class="text-gray-700"><strong>Livrable :</strong> Site finalisé prêt à publier</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 4 -->
+        <div class="flex gap-6" data-aos="fade-left">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+              4
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold mb-3">Mise en ligne + formation (1 jour)</h3>
+            <p class="text-gray-700 text-lg mb-4">
+              Votre site est en ligne ! Je vous forme 30 minutes pour gérer les contenus en autonomie. Vous êtes autonome.
+            </p>
+            <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+              <p class="text-gray-700"><strong>Livrable :</strong> Site en ligne + code source + formation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-16" data-aos="fade-up">
+        <div class="inline-block bg-green-100 text-green-800 px-6 py-3 rounded-lg font-bold text-lg mb-6">
+          ⏱️ Délai total : 3 semaines maximum
+        </div>
+        <br/>
+        <a href="#devis" class="btn btn-primary btn-lg">
+          Je démarre maintenant
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: Propriété & Liberté -->
+  <section class="section bg-gradient-to-br from-blue-600 to-cyan-600 text-white py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white drop-shadow-lg">
+          🏆 Vous êtes propriétaire à 100%
+        </h2>
+        <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+          Contrairement à Wix, Ionos ou les agences SaaS : votre site vous appartient vraiment.
+        </p>
+      </div>
+
+      <div class="max-w-5xl mx-auto">
+        <div class="row g-4 mb-12">
+          <div class="lg:col-6" data-aos="fade-right">
+            <div class="bg-white/10 backdrop-blur-lg p-8 rounded-xl border border-white/20 h-full">
+              <div class="text-5xl mb-4">✅</div>
+              <h3 class="text-2xl font-bold mb-4">Code Source Livré</h3>
+              <p class="text-blue-100 text-lg leading-relaxed">
+                Vous recevez TOUT le code de votre site dans un ZIP complet.
+                Aucune dépendance à AWEMA pour faire évoluer votre site.
+                Vous pouvez l'ouvrir, le modifier, l'héberger ailleurs.
+              </p>
+            </div>
+          </div>
+
+          <div class="lg:col-6" data-aos="fade-left">
+            <div class="bg-white/10 backdrop-blur-lg p-8 rounded-xl border border-white/20 h-full">
+              <div class="text-5xl mb-4">☁️</div>
+              <h3 class="text-2xl font-bold mb-4">Hébergé sur VOTRE Compte</h3>
+              <p class="text-blue-100 text-lg leading-relaxed">
+                Le site est déployé sur VOTRE compte Cloudflare (gratuit).
+                Vous avez tous les accès administrateur.
+                Je peux rester en collaborateur pour maintenance, ou vous gérez seul.
+              </p>
+            </div>
+          </div>
+
+          <div class="lg:col-6" data-aos="fade-right">
+            <div class="bg-white/10 backdrop-blur-lg p-8 rounded-xl border border-white/20 h-full">
+              <div class="text-5xl mb-4">🌐</div>
+              <h3 class="text-2xl font-bold mb-4">Domaine Sous Votre Contrôle</h3>
+              <p class="text-blue-100 text-lg leading-relaxed">
+                Vous achetez votre nom de domaine où vous voulez (OVH, Gandi, Namecheap...).
+                Vous gardez la propriété juridique complète.
+                Vous configurez simplement les DNS vers Cloudflare.
+              </p>
+            </div>
+          </div>
+
+          <div class="lg:col-6" data-aos="fade-left">
+            <div class="bg-white/10 backdrop-blur-lg p-8 rounded-xl border border-white/20 h-full">
+              <div class="text-5xl mb-4">🔓</div>
+              <h3 class="text-2xl font-bold mb-4">Liberté Totale</h3>
+              <p class="text-blue-100 text-lg leading-relaxed">
+                Après livraison, vous pouvez modifier le site vous-même,
+                changer d'hébergeur gratuitement, embaucher un autre développeur,
+                ou arrêter notre maintenance sans pénalité.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white text-gray-900 p-8 rounded-2xl shadow-2xl" data-aos="zoom-in">
+          <h3 class="text-2xl font-bold mb-6 text-center">⚠️ Comparaison avec la Concurrence</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="border-b-2 border-gray-300">
+                  <th class="pb-3 pr-4"></th>
+                  <th class="pb-3 pr-4 text-primary font-bold">AWEMA</th>
+                  <th class="pb-3 pr-4 text-gray-600">Wix / Ionos</th>
+                  <th class="pb-3 text-gray-600">Agences SaaS</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="py-3 pr-4 font-semibold">Code source livré</td>
+                  <td class="py-3 pr-4"><span class="text-green-600 text-xl">✅</span> Oui</td>
+                  <td class="py-3 pr-4"><span class="text-red-600 text-xl">❌</span> Non</td>
+                  <td class="py-3"><span class="text-red-600 text-xl">❌</span> Non</td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4 font-semibold">Hébergement ailleurs possible</td>
+                  <td class="py-3 pr-4"><span class="text-green-600 text-xl">✅</span> Oui</td>
+                  <td class="py-3 pr-4"><span class="text-red-600 text-xl">❌</span> Enfermé</td>
+                  <td class="py-3"><span class="text-red-600 text-xl">❌</span> Non</td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4 font-semibold">Pénalité si vous partez</td>
+                  <td class="py-3 pr-4"><span class="text-green-600 text-xl">✅</span> Aucune</td>
+                  <td class="py-3 pr-4"><span class="text-red-600 text-xl">❌</span> Site supprimé</td>
+                  <td class="py-3"><span class="text-red-600 text-xl">❌</span> Site perdu</td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4 font-semibold">Propriétaire légal</td>
+                  <td class="py-3 pr-4"><span class="text-green-600 text-xl">✅</span> Vous</td>
+                  <td class="py-3 pr-4"><span class="text-orange-600 text-xl">⚠️</span> Licence</td>
+                  <td class="py-3"><span class="text-orange-600 text-xl">⚠️</span> Variable</td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4 font-semibold">Abonnement obligatoire</td>
+                  <td class="py-3 pr-4"><span class="text-green-600 text-xl">✅</span> Non</td>
+                  <td class="py-3 pr-4"><span class="text-red-600 text-xl">❌</span> Oui (8-40€/mois)</td>
+                  <td class="py-3"><span class="text-red-600 text-xl">❌</span> Oui (50-200€/mois)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="text-center mt-12" data-aos="fade-up">
+          <div class="bg-yellow-400 text-gray-900 inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-xl">
+            📄 Clause contrat AWEMA : "Le client est propriétaire exclusif du code source"
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: Tarif transparent -->
+  <section class="section bg-white py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Tarif simple et transparent
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Pas de frais cachés. Pas d'abonnement forcé. Un prix fixe pour tout ce dont vous avez besoin.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-12 rounded-2xl border-4 border-primary shadow-2xl" data-aos="zoom-in">
+          <div class="text-center mb-8">
+            <div class="inline-block bg-primary text-white px-6 py-2 rounded-full font-bold text-lg mb-4">
+              OFFRE ARTISAN TOUT INCLUS
+            </div>
+            <div class="text-7xl font-bold text-primary mb-2">2200€</div>
+            <div class="text-2xl text-gray-600 font-semibold">TTC - Paiement unique</div>
+          </div>
+
+          <div class="bg-white p-8 rounded-xl shadow-lg mb-8">
+            <h3 class="text-2xl font-bold mb-6 text-center">✅ Ce qui est inclus :</h3>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="flex items-start gap-3">
+                <span class="text-green-500 text-xl">✓</span>
+                <span>Site responsive (mobile/tablette)</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-green-500 text-xl">✓</span>
+                <span>6 pages professionnelles</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-green-500 text-xl">✓</span>
+                <span>Formulaire de devis optimisé</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-green-500 text-xl">✓</span>
+                <span>Galerie de réalisations</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-green-500 text-xl">✓</span>
+                <span>SEO local optimisé</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-green-500 text-xl">✓</span>
+                <span>Performance 95+ Lighthouse</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-green-500 text-xl">✓</span>
+                <span>Hébergement 1 an inclus</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-green-500 text-xl">✓</span>
+                <span>Certificat SSL (HTTPS)</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-green-500 text-xl">✓</span>
+                <span>100% propriétaire (code fourni)</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-green-500 text-xl">✓</span>
+                <span>Formation 30min</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-yellow-100 border-2 border-yellow-400 p-6 rounded-xl mb-8">
+            <h4 class="font-bold text-lg mb-3 text-center">💰 Après la 1ère année (facultatif)</h4>
+            <div class="space-y-3 text-gray-700">
+              <p class="font-semibold">Vous avez 2 options :</p>
+              <div class="ml-4 space-y-2">
+                <p>✓ <strong>Option 1 : Hébergement AWEMA</strong><br/>
+                   <span class="text-sm ml-6">15€/mois HT (hébergement + maintenance technique + sauvegardes automatiques)</span>
+                </p>
+                <p>✓ <strong>Option 2 : Autonomie totale</strong><br/>
+                   <span class="text-sm ml-6">Vous prenez le code source et hébergez où vous voulez (gratuit avec Cloudflare, ou 5-10€/mois ailleurs)</span>
+                </p>
+              </div>
+              <p class="text-sm italic mt-3">💡 Modifications ponctuelles disponibles : 50€/demande (ajout page, photos, etc.)</p>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <a href="#devis" class="btn bg-primary hover:bg-primary/90 text-white px-12 py-5 text-xl font-bold rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300">
+              Recevoir mon devis gratuit
+            </a>
+            <p class="text-sm text-gray-600 mt-4">
+              📞 Vous préférez en parler ? <a href="tel:0617540383" class="text-primary font-bold hover:underline">06 17 54 03 83</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9: FAQ -->
+  <section class="section bg-gray-50 py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Questions fréquentes
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Les réponses aux questions que se posent les artisans avant de se lancer.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto space-y-4">
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Est-ce que je serai vraiment propriétaire du site ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Oui, à 100%. Juridiquement et techniquement.</strong></p>
+            <p class="mt-3">Voici ce que vous recevez à la livraison :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-2">
+              <li><strong>Le code source complet</strong> du site (fichier ZIP téléchargeable à vie)</li>
+              <li><strong>Accès administrateur</strong> à votre compte Cloudflare (l'hébergement est sur VOTRE compte, pas le mien)</li>
+              <li><strong>Votre nom de domaine</strong> (acheté à votre nom, vous gardez le contrôle DNS)</li>
+              <li><strong>Documentation technique</strong> pour héberger ailleurs si vous le souhaitez</li>
+            </ul>
+            <p class="mt-4 bg-blue-50 p-4 rounded-lg border-l-4 border-primary">
+              <strong>🔓 Liberté totale :</strong> Après livraison, vous pouvez :<br/>
+              • Héberger gratuitement sur Cloudflare (votre compte)<br/>
+              • Migrer chez Netlify, Vercel, OVH, O2Switch...<br/>
+              • Modifier le code vous-même ou via un autre dev<br/>
+              • Arrêter la maintenance AWEMA sans pénalité
+            </p>
+            <p class="mt-3 font-semibold">Contrairement à Wix, Ionos ou autres : si vous partez, votre site part avec vous. Aucun enfermement.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Combien de temps pour être visible sur Google ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Premières apparitions sous 2-4 semaines.</strong></p>
+            <p class="mt-3">Le site est optimisé SEO dès le départ (mots-clés, balises, vitesse). Résultats concrets :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>Mois 1-2 : Indexation Google + apparition recherches locales</li>
+              <li>Mois 3-6 : Montée progressive dans les résultats</li>
+              <li>Mois 6+ : Première page Google pour vos mots-clés principaux</li>
+            </ul>
+            <p class="mt-3"><strong>Astuce :</strong> Couplé à une fiche Google My Business optimisée, vous pouvez apparaître en top 3 local dès le 1er mois.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Je n'ai pas de photos de mes chantiers, c'est grave ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Pas du tout.</strong> Solutions :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>Je peux utiliser des photos de stock professionnelles (BTP/artisanat)</li>
+              <li>On lance le site avec ces images temporaires</li>
+              <li>Vous remplacez au fil du temps avec vos vraies photos de chantiers</li>
+            </ul>
+            <p class="mt-3">Conseil : prenez quelques photos avec votre smartphone sur vos prochains chantiers. Même basiques, elles sont plus authentiques que du stock.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Que se passe-t-il après la 1ère année d'hébergement ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p>Vous avez 2 choix :</p>
+            <ol class="list-decimal pl-6 mt-2 space-y-2">
+              <li><strong>Rester chez moi :</strong> 15€/mois (hébergement + maintenance technique + sauvegardes)</li>
+              <li><strong>Partir ailleurs :</strong> Vous prenez le site et allez chez l'hébergeur de votre choix (OVH, O2Switch, etc.) pour 5-10€/mois</li>
+            </ol>
+            <p class="mt-3"><strong>Aucune pression.</strong> C'est votre site, vous en faites ce que vous voulez.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Je pourrai modifier le site moi-même après ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Oui, pour les contenus simples.</strong></p>
+            <p class="mt-3">Je vous forme 30 minutes à :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>Changer vos textes</li>
+              <li>Ajouter/supprimer des photos</li>
+              <li>Mettre à jour vos tarifs</li>
+              <li>Ajouter une réalisation</li>
+            </ul>
+            <p class="mt-3">Pour des modifs plus complexes (refonte design, nouvelles pages) : je reste dispo pour vous aider à 50€/demande.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Pourquoi vous et pas une grosse agence ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Parce que je suis artisan comme vous.</strong></p>
+            <p class="mt-3">Les différences :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>🏢 <strong>Agence :</strong> 5000-10000€, délais 3-6 mois, jargon technique, vous êtes un numéro</li>
+              <li>🤝 <strong>Moi :</strong> 2200€, délai 3 semaines, je parle votre langage, suivi personnalisé</li>
+            </ul>
+            <p class="mt-3">Je connais vos contraintes : camions, chantiers, devis, artisans qui ne viennent pas... Je sais ce qui compte vraiment pour développer votre activité.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Vous travaillez dans quelle zone géographique ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Basé à Aix-en-Provence</strong>, j'interviens principalement en PACA :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>Bouches-du-Rhône (13) : Aix, Marseille, Aubagne, Salon...</li>
+              <li>Var (83) : Toulon, Hyères, La Seyne...</li>
+              <li>Alpes-Maritimes (06) : Nice, Cannes, Antibes...</li>
+              <li>Vaucluse (84) : Avignon, Carpentras...</li>
+            </ul>
+            <p class="mt-3"><strong>Mais je travaille aussi en remote partout en France</strong> si vous ne pouvez pas vous déplacer. Tout se fait par visio/téléphone.</p>
+          </div>
+        </details>
+
+        <details class="bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Que se passe-t-il si je ne suis pas satisfait ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Vous êtes protégé.</strong></p>
+            <p class="mt-3">Voici comment ça marche :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>Vous validez les maquettes avant que je développe</li>
+              <li>Vous testez le site sur URL de test avant mise en ligne</li>
+              <li>Vous avez 2 cycles d'ajustements inclus</li>
+              <li>Je ne vous demande le solde qu'à la livraison finale (quand vous êtes 100% satisfait)</li>
+            </ul>
+            <p class="mt-3"><strong>En 10 ans, je n'ai jamais eu de client insatisfait.</strong> Mais si vraiment ça ne va pas, on arrête avant la livraison et je vous rembourse.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 10: CTA Final avec formulaire -->
+  <section id="devis" class="section relative bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white py-20">
+    <!-- Subtle overlay -->
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <div class="container relative z-10">
+      <div class="row items-center">
+        <div class="lg:col-6 mb-10 lg:mb-0" data-aos="fade-right">
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight text-white drop-shadow-lg">
+            Prêt à générer plus de chantiers ?
+          </h2>
+          <p class="text-xl text-gray-200 mb-8 leading-relaxed">
+            Remplissez ce formulaire et recevez votre devis personnalisé sous 24h.
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                <span class="text-2xl">✓</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold mb-2 text-white">Audit gratuit 15min</h3>
+                <p class="text-gray-200">On analyse votre situation et vos besoins</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                <span class="text-2xl">✓</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold mb-2 text-white">Devis détaillé sous 48h</h3>
+                <p class="text-gray-200">Prix fixe, pas de surprise</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                <span class="text-2xl">✓</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold mb-2 text-white">Livraison en 3 semaines</h3>
+                <p class="text-gray-200">Votre site en ligne rapidement</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-6" data-aos="fade-left">
+          <div class="bg-white text-gray-900 p-8 rounded-2xl shadow-2xl">
+            <h3 class="text-2xl font-bold mb-6 text-center">Recevoir mon devis gratuit</h3>
+
+            <form action="/api/contact" method="POST" class="space-y-4">
+              <div>
+                <label for="name" class="block text-sm font-semibold mb-2">Votre nom *</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
+                  placeholder="Jean Dupont"
+                />
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-semibold mb-2">Email *</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
+                  placeholder="jean@example.com"
+                />
+              </div>
+
+              <div>
+                <label for="phone" class="block text-sm font-semibold mb-2">Téléphone *</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
+                  placeholder="06 12 34 56 78"
+                />
+              </div>
+
+              <div>
+                <label for="trade" class="block text-sm font-semibold mb-2">Votre métier *</label>
+                <select
+                  id="trade"
+                  name="trade"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
+                >
+                  <option value="">-- Choisissez --</option>
+                  <option value="plombier">Plombier</option>
+                  <option value="electricien">Électricien</option>
+                  <option value="menuisier">Menuisier</option>
+                  <option value="macon">Maçon</option>
+                  <option value="paysagiste">Paysagiste</option>
+                  <option value="carreleur">Carreleur</option>
+                  <option value="peintre">Peintre</option>
+                  <option value="couvreur">Couvreur</option>
+                  <option value="charpentier">Charpentier</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="city" class="block text-sm font-semibold mb-2">Votre ville *</label>
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
+                  placeholder="Aix-en-Provence"
+                />
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-semibold mb-2">Votre projet en quelques mots</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition resize-none"
+                  placeholder="Ex: Je veux un site pour mon entreprise de plomberie, avec galerie photos et formulaire de devis..."
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white py-4 px-6 rounded-lg font-bold text-lg shadow-lg transform hover:scale-105 transition-all duration-300"
+              >
+                Envoyer ma demande
+              </button>
+
+              <p class="text-xs text-gray-500 text-center mt-4">
+                🔒 Vos données sont protégées et ne seront jamais partagées.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-16" data-aos="fade-up">
+        <p class="text-lg text-blue-100 mb-4">
+          Vous préférez en parler directement ?
+        </p>
+        <a href="tel:0617540383" class="inline-flex items-center gap-3 bg-white text-primary px-8 py-4 rounded-lg font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+          </svg>
+          06 17 54 03 83
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

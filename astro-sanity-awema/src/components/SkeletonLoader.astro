@@ -1,0 +1,240 @@
+---
+export interface Props {
+  type?: 'text' | 'title' | 'image' | 'card' | 'button' | 'avatar' | 'custom';
+  width?: string;
+  height?: string;
+  lines?: number;
+  rounded?: boolean;
+  animated?: boolean;
+  class?: string;
+}
+
+const {
+  type = 'text',
+  width,
+  height,
+  lines = 3,
+  rounded = false,
+  animated = true,
+  class: className = ''
+} = Astro.props;
+
+// Default dimensions based on type
+const defaultDimensions = {
+  text: { width: '100%', height: '1rem' },
+  title: { width: '70%', height: '2rem' },
+  image: { width: '100%', height: '200px' },
+  card: { width: '100%', height: '300px' },
+  button: { width: '120px', height: '40px' },
+  avatar: { width: '48px', height: '48px' },
+  custom: { width: width || '100%', height: height || '100px' }
+};
+
+const dimensions = type === 'custom'
+  ? { width: width || defaultDimensions.custom.width, height: height || defaultDimensions.custom.height }
+  : { width: width || defaultDimensions[type].width, height: height || defaultDimensions[type].height };
+
+const isMultiLine = type === 'text' && lines > 1;
+---
+
+<div class={`skeleton-wrapper ${className}`}>
+  {isMultiLine ? (
+    Array.from({ length: lines }).map((_, index) => (
+      <div
+        class={`skeleton ${type} ${rounded ? 'rounded' : ''} ${animated ? 'animated' : ''}`}
+        style={`width: ${index === lines - 1 ? '80%' : dimensions.width}; height: ${dimensions.height}; ${index > 0 ? 'margin-top: 0.5rem;' : ''}`}
+        aria-hidden="true"
+      />
+    ))
+  ) : (
+    <div
+      class={`skeleton ${type} ${rounded ? 'rounded' : ''} ${animated ? 'animated' : ''}`}
+      style={`width: ${dimensions.width}; height: ${dimensions.height};`}
+      aria-hidden="true"
+    >
+      {type === 'card' && (
+        <div class="skeleton-card-content">
+          <div class="skeleton-image" />
+          <div class="skeleton-text-group">
+            <div class="skeleton-title" />
+            <div class="skeleton-line" />
+            <div class="skeleton-line" />
+            <div class="skeleton-line short" />
+          </div>
+        </div>
+      )}
+    </div>
+  )}
+</div>
+
+<style>
+  .skeleton-wrapper {
+    width: 100%;
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      #f0f0f0 25%,
+      #e0e0e0 50%,
+      #f0f0f0 75%
+    );
+    background-size: 200% 100%;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton.animated {
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes skeleton-shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  .skeleton.rounded {
+    border-radius: 50%;
+  }
+
+  .skeleton.avatar {
+    border-radius: 50%;
+  }
+
+  .skeleton.button {
+    border-radius: 6px;
+  }
+
+  /* Card skeleton structure */
+  .skeleton.card {
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .skeleton-card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 1rem;
+  }
+
+  .skeleton-image {
+    width: 100%;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+  }
+
+  .skeleton-text-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .skeleton-title {
+    height: 1.5rem;
+    width: 70%;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+  }
+
+  .skeleton-line {
+    height: 0.875rem;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+  }
+
+  .skeleton-line.short {
+    width: 60%;
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .skeleton {
+      background: linear-gradient(
+        90deg,
+        #2a2a2a 25%,
+        #3a3a3a 50%,
+        #2a2a2a 75%
+      );
+    }
+
+    .skeleton-image,
+    .skeleton-title,
+    .skeleton-line {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .skeleton.card {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton.animated {
+      animation: none;
+      background: #f0f0f0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .skeleton.animated {
+        background: #2a2a2a;
+      }
+    }
+  }
+</style>
+
+<script>
+  // Replace skeleton with actual content when ready
+  class SkeletonReplacer {
+    constructor() {
+      this.init();
+    }
+
+    init() {
+      // Listen for custom events to replace skeletons
+      document.addEventListener('content-loaded', (event: CustomEvent) => {
+        const { targetId, content } = event.detail;
+        this.replaceSkeletonWithContent(targetId, content);
+      });
+    }
+
+    replaceSkeletonWithContent(targetId: string, content: HTMLElement | string) {
+      const skeleton = document.getElementById(targetId);
+
+      if (skeleton && skeleton.classList.contains('skeleton-wrapper')) {
+        // Fade out skeleton
+        skeleton.style.transition = 'opacity 0.3s ease';
+        skeleton.style.opacity = '0';
+
+        setTimeout(() => {
+          // Replace with actual content
+          if (typeof content === 'string') {
+            skeleton.outerHTML = content;
+          } else {
+            skeleton.replaceWith(content);
+          }
+        }, 300);
+      }
+    }
+  }
+
+  // Initialize skeleton replacer
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      new SkeletonReplacer();
+    });
+  } else {
+    new SkeletonReplacer();
+  }
+</script>

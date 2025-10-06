@@ -1,0 +1,600 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+
+const meta = {
+  title: "Contact AWEMA - Devis Site BTP Gratuit",
+  meta_title: "Contact AWEMA ➤ Devis Gratuit 24h | Expert Sites BTP",
+  description: "Contactez AWEMA pour votre site web BTP. Formulaire intelligent, devis adapté à votre métier. Réponse en 2h, 300+ artisans satisfaits.",
+  image: "/images/contact.jpg"
+};
+
+// Get URL parameters
+const urlParams = Astro.url.searchParams;
+const metier = urlParams.get('metier');
+const ville = urlParams.get('ville');
+const formule = urlParams.get('formule');
+const urgent = urlParams.get('urgent');
+const service = urlParams.get('service');
+
+const metiers = [
+  "Plombier",
+  "Électricien",
+  "Chauffagiste",
+  "Menuisier",
+  "Maçon",
+  "Peintre",
+  "Carreleur",
+  "Couvreur",
+  "Paysagiste",
+  "Serrurier",
+  "Autre"
+];
+
+const formules = [
+  { value: "local", name: "LOCAL - 797€", description: "3 villes, site vitrine" },
+  { value: "zone", name: "ZONE - 1297€", description: "5 villes, GMB premium" },
+  { value: "region", name: "RÉGION - 1797€", description: "10+ villes, tout inclus" }
+];
+
+const urgences = [
+  { value: "urgent", name: "🔥 Urgent (sous 48h)", supplement: "+200€" },
+  { value: "normal", name: "📅 Normal (7 jours)", supplement: "Inclus" },
+  { value: "flexible", name: "🕐 Flexible (2 semaines)", reduction: "-10%" }
+];
+---
+
+<Base {...meta}>
+  <PageHeader title="Contact Intelligent AWEMA" />
+
+  <section class="section">
+    <div class="container">
+      <div class="row gy-5">
+        <!-- Formulaire intelligent -->
+        <div class="lg:col-8">
+          <div class="bg-white rounded-lg shadow-lg p-8">
+            <h2 class="mb-6">Votre Projet en 5 Minutes</h2>
+            <p class="mb-8 text-gray-600">
+              Formulaire intelligent qui s'adapte à votre métier BTP.
+              Plus vous êtes précis, plus notre devis sera pertinent.
+            </p>
+
+            <form
+              id="contact-form-intelligent"
+              class="space-y-6"
+              action="/api/contact-intelligent"
+              method="POST"
+            >
+              <!-- Étape 1: Informations de base -->
+              <div class="form-step" data-step="1">
+                <h3 class="text-lg font-bold mb-4 text-primary">
+                  Étape 1/4 : Qui êtes-vous ?
+                </h3>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="prenom" class="form-label">
+                      Prénom <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="prenom"
+                      name="prenom"
+                      class="form-input"
+                      required
+                      placeholder="Jean"
+                    />
+                  </div>
+
+                  <div>
+                    <label for="nom" class="form-label">
+                      Nom <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="nom"
+                      name="nom"
+                      class="form-input"
+                      required
+                      placeholder="Dupont"
+                    />
+                  </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4 mt-4">
+                  <div>
+                    <label for="telephone" class="form-label">
+                      Téléphone <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      id="telephone"
+                      name="telephone"
+                      class="form-input"
+                      required
+                      placeholder="06 12 34 56 78"
+                      pattern="[0-9]{10}"
+                    />
+                  </div>
+
+                  <div>
+                    <label for="email" class="form-label">
+                      Email <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="form-input"
+                      required
+                      placeholder="jean.dupont@gmail.com"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Étape 2: Entreprise -->
+              <div class="form-step hidden" data-step="2">
+                <h3 class="text-lg font-bold mb-4 text-primary">
+                  Étape 2/4 : Votre Entreprise
+                </h3>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="entreprise" class="form-label">
+                      Nom de l'entreprise <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="entreprise"
+                      name="entreprise"
+                      class="form-input"
+                      required
+                      placeholder="Plomberie Dupont"
+                    />
+                  </div>
+
+                  <div>
+                    <label for="metier" class="form-label">
+                      Votre métier <span class="text-red-500">*</span>
+                    </label>
+                    <select
+                      id="metier"
+                      name="metier"
+                      class="form-input"
+                      required
+                    >
+                      <option value="">Sélectionnez...</option>
+                      {metiers.map(m => (
+                        <option value={m.toLowerCase()} selected={metier === m.toLowerCase()}>
+                          {m}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4 mt-4">
+                  <div>
+                    <label for="ville" class="form-label">
+                      Ville principale <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="ville"
+                      name="ville"
+                      class="form-input"
+                      required
+                      placeholder="Lyon"
+                      value={ville || ''}
+                    />
+                  </div>
+
+                  <div>
+                    <label for="code_postal" class="form-label">
+                      Code postal
+                    </label>
+                    <input
+                      type="text"
+                      id="code_postal"
+                      name="code_postal"
+                      class="form-input"
+                      placeholder="69000"
+                      pattern="[0-9]{5}"
+                    />
+                  </div>
+                </div>
+
+                <div class="mt-4">
+                  <label for="annees_activite" class="form-label">
+                    Années d'activité
+                  </label>
+                  <select id="annees_activite" name="annees_activite" class="form-input">
+                    <option value="">Sélectionnez...</option>
+                    <option value="0-1">Moins d'1 an</option>
+                    <option value="1-3">1-3 ans</option>
+                    <option value="3-5">3-5 ans</option>
+                    <option value="5-10">5-10 ans</option>
+                    <option value="10+">Plus de 10 ans</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Étape 3: Besoins -->
+              <div class="form-step hidden" data-step="3">
+                <h3 class="text-lg font-bold mb-4 text-primary">
+                  Étape 3/4 : Vos Besoins
+                </h3>
+
+                <div>
+                  <label class="form-label">
+                    Pourquoi voulez-vous un site ? <span class="text-red-500">*</span>
+                  </label>
+                  <div class="space-y-2">
+                    <label class="flex items-center">
+                      <input type="checkbox" name="besoins" value="visibilite" class="mr-2" />
+                      <span>Améliorer ma visibilité Google</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="checkbox" name="besoins" value="leads" class="mr-2" />
+                      <span>Générer plus de demandes de devis</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="checkbox" name="besoins" value="credibilite" class="mr-2" />
+                      <span>Augmenter ma crédibilité professionnelle</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="checkbox" name="besoins" value="avis" class="mr-2" />
+                      <span>Collecter plus d'avis clients</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="checkbox" name="besoins" value="concurrence" class="mr-2" />
+                      <span>Rattraper mes concurrents</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="mt-6">
+                  <label for="formule" class="form-label">
+                    Formule souhaitée <span class="text-red-500">*</span>
+                  </label>
+                  <div class="space-y-3">
+                    {formules.map(f => (
+                      <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                        <input
+                          type="radio"
+                          name="formule"
+                          value={f.value}
+                          class="mt-1 mr-3"
+                          checked={formule === f.value}
+                        />
+                        <div>
+                          <div class="font-bold">{f.name}</div>
+                          <div class="text-sm text-gray-600">{f.description}</div>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <div class="mt-6">
+                  <label for="urgence" class="form-label">
+                    Délai souhaité
+                  </label>
+                  <select
+                    id="urgence"
+                    name="urgence"
+                    class="form-input"
+                  >
+                    {urgences.map(u => (
+                      <option value={u.value} selected={urgent === 'true' && u.value === 'urgent'}>
+                        {u.name} ({u.supplement || u.reduction})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <!-- Étape 4: Détails -->
+              <div class="form-step hidden" data-step="4">
+                <h3 class="text-lg font-bold mb-4 text-primary">
+                  Étape 4/4 : Détails du Projet
+                </h3>
+
+                <div>
+                  <label class="form-label">
+                    Services à mettre en avant (cochez tous ceux applicables)
+                  </label>
+                  <div class="grid md:grid-cols-2 gap-2 text-sm" id="services-list">
+                    <!-- Dynamically populated based on métier -->
+                  </div>
+                </div>
+
+                <div class="mt-6">
+                  <label for="site_actuel" class="form-label">
+                    Avez-vous déjà un site ?
+                  </label>
+                  <select id="site_actuel" name="site_actuel" class="form-input">
+                    <option value="non">Non, c'est mon premier site</option>
+                    <option value="oui_refonte">Oui, mais il a besoin d'une refonte</option>
+                    <option value="oui_recent">Oui, relativement récent</option>
+                  </select>
+                  <input
+                    type="url"
+                    name="url_actuel"
+                    placeholder="URL de votre site actuel (si applicable)"
+                    class="form-input mt-2 hidden"
+                    id="url_actuel"
+                  />
+                </div>
+
+                <div class="mt-6">
+                  <label for="budget" class="form-label">
+                    Budget prévu
+                  </label>
+                  <select id="budget" name="budget" class="form-input">
+                    <option value="">Je ne sais pas encore</option>
+                    <option value="<1000">Moins de 1.000€</option>
+                    <option value="1000-2000">1.000€ - 2.000€</option>
+                    <option value="2000-3000">2.000€ - 3.000€</option>
+                    <option value="3000+">Plus de 3.000€</option>
+                  </select>
+                </div>
+
+                <div class="mt-6">
+                  <label for="message" class="form-label">
+                    Message complémentaire
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    class="form-input"
+                    placeholder="Précisions sur votre projet, questions, attentes particulières..."
+                  ></textarea>
+                </div>
+
+                <div class="mt-6">
+                  <label class="flex items-start">
+                    <input type="checkbox" name="rgpd" required class="mt-1 mr-2" />
+                    <span class="text-sm">
+                      J'accepte que mes données soient utilisées pour me recontacter concernant ma demande.
+                      <a href="/privacy-policy" class="text-primary underline">Politique de confidentialité</a>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Navigation buttons -->
+              <div class="flex justify-between mt-8">
+                <button
+                  type="button"
+                  id="prevBtn"
+                  class="btn btn-outline-primary hidden"
+                >
+                  ← Précédent
+                </button>
+                <button
+                  type="button"
+                  id="nextBtn"
+                  class="btn btn-primary ml-auto"
+                >
+                  Suivant →
+                </button>
+                <button
+                  type="submit"
+                  id="submitBtn"
+                  class="btn btn-primary ml-auto hidden"
+                >
+                  📧 Envoyer ma Demande
+                </button>
+              </div>
+
+              <!-- Progress bar -->
+              <div class="mt-6">
+                <div class="bg-gray-200 rounded-full h-2">
+                  <div
+                    id="progressBar"
+                    class="bg-primary h-2 rounded-full transition-all duration-300"
+                    style="width: 25%"
+                  ></div>
+                </div>
+                <p class="text-center text-sm text-gray-600 mt-2">
+                  Étape <span id="currentStep">1</span> sur 4
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Sidebar info -->
+        <div class="lg:col-4">
+          <!-- Garanties -->
+          <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h3 class="font-bold mb-4 text-primary">Nos Garanties</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2 mt-1">✓</span>
+                <div>
+                  <strong>Réponse en 2h</strong>
+                  <p class="text-sm text-gray-600">Même le week-end</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2 mt-1">✓</span>
+                <div>
+                  <strong>Devis gratuit 24h</strong>
+                  <p class="text-sm text-gray-600">Détaillé et transparent</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2 mt-1">✓</span>
+                <div>
+                  <strong>Site en 7 jours</strong>
+                  <p class="text-sm text-gray-600">Ou remboursé</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2 mt-1">✓</span>
+                <div>
+                  <strong>Satisfait ou refait</strong>
+                  <p class="text-sm text-gray-600">30 jours de garantie</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact direct -->
+          <div class="bg-gradient-to-br from-primary to-secondary text-white rounded-lg shadow p-6 mb-6">
+            <h3 class="font-bold mb-4">Besoin d'Aide ?</h3>
+            <div class="space-y-3">
+              <a href="https://wa.me/33612345678" class="flex items-center text-white hover:opacity-90">
+                <DynamicIcon icon="FaWhatsapp" className="mr-2" />
+                WhatsApp : Réponse immédiate
+              </a>
+              <a href="tel:+33972621547" class="flex items-center text-white hover:opacity-90">
+                <DynamicIcon icon="FaPhone" className="mr-2" />
+                09 72 62 15 47
+              </a>
+              <div class="text-sm opacity-90 mt-3">
+                Yann est disponible pour répondre à vos questions
+              </div>
+            </div>
+          </div>
+
+          <!-- Témoignage -->
+          <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex mb-3">
+              {[...Array(5)].map(() => (
+                <span class="text-yellow-400">★</span>
+              ))}
+            </div>
+            <blockquote class="italic mb-4">
+              "Contact super réactif, Yann a compris mes besoins en 5 minutes.
+              Devis reçu le soir même, site en ligne 6 jours après. Top !"
+            </blockquote>
+            <div class="text-sm">
+              <strong>Thomas L.</strong><br/>
+              Électricien à Marseille
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script for form navigation -->
+  <script>
+    let currentStep = 1;
+    const totalSteps = 4;
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const progressBar = document.getElementById('progressBar');
+    const currentStepSpan = document.getElementById('currentStep');
+
+    function showStep(step) {
+      // Hide all steps
+      document.querySelectorAll('.form-step').forEach(s => s.classList.add('hidden'));
+
+      // Show current step
+      document.querySelector(`[data-step="${step}"]`).classList.remove('hidden');
+
+      // Update progress bar
+      progressBar.style.width = `${(step / totalSteps) * 100}%`;
+      currentStepSpan.textContent = step;
+
+      // Update buttons
+      prevBtn.classList.toggle('hidden', step === 1);
+      nextBtn.classList.toggle('hidden', step === totalSteps);
+      submitBtn.classList.toggle('hidden', step !== totalSteps);
+
+      // Scroll to top of form
+      document.getElementById('contact-form-intelligent').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Navigation
+    nextBtn.addEventListener('click', () => {
+      if (validateStep(currentStep)) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      currentStep--;
+      showStep(currentStep);
+    });
+
+    // Dynamic services based on métier
+    document.getElementById('metier').addEventListener('change', function() {
+      const servicesList = document.getElementById('services-list');
+      let services = [];
+
+      switch(this.value) {
+        case 'plombier':
+          services = ['Dépannage urgent', 'Installation sanitaire', 'Chauffage', 'Détection de fuite', 'Rénovation salle de bain'];
+          break;
+        case 'electricien':
+          services = ['Mise aux normes', 'Installation électrique', 'Domotique', 'Dépannage', 'Tableau électrique'];
+          break;
+        case 'menuisier':
+          services = ['Cuisine sur mesure', 'Dressing', 'Escalier', 'Parquet', 'Terrasse bois'];
+          break;
+        case 'macon':
+          services = ['Gros œuvre', 'Extension', 'Rénovation', 'Dalle béton', 'Façade'];
+          break;
+        case 'peintre':
+          services = ['Peinture intérieure', 'Peinture extérieure', 'Enduit décoratif', 'Papier peint', 'Ravalement'];
+          break;
+        default:
+          services = ['Service 1', 'Service 2', 'Service 3', 'Service 4', 'Service 5'];
+      }
+
+      servicesList.innerHTML = services.map(s => `
+        <label class="flex items-center">
+          <input type="checkbox" name="services" value="${s.toLowerCase().replace(/\s/g, '-')}" class="mr-2" />
+          <span>${s}</span>
+        </label>
+      `).join('');
+    });
+
+    // Show URL field if has website
+    document.getElementById('site_actuel').addEventListener('change', function() {
+      document.getElementById('url_actuel').classList.toggle('hidden', this.value === 'non');
+    });
+
+    // Basic validation
+    function validateStep(step) {
+      const stepElement = document.querySelector(`[data-step="${step}"]`);
+      const requiredFields = stepElement.querySelectorAll('[required]');
+      let valid = true;
+
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          field.classList.add('border-red-500');
+          valid = false;
+        } else {
+          field.classList.remove('border-red-500');
+        }
+      });
+
+      if (!valid) {
+        alert('Veuillez remplir tous les champs obligatoires');
+      }
+
+      return valid;
+    }
+
+    // Initialize
+    showStep(1);
+
+    // Trigger métier change if pre-filled
+    const metierField = document.getElementById('metier');
+    if (metierField.value) {
+      metierField.dispatchEvent(new Event('change'));
+    }
+  </script>
+</Base>

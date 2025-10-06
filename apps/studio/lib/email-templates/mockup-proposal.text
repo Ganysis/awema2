@@ -1,0 +1,57 @@
+🎨 VOS PROPOSITIONS DE SITE WEB SONT PRÊTES !
+
+Bonjour {{clientName}},
+
+Nous avons créé 3 PROPOSITIONS PERSONNALISÉES pour {{businessName}}.
+Chaque design est spécialement adapté à votre activité de {{metier}} à {{ville}}.
+
+=====================================
+🌟 VOS 3 PROPOSITIONS 🌟
+=====================================
+
+{{#each mockups}}
+{{@index}}. {{name}} ({{style}})
+   {{description}}
+
+   👉 Voir cette proposition : {{url}}
+
+   ---
+{{/each}}
+
+=====================================
+💡 COMPARER LES 3 PROPOSITIONS
+=====================================
+
+Besoin d'aide pour choisir ? Comparez-les côte à côte :
+{{compareUrl}}
+
+=====================================
+⏰ OFFRE LIMITÉE
+=====================================
+
+Ces propositions personnalisées sont disponibles pendant 72 HEURES.
+Après ce délai, elles ne seront plus accessibles.
+
+=====================================
+📞 BESOIN D'AIDE ?
+=====================================
+
+Une question ? Une hésitation ?
+• Téléphone : {{phoneNumber}}
+• Email : Répondez simplement à ce message
+
+Notre équipe est là pour vous accompagner dans votre choix.
+
+=====================================
+
+Cordialement,
+L'équipe AWEMA
+Création de sites web professionnels
+
+---
+© 2025 AWEMA - Tous droits réservés
+Se désabonner : {{unsubscribeUrl}}
+Politique de confidentialité : {{privacyUrl}}
+
+Cet email a été envoyé à {{clientEmail}}
+ID de suivi : {{trackingId}}

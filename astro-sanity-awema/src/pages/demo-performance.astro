@@ -1,0 +1,271 @@
+---
+import Base from "@/layouts/Base.astro";
+import OptimizedImage from "@/components/OptimizedImage.astro";
+import LazyLoad from "@/components/LazyLoad.astro";
+import SkeletonLoader from "@/components/SkeletonLoader.astro";
+import FontLoader from "@/components/FontLoader.astro";
+
+// Utilisation d'images depuis le dossier public
+const heroImage = "/images/logo.png";
+const service1Image = "/images/team/01.jpg";
+const service2Image = "/images/team/02.jpg";
+const service3Image = "/images/team/03.jpg";
+
+const services = [
+  {
+    title: "Sites Web Ultra-Performants",
+    description: "Création de sites web avec un score Lighthouse de 100/100",
+    image: service1Image,
+  },
+  {
+    title: "Optimisation SEO Avancée",
+    description: "Référencement local et national pour dominer Google",
+    image: service2Image,
+  },
+  {
+    title: "Support 24/7",
+    description: "Maintenance et support technique disponible à tout moment",
+    image: service3Image,
+  },
+];
+---
+
+<Base title="Demo Performance - AWEMA" description="Démonstration des optimisations Core Web Vitals">
+  <!-- Font Optimization -->
+  <FontLoader fontFamily="Inter" fontWeights={["400", "600", "700"]} />
+
+  <!-- Hero Section avec image optimisée -->
+  <section class="hero-section py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+    <div class="container mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-white">
+          <h1 class="text-5xl font-bold mb-6">
+            Performance Maximale
+            <span class="block text-3xl mt-2 opacity-90">Core Web Vitals Optimisés</span>
+          </h1>
+          <p class="text-xl mb-8 opacity-95">
+            Cette page démontre toutes les optimisations Core Web Vitals implémentées
+            pour garantir une performance exceptionnelle.
+          </p>
+          <div class="flex gap-4">
+            <button class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+              Tester les Performances
+            </button>
+            <button class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
+              En Savoir Plus
+            </button>
+          </div>
+        </div>
+        <div>
+          <OptimizedImage
+            src={heroImage}
+            alt="Performance Web Vitals Dashboard"
+            width={600}
+            height={400}
+            loading="eager"
+            fetchpriority="high"
+            quality={90}
+            class="rounded-xl shadow-2xl"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metrics Display -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Métriques en Temps Réel</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="bg-white rounded-lg p-6 shadow-lg text-center">
+          <div class="text-4xl font-bold text-green-600">< 2.5s</div>
+          <div class="text-gray-600 mt-2">LCP</div>
+        </div>
+        <div class="bg-white rounded-lg p-6 shadow-lg text-center">
+          <div class="text-4xl font-bold text-green-600">< 100ms</div>
+          <div class="text-gray-600 mt-2">FID</div>
+        </div>
+        <div class="bg-white rounded-lg p-6 shadow-lg text-center">
+          <div class="text-4xl font-bold text-green-600">< 0.1</div>
+          <div class="text-gray-600 mt-2">CLS</div>
+        </div>
+        <div class="bg-white rounded-lg p-6 shadow-lg text-center">
+          <div class="text-4xl font-bold text-green-600">100/100</div>
+          <div class="text-gray-600 mt-2">Score</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services avec Lazy Loading -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Services Optimisés</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        {services.map((service, index) => (
+          <LazyLoad
+            class="bg-white rounded-lg shadow-lg overflow-hidden"
+            animation="slide"
+            threshold={0.1}
+          >
+            <OptimizedImage
+              src={service.image}
+              alt={service.title}
+              width={400}
+              height={250}
+              class="w-full h-48 object-cover"
+              loading="lazy"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">{service.title}</h3>
+              <p class="text-gray-600">{service.description}</p>
+            </div>
+          </LazyLoad>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Content avec Skeleton Loading -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Chargement Progressif</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-lg p-6 shadow-lg">
+          <h3 class="text-2xl font-bold mb-4">Skeleton Loading</h3>
+          <p class="text-gray-600 mb-6">
+            Les skeleton screens améliorent la perception de vitesse pendant le chargement.
+          </p>
+          <div class="space-y-4">
+            <SkeletonLoader type="title" />
+            <SkeletonLoader type="text" lines={3} />
+            <SkeletonLoader type="button" />
+          </div>
+        </div>
+        <div class="bg-white rounded-lg p-6 shadow-lg">
+          <h3 class="text-2xl font-bold mb-4">Lazy Loading Images</h3>
+          <p class="text-gray-600 mb-6">
+            Les images sont chargées uniquement quand elles entrent dans le viewport.
+          </p>
+          <LazyLoad animation="zoom">
+            <div class="grid grid-cols-2 gap-4">
+              <SkeletonLoader type="image" height="150px" />
+              <SkeletonLoader type="image" height="150px" />
+            </div>
+          </LazyLoad>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Optimizations Checklist -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Optimisations Implémentées</h2>
+      <div class="max-w-3xl mx-auto">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-green-500 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <strong>Images Optimisées:</strong> WebP format, lazy loading, aspect ratio défini
+              </div>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-green-500 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <strong>Critical CSS:</strong> CSS critique inline pour un rendu initial rapide
+              </div>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-green-500 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <strong>Font Loading:</strong> Preload et font-display: swap
+              </div>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-green-500 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <strong>Resource Hints:</strong> Preconnect, DNS-prefetch pour les domaines tiers
+              </div>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-green-500 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <strong>Script Optimization:</strong> Defer/async pour les scripts non-critiques
+              </div>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-green-500 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <strong>CSS Containment:</strong> Isolation du layout pour éviter les reflows
+              </div>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-green-500 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <strong>Code Splitting:</strong> Chunks optimisés pour le caching navigateur
+              </div>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-green-500 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <strong>Performance Monitoring:</strong> Suivi en temps réel des Core Web Vitals
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-r from-purple-600 to-blue-600">
+    <div class="container mx-auto px-4 text-center text-white">
+      <h2 class="text-4xl font-bold mb-6">Prêt pour des Sites Ultra-Performants ?</h2>
+      <p class="text-xl mb-8 opacity-95">
+        Contactez-nous pour créer votre site avec ces optimisations avancées
+      </p>
+      <button class="bg-white text-purple-600 px-12 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition transform hover:scale-105">
+        Commencer Maintenant
+      </button>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Additional performance-optimized styles */
+  .hero-section {
+    contain: layout style paint;
+  }
+
+  section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+  }
+
+  /* Optimize animations for performance */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>

@@ -1,0 +1,389 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+
+const metadata = {
+  title: "Contact AWEMA | Devis Gratuit 24h | Expert IT & Web Aix-Marseille",
+  description: "Contactez AWEMA pour site web BTP, migration cloud ou audit IT. Devis gratuit 24h. Tel: 06 17 54 03 83. Expert Aix-Marseille, intervention PACA + Remote France.",
+  meta_title: "Contact AWEMA | Devis Gratuit 24h | Expert IT & Web Aix-Marseille",
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contacter AWEMA",
+  "description": "Contactez AWEMA pour un devis gratuit sous 24h. Expert en sites web BTP, migration cloud et audit IT.",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "AWEMA",
+    "url": "https://awema.fr",
+    "logo": "https://awema.fr/images/awema-logo.png",
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+33-6-17-54-03-83",
+        "contactType": "customer service",
+        "areaServed": "FR",
+        "availableLanguage": ["French"],
+        "hoursAvailable": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        }
+      }
+    ],
+    "email": "contact@awema.fr",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Velaux",
+      "addressCountry": "FR"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/awema"
+    ]
+  }
+};
+---
+
+<Base {...metadata} schema={schema}>
+  <!-- Hero Section -->
+  <section class="relative min-h-[60vh] flex items-center bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white overflow-hidden">
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <div class="container relative z-10 py-20">
+      <div class="row justify-center">
+        <div class="lg:col-10 text-center">
+          <div class="inline-block bg-blue-600/90 backdrop-blur-sm px-4 py-2 rounded-full mb-6 shadow-lg">
+            <span class="text-white font-semibold">📞 Contactez-nous</span>
+          </div>
+
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-lg" data-aos="fade-up">
+            Transformons votre vision en <span class="text-blue-400">réalité digitale</span>
+          </h1>
+
+          <p class="text-xl md:text-2xl mb-10 text-gray-200 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+            Notre équipe d'experts est là pour vous accompagner.<br/>
+            <strong class="text-white">Réponse garantie sous 24h.</strong>
+          </p>
+
+          <div class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+              <div class="text-4xl mb-3">⚡</div>
+              <div class="text-sm text-gray-200 font-medium">Réponse sous 24h</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+              <div class="text-4xl mb-3">🎯</div>
+              <div class="text-sm text-gray-200 font-medium">Devis gratuit</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+              <div class="text-4xl mb-3">✅</div>
+              <div class="text-sm text-gray-200 font-medium">300+ sites créés</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" data-aos="fade-in" data-aos-delay="150">
+    <div class="container">
+
+      <div class="mx-auto lg:col-11 xl:col-10">
+        <div class="row gy-5 lg:gy-0">
+          <!-- Formulaire de contact -->
+          <div class="lg:col-7">
+            <div class="bg-white rounded-xl shadow-xl p-8">
+              <h3 class="text-2xl font-bold mb-6">Demandez votre devis gratuit</h3>
+
+              <form id="contact-form" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="prenom" class="form-label">Prénom <span class="text-red-500">*</span></label>
+                    <input
+                      id="prenom"
+                      name="prenom"
+                      class="form-input"
+                      placeholder="Jean"
+                      type="text"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="nom" class="form-label">Nom <span class="text-red-500">*</span></label>
+                    <input
+                      id="nom"
+                      name="nom"
+                      class="form-input"
+                      placeholder="Dupont"
+                      type="text"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label for="entreprise" class="form-label">Nom de votre entreprise</label>
+                  <input
+                    id="entreprise"
+                    name="entreprise"
+                    class="form-input"
+                    placeholder="Plomberie Dupont"
+                    type="text"
+                  />
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="email" class="form-label">Email <span class="text-red-500">*</span></label>
+                    <input
+                      id="email"
+                      name="email"
+                      class="form-input"
+                      placeholder="jean@exemple.fr"
+                      type="email"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="telephone" class="form-label">Téléphone <span class="text-red-500">*</span></label>
+                    <input
+                      id="telephone"
+                      name="telephone"
+                      class="form-input"
+                      placeholder="06 12 34 56 78"
+                      type="tel"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label for="metier" class="form-label">Votre métier</label>
+                  <select id="metier" name="metier" class="form-input">
+                    <option value="">Sélectionnez votre métier</option>
+                    <option value="plombier">Plombier</option>
+                    <option value="electricien">Électricien</option>
+                    <option value="menuisier">Menuisier</option>
+                    <option value="macon">Maçon</option>
+                    <option value="paysagiste">Paysagiste</option>
+                    <option value="peintre">Peintre</option>
+                    <option value="carreleur">Carreleur</option>
+                    <option value="chauffagiste">Chauffagiste</option>
+                    <option value="couvreur">Couvreur</option>
+                    <option value="serrurier">Serrurier</option>
+                    <option value="autre">Autre</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="projet" class="form-label">Décrivez votre projet <span class="text-red-500">*</span></label>
+                  <textarea
+                    id="projet"
+                    name="projet"
+                    class="form-input"
+                    placeholder="J'aimerais un site vitrine moderne pour mon entreprise de plomberie..."
+                    rows="4"
+                    required
+                  ></textarea>
+                </div>
+
+                <div>
+                  <label for="budget" class="form-label">Budget estimé</label>
+                  <select id="budget" name="budget" class="form-input">
+                    <option value="">Sélectionnez votre budget</option>
+                    <option value="< 1000">Moins de 1 000€</option>
+                    <option value="1000-2500">1 000€ - 2 500€</option>
+                    <option value="2500-5000">2 500€ - 5 000€</option>
+                    <option value="5000-10000">5 000€ - 10 000€</option>
+                    <option value="> 10000">Plus de 10 000€</option>
+                  </select>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" id="rgpd" name="rgpd" required class="w-4 h-4" />
+                  <label for="rgpd" class="text-sm text-gray-600">
+                    J'accepte que mes données soient utilisées pour me recontacter dans le cadre de ma demande. *
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-primary w-full mt-6"
+                >
+                  Envoyer ma demande
+                  <svg class="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                  </svg>
+                </button>
+              </form>
+
+              <div id="form-success" class="hidden mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                <p class="font-semibold">Merci pour votre message !</p>
+                <p>Nous vous recontacterons dans les 24h.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Informations de contact -->
+          <div class="lg:col-5">
+            <div class="space-y-6 lg:pl-8">
+              <!-- Carte contact direct -->
+              <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl p-6">
+                <h4 class="text-xl font-bold mb-4">Contact direct</h4>
+
+                <div class="space-y-4">
+                  <a href="tel:0617540383" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                    <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-sm opacity-80">Téléphone</p>
+                      <p class="font-semibold">06 17 54 03 83</p>
+                    </div>
+                  </a>
+
+                  <a href="mailto:contact@awema.fr" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                    <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-sm opacity-80">Email</p>
+                      <p class="font-semibold">contact@awema.fr</p>
+                    </div>
+                  </a>
+
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-sm opacity-80">Adresse</p>
+                      <p class="font-semibold">Velaux, France</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Calendly supprimé -->
+
+              <!-- Badges de réassurance -->
+              <div class="bg-gray-50 rounded-xl p-6">
+                <h4 class="text-lg font-bold mb-4">Pourquoi AWEMA ?</h4>
+                <ul class="space-y-3">
+                  <li class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm">Réponse dans les meilleurs délais</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm">Expertise web & infrastructure IT</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm">Accompagnement personnalisé</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm">Devis détaillé gratuit</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Map -->
+  <section class="section">
+    <div class="container">
+      <div class="rounded-xl overflow-hidden shadow-xl">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2890.234567890123!2d5.2534567!3d43.5234567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDMxJzI0LjQiTiA1wrAxNScxMi40IkU!5e0!3m2!1sfr!2sfr!4v1234567890&q=236+chemin+d%27aix+Velaux+France+13880"
+          width="100%"
+          height="400"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<!-- Calendly script supprimé -->
+
+<script>
+  document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const form = e.target as HTMLFormElement;
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalText = submitBtn.innerHTML;
+
+    // Loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<svg class="animate-spin h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+
+    const formData = new FormData(form);
+    const data = {
+      name: `${formData.get('prenom')} ${formData.get('nom')}`,
+      email: formData.get('email'),
+      phone: formData.get('telephone'),
+      service: formData.get('metier') || formData.get('type_site'),
+      message: formData.get('projet') || formData.get('message')
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Redirection vers la page de remerciement (pour tracking Google Ads)
+        window.location.href = '/merci';
+
+        // Fallback si la redirection échoue
+        setTimeout(() => {
+          form.style.display = 'none';
+          document.getElementById('form-success')?.classList.remove('hidden');
+        }, 500);
+        setTimeout(() => {
+          form.style.display = 'block';
+          form.reset();
+          document.getElementById('form-success')?.classList.add('hidden');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }, 5000);
+      } else {
+        throw new Error(result.message);
+      }
+    } catch (error) {
+      alert('Erreur lors de l\'envoi. Appelez-nous au 06.17.54.03.83');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
+  });
+</script>

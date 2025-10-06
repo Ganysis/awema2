@@ -1,0 +1,77 @@
+---
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+const howItWorksIndex = (await getEntry(
+  "howItWorks",
+  "-index"
+)) as CollectionEntry<"howItWorks">;
+const { title, howItWorks } = howItWorksIndex.data;
+---
+
+<Base>
+  <PageHeader title={title} />
+  {
+    howItWorks.map((work, index) => {
+      const isEven = index % 2 === 0;
+      return (
+        <section
+          class={
+            isEven
+              ? "section"
+              : "section page-header bg-light has-shapes has-bg-brash bg-brash-bottom relative"
+          }
+        >
+          {!isEven && (
+            <>
+              <Image
+                class={"absolute top-0 left-0 w-full h-6 md:h-auto"}
+                width={732}
+                height={1050}
+                alt={"how-it-works-img"}
+                src={"/images/brushes/section-top.svg"}
+              />
+
+              <Image
+                class={"absolute bottom-0 left-0 w-full h-6 md:h-auto"}
+                width={732}
+                height={1050}
+                alt={""}
+                src={"/images/brushes/section-bottom.svg"}
+              />
+            </>
+          )}
+          <div class="container">
+            <div
+              class={`row items-center justify-center gy-5 lg:gy-0 ${
+                isEven ? "flex-row-reverse" : "flex-row"
+              }`}
+            >
+              <div class="md:col-6 lg:col-7">
+                <Image
+                  class={"w-full shadow rounded mx-auto p-1"}
+                  src={work.image}
+                  width={658}
+                  height={435}
+                  alt={work.title}
+                />
+              </div>
+              <div class="md:col-6 lg:col-4">
+                <h2 class="mb-5" set:html={markdownify(work.title)} />
+                <p set:html={markdownify(work.description)} />
+              </div>
+            </div>
+          </div>
+          <div class="shape-3 shape-xs-2 bg-secondary rounded-circle" />
+          <div class="shape-4 shape-sm-2 bg-tertiary rounded-circle" />
+          <div class="shape-5 shape-sm bg-primary rounded-circle" />
+          <div class="shape-6 shape-xs bg-secondary rounded-circle" />
+          <div class="shape-7 shape-xs-2 bg-tertiary rounded-circle" />
+        </section>
+      );
+    })
+  }
+</Base>

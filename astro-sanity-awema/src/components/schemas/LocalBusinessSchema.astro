@@ -1,0 +1,142 @@
+---
+export interface Props {
+  name?: string;
+  description?: string;
+  telephone?: string;
+  email?: string;
+  address?: {
+    streetAddress?: string;
+    addressLocality?: string;
+    postalCode?: string;
+    addressRegion?: string;
+    addressCountry?: string;
+  };
+  openingHours?: string[];
+  priceRange?: string;
+  areaServed?: string | string[];
+  services?: string[];
+  image?: string;
+  url?: string;
+  founder?: string;
+  foundingDate?: string;
+  aggregateRating?: {
+    ratingValue: number;
+    reviewCount: number;
+  };
+}
+
+const {
+  name = "AWEMA - Agence Web Spécialisée BTP",
+  description = "Agence web créée par un co-gérant BTP pour créer des sites internet haute conversion pour artisans et entreprises du bâtiment.",
+  telephone = "06 17 54 03 83",
+  email = "contact@awema.fr",
+  address = {
+    streetAddress: "Lyon",
+    addressLocality: "Lyon",
+    postalCode: "69000",
+    addressRegion: "Auvergne-Rhône-Alpes",
+    addressCountry: "FR"
+  },
+  openingHours = [
+    "Mo-Fr 09:00-18:00"
+  ],
+  priceRange = "€€€",
+  areaServed = "France",
+  services = [
+    "Création de sites web pour artisans",
+    "Sites internet BTP",
+    "Référencement local",
+    "Marketing digital BTP",
+    "Sites web haute conversion"
+  ],
+  image = "https://awema.fr/images/awema-logo.png",
+  url = "https://awema.fr",
+  founder = "AWEMA",
+  foundingDate = "2020",
+  aggregateRating
+} = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": url,
+  name,
+  description,
+  url,
+  telephone,
+  email,
+  priceRange,
+  address: {
+    "@type": "PostalAddress",
+    ...address
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: "45.764043",
+    longitude: "4.835659"
+  },
+  image,
+  founder: {
+    "@type": "Person",
+    name: founder
+  },
+  foundingDate,
+  openingHoursSpecification: openingHours.map(hours => {
+    const [days, time] = hours.split(" ");
+    const [open, close] = time.split("-");
+    const dayMap = {
+      "Mo": "Monday",
+      "Tu": "Tuesday",
+      "We": "Wednesday",
+      "Th": "Thursday",
+      "Fr": "Friday",
+      "Sa": "Saturday",
+      "Su": "Sunday"
+    };
+
+    const dayRange = days.split("-");
+    return {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: dayRange.length === 2
+        ? dayRange.map(d => dayMap[d] || d)
+        : [dayMap[dayRange[0]] || dayRange[0]],
+      opens: open,
+      closes: close
+    };
+  }),
+  areaServed: Array.isArray(areaServed) ? areaServed.map(area => ({
+    "@type": "GeoCircle",
+    name: area
+  })) : {
+    "@type": "Country",
+    name: areaServed
+  },
+  hasOfferCatalog: services && services.length > 0 ? {
+    "@type": "OfferCatalog",
+    name: "Services Web BTP",
+    itemListElement: services.map((service, index) => ({
+      "@type": "Offer",
+      "@id": `#service-${index}`,
+      name: service,
+      category: "Service Web"
+    }))
+  } : undefined,
+  aggregateRating: aggregateRating ? {
+    "@type": "AggregateRating",
+    ratingValue: aggregateRating.ratingValue,
+    reviewCount: aggregateRating.reviewCount,
+    bestRating: 5,
+    worstRating: 1
+  } : undefined,
+  sameAs: [
+    "https://www.facebook.com/awema",
+    "https://www.linkedin.com/company/awema",
+    "https://twitter.com/awema_fr"
+  ]
+};
+
+// Remove undefined values
+const cleanSchema = JSON.parse(JSON.stringify(schema));
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(cleanSchema)} />

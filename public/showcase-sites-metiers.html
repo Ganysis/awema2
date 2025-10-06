@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showcase - Sites Métiers BTP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+        }
+
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .site-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .site-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .site-header {
+            padding: 25px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        /* Couleurs par métier */
+        .plombier { background: linear-gradient(135deg, #0066CC, #0052A3); }
+        .electricien { background: linear-gradient(135deg, #FF6600, #E55A00); }
+        .menuisier { background: linear-gradient(135deg, #8B4513, #6B3410); }
+        .macon { background: linear-gradient(135deg, #6B7280, #4B5563); }
+        .paysagiste { background: linear-gradient(135deg, #059669, #047857); }
+
+        .site-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .site-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .site-location {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .site-body {
+            padding: 25px;
+        }
+
+        .site-info {
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        .info-icon {
+            width: 30px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .info-text {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .site-services {
+            margin: 20px 0;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .services-title {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .service-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            margin: 4px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .site-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .demo-notice {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .demo-notice h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .demo-notice p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .command-box {
+            background: #1a1a1a;
+            color: #4ade80;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            background: #4ade80;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏗️ Sites Métiers BTP</h1>
+        <p class="subtitle">Démonstration du système de génération automatique par métier</p>
+
+        <div class="sites-grid">
+            <!-- Plombier -->
+            <div class="site-card">
+                <div class="site-header plombier">
+                    <span class="site-icon">🔧</span>
+                    <div class="site-title">PlombExpress</div>
+                    <div class="site-location">📍 Marseille</div>
+                </div>
+                <div class="site-body">
+                    <div class="site-info">
+                        <div class="info-row">
+                            <span class="info-icon">📞</span>
+                            <span class="info-text">04 91 12 34 56</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">✉️</span>
+                            <span class="info-text">contact@plombexpress.fr</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">🎨</span>
+                            <span class="info-text">Couleur: #0066CC (Bleu)</span>
+                        </div>
+                    </div>
+                    <div class="site-services">
+                        <div class="services-title">Services principaux:</div>
+                        <span class="service-tag">Dépannage urgent</span>
+                        <span class="service-tag">Chauffe-eau</span>
+                        <span class="service-tag">Salle de bain</span>
+                        <span class="service-tag">Détection fuites</span>
+                    </div>
+                    <div class="site-actions">
+                        <a href="http://localhost:4330" class="btn btn-primary" onclick="generateSite('plombier')">Voir le site</a>
+                        <a href="#" class="btn btn-secondary" onclick="showCommand('plombier')">Commande</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Électricien -->
+            <div class="site-card">
+                <div class="site-header electricien">
+                    <span class="site-icon">⚡</span>
+                    <div class="site-title">ElectroTech</div>
+                    <div class="site-location">📍 Nice</div>
+                </div>
+                <div class="site-body">
+                    <div class="site-info">
+                        <div class="info-row">
+                            <span class="info-icon">📞</span>
+                            <span class="info-text">04 93 45 67 89</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">✉️</span>
+                            <span class="info-text">contact@electrotech.fr</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">🎨</span>
+                            <span class="info-text">Couleur: #FF6600 (Orange)</span>
+                        </div>
+                    </div>
+                    <div class="site-services">
+                        <div class="services-title">Services principaux:</div>
+                        <span class="service-tag">Tableau électrique</span>
+                        <span class="service-tag">LED</span>
+                        <span class="service-tag">Photovoltaïque</span>
+                        <span class="service-tag">Domotique</span>
+                    </div>
+                    <div class="site-actions">
+                        <a href="http://localhost:4330" class="btn btn-primary" onclick="generateSite('electricien')">Voir le site</a>
+                        <a href="#" class="btn btn-secondary" onclick="showCommand('electricien')">Commande</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menuisier -->
+            <div class="site-card">
+                <div class="site-header menuisier">
+                    <span class="site-icon">🪵</span>
+                    <div class="site-title">ArtBois</div>
+                    <div class="site-location">📍 Nantes</div>
+                </div>
+                <div class="site-body">
+                    <div class="site-info">
+                        <div class="info-row">
+                            <span class="info-icon">📞</span>
+                            <span class="info-text">02 40 12 34 56</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">✉️</span>
+                            <span class="info-text">contact@artbois.fr</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">🎨</span>
+                            <span class="info-text">Couleur: #8B4513 (Marron)</span>
+                        </div>
+                    </div>
+                    <div class="site-services">
+                        <div class="services-title">Services principaux:</div>
+                        <span class="service-tag">Portes sur mesure</span>
+                        <span class="service-tag">Fenêtres bois</span>
+                        <span class="service-tag">Dressing</span>
+                        <span class="service-tag">Parquet</span>
+                    </div>
+                    <div class="site-actions">
+                        <a href="http://localhost:4330" class="btn btn-primary" onclick="generateSite('menuisier')">Voir le site</a>
+                        <a href="#" class="btn btn-secondary" onclick="showCommand('menuisier')">Commande</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maçon -->
+            <div class="site-card">
+                <div class="site-header macon">
+                    <span class="site-icon">🏗️</span>
+                    <div class="site-title">BatiPro</div>
+                    <div class="site-location">📍 Lille</div>
+                </div>
+                <div class="site-body">
+                    <div class="site-info">
+                        <div class="info-row">
+                            <span class="info-icon">📞</span>
+                            <span class="info-text">03 20 45 67 89</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">✉️</span>
+                            <span class="info-text">contact@batipro.fr</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">🎨</span>
+                            <span class="info-text">Couleur: #6B7280 (Gris)</span>
+                        </div>
+                    </div>
+                    <div class="site-services">
+                        <div class="services-title">Services principaux:</div>
+                        <span class="service-tag">Construction neuve</span>
+                        <span class="service-tag">Extension</span>
+                        <span class="service-tag">Dalle béton</span>
+                        <span class="service-tag">Piscine</span>
+                    </div>
+                    <div class="site-actions">
+                        <a href="http://localhost:4330" class="btn btn-primary" onclick="generateSite('macon')">Voir le site</a>
+                        <a href="#" class="btn btn-secondary" onclick="showCommand('macon')">Commande</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paysagiste -->
+            <div class="site-card">
+                <div class="site-header paysagiste">
+                    <span class="site-icon">🌳</span>
+                    <div class="site-title">VertiJardin</div>
+                    <div class="site-location">📍 Strasbourg</div>
+                </div>
+                <div class="site-body">
+                    <div class="site-info">
+                        <div class="info-row">
+                            <span class="info-icon">📞</span>
+                            <span class="info-text">03 88 12 34 56</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">✉️</span>
+                            <span class="info-text">contact@vertijardin.fr</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">🎨</span>
+                            <span class="info-text">Couleur: #059669 (Vert)</span>
+                        </div>
+                    </div>
+                    <div class="site-services">
+                        <div class="services-title">Services principaux:</div>
+                        <span class="service-tag">Création jardins</span>
+                        <span class="service-tag">Entretien</span>
+                        <span class="service-tag">Terrasses bois</span>
+                        <span class="service-tag">Élagage</span>
+                    </div>
+                    <div class="site-actions">
+                        <a href="http://localhost:4330" class="btn btn-primary" onclick="generateSite('paysagiste')">Voir le site</a>
+                        <a href="#" class="btn btn-secondary" onclick="showCommand('paysagiste')">Commande</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template vierge pour test -->
+            <div class="site-card">
+                <div class="site-header" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                    <span class="site-icon">✨</span>
+                    <div class="site-title">Votre Entreprise</div>
+                    <div class="site-location">📍 Votre Ville</div>
+                </div>
+                <div class="site-body">
+                    <div class="site-info">
+                        <div class="info-row">
+                            <span class="info-icon">🎯</span>
+                            <span class="info-text">Personnalisable à 100%</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">⚡</span>
+                            <span class="info-text">Génération en 1 minute</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">🚀</span>
+                            <span class="info-text">Prêt pour production</span>
+                        </div>
+                    </div>
+                    <div class="site-services">
+                        <div class="services-title">Fonctionnalités:</div>
+                        <span class="service-tag">SEO optimisé</span>
+                        <span class="service-tag">Responsive</span>
+                        <span class="service-tag">Images SVG</span>
+                        <span class="service-tag">Contact form</span>
+                    </div>
+                    <div class="site-actions">
+                        <a href="#" class="btn btn-primary" onclick="showCustomCommand()">Créer le vôtre</a>
+                        <span class="badge">NOUVEAU</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-notice">
+            <h2>💡 Comment ça marche ?</h2>
+            <p>
+                Ce système génère automatiquement un site complet pour n'importe quel métier du BTP.<br>
+                Chaque site inclut : images SVG personnalisées, couleurs adaptées, textes SEO optimisés, et configuration complète.
+            </p>
+
+            <h3 style="margin-top: 30px; margin-bottom: 15px; color: #333;">Commande de génération :</h3>
+            <div class="command-box" id="command-display">
+                node generate-complete-site-metier.cjs --metier=plombier --nom="PlombExpress" --ville=Marseille --telephone="04 91 12 34 56"
+            </div>
+
+            <p style="margin-top: 20px; color: #666;">
+                <strong>Note :</strong> Pour voir un site spécifique, cliquez sur "Voir le site" puis régénérez-le avec le bouton.<br>
+                Le site se met à jour automatiquement à chaque génération.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const commands = {
+            plombier: 'node generate-complete-site-metier.cjs --metier=plombier --nom="PlombExpress" --ville=Marseille --telephone="04 91 12 34 56"',
+            electricien: 'node generate-complete-site-metier.cjs --metier=electricien --nom="ElectroTech" --ville=Nice --telephone="04 93 45 67 89"',
+            menuisier: 'node generate-complete-site-metier.cjs --metier=menuisier --nom="ArtBois" --ville=Nantes --telephone="02 40 12 34 56"',
+            macon: 'node generate-complete-site-metier.cjs --metier=macon --nom="BatiPro" --ville=Lille --telephone="03 20 45 67 89"',
+            paysagiste: 'node generate-complete-site-metier.cjs --metier=paysagiste --nom="VertiJardin" --ville=Strasbourg --telephone="03 88 12 34 56"'
+        };
+
+        function showCommand(metier) {
+            document.getElementById('command-display').textContent = commands[metier];
+            document.getElementById('command-display').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showCustomCommand() {
+            const customCommand = 'node generate-complete-site-metier.cjs --metier=[plombier|electricien|menuisier|macon|paysagiste] --nom="VotreNom" --ville="VotreVille" --telephone="0X XX XX XX XX"';
+            document.getElementById('command-display').textContent = customCommand;
+            document.getElementById('command-display').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateSite(metier) {
+            alert(`Pour générer le site ${metier}, exécutez la commande affichée ci-dessous dans votre terminal.`);
+            showCommand(metier);
+        }
+    </script>
+</body>
+</html>

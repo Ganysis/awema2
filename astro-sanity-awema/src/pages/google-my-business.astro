@@ -1,0 +1,472 @@
+---
+import Base from "@/layouts/Base.astro";
+
+const seoData = {
+  meta_title: "Google My Business BTP - 70% de vos leads | Méthode EGSL",
+  meta_description: "Comment EGSL est passé de 12 à 127 avis Google 5★. La stratégie GMB complète incluse dans toutes nos formules.",
+};
+
+const gmbStats = [
+  { number: "70%", label: "des recherches locales" },
+  { number: "86%", label: "consultent les avis" },
+  { number: "5x", label: "plus d'appels avec GMB" },
+  { number: "127", label: "avis 5★ EGSL" }
+];
+
+const gmbServices = [
+  {
+    icon: "🎯",
+    title: "Optimisation complète",
+    description: "Configuration pro de A à Z",
+    features: [
+      "Catégories métier optimales",
+      "Description SEO 750 caractères",
+      "Horaires détaillés",
+      "Zone de service précise",
+      "Attributs complets",
+      "Questions/Réponses"
+    ]
+  },
+  {
+    icon: "📸",
+    title: "Photos qui convertissent",
+    description: "20-50 photos professionnelles",
+    features: [
+      "Photos équipe en action",
+      "Avant/Après chantiers",
+      "Matériel et véhicules",
+      "Devanture/Bureau",
+      "Certifications affichées",
+      "Photos 360° (option)"
+    ]
+  },
+  {
+    icon: "⭐",
+    title: "Machine à avis",
+    description: "Système testé sur EGSL",
+    features: [
+      "Page collecte dédiée",
+      "QR codes personnalisés",
+      "SMS automatiques J+3",
+      "Email de relance J+7",
+      "Réponses modèles",
+      "Gestion bad reviews"
+    ]
+  },
+  {
+    icon: "📱",
+    title: "Posts réguliers",
+    description: "Actualités pour rester visible",
+    features: [
+      "4-30 posts/mois selon formule",
+      "Promotions saisonnières",
+      "Nouveaux services",
+      "Actualités entreprise",
+      "Événements locaux",
+      "Call-to-action optimisés"
+    ]
+  }
+];
+
+const beforeAfter = {
+  before: {
+    title: "Artisan lambda",
+    stats: [
+      "3-5 avis Google",
+      "Position 5-10 sur Maps",
+      "2 appels/semaine",
+      "Profil incomplet",
+      "Pas de posts",
+      "Photos floues"
+    ]
+  },
+  after: {
+    title: "Client AWEMA",
+    stats: [
+      "50-100+ avis 5★",
+      "Top 3 Maps garanti",
+      "15-30 appels/semaine",
+      "Profil 100% optimisé",
+      "Posts hebdomadaires",
+      "Photos pro HD"
+    ]
+  }
+};
+---
+
+<Base {...seoData}>
+  <!-- Hero Section -->
+  <section class="section bg-gradient-to-br from-primary/5 to-white">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h1 class="h1 mb-4" data-aos="fade-up">
+          Google My Business = 70% de vos futurs clients
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-6" data-aos="fade-up" data-aos-delay="100">
+          <strong>La méthode qui a donné 127 avis 5★ à EGSL.</strong><br/>
+          GMB optimisé + Machine à avis + Posts réguliers = Monopole local
+        </p>
+
+        <!-- Stats rapides -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+          {gmbStats.map(stat => (
+            <div class="bg-white rounded-lg shadow p-4">
+              <div class="text-2xl font-bold text-primary">{stat.number}</div>
+              <div class="text-sm text-gray-600">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pourquoi GMB -->
+  <section class="section">
+    <div class="container">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="h2 mb-4">Pourquoi Google My Business est VITAL pour un artisan</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-center mb-12">
+          <div>
+            <h3 class="h3 mb-4">La réalité des recherches en 2025</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>"Plombier près de moi"</strong> = GMB en premier</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>"Électricien Marseille"</strong> = Maps avant tout</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>86% regardent les avis</strong> avant d'appeler</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>Bouton "Appeler"</strong> = conversion directe</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span><strong>C'est GRATUIT</strong> mais personne ne l'optimise</span>
+              </li>
+            </ul>
+          </div>
+          <div class="bg-primary/10 rounded-xl p-6">
+            <h4 class="font-bold mb-3">📊 Cas EGSL (nos chiffres réels)</h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span>Vues profil/mois :</span>
+                <span class="font-bold">4,827</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Recherches directes :</span>
+                <span class="font-bold">1,243</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Appels depuis GMB :</span>
+                <span class="font-bold">186</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Demandes itinéraire :</span>
+                <span class="font-bold">97</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Clics site web :</span>
+                <span class="font-bold">312</span>
+              </div>
+              <div class="border-t pt-2 mt-2">
+                <div class="flex justify-between text-base">
+                  <span>Conversion totale :</span>
+                  <span class="font-bold text-primary">12.4%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nos services GMB -->
+  <section class="section bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 mb-4">Notre méthode GMB complète</h2>
+        <p class="text-lg text-gray-600">Inclus dans TOUTES nos formules (LOCAL, ZONE, RÉGION)</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        {gmbServices.map(service => (
+          <div class="bg-white rounded-xl shadow-lg p-6" data-aos="fade-up">
+            <div class="flex items-start mb-4">
+              <span class="text-3xl mr-4">{service.icon}</span>
+              <div>
+                <h3 class="h4 mb-1">{service.title}</h3>
+                <p class="text-gray-600">{service.description}</p>
+              </div>
+            </div>
+            <ul class="space-y-2">
+              {service.features.map(feature => (
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">•</span>
+                  <span class="text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Système avis EGSL -->
+  <section class="section">
+    <div class="container">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="h2 mb-4">Le système exact qui a donné 127 avis à EGSL</h2>
+          <p class="text-lg text-gray-600">Je vous l'installe clé en main</p>
+        </div>
+
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
+          <h3 class="h3 text-center mb-8">Le Process en 5 étapes</h3>
+
+          <div class="space-y-6">
+            <div class="flex items-start">
+              <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">1</div>
+              <div>
+                <h4 class="font-bold mb-1">Fin du chantier : QR Code sur facture</h4>
+                <p class="text-gray-600">QR code personnalisé qui amène direct sur la page avis Google</p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">2</div>
+              <div>
+                <h4 class="font-bold mb-1">J+3 : SMS automatique</h4>
+                <p class="text-gray-600">"Bonjour [Prénom], satisfait de notre intervention ? Votre avis compte : [lien]"</p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">3</div>
+              <div>
+                <h4 class="font-bold mb-1">J+7 : Email de relance (si pas d'avis)</h4>
+                <p class="text-gray-600">Template personnalisé avec photos du chantier fini</p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">4</div>
+              <div>
+                <h4 class="font-bold mb-1">J+14 : Appel personnel (gros chantiers)</h4>
+                <p class="text-gray-600">"On espère que tout va bien, n'hésitez pas à laisser un avis"</p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <div class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">5</div>
+              <div>
+                <h4 class="font-bold mb-1">Réponse sous 24h à TOUS les avis</h4>
+                <p class="text-gray-600">Templates personnalisés selon la note (5★, 4★, ou moins)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 p-4 bg-white rounded-lg text-center">
+            <p class="text-lg font-bold text-primary">
+              Résultat EGSL : 10-15 nouveaux avis 5★ chaque mois
+            </p>
+            <p class="text-sm text-gray-600 mt-2">
+              Taux de conversion : 35% des clients laissent un avis
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Avant/Après -->
+  <section class="section bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 mb-4">La transformation GMB en 6 mois</h2>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-red-50 rounded-xl p-6">
+            <h3 class="h3 text-red-600 mb-4">❌ {beforeAfter.before.title}</h3>
+            <ul class="space-y-3">
+              {beforeAfter.before.stats.map(stat => (
+                <li class="flex items-start">
+                  <span class="text-red-500 mr-2">✗</span>
+                  <span>{stat}</span>
+                </li>
+              ))}
+            </ul>
+            <div class="mt-6 p-4 bg-red-100 rounded-lg text-center">
+              <p class="font-bold text-red-600">Invisible sur Google</p>
+            </div>
+          </div>
+
+          <div class="bg-green-50 rounded-xl p-6">
+            <h3 class="h3 text-green-600 mb-4">✅ {beforeAfter.after.title}</h3>
+            <ul class="space-y-3">
+              {beforeAfter.after.stats.map(stat => (
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">✓</span>
+                  <span>{stat}</span>
+                </li>
+              ))}
+            </ul>
+            <div class="mt-6 p-4 bg-green-100 rounded-lg text-center">
+              <p class="font-bold text-green-600">N°1 sur votre zone</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inclus dans chaque formule -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 mb-4">GMB inclus dans chaque formule</h2>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg">
+          <thead>
+            <tr class="border-b bg-gray-50">
+              <th class="text-left p-4">Services GMB</th>
+              <th class="text-center p-4">LOCAL<br/><span class="text-xs font-normal">797€</span></th>
+              <th class="text-center p-4 bg-primary/10">ZONE<br/><span class="text-xs font-normal">1297€</span></th>
+              <th class="text-center p-4">RÉGION<br/><span class="text-xs font-normal">1797€</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-4">Optimisation profil</td>
+              <td class="text-center p-4">✅</td>
+              <td class="text-center p-4 bg-primary/5">✅</td>
+              <td class="text-center p-4">✅</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="p-4">Page collecte avis</td>
+              <td class="text-center p-4">✅</td>
+              <td class="text-center p-4 bg-primary/5">✅</td>
+              <td class="text-center p-4">✅</td>
+            </tr>
+            <tr>
+              <td class="p-4">Posts GMB/mois</td>
+              <td class="text-center p-4">4</td>
+              <td class="text-center p-4 bg-primary/5">8</td>
+              <td class="text-center p-4">30</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="p-4">Photos optimisées</td>
+              <td class="text-center p-4">20</td>
+              <td class="text-center p-4 bg-primary/5">35</td>
+              <td class="text-center p-4">50+</td>
+            </tr>
+            <tr>
+              <td class="p-4">Formation GMB</td>
+              <td class="text-center p-4">1h</td>
+              <td class="text-center p-4 bg-primary/5">2h</td>
+              <td class="text-center p-4">Illimitée</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="p-4">Suivi performances</td>
+              <td class="text-center p-4">Mensuel</td>
+              <td class="text-center p-4 bg-primary/5">Hebdo</td>
+              <td class="text-center p-4">Temps réel</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Témoignages GMB -->
+  <section class="section bg-primary text-white">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 text-white mb-4">Ils dominent Google grâce à nous</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white/10 backdrop-blur rounded-xl p-6">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-300">⭐⭐⭐⭐⭐</div>
+          </div>
+          <p class="mb-4 italic">
+            "De 7 à 89 avis Google en 8 mois. Je suis maintenant N°1 sur 'électricien Lyon'."
+          </p>
+          <div class="text-sm">
+            <p class="font-bold">Élec Pro Services</p>
+            <p class="opacity-90">Lyon</p>
+          </div>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur rounded-xl p-6">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-300">⭐⭐⭐⭐⭐</div>
+          </div>
+          <p class="mb-4 italic">
+            "Le système SMS marche super bien. 1 client sur 3 laisse un avis maintenant."
+          </p>
+          <div class="text-sm">
+            <p class="font-bold">Plomberie Moderne</p>
+            <p class="opacity-90">Toulouse</p>
+          </div>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur rounded-xl p-6">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-300">⭐⭐⭐⭐⭐</div>
+          </div>
+          <p class="mb-4 italic">
+            "GMB génère 70% de mes appels. Merci pour l'optimisation, c'est du lourd !"
+          </p>
+          <div class="text-sm">
+            <p class="font-bold">Menuiserie Tradition</p>
+            <p class="opacity-90">Lille</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center max-w-3xl mx-auto">
+        <h2 class="h2 mb-4">Prêt à dominer Google Maps ?</h2>
+        <p class="text-xl text-gray-600 mb-8">
+          La méthode EGSL (127 avis 5★) appliquée à votre business.<br/>
+          <strong>GMB inclus dans toutes nos formules, dès 797€.</strong>
+        </p>
+
+        <div class="flex flex-wrap gap-4 justify-center mb-8">
+          <a href="/tarifs" class="btn btn-primary btn-xl">
+            Voir nos formules GMB
+          </a>
+          <a href="tel:0617540383" class="btn btn-outline-primary btn-xl">
+            📞 06 17 54 03 83
+          </a>
+        </div>
+
+        <div class="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4 inline-block">
+          <p class="text-sm">
+            <strong>🎁 Bonus :</strong> Guide "127 avis en 12 mois" offert pour toute commande
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

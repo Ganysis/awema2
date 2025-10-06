@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#FFF3E0"/>
+
+  <!-- Tableau électrique -->
+  <rect x="120" y="50" width="160" height="180" rx="5" fill="#424242"/>
+  <rect x="130" y="60" width="140" height="160" fill="#616161"/>
+
+  <!-- Disjoncteurs -->
+  <rect x="140" y="70" width="30" height="40" fill="#FF6600"/>
+  <rect x="180" y="70" width="30" height="40" fill="#FF6600"/>
+  <rect x="220" y="70" width="30" height="40" fill="#FF6600"/>
+
+  <rect x="140" y="120" width="30" height="40" fill="#4CAF50"/>
+  <rect x="180" y="120" width="30" height="40" fill="#FF6600"/>
+  <rect x="220" y="120" width="30" height="40" fill="#4CAF50"/>
+
+  <rect x="140" y="170" width="30" height="40" fill="#4CAF50"/>
+  <rect x="180" y="170" width="30" height="40" fill="#4CAF50"/>
+  <rect x="220" y="170" width="30" height="40" fill="#FF6600"/>
+
+  <!-- Éclair -->
+  <path d="M195 85 L185 100 L195 100 L185 115 L205 95 L195 95 L205 80 Z" fill="#FFD600"/>
+
+  <!-- Texte -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FF6600" text-anchor="middle">
+    Installation Tableau
+  </text>
+</svg>

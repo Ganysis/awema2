@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#F5F5F5"/>
+
+  <!-- Carrelage au sol -->
+  <!-- Rangée 1 -->
+  <rect x="80" y="140" width="45" height="45" fill="#795548" stroke="#5D4037" stroke-width="1"/>
+  <rect x="127" y="140" width="45" height="45" fill="#8D6E63" stroke="#5D4037" stroke-width="1"/>
+  <rect x="174" y="140" width="45" height="45" fill="#795548" stroke="#5D4037" stroke-width="1"/>
+  <rect x="221" y="140" width="45" height="45" fill="#8D6E63" stroke="#5D4037" stroke-width="1"/>
+  <rect x="268" y="140" width="45" height="45" fill="#795548" stroke="#5D4037" stroke-width="1"/>
+
+  <!-- Rangée 2 -->
+  <rect x="80" y="187" width="45" height="45" fill="#8D6E63" stroke="#5D4037" stroke-width="1"/>
+  <rect x="127" y="187" width="45" height="45" fill="#795548" stroke="#5D4037" stroke-width="1"/>
+  <rect x="174" y="187" width="45" height="45" fill="#8D6E63" stroke="#5D4037" stroke-width="1"/>
+  <rect x="221" y="187" width="45" height="45" fill="#795548" stroke="#5D4037" stroke-width="1"/>
+  <rect x="268" y="187" width="45" height="45" fill="#8D6E63" stroke="#5D4037" stroke-width="1"/>
+
+  <!-- Joints -->
+  <rect x="80" y="185" width="233" height="2" fill="#BDBDBD"/>
+  <rect x="125" y="140" width="2" height="92" fill="#BDBDBD"/>
+  <rect x="172" y="140" width="2" height="92" fill="#BDBDBD"/>
+  <rect x="219" y="140" width="2" height="92" fill="#BDBDBD"/>
+  <rect x="266" y="140" width="2" height="92" fill="#BDBDBD"/>
+
+  <!-- Croisillons -->
+  <text x="150" y="165" font-family="Arial" font-size="20" fill="#FF5722">+</text>
+  <text x="197" y="165" font-family="Arial" font-size="20" fill="#FF5722">+</text>
+  <text x="244" y="165" font-family="Arial" font-size="20" fill="#FF5722">+</text>
+  <text x="150" y="212" font-family="Arial" font-size="20" fill="#FF5722">+</text>
+  <text x="197" y="212" font-family="Arial" font-size="20" fill="#FF5722">+</text>
+
+  <!-- Coupe-carrelage -->
+  <rect x="100" y="80" width="80" height="40" fill="#424242"/>
+  <rect x="110" y="85" width="60" height="30" fill="#616161"/>
+  <line x1="140" y1="85" x2="140" y2="115" stroke="#FF5722" stroke-width="2"/>
+  <circle cx="140" cy="100" r="15" fill="none" stroke="#9E9E9E" stroke-width="2"/>
+
+  <!-- Texte -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#6B7280" text-anchor="middle">
+    Pose Carrelage
+  </text>
+</svg>

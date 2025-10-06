@@ -1,0 +1,79 @@
+---
+import { humanize } from "@/lib/utils/textConverter";
+import { Image } from "astro:assets";
+
+type Props = {
+  title: string;
+};
+
+const { title } = Astro.props;
+const paths = Astro.url.pathname.split("/").filter((x) => x);
+let parts = [
+  {
+    label: "Home",
+    href: "/",
+    "aria-label": Astro.url.pathname === "/" ? "page" : undefined,
+  },
+];
+
+paths.forEach((label: string, i: number) => {
+  const href = `/${paths.slice(0, i + 1).join("/")}`;
+  label !== "page" &&
+    parts.push({
+      label: humanize(label.replace(".html", "").replace(/[-_]/g, " ")) || "",
+      href,
+      "aria-label": Astro.url.pathname === href ? "page" : undefined,
+    });
+});
+---
+
+<section
+  class="section page-header bg-light has-shapes has-bg-brash bg-brash-bottom"
+  data-aos="fade-in"
+>
+  <Image
+    class={"absolute bottom-0 left-0 w-full h-auto"}
+    width={732}
+    height={1050}
+    alt={""}
+    src={"/images/brushes/banner.svg"}
+  />
+  <div class="container">
+    <div class="row flex items-center">
+      <div class="md:col-12 text-center">
+        <h2>{title}</h2>
+
+        <nav class="mt-4" aria-label="breadcrumb">
+          <ol class="text-center flex items-center justify-center">
+            {
+              parts.map(({ label, ...attrs }, index) => (
+                <li class="font-medium">
+                  {index !== 0 && index !== parts.length && (
+                    <span class="inline-block mx-3">/</span>
+                  )}
+                  {index !== parts.length - 1 ? (
+                    <a class="text-black/90" {...attrs}>
+                      {label}
+                    </a>
+                  ) : (
+                    <span class=" text-primary">{label}</span>
+                  )}
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="shape-1 bg-secondary shape-xs rounded-circle"></div>
+  <div class="shape-2 bg-primary shape-xs-2 rounded-circle lg:block hidden">
+  </div>
+  <div class="shape-3 bg-primary shape-sm-2 rounded-circle"></div>
+  <div class="shape-4 bg-tertiary shape-xs rounded-circle"></div>
+  <div class="shape-5 bg-tertiary shape-xs rounded-circle"></div>
+  <div class="shape-6 bg-primary shape-sm rounded-circle"></div>
+  <div class="shape-7 bg-primary shape-xs-2 rounded-circle"></div>
+  <div class="shape-8 bg-secondary shape-xs rounded-circle"></div>
+</section>

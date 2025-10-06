@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://plomberie-aixoise.fr/sitemap.xml

@@ -1,0 +1,27 @@
+{
+  "name": "@awema/mockup-generator",
+  "version": "3.0.0",
+  "description": "AWEMA 3.0 - Générateur de Mockups Netlify avec templates ThemeFisher",
+  "dependencies": {
+    "fs-extra": "^11.1.1",
+    "archiver": "^6.0.1",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/archiver": "^6.0.2",
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "test:mockup": "ts-node test-netlify-mockup-generator.ts",
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["awema", "mockup", "netlify", "templates", "themeforest"],
+  "author": "AWEMA Team",
+  "license": "MIT"
+}

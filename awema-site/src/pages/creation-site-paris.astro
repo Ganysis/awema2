@@ -1,0 +1,359 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+
+const meta = {
+  title: "Création Site Internet Paris - Artisan BTP | AWEMA",
+  meta_title: "Création Site Web Paris 75 ➤ Spécialiste BTP | AWEMA",
+  description: "Création site internet pour artisans BTP à Paris et Île-de-France. 797€ tout compris. Plombier, électricien, menuisier... Améliorez votre visibilité locale.",
+  image: "/images/villes/paris.jpg"
+};
+
+const stats = {
+  artisans: "47 clients à Paris",
+  quartiers: "20 arrondissements",
+  delai: "7 jours livraison",
+  satisfaction: "96% satisfaits"
+};
+
+const quartiersCouverts = [
+  "Paris 1er - Louvre",
+  "Paris 2e - Bourse",
+  "Paris 3e - Marais",
+  "Paris 4e - Hôtel-de-Ville",
+  "Paris 5e - Panthéon",
+  "Paris 6e - Luxembourg",
+  "Paris 7e - Palais-Bourbon",
+  "Paris 8e - Élysée",
+  "Paris 9e - Opéra",
+  "Paris 10e - Entrepôt",
+  "Paris 11e - Popincourt",
+  "Paris 12e - Reuilly",
+  "Paris 13e - Gobelins",
+  "Paris 14e - Observatoire",
+  "Paris 15e - Vaugirard",
+  "Paris 16e - Passy",
+  "Paris 17e - Batignolles",
+  "Paris 18e - Montmartre",
+  "Paris 19e - Buttes-Chaumont",
+  "Paris 20e - Ménilmontant"
+];
+
+const metiersPopulaires = [
+  { metier: "Plombier Paris", recherches: "18.100/mois", concurrence: "Élevée" },
+  { metier: "Électricien Paris", recherches: "14.800/mois", concurrence: "Élevée" },
+  { metier: "Serrurier Paris", recherches: "22.400/mois", concurrence: "Très élevée" },
+  { metier: "Menuisier Paris", recherches: "6.600/mois", concurrence: "Moyenne" },
+  { metier: "Peintre Paris", recherches: "8.900/mois", concurrence: "Moyenne" },
+  { metier: "Maçon Paris", recherches: "4.400/mois", concurrence: "Moyenne" }
+];
+
+const clientsParis = [
+  {
+    nom: "Plomberie Parisienne",
+    arrondissement: "11e",
+    resultat: "De 8 à 92 avis Google en 5 mois"
+  },
+  {
+    nom: "Élec Services IDF",
+    arrondissement: "15e",
+    resultat: "+65% d'appels depuis le nouveau site"
+  },
+  {
+    nom: "Rénovation Haussmann",
+    arrondissement: "8e",
+    resultat: "Planning complet sur 4 mois"
+  }
+];
+---
+
+<Base {...meta}>
+  <PageHeader title="Création Site Internet BTP à Paris" />
+
+  <!-- Hero Section Paris -->
+  <section class="section bg-gradient-to-b from-blue-50 to-white">
+    <div class="container">
+      <div class="row gy-5 items-center">
+        <div class="lg:col-7">
+          <h1 class="mb-6">
+            Création Site Internet <span class="text-primary">Paris</span>
+            <br/>Spécialiste Artisans BTP
+          </h1>
+          <p class="text-lg mb-6">
+            <strong>47 artisans parisiens</strong> ont amélioré leur visibilité Google avec AWEMA.
+            Du 1er au 20e arrondissement, nous connaissons les spécificités du marché parisien.
+          </p>
+          <p class="mb-8">
+            Paris = forte concurrence = besoin d'un site professionnel.
+            Sans visibilité Google dans la capitale, vos concurrents récupèrent vos clients.
+            <strong>Notre solution : site optimisé + GMB local + collecte d'avis.</strong>
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <a href="/contact?ville=paris" class="btn btn-primary btn-lg">
+              Démarrer à Paris
+            </a>
+            <a href="#metiers" class="btn btn-outline-primary btn-lg">
+              Voir par métier
+            </a>
+          </div>
+          <div class="flex flex-wrap gap-6 text-sm">
+            {Object.entries(stats).map(([key, value]) => (
+              <div>
+                <span class="font-bold text-primary">{value}</span>
+                <span class="text-gray-600 ml-1">{key}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="lg:col-5">
+          <div class="bg-white rounded-lg p-6 shadow-lg">
+            <h3 class="mb-4 text-center">📍 Paris & Petite Couronne</h3>
+            <div class="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <strong>Paris (75)</strong>
+                <ul class="mt-2 space-y-1">
+                  <li>• 20 arrondissements</li>
+                  <li>• 2.2M habitants</li>
+                  <li>• 47 clients AWEMA</li>
+                </ul>
+              </div>
+              <div>
+                <strong>Proche banlieue</strong>
+                <ul class="mt-2 space-y-1">
+                  <li>• Neuilly-sur-Seine</li>
+                  <li>• Boulogne-Billancourt</li>
+                  <li>• Levallois-Perret</li>
+                  <li>• Issy-les-Moulineaux</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Arrondissements Couverts -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Tous les Arrondissements de Paris</h2>
+          <p>Optimisation locale par arrondissement pour maximiser votre visibilité</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        {quartiersCouverts.map(quartier => (
+          <div class="bg-white rounded p-3 text-center shadow-sm hover:shadow-md transition">
+            <span class="text-sm">{quartier}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Métiers Populaires -->
+  <section id="metiers" class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Volume de Recherches BTP à Paris</h2>
+          <p>Données réelles Google - Votre potentiel de clients</p>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse bg-white rounded-lg shadow">
+          <thead>
+            <tr class="bg-primary text-white">
+              <th class="p-4 text-left">Métier</th>
+              <th class="p-4 text-center">Recherches/mois</th>
+              <th class="p-4 text-center">Concurrence</th>
+              <th class="p-4 text-center">Notre solution</th>
+            </tr>
+          </thead>
+          <tbody>
+            {metiersPopulaires.map((item, i) => (
+              <tr class={i % 2 === 0 ? 'bg-gray-50' : ''}>
+                <td class="p-4 font-semibold">{item.metier}</td>
+                <td class="p-4 text-center text-primary font-bold">{item.recherches}</td>
+                <td class="p-4 text-center">
+                  <span class={`px-2 py-1 rounded text-sm ${
+                    item.concurrence.includes('Très') ? 'bg-red-100 text-red-700' :
+                    item.concurrence === 'Élevée' ? 'bg-orange-100 text-orange-700' :
+                    'bg-green-100 text-green-700'
+                  }`}>
+                    {item.concurrence}
+                  </span>
+                </td>
+                <td class="p-4 text-center">
+                  <a href={`/site-${item.metier.split(' ')[0].toLowerCase()}`} class="text-primary hover:underline">
+                    Voir l'offre →
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Témoignages Paris -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Artisans Parisiens Satisfaits</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {clientsParis.map(client => (
+          <div class="lg:col-4">
+            <div class="bg-white rounded-lg p-6 shadow">
+              <div class="flex mb-3">
+                {[...Array(5)].map(() => <span class="text-yellow-400">★</span>)}
+              </div>
+              <h4 class="font-bold mb-2">{client.nom}</h4>
+              <p class="text-sm text-gray-600 mb-3">Paris {client.arrondissement}</p>
+              <p class="text-sm italic">"{client.resultat}"</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pourquoi Paris -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Pourquoi un Site Pro est Vital à Paris</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="text-center">
+            <div class="text-4xl text-primary mb-4">🏢</div>
+            <h3 class="mb-3">Marché Ultra-Concurrentiel</h3>
+            <p class="text-sm">
+              15.000+ artisans BTP à Paris. Sans site optimisé,
+              vous êtes invisible face à la concurrence.
+            </p>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="text-center">
+            <div class="text-4xl text-primary mb-4">💰</div>
+            <h3 class="mb-3">Clients Premium</h3>
+            <p class="text-sm">
+              Parisiens CSP+ avec budget élevé.
+              Ils cherchent des pros avec site professionnel.
+            </p>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="text-center">
+            <div class="text-4xl text-primary mb-4">📱</div>
+            <h3 class="mb-3">85% sur Mobile</h3>
+            <p class="text-sm">
+              Les Parisiens cherchent en urgence sur smartphone.
+              Site mobile optimisé = plus de contacts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formules Adaptées Paris -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Nos Formules pour Paris</h2>
+          <p>Adaptées au marché parisien et sa périphérie</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow text-center">
+            <h3>LOCAL Paris</h3>
+            <div class="text-2xl font-bold text-primary my-4">797€</div>
+            <p class="text-sm mb-4">+ 79€/mois</p>
+            <ul class="text-left space-y-2 text-sm">
+              <li>✓ 3 arrondissements ciblés</li>
+              <li>✓ GMB optimisé Paris</li>
+              <li>✓ 4 posts/mois</li>
+              <li>✓ Page collecte avis</li>
+            </ul>
+            <a href="/contact?ville=paris&formule=local" class="btn btn-outline-primary w-full mt-4">
+              Choisir
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-primary/10 rounded-lg p-6 shadow text-center border-2 border-primary">
+            <div class="bg-primary text-white px-2 py-1 rounded text-xs inline-block mb-2">POPULAIRE</div>
+            <h3>ZONE Paris</h3>
+            <div class="text-2xl font-bold text-primary my-4">1297€</div>
+            <p class="text-sm mb-4">+ 97€/mois</p>
+            <ul class="text-left space-y-2 text-sm">
+              <li>✓ 5 arrondissements</li>
+              <li>✓ GMB premium Paris</li>
+              <li>✓ 8 posts/mois</li>
+              <li>✓ QR code avis pro</li>
+            </ul>
+            <a href="/contact?ville=paris&formule=zone" class="btn btn-primary w-full mt-4">
+              Choisir
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow text-center">
+            <h3>RÉGION IDF</h3>
+            <div class="text-2xl font-bold text-primary my-4">1797€</div>
+            <p class="text-sm mb-4">+ 127€/mois</p>
+            <ul class="text-left space-y-2 text-sm">
+              <li>✓ Paris + petite couronne</li>
+              <li>✓ GMB expert IDF</li>
+              <li>✓ 30 posts/mois</li>
+              <li>✓ Widget avis intégré</li>
+            </ul>
+            <a href="/contact?ville=paris&formule=region" class="btn btn-outline-primary w-full mt-4">
+              Choisir
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final Paris -->
+  <section class="section bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+    <div class="container">
+      <div class="row justify-center text-center">
+        <div class="lg:col-10">
+          <h2 class="text-white mb-6">
+            Rejoignez 47 Artisans BTP Qui Cartonnent à Paris
+          </h2>
+          <p class="text-xl mb-8">
+            Marché parisien = opportunités énormes pour ceux qui sont visibles.
+            <br/>Ne laissez pas vos concurrents prendre tous les chantiers rentables.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/contact?ville=paris&urgent=true" class="btn btn-white btn-lg">
+              Démarrer Maintenant à Paris
+            </a>
+            <a href="tel:+33612345678" class="btn btn-outline-white btn-lg">
+              📞 Appel Direct
+            </a>
+          </div>
+          <p class="mt-6 text-sm opacity-90">
+            ⚡ Offre spéciale Paris : -20% jusqu'au 31/01
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

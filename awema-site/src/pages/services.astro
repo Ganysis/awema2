@@ -1,0 +1,57 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+
+const { data } = (await getEntry(
+  "services",
+  "-index"
+)) as CollectionEntry<"services">;
+const { banner, title, services } = data;
+---
+
+<Base {...data}>
+  <PageHeader title={title!} />
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="md:col-8 sm:col-10 lg:col-6 text-center">
+          <h2 class="mb-4" set:html={markdownify(banner.title)} />
+          <p set:html={markdownify(banner.description)} />
+        </div>
+      </div>
+
+      <div class="row g-0 mt-14">
+        {
+          services.map((service, index) => {
+            const col3 =
+              index > 2
+                ? "lg:border-b lg:border-border"
+                : "lg:border-y lg:border-border";
+            const col2 =
+              index > 1
+                ? "md:border-b md:border-border"
+                : "md:border-y md:border-border";
+            return (
+              <div class={`lg:col-4 md:col-6  service-box ${col3}  ${col2} `}>
+                <div class="text-center max-md:max-w-lg mx-auto p-7 xl:p-10 xl:px-16">
+                  <div class="icon">
+                    <DynamicIcon className="w-8 h-8" icon={service.icon} />
+                  </div>
+                  <h4 class="mb-4" set:html={markdownify(service.name)} />
+                  <p
+                    class="text-[15px] leading-[26px]"
+                    set:html={markdownify(service.content)}
+                  />
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+</Base>

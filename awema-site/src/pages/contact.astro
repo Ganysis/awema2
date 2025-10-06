@@ -1,0 +1,159 @@
+---
+import config from "@/config/config.json";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import Base from "@/layouts/Base.astro";
+import { markdownify, plainify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+
+const { data } = (await getEntry(
+  "contact",
+  "-index"
+)) as CollectionEntry<"contact">;
+const { contact_form_action } = config.params;
+const { title, banner, contact_info, services } = data;
+---
+
+<Base {...data}>
+  <PageHeader title={title!} />
+  <section class="section has-shapes" data-aos="fade-in" data-aos-delay="150">
+    <div class="container">
+      <div class="row justify-center mb-10">
+        <div class="lg:col-6 md:col-7 text-center mb-5">
+          <h2 class="mb-4" set:html={markdownify(banner.title)} />
+          <p set:html={markdownify(banner.description)} />
+        </div>
+      </div>
+
+      <div class="mx-auto lg:col-11 xl:col-10">
+        <div class="row gy-5 lg:gy-0">
+          <div class="lg:col-6 h-full">
+            <form
+              class="bg-whtie rounded shadow p-5"
+              action={contact_form_action}
+              method="POST"
+            >
+              <div class="mb-6">
+                <label for="name" class="form-label"> Full Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  class="form-input"
+                  placeholder="Jack Barker"
+                  type="text"
+                />
+              </div>
+
+              <div class="mb-6">
+                <label for="email" class="form-label"> Working Mail</label>
+                <input
+                  id="email"
+                  name="email"
+                  class="form-input"
+                  placeholder="barker@gmail.com"
+                  type="text"
+                />
+              </div>
+
+              <div class="mb-6">
+                <label for="website" class="form-label">Company Website</label>
+                <input
+                  id="website"
+                  name="website"
+                  class="form-input"
+                  placeholder="Website"
+                  type="text"
+                />
+              </div>
+
+              <div>
+                <label for="message" class="form-label">
+                  Anything else? <span class="text-red-500">*</span>
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  class="form-input"
+                  placeholder="Message goes here..."
+                  rows="4"></textarea>
+              </div>
+
+              <button
+                aria-label="submit Now"
+                type="submit"
+                class="btn btn-primary mt-4"
+              >
+                Submit Now</button
+              >
+            </form>
+          </div>
+
+          <div class="lg:col-5">
+            <div class="row max-md:gy-5">
+              {
+                contact_info.enable && (
+                  <div class="md:col-6 lg:col-12">
+                    <div class="shadow rounded-lg bg-white p-5 sm:p-10 mb-10 h-full lg:h-auto">
+                      <h4>
+                        <DynamicIcon
+                          className="text-primary inline-block mr-3"
+                          icon="FaCircleInfo"
+                        />
+                        {plainify(contact_info.title)}
+                      </h4>
+
+                      <ul class="mt-8 space-y-4">
+                        {contact_info.address_list.map((address) => (
+                          <li class="flex items-center font-medium">
+                            <div class="w-6 h-6 rounded-full bg-primary/10 flex-none flex items-center justify-center mr-3">
+                              <DynamicIcon
+                                icon="FaCheck"
+                                className="inline-block w-3 h-3 text-primary"
+                              />
+                            </div>
+                            <a href="#" set:html={markdownify(address)} />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )
+              }
+
+              {
+                services.enable && (
+                  <div class="md:col-6 lg:col-12">
+                    <div class="shadow rounded-lg bg-white p-5 sm:p-10">
+                      <h4>
+                        <DynamicIcon
+                          className="text-primary inline-block mr-3"
+                          icon="FaLocationDot"
+                        />
+                        {plainify(services.title)}
+                      </h4>
+
+                      <ul class="mt-8 space-y-4">
+                        {services.service_list.map((address) => (
+                          <li class="flex items-center font-medium">
+                            <div class="w-6 h-6 rounded-full bg-primary/10 flex-none flex items-center justify-center mr-3">
+                              <DynamicIcon
+                                icon="FaCheck"
+                                className="inline-block w-3 h-3 text-primary"
+                              />
+                            </div>
+                            <a href="#" set:html={markdownify(address)} />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

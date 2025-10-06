@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{businessName}} - Vos propositions de site web</title>
+  <style>
+    /* Reset CSS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Base styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #333333;
+      background-color: #f8fafc;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .email-wrapper {
+      background-color: #f8fafc;
+      padding: 20px 0;
+      min-height: 100vh;
+    }
+
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .email-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #ffffff;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .email-header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .email-header p {
+      font-size: 18px;
+      opacity: 0.95;
+      margin: 0;
+    }
+
+    .emoji {
+      font-size: 1.2em;
+      margin-right: 8px;
+    }
+
+    /* Content */
+    .email-content {
+      padding: 40px 30px;
+    }
+
+    .greeting {
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 35px;
+      color: #2d3748;
+    }
+
+    .greeting strong {
+      color: #1a202c;
+      font-weight: 600;
+    }
+
+    .business-highlight {
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    /* Mockup Cards */
+    .mockups-section {
+      margin: 40px 0;
+    }
+
+    .mockup-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      margin-bottom: 25px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .mockup-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .mockup-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .mockup-info {
+      padding: 25px;
+    }
+
+    .mockup-badge {
+      display: inline-block;
+      background: #f7fafc;
+      color: #4a5568;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .mockup-badge.modern { background: #ebf8ff; color: #2b6cb0; border-color: #bee3f8; }
+    .mockup-badge.premium { background: #f0fff4; color: #276749; border-color: #9ae6b4; }
+    .mockup-badge.tech { background: #fef5e7; color: #b7791f; border-color: #f6e05e; }
+    .mockup-badge.robust { background: #fed7d7; color: #c53030; border-color: #feb2b2; }
+
+    .mockup-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a202c;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .mockup-description {
+      color: #718096;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .mockup-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .feature-tag {
+      background: #edf2f7;
+      color: #4a5568;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .mockup-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      text-align: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .mockup-btn:hover {
+      background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Compare Section */
+    .compare-section {
+      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 35px 25px;
+      text-align: center;
+      margin: 45px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .compare-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(102, 126, 234, 0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .compare-section h3 {
+      font-size: 24px;
+      color: #1a202c;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .compare-section p {
+      color: #4a5568;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .compare-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 18px 36px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 18px;
+      text-align: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 16px rgba(72, 187, 120, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .compare-btn:hover {
+      background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(72, 187, 120, 0.4);
+    }
+
+    /* Urgency Section */
+    .urgency-section {
+      background: linear-gradient(135deg, #fed7d7 0%, #fbb6ce 100%);
+      border-left: 6px solid #f56565;
+      padding: 25px;
+      border-radius: 12px;
+      margin: 35px 0;
+      box-shadow: 0 4px 12px rgba(245, 101, 101, 0.15);
+    }
+
+    .urgency-section strong {
+      color: #c53030;
+      font-weight: 700;
+    }
+
+    .urgency-icon {
+      font-size: 1.5em;
+      margin-right: 10px;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      background: #f7fafc;
+      border-radius: 12px;
+      padding: 30px 25px;
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .contact-section p {
+      font-size: 16px;
+      color: #4a5568;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .phone-number {
+      display: inline-block;
+      background: #1a202c;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      transition: all 0.2s ease;
+    }
+
+    .phone-number:hover {
+      background: #2d3748;
+      transform: translateY(-1px);
+    }
+
+    /* Footer */
+    .email-footer {
+      background: #2d3748;
+      color: #a0aec0;
+      padding: 35px 30px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
+
+    .footer-links {
+      margin: 20px 0;
+    }
+
+    .footer-links a {
+      color: #81e6d9;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 14px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: #4fd1c7;
+    }
+
+    .footer-text {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-top: 15px;
+    }
+
+    /* Tracking pixel */
+    .tracking-pixel {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      width: 1px !important;
+      height: 1px !important;
+    }
+
+    /* Responsive */
+    @media only screen and (max-width: 600px) {
+      .email-wrapper {
+        padding: 10px;
+      }
+
+      .email-header {
+        padding: 30px 20px;
+      }
+
+      .email-header h1 {
+        font-size: 26px;
+      }
+
+      .email-content {
+        padding: 30px 20px;
+      }
+
+      .greeting {
+        font-size: 16px;
+      }
+
+      .mockup-info {
+        padding: 20px;
+      }
+
+      .mockup-title {
+        font-size: 20px;
+      }
+
+      .compare-section {
+        padding: 25px 15px;
+      }
+
+      .compare-btn {
+        padding: 16px 28px;
+        font-size: 16px;
+      }
+
+      .mockup-btn {
+        width: 100%;
+        text-align: center;
+        padding: 16px;
+      }
+
+      .footer-links a {
+        display: block;
+        margin: 8px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <div class="email-container">
+      <!-- Header -->
+      <div class="email-header">
+        <h1><span class="emoji">🎨</span>Vos propositions sont prêtes !</h1>
+        <p>3 designs uniques pour <span class="business-highlight">{{businessName}}</span></p>
+      </div>
+
+      <!-- Content -->
+      <div class="email-content">
+        <div class="greeting">
+          Bonjour <strong>{{clientName}}</strong>,<br><br>
+          Nous avons créé <strong>3 propositions personnalisées</strong> pour <span class="business-highlight">{{businessName}}</span>.<br>
+          Chaque design est spécialement adapté à votre activité de <strong>{{metier}}</strong> à {{ville}}.
+        </div>
+
+        <!-- Mockups Section -->
+        <div class="mockups-section">
+          {{#each mockups}}
+          <div class="mockup-card">
+            {{#if screenshot}}
+            <img src="cid:screenshot-{{id}}" alt="{{name}}" class="mockup-image">
+            {{/if}}
+            <div class="mockup-info">
+              <div class="mockup-badge {{style}}">{{style}}</div>
+              <h3 class="mockup-title">{{name}}</h3>
+              <p class="mockup-description">{{description}}</p>
+              <div class="mockup-features">
+                {{#each features}}
+                <span class="feature-tag">{{this}}</span>
+                {{/each}}
+              </div>
+              <a href="{{url}}" class="mockup-btn">Voir cette proposition →</a>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+
+        <!-- Compare Section -->
+        <div class="compare-section">
+          <h3><span class="emoji">💡</span>Besoin d'aide pour choisir ?</h3>
+          <p>Comparez les 3 propositions côte à côte pour voir celle qui correspond le mieux à votre vision.</p>
+          <a href="{{compareUrl}}" class="compare-btn">Comparer les 3 propositions</a>
+        </div>
+
+        <!-- Urgency -->
+        <div class="urgency-section">
+          <strong><span class="urgency-icon">⏰</span>Offre limitée :</strong>
+          Ces propositions personnalisées sont disponibles pendant <strong>72 heures</strong>.
+          Après ce délai, elles ne seront plus accessibles.
+        </div>
+
+        <!-- Contact -->
+        <div class="contact-section">
+          <p>Une question ? Une hésitation ?<br>
+          Notre équipe est là pour vous accompagner !</p>
+          <a href="tel:{{phoneNumber}}" class="phone-number">📞 {{phoneNumber}}</a>
+          <p style="margin-top: 15px; font-size: 14px;">
+            Ou répondez simplement à cet email
+          </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; color: #718096;">
+          <p>Cordialement,<br>
+          <strong style="color: #1a202c;">L'équipe AWEMA</strong><br>
+          <em>Création de sites web professionnels</em></p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="email-footer">
+        <div class="footer-logo">AWEMA</div>
+        <p>Création de sites web professionnels qui convertissent</p>
+        <div class="footer-links">
+          <a href="{{baseUrl}}/portfolio">Portfolio</a>
+          <a href="{{baseUrl}}/contact">Contact</a>
+          <a href="{{unsubscribeUrl}}">Se désabonner</a>
+          <a href="{{privacyUrl}}">Politique de confidentialité</a>
+        </div>
+        <div class="footer-text">
+          © 2025 AWEMA - Tous droits réservés<br>
+          Cet email a été envoyé à {{clientEmail}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tracking Pixel -->
+  <img src="{{trackingPixelUrl}}" width="1" height="1" class="tracking-pixel" alt="">
+</body>
+</html>

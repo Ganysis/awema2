@@ -1,0 +1,4 @@
+
+> @awema/docs@0.0.1 type-check /home/Ganyc/Desktop/awema/awema2/apps/docs
+> tsc --noEmit
+

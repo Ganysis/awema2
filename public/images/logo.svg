@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="40" viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg">
+  <rect x="5" y="10" width="20" height="20" fill="#f59e0b" rx="2"/>
+  <text x="35" y="18" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#f59e0b">
+    Électricité
+  </text>
+  <text x="35" y="32" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#f59e0b">
+    ELECPRO
+  </text>
+</svg>

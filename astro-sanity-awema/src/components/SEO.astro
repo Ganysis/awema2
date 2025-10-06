@@ -1,0 +1,98 @@
+---
+import config from "@/config/config.json";
+import { plainify } from "@/lib/utils/textConverter";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?: string;
+  noindex?: boolean;
+  type?: "website" | "article" | "product";
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  schema?: any;
+  locale?: string;
+}
+
+const {
+  title = config.site.title,
+  description = "AWEMA - Agence Web spécialisée BTP. Sites internet haute conversion pour artisans. Créé par un co-gérant BTP pour les artisans.",
+  canonical,
+  image = "/images/og-image.png",
+  noindex = false,
+  type = "website",
+  publishedTime,
+  modifiedTime,
+  author = "AWEMA",
+  schema,
+  locale = "fr_FR"
+} = Astro.props;
+
+// Generate canonical URL
+const canonicalURL = canonical || new URL(Astro.url.pathname, config.site.base_url).href;
+
+// Clean title and description
+const cleanTitle = plainify(title);
+const cleanDescription = plainify(description);
+
+// Generate full image URL
+const imageURL = image.startsWith("http")
+  ? image
+  : new URL(image, config.site.base_url).href;
+---
+
+<!-- Primary Meta Tags -->
+<title>{cleanTitle}</title>
+<meta name="title" content={cleanTitle} />
+<meta name="description" content={cleanDescription} />
+<meta name="author" content={author} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Robots -->
+{noindex ? (
+  <meta name="robots" content="noindex, nofollow" />
+) : (
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+)}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={cleanTitle} />
+<meta property="og:description" content={cleanDescription} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content={locale} />
+<meta property="og:site_name" content="AWEMA" />
+
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+{author && type === "article" && <meta property="article:author" content={author} />}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={cleanTitle} />
+<meta name="twitter:description" content={cleanDescription} />
+<meta name="twitter:image" content={imageURL} />
+<meta name="twitter:site" content="@awema_fr" />
+<meta name="twitter:creator" content="@awema_fr" />
+
+<!-- Language -->
+<link rel="alternate" hreflang="fr" href={canonicalURL} />
+<link rel="alternate" hreflang="x-default" href={canonicalURL} />
+
+<!-- Additional SEO tags -->
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+<!-- Structured Data -->
+{schema && (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+)}

@@ -1,0 +1,11 @@
+
+
+> @awema/ai@0.0.1 build /home/Ganyc/Desktop/awema/awema2/packages/ai
+> tsc
+
+[91merror[0m[90m TS18003: [0mNo inputs were found in config file '/home/Ganyc/Desktop/awema/awema2/packages/ai/tsconfig.json'. Specified 'include' paths were '["../src/**/*"]' and 'exclude' paths were '["../node_modules","../dist","../**/*.test.ts","../**/*.spec.ts"]'.
+
+
+Found 1 error.
+
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 2.[39m

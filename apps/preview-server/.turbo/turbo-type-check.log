@@ -1,0 +1,4 @@
+
+> @awema/preview-server@0.0.1 type-check /home/Ganyc/Desktop/awema/awema2/apps/preview-server
+> tsc --noEmit
+

@@ -1,0 +1,182 @@
+{
+  "name": "awema-visual-design",
+  "version": "1.0.0",
+  "description": "MCP server for visual design analysis and V3 block generation",
+  "author": "AWEMA Studio",
+  "tools": [
+    {
+      "name": "analyze_website",
+      "description": "Analyze a website and extract design elements for V3 blocks",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "URL of the website to analyze"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["header", "hero", "services", "features", "gallery", "testimonials", "pricing", "faq", "cta", "contact", "footer"]
+            },
+            "description": "Specific elements to analyze"
+          },
+          "extractColors": {
+            "type": "boolean",
+            "default": true,
+            "description": "Extract color palette"
+          },
+          "extractFonts": {
+            "type": "boolean",
+            "default": true,
+            "description": "Extract typography information"
+          },
+          "extractLayouts": {
+            "type": "boolean",
+            "default": true,
+            "description": "Extract layout patterns"
+          }
+        },
+        "required": ["url"]
+      }
+    },
+    {
+      "name": "analyze_design_image",
+      "description": "Analyze a design image and extract visual patterns",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "imagePath": {
+            "type": "string",
+            "description": "Path to the design image"
+          },
+          "blockType": {
+            "type": "string",
+            "enum": ["hero", "services", "features", "gallery", "testimonials", "pricing", "faq", "cta", "contact"],
+            "description": "Type of block to generate"
+          },
+          "style": {
+            "type": "string",
+            "enum": ["corporate", "modern", "creative", "minimal", "bold"],
+            "default": "corporate",
+            "description": "Design style preference"
+          }
+        },
+        "required": ["imagePath"]
+      }
+    },
+    {
+      "name": "generate_v3_block",
+      "description": "Generate a V3 block based on visual reference",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "object",
+            "description": "Analysis result or reference data"
+          },
+          "blockType": {
+            "type": "string",
+            "description": "Type of V3 block to generate"
+          },
+          "variant": {
+            "type": "string",
+            "description": "Specific variant of the block"
+          },
+          "customizations": {
+            "type": "object",
+            "properties": {
+              "colors": {
+                "type": "object",
+                "description": "Color palette customization"
+              },
+              "fonts": {
+                "type": "object",
+                "description": "Typography customization"
+              },
+              "spacing": {
+                "type": "object",
+                "description": "Spacing system customization"
+              }
+            }
+          }
+        },
+        "required": ["blockType", "variant"]
+      }
+    },
+    {
+      "name": "preview_block",
+      "description": "Preview a generated block with live data",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "blockCode": {
+            "type": "string",
+            "description": "Generated block code"
+          },
+          "data": {
+            "type": "object",
+            "description": "Data to populate the block"
+          },
+          "format": {
+            "type": "string",
+            "enum": ["html", "screenshot", "url"],
+            "default": "url",
+            "description": "Preview format"
+          }
+        },
+        "required": ["blockCode"]
+      }
+    },
+    {
+      "name": "iterate_design",
+      "description": "Iterate on existing design based on natural language feedback",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "currentBlock": {
+            "type": "string",
+            "description": "Current block code"
+          },
+          "feedback": {
+            "type": "string",
+            "description": "Natural language feedback for improvements"
+          },
+          "aspects": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["colors", "layout", "typography", "spacing", "animations", "content"]
+            },
+            "description": "Specific aspects to modify"
+          }
+        },
+        "required": ["currentBlock", "feedback"]
+      }
+    }
+  ],
+  "configuration": {
+    "visionApiKey": {
+      "type": "string",
+      "description": "API key for vision analysis (Claude/GPT-4V)",
+      "required": true
+    },
+    "screenshotService": {
+      "type": "string",
+      "enum": ["puppeteer", "playwright", "browserless"],
+      "default": "puppeteer",
+      "description": "Service to use for website screenshots"
+    },
+    "previewPort": {
+      "type": "number",
+      "default": 3005,
+      "description": "Port for preview server"
+    },
+    "cacheEnabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable caching of analysis results"
+    }
+  }
+}

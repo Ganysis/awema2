@@ -1,0 +1,653 @@
+---
+import Base from "@/layouts/Base.astro";
+
+const page_data = {
+  meta_title: "Sites Web BTP & IT Infrastructure | Expert Aix-Marseille - AWEMA",
+  description: "Expert IT & Web pour artisans BTP et PME PACA. Sites web dès 697€, migration cloud, audit infrastructure 1200€. Interventions Aix-Marseille + Remote France. Devis gratuit 24h.",
+  image: "/images/og-image.jpg",
+};
+
+// Images hero optimisées par taille (WebP, qualité 75)
+const heroImageUrl = {
+  mobile: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fm=webp&fit=crop&q=75",
+  tablet: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&auto=format&fm=webp&fit=crop&q=75",
+  desktop: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&auto=format&fm=webp&fit=crop&q=75"
+};
+
+// Schema.org for homepage
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Expert IT & Web Aix-Marseille",
+    "description": "Services IT et développement web pour PME et artisans : sites web performants, migration cloud, infrastructure et sécurité.",
+    "url": "https://awema.fr",
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": "43.5297",
+        "longitude": "5.4474"
+      },
+      "geoRadius": "50000"
+    },
+    "priceRange": "€€",
+    "telephone": "+33756910218",
+    "email": "contact@awema.fr",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Aix-en-Provence",
+      "addressRegion": "PACA",
+      "addressCountry": "FR"
+    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Site Web Performant",
+        "price": "697",
+        "priceCurrency": "EUR",
+        "description": "Offre lancement - Formule ESSENTIEL"
+      },
+      {
+        "@type": "Offer",
+        "name": "Migration Cloud",
+        "priceCurrency": "EUR",
+        "description": "Sur devis selon infrastructure"
+      },
+      {
+        "@type": "Offer",
+        "name": "Audit Infrastructure",
+        "price": "1200",
+        "priceCurrency": "EUR",
+        "description": "À partir de - Tarif adapté à votre taille"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Combien coûte un site internet professionnel ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Offre lancement : site web BTP dès 697€ HT + 97€/mois (formule ESSENTIEL : 12 pages, 3 villes SEO, machine à avis Google, livraison 48h). Formule PREMIUM à 1997€ HT pour plus de fonctionnalités. Avantage : technologies modernes ultra-rapides (Astro + Cloudflare), hébergement inclus."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Pourquoi migrer vers le cloud ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La migration cloud vous apporte : Réduction des coûts (-30% à -50% sur vos serveurs physiques), Flexibilité (vous payez uniquement ce que vous consommez), Sécurité renforcée (sauvegardes automatiques, disponibilité 99.9%), Travail à distance (vos équipes accèdent aux données de partout). Tarif sur devis selon votre infrastructure actuelle."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Mon infrastructure IT est-elle sécurisée ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "80% des PME ont au moins 3 failles de sécurité critiques sans le savoir : serveurs non patchés, mots de passe faibles, sauvegardes inexistantes, pas de pare-feu. Notre audit infrastructure complet identifie toutes les failles en 1 jour sur site. Tarif sur mesure à partir de 1200€ HT selon votre taille (TPE, PME, ETI) avec rapport 30-50 pages et plan d'action détaillé."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Combien de temps pour avoir mon site en ligne ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "3 semaines en moyenne pour un site vitrine artisan/PME : Semaine 1 (Brief, maquettes, validation), Semaine 2 (Développement, contenus, photos), Semaine 3 (Ajustements, tests, mise en ligne). Contrairement aux grosses agences (3-6 mois), je travaille en direct avec vous, sans intermédiaires."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Vous intervenez dans toute la France ou uniquement PACA ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Basé à Velaux, j'interviens principalement en PACA (Aix-en-Provence, Marseille, Salon-de-Provence, Vitrolles, Toulon, Nice) pour les rendez-vous physiques. Mais je travaille aussi en remote partout en France. 80% de mes projets se font à distance (visio, téléphone, email)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Pourquoi vous plutôt qu'une agence web classique ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "3 différences majeures : Je suis co-gérant de SARL BTP depuis 10 ans (je comprends vos problématiques business), Tarifs 2x moins chers qu'une agence (pas de locaux luxueux, pas de commerciaux, pas d'intermédiaires), Expertise IT + Web (je peux aussi gérer votre infrastructure, vos serveurs, votre cloud)."
+        }
+      }
+    ]
+  }
+];
+---
+
+<Base
+  title={page_data.meta_title}
+  meta_title={page_data.meta_title}
+  description={page_data.description}
+  image={page_data.image}
+  schema={schema}
+>
+  <!-- Preload hero image responsive pour LCP -->
+  <link slot="head" rel="preload" as="image" href={heroImageUrl.mobile} fetchpriority="high" imagesrcset={`${heroImageUrl.mobile} 800w, ${heroImageUrl.tablet} 1200w, ${heroImageUrl.desktop} 1920w`} imagesizes="100vw" />
+
+  <!-- Canonical URL -->
+  <link slot="head" rel="canonical" href="https://awema.fr/" />
+
+  <!-- SECTION 1: Hero -->
+  <section class="relative min-h-screen flex items-center text-white overflow-hidden">
+    <!-- Background Image IT optimisé pour LCP avec srcset responsive -->
+    <img
+      src={heroImageUrl.desktop}
+      srcset={`${heroImageUrl.mobile} 800w, ${heroImageUrl.tablet} 1200w, ${heroImageUrl.desktop} 1920w`}
+      sizes="100vw"
+      alt="Infrastructure IT moderne"
+      class="absolute inset-0 w-full h-full object-cover"
+      fetchpriority="high"
+      loading="eager"
+      decoding="async"
+      width="1920"
+      height="1080"
+    />
+
+    <!-- Overlay gradient classe (noir vers transparent avec touche bleue) -->
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-gray-900/85 to-blue-900/80"></div>
+
+    <!-- Pattern subtil overlay -->
+    <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 40px 40px;"></div>
+
+    <div class="container relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight drop-shadow-2xl text-white" data-aos="fade-up">
+          Votre IT vous freine ?<br/>
+          <span class="text-white">Je la transforme en levier de croissance.</span>
+        </h1>
+
+        <p class="text-xl md:text-2xl mb-4 text-white font-light drop-shadow-lg" data-aos="fade-up" data-aos-delay="100">
+          Expert IT & Web | PME & Artisans | Aix-Marseille
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10" data-aos="fade-up" data-aos-delay="200">
+          <a href="/contact" class="btn bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-4 text-lg font-bold rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300">
+            Audit gratuit 30min
+          </a>
+          <a href="#services" class="btn border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg font-bold rounded-lg transition-all duration-300">
+            Voir mes services
+          </a>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="mt-16 animate-bounce" data-aos="fade-up" data-aos-delay="400">
+          <svg class="w-6 h-6 mx-auto text-gray-300 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paragraphe SEO -->
+  <section class="section bg-gray-50 py-16">
+    <div class="container">
+      <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+        <p class="text-lg text-gray-700 leading-relaxed mb-6">
+          Expert IT et développement web basé à <strong>Velaux</strong>, j'accompagne les TPE, PME et artisans dans leur transformation digitale depuis plus de 10 ans. Mon approche unique ? Je suis moi-même chef d'entreprise. J'ai multiplié par 3 le CA de ma société grâce au digital. Je connais vos défis : trésorerie, rentabilité, génération de leads, gestion des outils IT.
+        </p>
+        <p class="text-lg text-gray-700 leading-relaxed mb-6">
+          Mes services s'adressent à tous les secteurs : <strong>artisans du bâtiment</strong> (plombiers, électriciens, menuisiers), <strong>professions libérales</strong> (avocats, comptables, consultants), <strong>commerces</strong> (restaurants, boutiques), <strong>services B2B</strong> (formation, conseil, logistique).
+        </p>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Mon objectif ? Transformer votre IT en levier de croissance. Sites web qui génèrent des clients, migrations cloud qui réduisent vos coûts de 30 à 50%, audits infrastructure qui sécurisent vos données. <strong>Interventions en PACA</strong> (Aix-en-Provence, Marseille, Salon-de-Provence, Vitrolles) et partout en France en remote. <strong class="text-primary">Devis gratuit sous 48h</strong>, sans engagement.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Services -->
+  <section id="services" class="section bg-white py-20">
+    <div class="container">
+      <h2 class="text-4xl font-bold text-center mb-16" data-aos="fade-up">Mes expertises</h2>
+
+      <div class="row g-4">
+        <!-- Service 1 -->
+        <article class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="0">
+          <div class="card h-full p-8 hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-primary rounded-xl">
+            <div class="text-5xl mb-4" role="img" aria-label="Sites web">🌐</div>
+            <h3 class="text-2xl font-bold mb-4">Sites Web Performants</h3>
+            <p class="text-gray-600 mb-6">
+              Sites modernes pour artisans et PME. Design professionnel, optimisé SEO, génération de leads.
+            </p>
+            <div class="text-3xl font-bold text-primary mb-6">Dès 697€ HT</div>
+            <p class="text-sm text-gray-500 mb-4">+ 97€/mois • Offre lancement</p>
+            <a href="/tarifs-sites-web" class="btn btn-outline-primary w-full" aria-label="En savoir plus sur les sites web performants">
+              Voir les formules
+            </a>
+          </div>
+        </article>
+
+        <!-- Service 2 -->
+        <article class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="card h-full p-8 hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-primary rounded-xl">
+            <div class="text-5xl mb-4" role="img" aria-label="Cloud">☁️</div>
+            <h3 class="text-2xl font-bold mb-4">Migration Cloud</h3>
+            <p class="text-gray-600 mb-6">
+              Passez au cloud (Azure/AWS). Réduction des coûts IT, sécurité renforcée, scalabilité.
+            </p>
+            <div class="text-3xl font-bold text-primary mb-6">Sur devis</div>
+            <p class="text-sm text-gray-500 mb-4">Selon infrastructure actuelle</p>
+            <a href="/migration-cloud" class="btn btn-outline-primary w-full" aria-label="En savoir plus sur la migration cloud">
+              Demander un devis
+            </a>
+          </div>
+        </article>
+
+        <!-- Service 3 -->
+        <article class="lg:col-4 md:col-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="card h-full p-8 hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-primary rounded-xl">
+            <div class="text-5xl mb-4" role="img" aria-label="Sécurité">🔒</div>
+            <h3 class="text-2xl font-bold mb-4">Infrastructure & Sécurité</h3>
+            <p class="text-gray-600 mb-6">
+              Audit réseau, configuration VPN/firewall, sécurisation infrastructure, support technique.
+            </p>
+            <div class="text-3xl font-bold text-primary mb-6">Dès 1200€ HT</div>
+            <p class="text-sm text-gray-500 mb-4">Tarif adapté à votre taille</p>
+            <a href="/audit-infrastructure" class="btn btn-outline-primary w-full" aria-label="En savoir plus sur l'audit infrastructure">
+              Découvrir l'audit
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: Problème/Solution -->
+  <section class="section bg-gray-50 py-20">
+    <div class="container">
+      <div class="row items-center g-4">
+        <div class="lg:col-6" data-aos="fade-right">
+          <h2 class="text-4xl font-bold mb-8">Vous perdez du temps et de l'argent avec :</h2>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl text-red-500 flex-shrink-0">❌</span>
+              <p class="text-lg">Un site obsolète qui ne génère aucun lead</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-2xl text-red-500 flex-shrink-0">❌</span>
+              <p class="text-lg">Une infrastructure IT non sécurisée</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-2xl text-red-500 flex-shrink-0">❌</span>
+              <p class="text-lg">Des serveurs locaux coûteux et lents</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-2xl text-red-500 flex-shrink-0">❌</span>
+              <p class="text-lg">Aucune stratégie digitale claire</p>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg border-l-4 border-green-500 shadow-md mb-8">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl text-green-500 flex-shrink-0">✅</span>
+              <p class="text-lg font-semibold">Je vous aide à moderniser tout ça, rapidement et efficacement.</p>
+            </div>
+          </div>
+
+          <a href="/contact" class="btn btn-primary">
+            Discutons de votre projet
+          </a>
+        </div>
+
+        <div class="lg:col-6" data-aos="fade-left">
+          <img
+            src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=600&auto=format&fit=crop&q=80"
+            alt="Développement web et transformation digitale - Code et laptop"
+            width="800"
+            height="600"
+            loading="lazy"
+            class="w-full rounded-2xl shadow-2xl"
+            style="display: block;"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Processus -->
+  <section class="section bg-white py-20">
+    <div class="container">
+      <h2 class="text-4xl font-bold text-center mb-16" data-aos="fade-up">Comment ça marche ?</h2>
+
+      <div class="max-w-5xl mx-auto">
+        <div class="grid md:grid-cols-4 gap-8">
+          <!-- Étape 1 -->
+          <div class="text-center" data-aos="fade-up" data-aos-delay="0">
+            <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              1
+            </div>
+            <div class="text-4xl mb-3">📞</div>
+            <h4 class="text-xl font-bold mb-2">AUDIT GRATUIT</h4>
+            <p class="text-sm text-gray-600">30min call ou café<br/>On analyse vos besoins</p>
+          </div>
+
+          <!-- Étape 2 -->
+          <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              2
+            </div>
+            <div class="text-4xl mb-3">📋</div>
+            <h4 class="text-xl font-bold mb-2">DEVIS 48H</h4>
+            <p class="text-sm text-gray-600">Tarif transparent<br/>Délai garanti</p>
+          </div>
+
+          <!-- Étape 3 -->
+          <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              3
+            </div>
+            <div class="text-4xl mb-3">🚀</div>
+            <h4 class="text-xl font-bold mb-2">RÉALISATION</h4>
+            <p class="text-sm text-gray-600">10-30 jours selon projet<br/>Communication régulière</p>
+          </div>
+
+          <!-- Étape 4 -->
+          <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+            <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              4
+            </div>
+            <div class="text-4xl mb-3">🎓</div>
+            <h4 class="text-xl font-bold mb-2">SUPPORT INCLUS</h4>
+            <p class="text-sm text-gray-600">Formation<br/>Assistance après livraison</p>
+          </div>
+        </div>
+
+        <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="400">
+          <a href="/contact" class="btn btn-primary btn-lg">
+            Commencer maintenant
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: Témoignages -->
+  <section class="section bg-gray-50 py-20">
+    <div class="container">
+      <h2 class="text-4xl font-bold text-center mb-16" data-aos="fade-up">Ils me font confiance</h2>
+
+      <div class="row g-4">
+        <!-- Témoignage 1 -->
+        <div class="lg:col-4" data-aos="fade-up" data-aos-delay="0">
+          <div class="card p-6 h-full">
+            <div class="flex gap-1 mb-4">
+              <span class="text-yellow-400">⭐</span>
+              <span class="text-yellow-400">⭐</span>
+              <span class="text-yellow-400">⭐</span>
+              <span class="text-yellow-400">⭐</span>
+              <span class="text-yellow-400">⭐</span>
+            </div>
+            <p class="text-gray-700 mb-4 italic">
+              "Site livré en 10 jours, design moderne et professionnel. J'ai reçu 3 demandes de devis la première semaine."
+            </p>
+            <div class="flex items-center gap-3 mt-auto">
+              <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center font-bold text-primary">
+                MD
+              </div>
+              <div>
+                <p class="font-semibold">Marc D.</p>
+                <p class="text-sm text-gray-600">Couvreur, Marseille</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Témoignage 2 -->
+        <div class="lg:col-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="card p-6 h-full">
+            <div class="flex gap-1 mb-4">
+              <span class="text-yellow-400">⭐</span>
+              <span class="text-yellow-400">⭐</span>
+              <span class="text-yellow-400">⭐</span>
+              <span class="text-yellow-400">⭐</span>
+              <span class="text-yellow-400">⭐</span>
+            </div>
+            <p class="text-gray-700 mb-4 italic">
+              "Migration cloud réussie, nos coûts IT ont baissé de 30%. Service pro et réactif."
+            </p>
+            <div class="flex items-center gap-3 mt-auto">
+              <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center font-bold text-primary">
+                SL
+              </div>
+              <div>
+                <p class="font-semibold">Sophie L.</p>
+                <p class="text-sm text-gray-600">Gérante PME, Aix-en-Provence</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Témoignage 3 -->
+        <div class="lg:col-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="card p-6 h-full">
+            <div class="flex gap-1 mb-4">
+              <span class="text-yellow-400">⭐</span>
+              <span class="text-yellow-400">⭐</span>
+              <span class="text-yellow-400">⭐</span>
+              <span class="text-yellow-400">⭐</span>
+              <span class="text-yellow-400">⭐</span>
+            </div>
+            <p class="text-gray-700 mb-4 italic">
+              "Enfin quelqu'un qui parle notre langue ! Pas de jargon technique, que des solutions concrètes."
+            </p>
+            <div class="flex items-center gap-3 mt-auto">
+              <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center font-bold text-primary">
+                TR
+              </div>
+              <div>
+                <p class="font-semibold">Thomas R.</p>
+                <p class="text-sm text-gray-600">Électricien, Aubagne</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12" data-aos="fade-up">
+        <a href="/realisations" class="btn btn-outline-primary">
+          Voir toutes les réalisations
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: À propos court -->
+  <section class="section bg-white py-20">
+    <div class="container">
+      <div class="row items-center g-4">
+        <div class="lg:col-6" data-aos="fade-right">
+          <h2 class="text-4xl font-bold mb-6">Pourquoi me faire confiance ?</h2>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+              <span class="text-green-500 text-xl flex-shrink-0">✓</span>
+              <p class="text-lg"><strong>Co-gérant de SARL BTP</strong> depuis 10 ans</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-500 text-xl flex-shrink-0">✓</span>
+              <p class="text-lg"><strong>J'ai multiplié par 3 le CA de mon entreprise BTP</strong> grâce au digital</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-500 text-xl flex-shrink-0">✓</span>
+              <p class="text-lg"><strong>+10 ans d'expertise IT</strong> (infrastructure, cloud, sécurité)</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-500 text-xl flex-shrink-0">✓</span>
+              <p class="text-lg"><strong>Je parle votre langage</strong>, pas du jargon technique</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-500 text-xl flex-shrink-0">✓</span>
+              <p class="text-lg"><strong>Basé à Aix-Marseille</strong> · Interventions PACA + Remote</p>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 border-l-4 border-primary p-6 rounded-lg mb-8">
+            <p class="text-gray-700 italic">
+              "Je vis les mêmes défis que vous au quotidien. Je sais ce qui fonctionne vraiment pour développer une entreprise."
+            </p>
+          </div>
+
+          <a href="/mon-histoire" class="btn btn-outline-primary">
+            Découvrir mon parcours
+          </a>
+        </div>
+
+        <div class="lg:col-6" data-aos="fade-left">
+          <img
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&auto=format&fit=crop&q=80"
+            alt="Tableau de bord analytics et transformation digitale - Expert IT Aix-Marseille"
+            width="800"
+            height="600"
+            loading="lazy"
+            class="w-full rounded-2xl shadow-2xl"
+            style="display: block;"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: FAQ -->
+  <section class="section bg-white py-20">
+    <div class="container">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Questions fréquentes
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Les réponses aux questions que se posent les dirigeants de PME et artisans.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto space-y-4">
+        <details class="bg-gray-50 p-6 rounded-xl border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Combien coûte un site internet professionnel ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Offre lancement :</strong> <a href="/tarifs-sites-web" class="text-primary font-semibold hover:underline">site web BTP</a> dès <strong>697€ HT + 97€/mois</strong> (formule ESSENTIEL : 12 pages, 3 villes SEO, machine à avis Google, livraison 48h).</p>
+            <p class="mt-2">Formule PREMIUM à <strong>1997€ HT + 97€/mois</strong> pour plus de fonctionnalités (20+ pages, 5 villes, CRM, modifications illimitées).</p>
+            <p class="mt-2"><strong>Avantage :</strong> Technologies modernes ultra-rapides (Astro + Cloudflare), hébergement inclus.</p>
+          </div>
+        </details>
+
+        <details class="bg-gray-50 p-6 rounded-xl border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Pourquoi migrer vers le cloud ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p>La <a href="/migration-cloud" class="text-primary font-semibold hover:underline">migration cloud</a> vous apporte :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-2">
+              <li><strong>Réduction des coûts</strong> : -30% à -50% sur vos serveurs physiques</li>
+              <li><strong>Flexibilité</strong> : Vous payez uniquement ce que vous consommez</li>
+              <li><strong>Sécurité renforcée</strong> : Sauvegardes automatiques, disponibilité 99.9%</li>
+              <li><strong>Travail à distance</strong> : Vos équipes accèdent aux données de partout</li>
+            </ul>
+            <p class="mt-3"><strong>Tarif sur devis</strong> selon votre infrastructure actuelle (analyse, plan, exécution, formation).</p>
+          </div>
+        </details>
+
+        <details class="bg-gray-50 p-6 rounded-xl border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Mon infrastructure IT est-elle sécurisée ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p>80% des PME ont au moins 3 failles de sécurité critiques sans le savoir :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>Serveurs non patchés (vulnérabilités connues)</li>
+              <li>Mots de passe faibles ou partagés</li>
+              <li>Sauvegardes inexistantes ou non testées</li>
+              <li>Pas de pare-feu correctement configuré</li>
+            </ul>
+            <p class="mt-3">Notre <a href="/audit-infrastructure" class="text-primary font-semibold hover:underline">audit infrastructure complet</a> identifie toutes les failles en 1 jour sur site. <strong>Tarif sur mesure à partir de 1200€ HT</strong> selon votre taille (TPE, PME, ETI) avec rapport 30-50 pages et plan d'action détaillé.</p>
+          </div>
+        </details>
+
+        <details class="bg-gray-50 p-6 rounded-xl border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Combien de temps pour avoir mon site en ligne ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>3 semaines en moyenne</strong> pour un site vitrine artisan/PME :</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>Semaine 1 : Brief, maquettes, validation</li>
+              <li>Semaine 2 : Développement, contenus, photos</li>
+              <li>Semaine 3 : Ajustements, tests, mise en ligne</li>
+            </ul>
+            <p class="mt-3">Contrairement aux grosses agences (3-6 mois), je travaille en direct avec vous, sans intermédiaires.</p>
+          </div>
+        </details>
+
+        <details class="bg-gray-50 p-6 rounded-xl border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Vous intervenez dans toute la France ou uniquement PACA ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>Basé à Velaux</strong>, j'interviens principalement en PACA (Aix-en-Provence, Marseille, Salon-de-Provence, Vitrolles, Toulon, Nice) pour les rendez-vous physiques.</p>
+            <p class="mt-2">Mais <strong>je travaille aussi en remote partout en France</strong>. 80% de mes projets se font à distance (visio, téléphone, email). Vous n'avez pas besoin de vous déplacer.</p>
+            <p class="mt-2">Pour les infrastructures IT critiques, je peux me déplacer partout en France (frais de déplacement facturés au réel).</p>
+          </div>
+        </details>
+
+        <details class="bg-gray-50 p-6 rounded-xl border border-gray-200 cursor-pointer hover:shadow-lg transition" data-aos="fade-up">
+          <summary class="font-bold text-xl text-gray-800 cursor-pointer">
+            Pourquoi vous plutôt qu'une agence web classique ?
+          </summary>
+          <div class="mt-4 text-gray-700 leading-relaxed">
+            <p><strong>3 différences majeures :</strong></p>
+            <ol class="list-decimal pl-6 mt-2 space-y-2">
+              <li><strong>Je suis co-gérant de SARL BTP depuis 10 ans</strong> : je comprends vos problématiques business (trésorerie, saisonnalité, marges, clients difficiles...)</li>
+              <li><strong>Tarifs 2x moins chers qu'une agence</strong> : pas de locaux luxueux, pas de commerciaux, pas d'intermédiaires. Vous travaillez directement avec moi.</li>
+              <li><strong>Expertise IT + Web</strong> : Je peux aussi gérer votre infrastructure, vos serveurs, votre cloud. Une agence web classique ne fait que des sites.</li>
+            </ol>
+            <p class="mt-3">Résultat : <strong>meilleur rapport qualité/prix + accompagnement sur-mesure</strong>.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: CTA Final -->
+  <section class="section bg-gradient-to-r from-primary to-blue-600 text-white py-20">
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6" data-aos="fade-up">
+          Prêt à moderniser votre IT ?
+        </h2>
+
+        <div class="flex flex-wrap justify-center gap-6 mb-8" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Audit gratuit</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Devis sous 48h</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Sans engagement</span>
+          </div>
+        </div>
+
+        <a href="/contact" class="btn btn-lg bg-white text-primary hover:bg-gray-100 px-12 py-4 text-xl font-bold rounded-lg shadow-2xl transform hover:scale-105 transition" data-aos="fade-up" data-aos-delay="200">
+          Prendre contact
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

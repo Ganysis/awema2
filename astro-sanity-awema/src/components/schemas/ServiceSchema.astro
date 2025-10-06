@@ -1,0 +1,90 @@
+---
+export interface Props {
+  name: string;
+  description: string;
+  provider?: string;
+  serviceType?: string;
+  areaServed?: string | string[];
+  offers?: {
+    price?: string;
+    priceCurrency?: string;
+    priceRange?: string;
+  };
+  aggregateRating?: {
+    ratingValue: number;
+    reviewCount: number;
+  };
+  image?: string;
+  url?: string;
+}
+
+const {
+  name,
+  description,
+  provider = "AWEMA",
+  serviceType = "Création de site web",
+  areaServed = "France",
+  offers,
+  aggregateRating,
+  image,
+  url = Astro.url.href
+} = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name,
+  description,
+  serviceType,
+  provider: {
+    "@type": "Organization",
+    name: provider,
+    url: "https://awema.fr",
+    telephone: "06 17 54 03 83",
+    email: "contact@awema.fr"
+  },
+  areaServed: Array.isArray(areaServed)
+    ? areaServed.map(area => ({
+        "@type": "GeoCircle",
+        name: area
+      }))
+    : {
+        "@type": "Country",
+        name: areaServed
+      },
+  offers: offers ? {
+    "@type": "Offer",
+    price: offers.price,
+    priceCurrency: offers.priceCurrency || "EUR",
+    priceRange: offers.priceRange
+  } : undefined,
+  aggregateRating: aggregateRating ? {
+    "@type": "AggregateRating",
+    ratingValue: aggregateRating.ratingValue,
+    reviewCount: aggregateRating.reviewCount,
+    bestRating: 5,
+    worstRating: 1
+  } : undefined,
+  image,
+  url,
+  availableChannel: {
+    "@type": "ServiceChannel",
+    serviceUrl: url,
+    servicePhone: "06 17 54 03 83",
+    availableLanguage: ["French"]
+  },
+  termsOfService: "https://awema.fr/mentions-legales",
+  serviceOutput: "Site web professionnel",
+  hoursAvailable: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "09:00",
+    closes: "18:00"
+  }
+};
+
+// Remove undefined values
+const cleanSchema = JSON.parse(JSON.stringify(schema));
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(cleanSchema)} />

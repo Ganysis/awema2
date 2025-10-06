@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /api/*
+Disallow: /admin/*
+Disallow: /*.json$
+Disallow: /*?*
+
+# Sitemap
+Sitemap: https://awema.fr/sitemap.xml
+
+# Crawl-delay pour éviter surcharge
+Crawl-delay: 1
+
+# Googlebot spécifique
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0

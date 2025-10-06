@@ -1,0 +1,105 @@
+{
+  "main": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "About",
+      "url": "/about"
+    },
+    {
+      "name": "Service",
+      "url": "/services"
+    },
+    {
+      "name": "Team",
+      "url": "/team"
+    },
+
+    {
+      "name": "Blog",
+      "url": "/blog"
+    },
+
+    {
+      "name": "Contact",
+      "url": "/contact"
+    },
+
+    {
+      "name": "Pages",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "How it works",
+          "url": "/how-it-works"
+        },
+        {
+          "name": "Testimonial",
+          "url": "/testimonial"
+        },
+        {
+          "name": "Career",
+          "url": "/career"
+        },
+        {
+          "name": "Terms & Condition",
+          "url": "/terms-conditions"
+        },
+        {
+          "name": "Pricing",
+          "url": "/pricing"
+        },
+        {
+          "name": "Pricing-2",
+          "url": "/pricing-2"
+        },
+        {
+          "name": "Privacy Policy",
+          "url": "/privacy-policy"
+        },
+        {
+          "name": "FAQ",
+          "url": "/faq"
+        },
+        {
+          "name": "Changelog",
+          "url": "/changelog"
+        },
+        {
+          "name": "Elements",
+          "url": "/elements"
+        },
+        {
+          "name": "404",
+          "url": "/404"
+        }
+      ]
+    }
+  ],
+  "footer": [
+    {
+      "name": "Quick Links",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "About",
+          "url": "/about"
+        },
+        {
+          "name": "Services",
+          "url": "/services"
+        },
+        {
+          "name": "Pricing",
+          "url": "/pricing"
+        },
+        {
+          "name": "Contact",
+          "url": "/contact"
+        }
+      ]
+    }
+  ]
+}

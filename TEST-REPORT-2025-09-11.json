@@ -1,0 +1,140 @@
+{
+  "date": "2025-09-11T09:12:17.025Z",
+  "results": [
+    {
+      "category": "Templates",
+      "test": "Import template modulaire",
+      "status": "success",
+      "details": "plombier-urgence-modulaire.ts trouvé"
+    },
+    {
+      "category": "Templates",
+      "test": "Génération API",
+      "status": "warning",
+      "details": "API non disponible - serveur arrêté?"
+    },
+    {
+      "category": "Templates",
+      "test": "Inventaire templates",
+      "status": "success",
+      "details": "30 total (8 modulaires, 22 non-modulaires)"
+    },
+    {
+      "category": "CMS",
+      "test": "Service cms-injector.service.ts",
+      "status": "success",
+      "details": "Présent"
+    },
+    {
+      "category": "CMS",
+      "test": "Service supabase-cms.service.ts",
+      "status": "success",
+      "details": "Présent"
+    },
+    {
+      "category": "CMS",
+      "test": "Service cms-integration.service.ts",
+      "status": "success",
+      "details": "Présent"
+    },
+    {
+      "category": "CMS",
+      "test": "Configuration Supabase",
+      "status": "warning",
+      "details": "Variables non configurées"
+    },
+    {
+      "category": "Déploiement",
+      "test": "Service Netlify",
+      "status": "success",
+      "details": "netlify-deploy-correct.service.ts présent"
+    },
+    {
+      "category": "Déploiement",
+      "test": "Token Netlify",
+      "status": "warning",
+      "details": "Non configuré - déploiement impossible"
+    },
+    {
+      "category": "Déploiement",
+      "test": "Export statique",
+      "status": "success",
+      "details": "Service disponible"
+    },
+    {
+      "category": "API",
+      "test": "Liste projets",
+      "status": "warning",
+      "details": "Serveur non accessible"
+    },
+    {
+      "category": "API",
+      "test": "Liste clients",
+      "status": "warning",
+      "details": "Serveur non accessible"
+    },
+    {
+      "category": "API",
+      "test": "Export endpoint",
+      "status": "warning",
+      "details": "Serveur non accessible"
+    },
+    {
+      "category": "Build",
+      "test": "Compilation Next.js",
+      "status": "error",
+      "details": "Command failed: npm run build\nturbo 2.5.4\n\n@awema/templates:build: ERROR: command finished with error: command (/home/Ganyc/Desktop/awema/awema2/packages/templates) /home/Ganyc/Desktop/awema/awema2/node_modules/.bin/pnpm run build exited (2)\n@awema/templates#build: command (/home/Ganyc/Desktop/awema/awema2/packages/templates) /home/Ganyc/Desktop/awema/awema2/node_modules/.bin/pnpm run build exited (2)\n ERROR  run failed: command  exited (2)\n"
+    },
+    {
+      "category": "Performance",
+      "test": "Taille /public",
+      "status": "warning",
+      "details": "53M - Nettoyage recommandé"
+    },
+    {
+      "category": "Performance",
+      "test": "Nombre de services",
+      "status": "success",
+      "details": "124 services"
+    }
+  ],
+  "categories": {
+    "Templates": {
+      "success": 2,
+      "warning": 1,
+      "error": 0,
+      "total": 3
+    },
+    "CMS": {
+      "success": 3,
+      "warning": 1,
+      "error": 0,
+      "total": 4
+    },
+    "Déploiement": {
+      "success": 2,
+      "warning": 1,
+      "error": 0,
+      "total": 3
+    },
+    "API": {
+      "success": 0,
+      "warning": 3,
+      "error": 0,
+      "total": 3
+    },
+    "Build": {
+      "success": 0,
+      "warning": 0,
+      "error": 1,
+      "total": 1
+    },
+    "Performance": {
+      "success": 1,
+      "warning": 1,
+      "error": 0,
+      "total": 2
+    }
+  },
+  "globalScore": 50
+}

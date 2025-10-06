@@ -1,0 +1,128 @@
+.header {
+  @apply bg-light py-7;
+}
+
+/* navbar items */
+.navbar {
+  @apply lg:relative flex flex-wrap items-center justify-between;
+}
+
+.navbar-brand {
+  @apply text-xl font-semibold text-dark;
+  image {
+    @apply max-h-full max-w-full;
+  }
+}
+
+.navbar-nav {
+  @apply text-center invisible lg:visible lg:text-left max-lg:scale-75 transition-all duration-300 mt-5 lg:mt-0 p-5 lg:p-0 rounded max-lg:absolute max-lg:top-16 max-lg:left-1/2 max-lg:-translate-x-1/2 max-lg:opacity-0;
+}
+.nav-item {
+  @apply px-2 xl:px-3;
+}
+.nav-item:hover .nav-dropdown-list {
+  @apply lg:h-auto lg:overflow-auto lg:visible lg:opacity-100;
+}
+.nav-item:hover .nav-dropdown-list::after {
+  @apply lg:h-full;
+}
+.nav-item:hover .nav-dropdown-list .nav-dropdown-item {
+  @apply lg:opacity-100 lg:visible lg:translate-y-0;
+}
+.nav-link {
+  @apply block p-2 lg:p-3 font-medium font-primary text-dark xl:text-base lg:text-sm lg:px-2 lg:py-3 hover:text-primary lg:transition-all cursor-pointer lg:duration-200;
+}
+.nav-link.active {
+  @apply text-primary;
+}
+.nav-dropdown {
+  @apply mr-0;
+}
+/* First, modify your .nav-dropdown-list styles */
+.nav-dropdown-list {
+  @apply w-[220px] py-3 px-2.5 mx-auto bg-primary/10 lg:bg-transparent rounded-md hidden text-left;
+}
+/* For mobile, show only when active class is present */
+.nav-dropdown-list.active {
+  @apply block;
+}
+.nav-dropdown-list-lg {
+  @apply w-[270px] py-[20px] text-left;
+}
+.nav-dropdown-list-lg li:not(:last-child) {
+  @apply mb-4;
+}
+
+@media (min-width: 1024px) {
+  .nav-dropdown-list {
+    transition: 0.2s;
+    @apply block h-0 invisible overflow-hidden opacity-0 left-1/2 -translate-x-1/2 rounded-md z-10 absolute bg-white;
+  }
+  .nav-dropdown-list::after {
+    box-shadow: 0 10px 30px rgba(22, 28, 45, 0.1);
+    @apply absolute content-[""] h-0 w-full bg-white  top-0 left-0 z-[-1] rounded-md;
+  }
+  .nav-dropdown-list li {
+    @apply opacity-0 invisible -translate-y-[5px];
+  }
+  /* Important: Even when active, respect hover rules on desktop */
+  .nav-dropdown-list.active {
+    @apply lg:hidden lg:h-0 lg:invisible;
+  }
+  .nav-dropdown:hover .nav-dropdown-list {
+    @apply h-auto visible overflow-visible opacity-100;
+  }
+  .nav-dropdown:hover .nav-dropdown-list::after {
+    @apply h-full;
+    transition: 0.3s ease-out;
+  }
+  .nav-dropdown:hover .nav-dropdown-list li {
+    @apply opacity-100 visible translate-y-0;
+    transition: 0.25s;
+  }
+}
+
+.nav-dropdown-link {
+  @apply block text-dark text-[15px] font-medium  transition hover:text-primary hover:bg-primary/10 py-1.5 px-3 rounded-sm;
+}
+
+/* theme-switcher */
+.theme-switcher {
+  @apply inline-flex;
+
+  label {
+    @apply relative inline-block h-4 w-6 cursor-pointer rounded-2xl bg-border lg:w-10;
+  }
+
+  input {
+    @apply absolute opacity-0;
+  }
+
+  span {
+    @apply absolute -top-1 left-0 flex h-6 w-6 items-center justify-center rounded-full bg-dark transition-all duration-300;
+  }
+
+  input:checked + label {
+    span {
+      @apply lg:left-4;
+    }
+  }
+}
+
+/* search style */
+.search-icon {
+  @apply cursor-pointer p-2 text-xl text-dark hover:text-primary;
+}
+
+.search-modal {
+  @apply invisible absolute left-0 right-0 top-0 z-10 h-10 bg-white opacity-0 transition  md:h-full;
+}
+.search-modal .form-input {
+  @apply h-full w-full border-0 text-lg;
+}
+.search-modal .search-close {
+  @apply absolute right-2 top-1/2 -translate-y-1/2 p-3 text-h4;
+}
+.search-modal.open {
+  @apply visible opacity-100;
+}

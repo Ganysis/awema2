@@ -1,0 +1,44 @@
+{
+  "site": {
+    "title": "Plomberie ProExpert - Paris",
+    "base_url": "https://proexpert-paris.fr",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.png",
+    "logo": "/images/logo.svg",
+    "logo_footer": "/images/logo-footer.svg",
+    "logo_width": "200",
+    "logo_height": "40",
+    "logo_text": "ProExpert"
+  },
+  "settings": {
+    "pagination": 6
+  },
+  "params": {
+    "contact_form_action": "#",
+    "address": "Paris, France",
+    "phone": "0123456789",
+    "email": "contact@proexpert.fr",
+    "footer_title": "Besoin d'un Électricien ?",
+    "footer_content": "Contactez votre électricien certifié pour tous vos travaux électriques. Garantie décennale et devis gratuit."
+  },
+  "navigation_button": {
+    "enable": true,
+    "label": "Devis Gratuit",
+    "link": "/contact"
+  },
+  "footer_button": {
+    "enable": true,
+    "label": "Contactez-nous",
+    "link": "/contact"
+  },
+  "google_tag_manager": {
+    "enable": false,
+    "gtm_id": "GTM-XXXXXX"
+  },
+  "metadata": {
+    "meta_author": "Électricité ElecPro",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "Électricité ElecPro à Lyon. Dépannage Électrique, Installation Tableau. Intervention rapide."
+  }
+}

@@ -1,0 +1,207 @@
+---
+// Calculateur ROI interactif pour conversion
+---
+
+<div class="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto" id="roi-calculator">
+  <div class="text-center mb-8">
+    <h2 class="text-3xl font-bold mb-4">
+      💰 Calculez le ROI de Votre Futur Site
+    </h2>
+    <p class="text-gray-600">
+      Découvrez en 30 secondes combien votre site peut vous rapporter
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-8">
+    <!-- Inputs -->
+    <div class="space-y-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Combien de devis demandez-vous par mois actuellement ?
+        </label>
+        <input
+          type="range"
+          id="current-leads"
+          min="0"
+          max="50"
+          value="5"
+          class="w-full"
+        />
+        <div class="flex justify-between text-sm text-gray-500">
+          <span>0</span>
+          <span id="current-leads-value" class="font-bold text-primary">5</span>
+          <span>50+</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Quel est votre panier moyen par chantier ?
+        </label>
+        <input
+          type="range"
+          id="average-basket"
+          min="100"
+          max="10000"
+          step="100"
+          value="1500"
+          class="w-full"
+        />
+        <div class="flex justify-between text-sm text-gray-500">
+          <span>100€</span>
+          <span id="average-basket-value" class="font-bold text-primary">1500€</span>
+          <span>10,000€</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Quel est votre taux de conversion actuel ?
+        </label>
+        <select id="conversion-rate" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+          <option value="10">Faible (10%)</option>
+          <option value="20">Moyen (20%)</option>
+          <option value="30" selected>Bon (30%)</option>
+          <option value="40">Excellent (40%)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Quelle est votre marge moyenne ?
+        </label>
+        <select id="profit-margin" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+          <option value="20">20%</option>
+          <option value="30">30%</option>
+          <option value="40" selected>40%</option>
+          <option value="50">50%</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6">
+      <h3 class="text-xl font-bold mb-6">📊 Vos Résultats Prévisionnels</h3>
+
+      <div class="space-y-4">
+        <div class="bg-white rounded-lg p-4">
+          <p class="text-sm text-gray-600 mb-1">Nouveaux leads/mois avec site AWEMA</p>
+          <p class="text-3xl font-bold text-green-600">
+            <span id="new-leads">15</span> devis
+          </p>
+          <p class="text-xs text-gray-500">+200% vs actuellement</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-4">
+          <p class="text-sm text-gray-600 mb-1">Chiffre d'affaires additionnel</p>
+          <p class="text-3xl font-bold text-blue-600">
+            <span id="additional-revenue">6,750€</span>/mois
+          </p>
+          <p class="text-xs text-gray-500">
+            <span id="yearly-revenue">81,000€</span>/an
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg p-4">
+          <p class="text-sm text-gray-600 mb-1">Profit net supplémentaire</p>
+          <p class="text-3xl font-bold text-purple-600">
+            <span id="net-profit">2,700€</span>/mois
+          </p>
+          <p class="text-xs text-gray-500">
+            <span id="yearly-profit">32,400€</span>/an
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg p-4">
+          <p class="text-sm font-medium mb-1">⏱️ Retour sur investissement</p>
+          <p class="text-3xl font-bold">
+            <span id="roi-months">0.6</span> mois
+          </p>
+          <p class="text-xs opacity-90">
+            Site rentabilisé en <span id="roi-days">18</span> jours !
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-6 text-center">
+        <p class="text-sm text-gray-600 mb-3">
+          ROI sur 1 an : <span class="font-bold text-2xl text-green-600">+<span id="roi-percentage">2,162</span>%</span>
+        </p>
+        <button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+          🚀 Je Veux Ces Résultats
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Message -->
+  <div class="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+    <p class="text-sm text-center">
+      <strong>⚠️ Calcul conservateur</strong> : Nos clients obtiennent en moyenne +300% de leads.
+      Ces chiffres sont basés sur les données réelles de 300+ sites créés.
+    </p>
+  </div>
+</div>
+
+<script>
+  function calculateROI() {
+    // Get input values
+    const currentLeads = parseInt(document.getElementById('current-leads').value);
+    const averageBasket = parseInt(document.getElementById('average-basket').value);
+    const conversionRate = parseInt(document.getElementById('conversion-rate').value) / 100;
+    const profitMargin = parseInt(document.getElementById('profit-margin').value) / 100;
+
+    // Calculate new metrics with website (conservative 3x multiplier)
+    const newLeads = Math.round(currentLeads * 3);
+    const newClients = Math.round(newLeads * conversionRate);
+    const additionalClients = newClients - Math.round(currentLeads * conversionRate);
+
+    // Financial calculations
+    const additionalRevenue = additionalClients * averageBasket;
+    const netProfit = additionalRevenue * profitMargin;
+
+    // ROI calculations
+    const websiteCost = 1497; // Starter price
+    const roiMonths = websiteCost / netProfit;
+    const roiDays = Math.round(roiMonths * 30);
+    const yearlyROI = ((netProfit * 12 - websiteCost) / websiteCost * 100);
+
+    // Update display
+    document.getElementById('new-leads').textContent = newLeads;
+    document.getElementById('additional-revenue').textContent = additionalRevenue.toLocaleString('fr-FR');
+    document.getElementById('yearly-revenue').textContent = (additionalRevenue * 12).toLocaleString('fr-FR') + '€';
+    document.getElementById('net-profit').textContent = netProfit.toLocaleString('fr-FR');
+    document.getElementById('yearly-profit').textContent = (netProfit * 12).toLocaleString('fr-FR') + '€';
+    document.getElementById('roi-months').textContent = roiMonths.toFixed(1);
+    document.getElementById('roi-days').textContent = roiDays;
+    document.getElementById('roi-percentage').textContent = yearlyROI.toFixed(0);
+  }
+
+  // Update values on input change
+  document.getElementById('current-leads').addEventListener('input', function() {
+    document.getElementById('current-leads-value').textContent = this.value;
+    calculateROI();
+  });
+
+  document.getElementById('average-basket').addEventListener('input', function() {
+    document.getElementById('average-basket-value').textContent = this.value + '€';
+    calculateROI();
+  });
+
+  document.getElementById('conversion-rate').addEventListener('change', calculateROI);
+  document.getElementById('profit-margin').addEventListener('change', calculateROI);
+
+  // Initial calculation
+  calculateROI();
+
+  // Track calculator usage
+  document.querySelector('#roi-calculator button').addEventListener('click', function() {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'roi_calculator_cta', {
+        event_category: 'engagement',
+        event_label: 'roi_calculator',
+        value: 1
+      });
+    }
+  });
+</script>

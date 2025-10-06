@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#FFF8E1"/>
+
+  <!-- Cuisine en bois -->
+  <!-- Plan de travail -->
+  <rect x="80" y="130" width="240" height="15" fill="#8B4513"/>
+
+  <!-- Meubles bas -->
+  <rect x="80" y="145" width="60" height="80" fill="#A0522D"/>
+  <rect x="150" y="145" width="60" height="80" fill="#A0522D"/>
+  <rect x="220" y="145" width="60" height="80" fill="#A0522D"/>
+
+  <!-- Portes -->
+  <rect x="85" y="150" width="50" height="70" fill="#D2691E"/>
+  <rect x="155" y="150" width="50" height="70" fill="#D2691E"/>
+  <rect x="225" y="150" width="50" height="70" fill="#D2691E"/>
+
+  <!-- Poignées -->
+  <rect x="107" y="180" width="6" height="20" fill="#C0C0C0"/>
+  <rect x="177" y="180" width="6" height="20" fill="#C0C0C0"/>
+  <rect x="247" y="180" width="6" height="20" fill="#C0C0C0"/>
+
+  <!-- Meubles hauts -->
+  <rect x="90" y="50" width="50" height="60" fill="#A0522D"/>
+  <rect x="150" y="50" width="50" height="60" fill="#A0522D"/>
+  <rect x="210" y="50" width="50" height="60" fill="#A0522D"/>
+
+  <!-- Portes hautes -->
+  <rect x="94" y="54" width="42" height="52" fill="#D2691E"/>
+  <rect x="154" y="54" width="42" height="52" fill="#D2691E"/>
+  <rect x="214" y="54" width="42" height="52" fill="#D2691E"/>
+
+  <!-- Évier -->
+  <ellipse cx="290" cy="137" rx="25" ry="8" fill="#E0E0E0"/>
+
+  <!-- Veines du bois -->
+  <path d="M90 160 Q110 165, 130 160" stroke="#5D4037" stroke-width="1" fill="none" opacity="0.5"/>
+  <path d="M160 160 Q180 165, 200 160" stroke="#5D4037" stroke-width="1" fill="none" opacity="0.5"/>
+
+  <!-- Texte -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#8B4513" text-anchor="middle">
+    Cuisine sur Mesure
+  </text>
+</svg>

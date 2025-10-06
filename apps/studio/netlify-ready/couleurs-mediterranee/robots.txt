@@ -1,5 +1,0 @@
-
-User-agent: *
-Allow: /
-
-Sitemap: https://couleurs-mediterranee.netlify.app/sitemap.xml

@@ -1,0 +1,1543 @@
+{
+  "date": "2025-09-11T09:22:21.862Z",
+  "duration": 43.906,
+  "stats": {
+    "startTime": 1757582497914,
+    "totalTests": 90,
+    "passedTests": 68,
+    "failedTests": 5,
+    "warningTests": 13,
+    "apiCalls": 0,
+    "filesChecked": 168,
+    "totalFileSize": 1579477
+  },
+  "results": [
+    {
+      "category": "Templates",
+      "test": "Templates modulaires",
+      "status": "success",
+      "details": "8 fichiers (405.43 KB)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.667Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Templates non-modulaires",
+      "status": "success",
+      "details": "22 fichiers (1.11 MB)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.667Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Fichiers de base",
+      "status": "success",
+      "details": "0 fichiers",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.667Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Structure architecte-moderne-modulaire.ts",
+      "status": "success",
+      "details": "Valide",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.668Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Structure artisan-luxury-modulaire.ts",
+      "status": "success",
+      "details": "Valide",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.669Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Structure electricien-swiss-modulaire.ts",
+      "status": "success",
+      "details": "Valide",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.669Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Structure menuisier-artisan-modulaire.ts",
+      "status": "success",
+      "details": "Valide",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.669Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Structure paysagiste-nature-organic-modulaire-pro.ts",
+      "status": "success",
+      "details": "Valide",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.670Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Structure paysagiste-nature-organic-modulaire.ts",
+      "status": "success",
+      "details": "Valide",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.670Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Structure plombier-urgence-modulaire.ts",
+      "status": "success",
+      "details": "Valide",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.670Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Structure plombier-urgence-premium-modulaire.ts",
+      "status": "success",
+      "details": "Valide",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.671Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Méthode base: generateHomePageInternal",
+      "status": "error",
+      "details": "Manquante",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.671Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Méthode base: getConfig",
+      "status": "success",
+      "details": "Présente",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.671Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Méthode base: generateNavigation",
+      "status": "error",
+      "details": "Manquante",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.671Z"
+    },
+    {
+      "category": "Templates",
+      "test": "Méthode base: generateFooter",
+      "status": "success",
+      "details": "Présente",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.671Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Service cms-injector.service.ts",
+      "status": "success",
+      "details": "16.63 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.741Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Service supabase-cms.service.ts",
+      "status": "success",
+      "details": "11.09 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.741Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Service cms-integration.service.ts",
+      "status": "success",
+      "details": "18.77 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.741Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Service cms-template-bridge.service.ts",
+      "status": "success",
+      "details": "12.94 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.741Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Service cms-export-integration.ts",
+      "status": "success",
+      "details": "36.29 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.741Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Service cms-page-editor.ts",
+      "status": "success",
+      "details": "28.89 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.741Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Service cms-page-editor-enhanced.ts",
+      "status": "success",
+      "details": "44.31 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.741Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Service cms-page-editor-simple.ts",
+      "status": "success",
+      "details": "18.34 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.742Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Services CMS total",
+      "status": "success",
+      "details": "8/8 présents (187.27 KB)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.742Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Variable NEXT_PUBLIC_SUPABASE_URL",
+      "status": "warning",
+      "details": "Non configurée",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.742Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Variable NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "status": "warning",
+      "details": "Non configurée",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.742Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Variable SUPABASE_SERVICE_ROLE_KEY",
+      "status": "warning",
+      "details": "Non configurée",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.742Z"
+    },
+    {
+      "category": "CMS",
+      "test": "Configuration Supabase",
+      "status": "warning",
+      "details": "0/3 variables configurées",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.742Z"
+    },
+    {
+      "category": "Déploiement",
+      "test": "Service principal Netlify",
+      "status": "success",
+      "details": "16.28 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.800Z"
+    },
+    {
+      "category": "Déploiement",
+      "test": "Export statique simplifié",
+      "status": "success",
+      "details": "938 B",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.800Z"
+    },
+    {
+      "category": "Déploiement",
+      "test": "Export service corrigé",
+      "status": "success",
+      "details": "11.16 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.800Z"
+    },
+    {
+      "category": "Déploiement",
+      "test": "Déploiement automatique",
+      "status": "success",
+      "details": "15.59 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.800Z"
+    },
+    {
+      "category": "Déploiement",
+      "test": "Déploiement Netlify réel",
+      "status": "success",
+      "details": "6.82 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.800Z"
+    },
+    {
+      "category": "Déploiement",
+      "test": "Générateur de fonctions",
+      "status": "success",
+      "details": "5.82 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.800Z"
+    },
+    {
+      "category": "Déploiement",
+      "test": "NETLIFY_AUTH_TOKEN",
+      "status": "warning",
+      "details": "Non configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.800Z"
+    },
+    {
+      "category": "Déploiement",
+      "test": "NETLIFY_SITE_ID",
+      "status": "warning",
+      "details": "Non configuré",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.800Z"
+    },
+    {
+      "category": "Déploiement",
+      "test": "netlify.toml",
+      "status": "warning",
+      "details": "Configuration incomplète",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.800Z"
+    },
+    {
+      "category": "API",
+      "test": "Serveur",
+      "status": "error",
+      "details": "Serveur non accessible - démarrez avec npm run dev",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:02.920Z"
+    },
+    {
+      "category": "Build",
+      "test": "TypeScript check",
+      "status": "error",
+      "details": "0 erreurs",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:07.832Z"
+    },
+    {
+      "category": "Build",
+      "test": "ESLint",
+      "status": "warning",
+      "details": "Warnings ou erreurs de lint",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:15.670Z"
+    },
+    {
+      "category": "Build",
+      "test": "Build Next.js",
+      "status": "error",
+      "details": "Command failed: npm run build\nturbo 2.5.4\n\n@awema/templates:build: ERROR: command finished with erro",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.172Z"
+    },
+    {
+      "category": "Performance",
+      "test": "Taille public",
+      "status": "success",
+      "details": "48.49 MB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.206Z"
+    },
+    {
+      "category": "Performance",
+      "test": "Taille lib/services",
+      "status": "success",
+      "details": "2.28 MB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.222Z"
+    },
+    {
+      "category": "Performance",
+      "test": "Taille lib/templates",
+      "status": "warning",
+      "details": "4.46 MB (max: 3.00 MB)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.229Z"
+    },
+    {
+      "category": "Performance",
+      "test": "Taille .next",
+      "status": "warning",
+      "details": "271.76 MB (max: 200.00 MB)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.237Z"
+    },
+    {
+      "category": "Performance",
+      "test": "Taille node_modules",
+      "status": "success",
+      "details": "109.43 KB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.242Z"
+    },
+    {
+      "category": "Performance",
+      "test": "Fichiers *.ts",
+      "status": "success",
+      "details": "127 fichiers",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.255Z"
+    },
+    {
+      "category": "Performance",
+      "test": "Fichiers *.tsx",
+      "status": "success",
+      "details": "79 fichiers",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.259Z"
+    },
+    {
+      "category": "Performance",
+      "test": "Fichiers *.html",
+      "status": "warning",
+      "details": "1874 fichiers (max recommandé: 100)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.272Z"
+    },
+    {
+      "category": "Performance",
+      "test": "Fichiers *.css",
+      "status": "success",
+      "details": "2 fichiers",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.280Z"
+    },
+    {
+      "category": "Performance",
+      "test": "Base de données SQLite",
+      "status": "success",
+      "details": "6.57 MB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.280Z"
+    },
+    {
+      "category": "Performance",
+      "test": "Utilisation mémoire Node.js",
+      "status": "info",
+      "details": "Heap: 5.87 MB / 7.28 MB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.280Z"
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie html-generation",
+      "status": "success",
+      "details": "26 services (793.10 KB)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.283Z"
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie cms",
+      "status": "success",
+      "details": "21 services (395.25 KB)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.284Z"
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie deploy",
+      "status": "success",
+      "details": "20 services (147.92 KB)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.284Z"
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie ai-content",
+      "status": "success",
+      "details": "6 services (101.32 KB)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.284Z"
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie seo",
+      "status": "success",
+      "details": "2 services (26.51 KB)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.284Z"
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie workflow",
+      "status": "success",
+      "details": "1 services (17.55 KB)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.284Z"
+    },
+    {
+      "category": "Services",
+      "test": "Catégorie other",
+      "status": "success",
+      "details": "48 services (611.96 KB)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.284Z"
+    },
+    {
+      "category": "Services",
+      "test": "Service critique: site-generator.service.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.284Z"
+    },
+    {
+      "category": "Services",
+      "test": "Service critique: ultra-html-generator.service.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.284Z"
+    },
+    {
+      "category": "Services",
+      "test": "Service critique: static-export-simplified.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.284Z"
+    },
+    {
+      "category": "Services",
+      "test": "Service critique: netlify-deploy-correct.service.ts",
+      "status": "success",
+      "details": "Présent",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.284Z"
+    },
+    {
+      "category": "Database",
+      "test": "Schema Prisma",
+      "status": "success",
+      "details": "15 modèles définis",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.285Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle User",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Session",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Client",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Project",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Content",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle ContentVersion",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Media",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Lead",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Analytics",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle ActivityLog",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Invoice",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle Template",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle TemplateProposal",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle FormLink",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Modèle FormSubmission",
+      "status": "success",
+      "details": "Défini",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Base SQLite",
+      "status": "success",
+      "details": "6.57 MB",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.286Z"
+    },
+    {
+      "category": "Database",
+      "test": "Connexion SQLite",
+      "status": "warning",
+      "details": "sqlite3 non installé",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.290Z"
+    },
+    {
+      "category": "Database",
+      "test": "Migrations Prisma",
+      "status": "success",
+      "details": "4 migrations",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.291Z"
+    },
+    {
+      "category": "Sécurité",
+      "test": ".env.local",
+      "status": "success",
+      "details": "Présent (non versionné)",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.291Z"
+    },
+    {
+      "category": "Sécurité",
+      "test": "Headers HTTP",
+      "status": "warning",
+      "details": "Non configurés",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.291Z"
+    },
+    {
+      "category": "Sécurité",
+      "test": "CORS",
+      "status": "info",
+      "details": "À vérifier manuellement",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.291Z"
+    },
+    {
+      "category": "Sécurité",
+      "test": "Rate limiting",
+      "status": "info",
+      "details": "À implémenter si nécessaire",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.291Z"
+    },
+    {
+      "category": "Dépendances",
+      "test": "Dependencies",
+      "status": "success",
+      "details": "4 packages",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.292Z"
+    },
+    {
+      "category": "Dépendances",
+      "test": "DevDependencies",
+      "status": "success",
+      "details": "19 packages",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.292Z"
+    },
+    {
+      "category": "Dépendances",
+      "test": "typescript version",
+      "status": "success",
+      "details": "^5.4.5",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.292Z"
+    },
+    {
+      "category": "Dépendances",
+      "test": "Audit npm",
+      "status": "info",
+      "details": "Vérification rapide échouée",
+      "metadata": {},
+      "timestamp": "2025-09-11T09:22:21.819Z"
+    }
+  ],
+  "categories": {
+    "Templates": {
+      "success": 13,
+      "warning": 0,
+      "error": 2,
+      "total": 15,
+      "tests": [
+        {
+          "category": "Templates",
+          "test": "Templates modulaires",
+          "status": "success",
+          "details": "8 fichiers (405.43 KB)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.667Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Templates non-modulaires",
+          "status": "success",
+          "details": "22 fichiers (1.11 MB)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.667Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Fichiers de base",
+          "status": "success",
+          "details": "0 fichiers",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.667Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Structure architecte-moderne-modulaire.ts",
+          "status": "success",
+          "details": "Valide",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.668Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Structure artisan-luxury-modulaire.ts",
+          "status": "success",
+          "details": "Valide",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.669Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Structure electricien-swiss-modulaire.ts",
+          "status": "success",
+          "details": "Valide",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.669Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Structure menuisier-artisan-modulaire.ts",
+          "status": "success",
+          "details": "Valide",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.669Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Structure paysagiste-nature-organic-modulaire-pro.ts",
+          "status": "success",
+          "details": "Valide",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.670Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Structure paysagiste-nature-organic-modulaire.ts",
+          "status": "success",
+          "details": "Valide",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.670Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Structure plombier-urgence-modulaire.ts",
+          "status": "success",
+          "details": "Valide",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.670Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Structure plombier-urgence-premium-modulaire.ts",
+          "status": "success",
+          "details": "Valide",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.671Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Méthode base: generateHomePageInternal",
+          "status": "error",
+          "details": "Manquante",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.671Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Méthode base: getConfig",
+          "status": "success",
+          "details": "Présente",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.671Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Méthode base: generateNavigation",
+          "status": "error",
+          "details": "Manquante",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.671Z"
+        },
+        {
+          "category": "Templates",
+          "test": "Méthode base: generateFooter",
+          "status": "success",
+          "details": "Présente",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.671Z"
+        }
+      ]
+    },
+    "CMS": {
+      "success": 9,
+      "warning": 4,
+      "error": 0,
+      "total": 13,
+      "tests": [
+        {
+          "category": "CMS",
+          "test": "Service cms-injector.service.ts",
+          "status": "success",
+          "details": "16.63 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.741Z"
+        },
+        {
+          "category": "CMS",
+          "test": "Service supabase-cms.service.ts",
+          "status": "success",
+          "details": "11.09 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.741Z"
+        },
+        {
+          "category": "CMS",
+          "test": "Service cms-integration.service.ts",
+          "status": "success",
+          "details": "18.77 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.741Z"
+        },
+        {
+          "category": "CMS",
+          "test": "Service cms-template-bridge.service.ts",
+          "status": "success",
+          "details": "12.94 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.741Z"
+        },
+        {
+          "category": "CMS",
+          "test": "Service cms-export-integration.ts",
+          "status": "success",
+          "details": "36.29 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.741Z"
+        },
+        {
+          "category": "CMS",
+          "test": "Service cms-page-editor.ts",
+          "status": "success",
+          "details": "28.89 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.741Z"
+        },
+        {
+          "category": "CMS",
+          "test": "Service cms-page-editor-enhanced.ts",
+          "status": "success",
+          "details": "44.31 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.741Z"
+        },
+        {
+          "category": "CMS",
+          "test": "Service cms-page-editor-simple.ts",
+          "status": "success",
+          "details": "18.34 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.742Z"
+        },
+        {
+          "category": "CMS",
+          "test": "Services CMS total",
+          "status": "success",
+          "details": "8/8 présents (187.27 KB)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.742Z"
+        },
+        {
+          "category": "CMS",
+          "test": "Variable NEXT_PUBLIC_SUPABASE_URL",
+          "status": "warning",
+          "details": "Non configurée",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.742Z"
+        },
+        {
+          "category": "CMS",
+          "test": "Variable NEXT_PUBLIC_SUPABASE_ANON_KEY",
+          "status": "warning",
+          "details": "Non configurée",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.742Z"
+        },
+        {
+          "category": "CMS",
+          "test": "Variable SUPABASE_SERVICE_ROLE_KEY",
+          "status": "warning",
+          "details": "Non configurée",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.742Z"
+        },
+        {
+          "category": "CMS",
+          "test": "Configuration Supabase",
+          "status": "warning",
+          "details": "0/3 variables configurées",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.742Z"
+        }
+      ]
+    },
+    "Déploiement": {
+      "success": 6,
+      "warning": 3,
+      "error": 0,
+      "total": 9,
+      "tests": [
+        {
+          "category": "Déploiement",
+          "test": "Service principal Netlify",
+          "status": "success",
+          "details": "16.28 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.800Z"
+        },
+        {
+          "category": "Déploiement",
+          "test": "Export statique simplifié",
+          "status": "success",
+          "details": "938 B",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.800Z"
+        },
+        {
+          "category": "Déploiement",
+          "test": "Export service corrigé",
+          "status": "success",
+          "details": "11.16 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.800Z"
+        },
+        {
+          "category": "Déploiement",
+          "test": "Déploiement automatique",
+          "status": "success",
+          "details": "15.59 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.800Z"
+        },
+        {
+          "category": "Déploiement",
+          "test": "Déploiement Netlify réel",
+          "status": "success",
+          "details": "6.82 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.800Z"
+        },
+        {
+          "category": "Déploiement",
+          "test": "Générateur de fonctions",
+          "status": "success",
+          "details": "5.82 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.800Z"
+        },
+        {
+          "category": "Déploiement",
+          "test": "NETLIFY_AUTH_TOKEN",
+          "status": "warning",
+          "details": "Non configuré",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.800Z"
+        },
+        {
+          "category": "Déploiement",
+          "test": "NETLIFY_SITE_ID",
+          "status": "warning",
+          "details": "Non configuré",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.800Z"
+        },
+        {
+          "category": "Déploiement",
+          "test": "netlify.toml",
+          "status": "warning",
+          "details": "Configuration incomplète",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.800Z"
+        }
+      ]
+    },
+    "API": {
+      "success": 0,
+      "warning": 0,
+      "error": 1,
+      "total": 1,
+      "tests": [
+        {
+          "category": "API",
+          "test": "Serveur",
+          "status": "error",
+          "details": "Serveur non accessible - démarrez avec npm run dev",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:02.920Z"
+        }
+      ]
+    },
+    "Build": {
+      "success": 0,
+      "warning": 1,
+      "error": 2,
+      "total": 3,
+      "tests": [
+        {
+          "category": "Build",
+          "test": "TypeScript check",
+          "status": "error",
+          "details": "0 erreurs",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:07.832Z"
+        },
+        {
+          "category": "Build",
+          "test": "ESLint",
+          "status": "warning",
+          "details": "Warnings ou erreurs de lint",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:15.670Z"
+        },
+        {
+          "category": "Build",
+          "test": "Build Next.js",
+          "status": "error",
+          "details": "Command failed: npm run build\nturbo 2.5.4\n\n@awema/templates:build: ERROR: command finished with erro",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.172Z"
+        }
+      ]
+    },
+    "Performance": {
+      "success": 7,
+      "warning": 3,
+      "error": 0,
+      "total": 11,
+      "tests": [
+        {
+          "category": "Performance",
+          "test": "Taille public",
+          "status": "success",
+          "details": "48.49 MB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.206Z"
+        },
+        {
+          "category": "Performance",
+          "test": "Taille lib/services",
+          "status": "success",
+          "details": "2.28 MB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.222Z"
+        },
+        {
+          "category": "Performance",
+          "test": "Taille lib/templates",
+          "status": "warning",
+          "details": "4.46 MB (max: 3.00 MB)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.229Z"
+        },
+        {
+          "category": "Performance",
+          "test": "Taille .next",
+          "status": "warning",
+          "details": "271.76 MB (max: 200.00 MB)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.237Z"
+        },
+        {
+          "category": "Performance",
+          "test": "Taille node_modules",
+          "status": "success",
+          "details": "109.43 KB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.242Z"
+        },
+        {
+          "category": "Performance",
+          "test": "Fichiers *.ts",
+          "status": "success",
+          "details": "127 fichiers",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.255Z"
+        },
+        {
+          "category": "Performance",
+          "test": "Fichiers *.tsx",
+          "status": "success",
+          "details": "79 fichiers",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.259Z"
+        },
+        {
+          "category": "Performance",
+          "test": "Fichiers *.html",
+          "status": "warning",
+          "details": "1874 fichiers (max recommandé: 100)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.272Z"
+        },
+        {
+          "category": "Performance",
+          "test": "Fichiers *.css",
+          "status": "success",
+          "details": "2 fichiers",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.280Z"
+        },
+        {
+          "category": "Performance",
+          "test": "Base de données SQLite",
+          "status": "success",
+          "details": "6.57 MB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.280Z"
+        },
+        {
+          "category": "Performance",
+          "test": "Utilisation mémoire Node.js",
+          "status": "info",
+          "details": "Heap: 5.87 MB / 7.28 MB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.280Z"
+        }
+      ],
+      "info": null
+    },
+    "Services": {
+      "success": 11,
+      "warning": 0,
+      "error": 0,
+      "total": 11,
+      "tests": [
+        {
+          "category": "Services",
+          "test": "Catégorie html-generation",
+          "status": "success",
+          "details": "26 services (793.10 KB)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.283Z"
+        },
+        {
+          "category": "Services",
+          "test": "Catégorie cms",
+          "status": "success",
+          "details": "21 services (395.25 KB)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.284Z"
+        },
+        {
+          "category": "Services",
+          "test": "Catégorie deploy",
+          "status": "success",
+          "details": "20 services (147.92 KB)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.284Z"
+        },
+        {
+          "category": "Services",
+          "test": "Catégorie ai-content",
+          "status": "success",
+          "details": "6 services (101.32 KB)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.284Z"
+        },
+        {
+          "category": "Services",
+          "test": "Catégorie seo",
+          "status": "success",
+          "details": "2 services (26.51 KB)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.284Z"
+        },
+        {
+          "category": "Services",
+          "test": "Catégorie workflow",
+          "status": "success",
+          "details": "1 services (17.55 KB)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.284Z"
+        },
+        {
+          "category": "Services",
+          "test": "Catégorie other",
+          "status": "success",
+          "details": "48 services (611.96 KB)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.284Z"
+        },
+        {
+          "category": "Services",
+          "test": "Service critique: site-generator.service.ts",
+          "status": "success",
+          "details": "Présent",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.284Z"
+        },
+        {
+          "category": "Services",
+          "test": "Service critique: ultra-html-generator.service.ts",
+          "status": "success",
+          "details": "Présent",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.284Z"
+        },
+        {
+          "category": "Services",
+          "test": "Service critique: static-export-simplified.ts",
+          "status": "success",
+          "details": "Présent",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.284Z"
+        },
+        {
+          "category": "Services",
+          "test": "Service critique: netlify-deploy-correct.service.ts",
+          "status": "success",
+          "details": "Présent",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.284Z"
+        }
+      ]
+    },
+    "Database": {
+      "success": 18,
+      "warning": 1,
+      "error": 0,
+      "total": 19,
+      "tests": [
+        {
+          "category": "Database",
+          "test": "Schema Prisma",
+          "status": "success",
+          "details": "15 modèles définis",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.285Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle User",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle Session",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle Client",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle Project",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle Content",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle ContentVersion",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle Media",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle Lead",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle Analytics",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle ActivityLog",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle Invoice",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle Template",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle TemplateProposal",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle FormLink",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Modèle FormSubmission",
+          "status": "success",
+          "details": "Défini",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Base SQLite",
+          "status": "success",
+          "details": "6.57 MB",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.286Z"
+        },
+        {
+          "category": "Database",
+          "test": "Connexion SQLite",
+          "status": "warning",
+          "details": "sqlite3 non installé",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.290Z"
+        },
+        {
+          "category": "Database",
+          "test": "Migrations Prisma",
+          "status": "success",
+          "details": "4 migrations",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.291Z"
+        }
+      ]
+    },
+    "Sécurité": {
+      "success": 1,
+      "warning": 1,
+      "error": 0,
+      "total": 4,
+      "tests": [
+        {
+          "category": "Sécurité",
+          "test": ".env.local",
+          "status": "success",
+          "details": "Présent (non versionné)",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.291Z"
+        },
+        {
+          "category": "Sécurité",
+          "test": "Headers HTTP",
+          "status": "warning",
+          "details": "Non configurés",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.291Z"
+        },
+        {
+          "category": "Sécurité",
+          "test": "CORS",
+          "status": "info",
+          "details": "À vérifier manuellement",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.291Z"
+        },
+        {
+          "category": "Sécurité",
+          "test": "Rate limiting",
+          "status": "info",
+          "details": "À implémenter si nécessaire",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.291Z"
+        }
+      ],
+      "info": null
+    },
+    "Dépendances": {
+      "success": 3,
+      "warning": 0,
+      "error": 0,
+      "total": 4,
+      "tests": [
+        {
+          "category": "Dépendances",
+          "test": "Dependencies",
+          "status": "success",
+          "details": "4 packages",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.292Z"
+        },
+        {
+          "category": "Dépendances",
+          "test": "DevDependencies",
+          "status": "success",
+          "details": "19 packages",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.292Z"
+        },
+        {
+          "category": "Dépendances",
+          "test": "typescript version",
+          "status": "success",
+          "details": "^5.4.5",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.292Z"
+        },
+        {
+          "category": "Dépendances",
+          "test": "Audit npm",
+          "status": "info",
+          "details": "Vérification rapide échouée",
+          "metadata": {},
+          "timestamp": "2025-09-11T09:22:21.819Z"
+        }
+      ],
+      "info": null
+    }
+  },
+  "globalScore": 76,
+  "verdict": "🟡 FONCTIONNEL - Des améliorations sont nécessaires"
+}

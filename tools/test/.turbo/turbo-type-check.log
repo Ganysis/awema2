@@ -1,0 +1,6 @@
+
+> @awema/test@0.0.1 type-check /home/Ganyc/Desktop/awema/awema2/tools/test
+> tsc --noEmit
+
+error TS18003: No inputs were found in config file '/home/Ganyc/Desktop/awema/awema2/tools/test/tsconfig.json'. Specified 'include' paths were '["../../packages/src/**/*"]' and 'exclude' paths were '["../../packages/node_modules","../../packages/dist","../../packages/**/*.test.ts","../../packages/**/*.spec.ts"]'.
+ ELIFECYCLE  Command failed with exit code 1.

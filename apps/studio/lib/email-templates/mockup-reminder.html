@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⏰ Dernière chance - {{businessName}}</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333333;
+      background-color: #f8fafc;
+    }
+
+    .email-container {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .email-header {
+      background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+      color: #ffffff;
+      padding: 35px 30px;
+      text-align: center;
+    }
+
+    .email-header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .email-header p {
+      font-size: 16px;
+      opacity: 0.95;
+    }
+
+    .email-content {
+      padding: 40px 30px;
+    }
+
+    .urgency-banner {
+      background: linear-gradient(135deg, #fed7d7 0%, #fbb6ce 100%);
+      border: 2px solid #f56565;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      margin-bottom: 35px;
+      box-shadow: 0 4px 12px rgba(245, 101, 101, 0.2);
+    }
+
+    .urgency-banner h2 {
+      font-size: 24px;
+      color: #c53030;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .urgency-banner p {
+      color: #744210;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .countdown {
+      background: #c53030;
+      color: white;
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 15px 0;
+    }
+
+    .reminder-text {
+      font-size: 18px;
+      color: #2d3748;
+      margin-bottom: 30px;
+      line-height: 1.7;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 35px;
+      border-radius: 16px;
+      text-align: center;
+      margin: 35px 0;
+    }
+
+    .cta-section h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .cta-section p {
+      opacity: 0.9;
+      margin-bottom: 25px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: #ffffff;
+      color: #667eea;
+      text-decoration: none;
+      padding: 18px 36px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 18px;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .mockup-preview {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0;
+      gap: 15px;
+    }
+
+    .mockup-thumb {
+      flex: 1;
+      text-align: center;
+      padding: 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      background: #f7fafc;
+    }
+
+    .mockup-thumb img {
+      width: 100%;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .mockup-thumb p {
+      font-size: 12px;
+      color: #718096;
+      font-weight: 600;
+    }
+
+    .email-footer {
+      background: #2d3748;
+      color: #a0aec0;
+      padding: 30px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .email-footer a {
+      color: #81e6d9;
+      text-decoration: none;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .email-container {
+        margin: 10px;
+      }
+
+      .email-header,
+      .email-content {
+        padding: 25px 20px;
+      }
+
+      .mockup-preview {
+        flex-direction: column;
+      }
+
+      .cta-btn {
+        padding: 16px 28px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <!-- Header -->
+    <div class="email-header">
+      <h1>⏰ Plus que 24h !</h1>
+      <p>Vos propositions expirent bientôt</p>
+    </div>
+
+    <!-- Content -->
+    <div class="email-content">
+      <div class="urgency-banner">
+        <h2>🚨 DERNIÈRE CHANCE</h2>
+        <div class="countdown">24H RESTANTES</div>
+        <p>Vos propositions personnalisées expirent demain</p>
+      </div>
+
+      <div class="reminder-text">
+        Bonjour <strong>{{clientName}}</strong>,<br><br>
+        Vous avez peut-être manqué nos <strong>3 propositions de site web</strong> pour <strong>{{businessName}}</strong> ?<br><br>
+        Ces designs personnalisés ont été créés spécialement pour votre activité de <strong>{{metier}}</strong> et ne seront plus disponibles après demain.
+      </div>
+
+      <!-- Mini aperçu des mockups -->
+      <div class="mockup-preview">
+        {{#each mockups}}
+        <div class="mockup-thumb">
+          {{#if screenshot}}
+          <img src="cid:thumb-{{id}}" alt="{{name}}">
+          {{/if}}
+          <p>{{name}}</p>
+        </div>
+        {{/each}}
+      </div>
+
+      <!-- CTA Principal -->
+      <div class="cta-section">
+        <h3>🎯 Ne ratez pas cette opportunité</h3>
+        <p>Découvrez vos 3 propositions personnalisées avant qu'il ne soit trop tard !</p>
+        <a href="{{mockupsUrl}}" class="cta-btn">Voir mes propositions →</a>
+      </div>
+
+      <div style="background: #f0fff4; border-left: 4px solid #48bb78; padding: 20px; border-radius: 6px; margin: 30px 0;">
+        <p style="color: #276749; font-weight: 600; margin: 0;">
+          💡 <strong>Besoin d'aide ?</strong><br>
+          Notre équipe est disponible au <strong>{{phoneNumber}}</strong><br>
+          Ou répondez simplement à cet email.
+        </p>
+      </div>
+
+      <div style="text-align: center; margin-top: 35px; color: #718096;">
+        <p>Cordialement,<br>
+        <strong style="color: #1a202c;">L'équipe AWEMA</strong></p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="email-footer">
+      <p>© 2025 AWEMA - Création de sites web professionnels</p>
+      <p>
+        <a href="{{unsubscribeUrl}}">Se désabonner</a> |
+        <a href="{{privacyUrl}}">Politique de confidentialité</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Tracking -->
+  <img src="{{trackingPixelUrl}}" width="1" height="1" style="display:none;">
+</body>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#F5F5F5"/>
+
+  <!-- Dalle de béton -->
+  <polygon points="80,180 320,180 340,220 60,220" fill="#757575"/>
+  <polygon points="80,180 320,180 320,160 80,160" fill="#9E9E9E"/>
+
+  <!-- Texture béton -->
+  <circle cx="150" cy="190" r="2" fill="#616161" opacity="0.5"/>
+  <circle cx="200" cy="195" r="2" fill="#616161" opacity="0.5"/>
+  <circle cx="250" cy="188" r="2" fill="#616161" opacity="0.5"/>
+  <circle cx="180" cy="200" r="2" fill="#616161" opacity="0.5"/>
+  <circle cx="220" cy="205" r="2" fill="#616161" opacity="0.5"/>
+
+  <!-- Règle de maçon -->
+  <rect x="100" y="150" width="200" height="8" fill="#FFC107"/>
+  <rect x="100" y="153" width="200" height="2" fill="#F57C00"/>
+
+  <!-- Niveau à bulle -->
+  <rect x="160" y="130" width="80" height="15" rx="3" fill="#4CAF50"/>
+  <rect x="190" y="133" width="20" height="9" rx="2" fill="#FFEB3B"/>
+  <circle cx="200" cy="137.5" r="3" fill="#2196F3"/>
+
+  <!-- Joints de dilatation -->
+  <line x1="140" y1="160" x2="140" y2="180" stroke="#424242" stroke-width="2"/>
+  <line x1="200" y1="160" x2="200" y2="180" stroke="#424242" stroke-width="2"/>
+  <line x1="260" y1="160" x2="260" y2="180" stroke="#424242" stroke-width="2"/>
+
+  <!-- Texte -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#6B7280" text-anchor="middle">
+    Dalle Béton
+  </text>
+</svg>

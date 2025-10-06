@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#F5F5F5"/>
+
+  <!-- Mur de briques -->
+  <!-- Rangée 1 -->
+  <rect x="80" y="80" width="40" height="20" fill="#B71C1C" stroke="#8B0000" stroke-width="1"/>
+  <rect x="122" y="80" width="40" height="20" fill="#C62828" stroke="#8B0000" stroke-width="1"/>
+  <rect x="164" y="80" width="40" height="20" fill="#B71C1C" stroke="#8B0000" stroke-width="1"/>
+  <rect x="206" y="80" width="40" height="20" fill="#C62828" stroke="#8B0000" stroke-width="1"/>
+  <rect x="248" y="80" width="40" height="20" fill="#B71C1C" stroke="#8B0000" stroke-width="1"/>
+  <rect x="290" y="80" width="30" height="20" fill="#C62828" stroke="#8B0000" stroke-width="1"/>
+
+  <!-- Rangée 2 -->
+  <rect x="80" y="102" width="20" height="20" fill="#C62828" stroke="#8B0000" stroke-width="1"/>
+  <rect x="102" y="102" width="40" height="20" fill="#B71C1C" stroke="#8B0000" stroke-width="1"/>
+  <rect x="144" y="102" width="40" height="20" fill="#C62828" stroke="#8B0000" stroke-width="1"/>
+  <rect x="186" y="102" width="40" height="20" fill="#B71C1C" stroke="#8B0000" stroke-width="1"/>
+  <rect x="228" y="102" width="40" height="20" fill="#C62828" stroke="#8B0000" stroke-width="1"/>
+  <rect x="270" y="102" width="40" height="20" fill="#B71C1C" stroke="#8B0000" stroke-width="1"/>
+  <rect x="312" y="102" width="8" height="20" fill="#C62828" stroke="#8B0000" stroke-width="1"/>
+
+  <!-- Rangée 3 -->
+  <rect x="80" y="124" width="40" height="20" fill="#B71C1C" stroke="#8B0000" stroke-width="1"/>
+  <rect x="122" y="124" width="40" height="20" fill="#C62828" stroke="#8B0000" stroke-width="1"/>
+  <rect x="164" y="124" width="40" height="20" fill="#B71C1C" stroke="#8B0000" stroke-width="1"/>
+  <rect x="206" y="124" width="40" height="20" fill="#C62828" stroke="#8B0000" stroke-width="1"/>
+  <rect x="248" y="124" width="40" height="20" fill="#B71C1C" stroke="#8B0000" stroke-width="1"/>
+  <rect x="290" y="124" width="30" height="20" fill="#C62828" stroke="#8B0000" stroke-width="1"/>
+
+  <!-- Mortier -->
+  <rect x="80" y="100" width="240" height="2" fill="#9E9E9E"/>
+  <rect x="80" y="122" width="240" height="2" fill="#9E9E9E"/>
+  <rect x="80" y="144" width="240" height="2" fill="#9E9E9E"/>
+
+  <!-- Truelle -->
+  <polygon points="150,160 170,160 165,180 155,180" fill="#616161"/>
+  <rect x="158" y="180" width="4" height="20" fill="#795548"/>
+  <rect x="155" y="200" width="10" height="5" fill="#5D4037"/>
+
+  <!-- Texte -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#6B7280" text-anchor="middle">
+    Construction Neuve
+  </text>
+</svg>

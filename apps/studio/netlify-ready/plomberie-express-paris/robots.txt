@@ -1,5 +1,0 @@
-
-User-agent: *
-Allow: /
-
-Sitemap: https://plomberie-express-paris.netlify.app/sitemap.xml

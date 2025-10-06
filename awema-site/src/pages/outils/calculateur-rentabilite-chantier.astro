@@ -1,0 +1,485 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+
+const meta = {
+  title: "Calculateur de Rentabilité Chantier BTP - AWEMA",
+  meta_title: "Calculateur Rentabilité Chantier ➤ Outil Gratuit BTP",
+  description: "Calculez la rentabilité réelle de vos chantiers BTP. Incluez tous les coûts cachés, calculez votre marge et évitez les chantiers à perte.",
+  image: "/images/outils/calculateur.jpg"
+};
+---
+
+<Base {...meta}>
+  <PageHeader title="Calculateur de Rentabilité Chantier" />
+
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <!-- Introduction -->
+          <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8">
+            <p class="font-semibold">
+              ⚠️ 73% des artisans BTP ne connaissent pas leur vraie marge.
+              Cet outil inclut TOUS les coûts cachés pour éviter les chantiers à perte.
+            </p>
+          </div>
+
+          <!-- Calculateur -->
+          <div class="bg-white rounded-lg shadow-lg p-8">
+            <h2 class="text-2xl font-bold mb-6">📊 Calculez Votre Rentabilité Réelle</h2>
+
+            <form id="calculateur-rentabilite" class="space-y-6">
+              <!-- Section 1: Main d'œuvre -->
+              <div class="border rounded-lg p-6 bg-gray-50">
+                <h3 class="font-bold text-lg mb-4">👷 Main d'œuvre</h3>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="form-label">Nombre d'heures prévues</label>
+                    <input
+                      type="number"
+                      id="heures"
+                      class="form-input"
+                      placeholder="40"
+                      value="40"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="form-label">Taux horaire (€/h)</label>
+                    <input
+                      type="number"
+                      id="taux_horaire"
+                      class="form-input"
+                      placeholder="35"
+                      value="35"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="form-label">Nombre d'ouvriers</label>
+                    <input
+                      type="number"
+                      id="nb_ouvriers"
+                      class="form-input"
+                      placeholder="2"
+                      value="2"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="form-label">Charges sociales (%)</label>
+                    <input
+                      type="number"
+                      id="charges_sociales"
+                      class="form-input"
+                      placeholder="45"
+                      value="45"
+                    />
+                  </div>
+                </div>
+
+                <div class="mt-4 p-3 bg-blue-50 rounded">
+                  <span class="font-semibold">Coût main d'œuvre : </span>
+                  <span id="cout_mo" class="text-xl text-primary font-bold">0€</span>
+                </div>
+              </div>
+
+              <!-- Section 2: Matériaux -->
+              <div class="border rounded-lg p-6 bg-gray-50">
+                <h3 class="font-bold text-lg mb-4">🔨 Matériaux & Fournitures</h3>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="form-label">Coût matériaux HT (€)</label>
+                    <input
+                      type="number"
+                      id="materiaux"
+                      class="form-input"
+                      placeholder="2500"
+                      value="2500"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="form-label">Marge fournisseur appliquée (%)</label>
+                    <input
+                      type="number"
+                      id="marge_fournisseur"
+                      class="form-input"
+                      placeholder="30"
+                      value="30"
+                    />
+                  </div>
+                </div>
+
+                <div class="mt-4 p-3 bg-blue-50 rounded">
+                  <span class="font-semibold">Prix matériaux client : </span>
+                  <span id="prix_materiaux" class="text-xl text-primary font-bold">0€</span>
+                </div>
+              </div>
+
+              <!-- Section 3: Frais annexes -->
+              <div class="border rounded-lg p-6 bg-gray-50">
+                <h3 class="font-bold text-lg mb-4">🚗 Frais Annexes</h3>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="form-label">Déplacements (km)</label>
+                    <input
+                      type="number"
+                      id="km"
+                      class="form-input"
+                      placeholder="100"
+                      value="100"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="form-label">Location matériel (€)</label>
+                    <input
+                      type="number"
+                      id="location"
+                      class="form-input"
+                      placeholder="0"
+                      value="0"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="form-label">Sous-traitance (€)</label>
+                    <input
+                      type="number"
+                      id="sous_traitance"
+                      class="form-input"
+                      placeholder="0"
+                      value="0"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="form-label">Autres frais (€)</label>
+                    <input
+                      type="number"
+                      id="autres_frais"
+                      class="form-input"
+                      placeholder="0"
+                      value="0"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 4: Frais généraux -->
+              <div class="border rounded-lg p-6 bg-gray-50">
+                <h3 class="font-bold text-lg mb-4">🏢 Frais Généraux & Aléas</h3>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="form-label">Frais généraux (% du total)</label>
+                    <select id="frais_generaux" class="form-input">
+                      <option value="10">10% - Activité optimisée</option>
+                      <option value="15" selected>15% - Standard</option>
+                      <option value="20">20% - Petite structure</option>
+                      <option value="25">25% - Début d'activité</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="form-label">Provision aléas (%)</label>
+                    <select id="aleas" class="form-input">
+                      <option value="5">5% - Chantier simple</option>
+                      <option value="10" selected>10% - Standard</option>
+                      <option value="15">15% - Chantier complexe</option>
+                      <option value="20">20% - Rénovation ancienne</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 5: Prix de vente -->
+              <div class="border rounded-lg p-6 bg-green-50">
+                <h3 class="font-bold text-lg mb-4">💰 Prix de Vente</h3>
+
+                <div>
+                  <label class="form-label">Prix de vente proposé au client (€ HT)</label>
+                  <input
+                    type="number"
+                    id="prix_vente"
+                    class="form-input text-xl font-bold"
+                    placeholder="8500"
+                    value="8500"
+                  />
+                </div>
+              </div>
+
+              <!-- Bouton Calculer -->
+              <button
+                type="button"
+                onclick="calculerRentabilite()"
+                class="btn btn-primary btn-lg w-full"
+              >
+                🔍 Analyser la Rentabilité
+              </button>
+            </form>
+
+            <!-- Résultats -->
+            <div id="resultats" class="hidden mt-8 space-y-6">
+              <!-- Résumé des coûts -->
+              <div class="bg-gray-100 rounded-lg p-6">
+                <h3 class="font-bold text-lg mb-4">📋 Détail des Coûts</h3>
+                <div class="space-y-2">
+                  <div class="flex justify-between">
+                    <span>Main d'œuvre (charges incluses) :</span>
+                    <span id="res_mo" class="font-semibold">0€</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Matériaux (prix d'achat) :</span>
+                    <span id="res_materiaux" class="font-semibold">0€</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Déplacements :</span>
+                    <span id="res_deplacements" class="font-semibold">0€</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Location + Sous-traitance :</span>
+                    <span id="res_location" class="font-semibold">0€</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Frais généraux :</span>
+                    <span id="res_frais_gen" class="font-semibold">0€</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Provision aléas :</span>
+                    <span id="res_aleas" class="font-semibold">0€</span>
+                  </div>
+                  <div class="border-t pt-2 mt-2">
+                    <div class="flex justify-between font-bold text-lg">
+                      <span>COÛT TOTAL RÉEL :</span>
+                      <span id="res_cout_total" class="text-red-600">0€</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Analyse rentabilité -->
+              <div id="analyse_rentabilite" class="rounded-lg p-6">
+                <h3 class="font-bold text-lg mb-4">💡 Analyse de Rentabilité</h3>
+
+                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                  <div class="text-center">
+                    <div class="text-3xl font-bold" id="res_marge_brute">0€</div>
+                    <div class="text-sm text-gray-600">Marge brute</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-3xl font-bold" id="res_marge_pourcent">0%</div>
+                    <div class="text-sm text-gray-600">Taux de marge</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-3xl font-bold" id="res_prix_horaire">0€/h</div>
+                    <div class="text-sm text-gray-600">Rentabilité horaire</div>
+                  </div>
+                </div>
+
+                <div id="verdict" class="p-4 rounded-lg text-center font-semibold"></div>
+
+                <div id="recommandations" class="mt-4 space-y-2"></div>
+              </div>
+
+              <!-- Prix conseillé -->
+              <div class="bg-blue-50 rounded-lg p-6">
+                <h3 class="font-bold text-lg mb-4">✅ Recommandation</h3>
+                <div id="prix_conseille" class="space-y-3"></div>
+              </div>
+
+              <!-- Actions -->
+              <div class="flex gap-4">
+                <button
+                  onclick="exporterPDF()"
+                  class="btn btn-outline-primary"
+                >
+                  📄 Exporter en PDF
+                </button>
+                <button
+                  onclick="nouvelleAnalyse()"
+                  class="btn btn-outline-primary"
+                >
+                  🔄 Nouvelle Analyse
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Conseils -->
+          <div class="mt-12 grid md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg p-6 shadow">
+              <h3 class="font-bold mb-3">💡 Astuce #1</h3>
+              <p class="text-sm">
+                N'oubliez jamais les frais généraux (assurance, véhicule, bureau...).
+                Ils représentent 15-20% de vos coûts.
+              </p>
+            </div>
+            <div class="bg-white rounded-lg p-6 shadow">
+              <h3 class="font-bold mb-3">🎯 Objectif Marge</h3>
+              <p class="text-sm">
+                Visez minimum 30% de marge brute.
+                En dessous de 20%, le chantier n'est pas rentable.
+              </p>
+            </div>
+            <div class="bg-white rounded-lg p-6 shadow">
+              <h3 class="font-bold mb-3">⚠️ Attention</h3>
+              <p class="text-sm">
+                Les "petits" chantiers coûtent proportionnellement plus cher.
+                Augmentez vos marges sur les interventions &lt; 1000€.
+              </p>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="mt-12 bg-gradient-to-r from-primary to-secondary text-white rounded-lg p-8 text-center">
+            <h2 class="text-2xl font-bold mb-4">
+              Augmentez Votre Rentabilité avec un Site Pro
+            </h2>
+            <p class="mb-6">
+              Un site AWEMA génère en moyenne 30 leads/mois.
+              Plus de choix = meilleurs chantiers = meilleures marges.
+            </p>
+            <a href="/contact?source=calculateur" class="btn btn-white">
+              Découvrir Comment
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function calculerRentabilite() {
+      // Récupération des valeurs
+      const heures = parseFloat(document.getElementById('heures').value) || 0;
+      const tauxHoraire = parseFloat(document.getElementById('taux_horaire').value) || 0;
+      const nbOuvriers = parseFloat(document.getElementById('nb_ouvriers').value) || 1;
+      const chargesSociales = parseFloat(document.getElementById('charges_sociales').value) || 45;
+      const materiaux = parseFloat(document.getElementById('materiaux').value) || 0;
+      const margeFournisseur = parseFloat(document.getElementById('marge_fournisseur').value) || 30;
+      const km = parseFloat(document.getElementById('km').value) || 0;
+      const location = parseFloat(document.getElementById('location').value) || 0;
+      const sousTraitance = parseFloat(document.getElementById('sous_traitance').value) || 0;
+      const autresFrais = parseFloat(document.getElementById('autres_frais').value) || 0;
+      const fraisGeneraux = parseFloat(document.getElementById('frais_generaux').value) || 15;
+      const aleas = parseFloat(document.getElementById('aleas').value) || 10;
+      const prixVente = parseFloat(document.getElementById('prix_vente').value) || 0;
+
+      // Calculs
+      const coutMO = heures * tauxHoraire * nbOuvriers * (1 + chargesSociales/100);
+      const coutDeplacements = km * 0.60; // 0.60€/km
+      const coutLocationST = location + sousTraitance + autresFrais;
+
+      const sousTotal = coutMO + materiaux + coutDeplacements + coutLocationST;
+      const coutFraisGen = sousTotal * (fraisGeneraux/100);
+      const coutAleas = sousTotal * (aleas/100);
+      const coutTotal = sousTotal + coutFraisGen + coutAleas;
+
+      const margeBrute = prixVente - coutTotal;
+      const margePourcent = (margeBrute / prixVente * 100);
+      const rentabiliteHoraire = margeBrute / (heures * nbOuvriers);
+
+      // Affichage temps réel
+      document.getElementById('cout_mo').textContent = coutMO.toFixed(0) + '€';
+      document.getElementById('prix_materiaux').textContent = (materiaux * (1 + margeFournisseur/100)).toFixed(0) + '€';
+
+      // Affichage résultats
+      document.getElementById('res_mo').textContent = coutMO.toFixed(0) + '€';
+      document.getElementById('res_materiaux').textContent = materiaux.toFixed(0) + '€';
+      document.getElementById('res_deplacements').textContent = coutDeplacements.toFixed(0) + '€';
+      document.getElementById('res_location').textContent = coutLocationST.toFixed(0) + '€';
+      document.getElementById('res_frais_gen').textContent = coutFraisGen.toFixed(0) + '€';
+      document.getElementById('res_aleas').textContent = coutAleas.toFixed(0) + '€';
+      document.getElementById('res_cout_total').textContent = coutTotal.toFixed(0) + '€';
+
+      document.getElementById('res_marge_brute').textContent = margeBrute.toFixed(0) + '€';
+      document.getElementById('res_marge_pourcent').textContent = margePourcent.toFixed(1) + '%';
+      document.getElementById('res_prix_horaire').textContent = rentabiliteHoraire.toFixed(0) + '€/h';
+
+      // Analyse et verdict
+      const verdictDiv = document.getElementById('verdict');
+      const analyseDiv = document.getElementById('analyse_rentabilite');
+      const recoDiv = document.getElementById('recommandations');
+      const prixConseilleDiv = document.getElementById('prix_conseille');
+
+      if (margePourcent < 0) {
+        verdictDiv.className = 'p-4 rounded-lg text-center font-semibold bg-red-100 text-red-700';
+        verdictDiv.innerHTML = '❌ CHANTIER À PERTE - REFUSER ABSOLUMENT';
+        analyseDiv.className = 'rounded-lg p-6 bg-red-50 border-2 border-red-500';
+      } else if (margePourcent < 20) {
+        verdictDiv.className = 'p-4 rounded-lg text-center font-semibold bg-orange-100 text-orange-700';
+        verdictDiv.innerHTML = '⚠️ RENTABILITÉ INSUFFISANTE - À NÉGOCIER';
+        analyseDiv.className = 'rounded-lg p-6 bg-orange-50 border-2 border-orange-500';
+      } else if (margePourcent < 30) {
+        verdictDiv.className = 'p-4 rounded-lg text-center font-semibold bg-yellow-100 text-yellow-700';
+        verdictDiv.innerHTML = '😐 RENTABILITÉ CORRECTE - PEUT MIEUX FAIRE';
+        analyseDiv.className = 'rounded-lg p-6 bg-yellow-50 border-2 border-yellow-500';
+      } else {
+        verdictDiv.className = 'p-4 rounded-lg text-center font-semibold bg-green-100 text-green-700';
+        verdictDiv.innerHTML = '✅ EXCELLENTE RENTABILITÉ - À ACCEPTER';
+        analyseDiv.className = 'rounded-lg p-6 bg-green-50 border-2 border-green-500';
+      }
+
+      // Recommandations
+      recoDiv.innerHTML = '';
+      if (margePourcent < 30) {
+        const prixMin = coutTotal * 1.3; // 30% de marge minimum
+        const prixIdeal = coutTotal * 1.5; // 50% de marge idéale
+
+        prixConseilleDiv.innerHTML = `
+          <div class="text-lg">Prix minimum conseillé : <span class="font-bold text-xl text-primary">${prixMin.toFixed(0)}€</span> (30% de marge)</div>
+          <div class="text-lg">Prix idéal : <span class="font-bold text-xl text-green-600">${prixIdeal.toFixed(0)}€</span> (50% de marge)</div>
+          <div class="mt-3 text-sm text-gray-600">Soit une augmentation de ${(prixMin - prixVente).toFixed(0)}€ à ${(prixIdeal - prixVente).toFixed(0)}€</div>
+        `;
+
+        if (coutMO / coutTotal > 0.6) {
+          recoDiv.innerHTML += '<div>• ⚠️ Main d\'œuvre > 60% des coûts. Optimisez le temps ou augmentez vos tarifs.</div>';
+        }
+        if (materiaux / coutTotal > 0.5) {
+          recoDiv.innerHTML += '<div>• 📦 Matériaux > 50% des coûts. Négociez avec vos fournisseurs.</div>';
+        }
+        if (rentabiliteHoraire < 30) {
+          recoDiv.innerHTML += '<div>• ⏰ Rentabilité horaire faible. Visez minimum 40€/h de marge.</div>';
+        }
+      } else {
+        prixConseilleDiv.innerHTML = '<div class="text-lg text-green-600">✅ Votre prix est bien positionné !</div>';
+      }
+
+      // Afficher les résultats
+      document.getElementById('resultats').classList.remove('hidden');
+      document.getElementById('resultats').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function nouvelleAnalyse() {
+      document.getElementById('resultats').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function exporterPDF() {
+      // Simple export via print
+      window.print();
+    }
+
+    // Calcul en temps réel
+    document.querySelectorAll('input, select').forEach(input => {
+      input.addEventListener('input', () => {
+        const heures = parseFloat(document.getElementById('heures').value) || 0;
+        const tauxHoraire = parseFloat(document.getElementById('taux_horaire').value) || 0;
+        const nbOuvriers = parseFloat(document.getElementById('nb_ouvriers').value) || 1;
+        const chargesSociales = parseFloat(document.getElementById('charges_sociales').value) || 45;
+        const materiaux = parseFloat(document.getElementById('materiaux').value) || 0;
+        const margeFournisseur = parseFloat(document.getElementById('marge_fournisseur').value) || 30;
+
+        const coutMO = heures * tauxHoraire * nbOuvriers * (1 + chargesSociales/100);
+        document.getElementById('cout_mo').textContent = coutMO.toFixed(0) + '€';
+        document.getElementById('prix_materiaux').textContent = (materiaux * (1 + margeFournisseur/100)).toFixed(0) + '€';
+      });
+    });
+  </script>
+</Base>

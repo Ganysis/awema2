@@ -1,0 +1,16 @@
+{
+  "name": "Plomberie Aixoise - Dépannage 24/7",
+  "short_name": "Plomberie Aixoise",
+  "description": "Expert plombier à Aix-en-Provence - Dépannage 24/7",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0066CC",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192' fill='%230066CC'%3E%3Cpath d='M96 16C51.8 16 16 51.8 16 96s35.8 80 80 80 80-35.8 80-80-35.8-80-80-80zm0 144c-35.3 0-64-28.7-64-64s28.7-64 64-64 64 28.7 64 64-28.7 64-64 64zm-16-88h32v48h-32z'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "site": {
+    "title": "AWEMA - Sites Web Premium pour Artisans",
+    "base_url": "https://awema.fr",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/favicon.svg",
+    "logo": "/images/awema-logo.png",
+    "logo_darkmode": "/images/awema-logo.png",
+    "logo_width": "160",
+    "logo_height": "48",
+    "logo_text": "AWEMA"
+  },
+
+  "settings": {
+    "search": true,
+    "sticky_header": true,
+    "theme_switcher": true,
+    "default_theme": "system",
+    "pagination": 2,
+    "summary_length": 200,
+    "blog_folder": "blog"
+  },
+
+  "params": {
+    "contact_form_action": "#",
+    "copyright": "Copyright © 2025 AWEMA - Tous droits réservés",
+    "footer_content": "AWEMA - Votre partenaire digital pour développer votre entreprise BTP. Sites web haute conversion créés par un expert du secteur.",
+    "call_to_action": {
+      "content": "Join 75,000+ Growing Business That Use Copper To Their Brand",
+      "button": {
+        "enable": true,
+        "label": "Get Started With Us",
+        "href": "#"
+      }
+    },
+    "subscribe": {
+      "enable": true,
+      "action": "#"
+    }
+  },
+
+  "navigation_buttons": [
+    {
+      "enable": false,
+      "label": "Sign Up",
+      "link": ""
+    },
+    {
+      "enable": true,
+      "label": "Devis Gratuit",
+      "link": "/contact"
+    }
+  ],
+
+  "google_tag_manager": {
+    "enable": true,
+    "gtm_id": "GTM-PLBBT2BP"
+  },
+
+  "metadata": {
+    "meta_author": "AWEMA",
+    "meta_image": "/og-image.jpg",
+    "meta_description": "AWEMA - Agence Web spécialisée BTP. Sites internet haute conversion pour artisans. Créé par un co-gérant BTP pour les artisans."
+  },
+
+  "contact": {
+    "phone": "06 17 54 03 83",
+    "phone_link": "0617540383",
+    "email": "contact@awema.fr",
+    "address": "Velaux, France"
+  }
+}

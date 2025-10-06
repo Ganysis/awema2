@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="533" viewBox="0 0 800 533" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="533" fill="#f59e0b" opacity="0.1"/>
+  <rect x="10" y="10" width="780" height="513" stroke="#f59e0b" stroke-width="2" fill="none"/>
+  <text x="400" y="266.5" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#f59e0b" text-anchor="middle" dominant-baseline="middle">
+    Projet 4
+  </text>
+</svg>

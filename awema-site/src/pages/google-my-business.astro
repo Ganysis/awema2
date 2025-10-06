@@ -1,0 +1,469 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { Image } from "astro:assets";
+
+const meta = {
+  title: "Google My Business - Optimisation Professionnelle | AWEMA",
+  description: "70% de vos leads viennent de Google My Business. Stratégie complète pour améliorer votre visibilité locale et obtenir plus d'avis clients.",
+};
+
+const stats = [
+  { number: "70%", label: "des leads BTP viennent de GMB" },
+  { number: "3→100", label: "avis en 6 mois en moyenne" },
+  { number: "47%", label: "d'appels en plus dès le 3ème mois" },
+  { number: "300+", label: "fiches GMB optimisées" }
+];
+
+const beforeAfter = {
+  before: {
+    reviews: "3 avis",
+    rating: "3.5 étoiles",
+    position: "Page 3 Google",
+    calls: "5 appels/mois",
+    visibility: "200 vues/mois"
+  },
+  after: {
+    reviews: "100+ avis",
+    rating: "4.9 étoiles",
+    position: "Top 3 Google Maps",
+    calls: "50+ appels/mois",
+    visibility: "3000+ vues/mois"
+  }
+};
+
+const services = [
+  {
+    icon: "FaGoogle",
+    title: "Création & Optimisation GMB",
+    description: "Configuration complète de votre fiche Google My Business avec toutes les informations essentielles, photos professionnelles et mots-clés stratégiques."
+  },
+  {
+    icon: "FaStar",
+    title: "Stratégie Avis 5 Étoiles",
+    description: "Système automatisé pour collecter des avis authentiques. Page dédiée + QR code + suivi personnalisé pour atteindre 100 avis rapidement."
+  },
+  {
+    icon: "FaPenToSquare",
+    title: "Posts GMB Réguliers",
+    description: "4 à 30 posts par mois selon votre formule. Actualités, promotions, réalisations... Votre fiche reste active et attractive."
+  },
+  {
+    icon: "FaChartLine",
+    title: "Suivi & Optimisation",
+    description: "Dashboard de performance, analyse des statistiques, ajustements stratégiques pour maximiser votre visibilité locale."
+  }
+];
+
+const process = [
+  { step: "1", title: "Audit GMB", desc: "Analyse complète de votre présence actuelle" },
+  { step: "2", title: "Optimisation", desc: "Configuration avancée de votre fiche" },
+  { step: "3", title: "Photos Pro", desc: "Ajout de visuels qui convertissent" },
+  { step: "4", title: "Collecte Avis", desc: "Activation du système d'avis automatisé" },
+  { step: "5", title: "Posts Réguliers", desc: "Publications stratégiques mensuelles" },
+  { step: "6", title: "Monitoring", desc: "Suivi et amélioration continue" }
+];
+---
+
+<Base {...meta}>
+  <PageHeader title="Google My Business = 70% de vos leads" />
+
+  <!-- Hero Section -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row gy-5 items-center">
+        <div class="lg:col-6">
+          <h1 class="mb-6">
+            Améliorez Votre <span class="text-primary">Visibilité Google Maps</span>
+            et Vos <span class="text-primary">Avis Clients</span>
+          </h1>
+          <p class="mb-8 text-lg">
+            <strong>70% des clients BTP</strong> trouvent leur artisan sur Google Maps.
+            Sans une fiche GMB optimisée, vous perdez la majorité de vos prospects au profit de vos concurrents.
+          </p>
+          <p class="mb-8">
+            Créé par Yann, co-gérant BTP qui a multiplié ses leads par 10 grâce à Google My Business.
+            Notre méthode exclusive a déjà aidé <strong>300+ artisans</strong> à dominer leur zone.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="/contact" class="btn btn-primary">
+              Booster mon GMB maintenant
+            </a>
+            <a href="#resultats" class="btn btn-outline-primary">
+              Voir les résultats
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-6">
+          <div class="rounded-lg bg-white p-8 shadow-lg">
+            <h3 class="mb-6 text-center">Transformation Moyenne Client AWEMA</h3>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center p-4 bg-red-50 rounded">
+                <span class="font-semibold">AVANT</span>
+                <span>❌ Invisible sur Google</span>
+              </div>
+              <div class="text-center py-2">
+                <span class="text-2xl">⬇️</span>
+              </div>
+              <div class="flex justify-between items-center p-4 bg-green-50 rounded">
+                <span class="font-semibold">APRÈS</span>
+                <span>✅ Top 3 Google Maps</span>
+              </div>
+              <div class="grid grid-cols-2 gap-4 mt-6 text-center">
+                <div class="p-3 bg-gray-50 rounded">
+                  <div class="text-red-600 font-bold">3 avis</div>
+                  <div class="text-sm text-gray-600">Avant</div>
+                </div>
+                <div class="p-3 bg-primary/10 rounded">
+                  <div class="text-primary font-bold">127 avis</div>
+                  <div class="text-sm text-gray-600">Après 6 mois</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="section">
+    <div class="container">
+      <div class="row gy-4">
+        {stats.map((stat) => (
+          <div class="sm:col-6 lg:col-3">
+            <div class="text-center">
+              <h2 class="text-primary mb-2">{stat.number}</h2>
+              <p class="font-semibold">{stat.label}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services GMB -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Notre Méthode GMB Exclusive</h2>
+          <p class="mb-12">
+            4 piliers pour dominer Google dans votre zone et générer un flux constant de leads qualifiés
+          </p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {services.map((service) => (
+          <div class="lg:col-6">
+            <div class="rounded-lg bg-white p-8 h-full shadow-md hover:shadow-lg transition-shadow">
+              <div class="mb-4">
+                <DynamicIcon
+                  icon={service.icon}
+                  className="text-4xl text-primary"
+                  client:load
+                />
+              </div>
+              <h3 class="mb-3">{service.title}</h3>
+              <p>{service.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Comment On Vous Propulse #1 sur Google</h2>
+          <p class="mb-12">
+            Notre processus en 6 étapes pour transformer votre fiche GMB en machine à générer des leads
+          </p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {process.map((item, index) => (
+          <div class="sm:col-6 lg:col-4">
+            <div class="text-center">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-primary text-white rounded-full mb-4 text-xl font-bold">
+                {item.step}
+              </div>
+              <h4 class="mb-2">{item.title}</h4>
+              <p class="text-sm">{item.desc}</p>
+              {index < process.length - 1 && (
+                <div class="hidden lg:block absolute top-8 left-full w-full">
+                  <span class="text-primary">→</span>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Section -->
+  <section id="resultats" class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Résultats Garantis en 90 Jours</h2>
+          <p>
+            Nos clients constatent ces améliorations en moyenne après 3 mois d'optimisation GMB
+          </p>
+        </div>
+      </div>
+      <div class="row gy-5">
+        <div class="lg:col-6">
+          <div class="bg-red-50 rounded-lg p-8">
+            <h3 class="text-red-600 mb-6">❌ AVANT (Sans optimisation)</h3>
+            <ul class="space-y-3">
+              {Object.entries(beforeAfter.before).map(([key, value]) => (
+                <li class="flex justify-between">
+                  <span class="text-gray-600 capitalize">{key.replace('_', ' ')}:</span>
+                  <span class="font-semibold">{value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-6">
+          <div class="bg-green-50 rounded-lg p-8">
+            <h3 class="text-green-600 mb-6">✅ APRÈS (Avec AWEMA)</h3>
+            <ul class="space-y-3">
+              {Object.entries(beforeAfter.after).map(([key, value]) => (
+                <li class="flex justify-between">
+                  <span class="text-gray-600 capitalize">{key.replace('_', ' ')}:</span>
+                  <span class="font-semibold text-green-700">{value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Ils Dominent Google Grâce à Nous</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="rounded-lg bg-white p-6 shadow-lg">
+            <div class="flex mb-4">
+              {[...Array(5)].map(() => (
+                <span class="text-yellow-400">★</span>
+              ))}
+            </div>
+            <p class="mb-4 italic">
+              "De 0 à 89 avis en 4 mois ! Mon téléphone sonne non-stop.
+              J'ai embauché 2 personnes pour gérer les demandes."
+            </p>
+            <div class="font-semibold">Plomberie Express</div>
+            <div class="text-sm text-gray-600">Lyon • Formule ZONE</div>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="rounded-lg bg-white p-6 shadow-lg">
+            <div class="flex mb-4">
+              {[...Array(5)].map(() => (
+                <span class="text-yellow-400">★</span>
+              ))}
+            </div>
+            <p class="mb-4 italic">
+              "Position 1 sur 'électricien Marseille'. +300% de devis en 6 mois.
+              Le ROI est incroyable."
+            </p>
+            <div class="font-semibold">Élec Pro Services</div>
+            <div class="text-sm text-gray-600">Marseille • Formule RÉGION</div>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="rounded-lg bg-white p-6 shadow-lg">
+            <div class="flex mb-4">
+              {[...Array(5)].map(() => (
+                <span class="text-yellow-400">★</span>
+              ))}
+            </div>
+            <p class="mb-4 italic">
+              "147 avis 5 étoiles ! Mes concurrents pleurent.
+              Meilleur investissement de ma carrière."
+            </p>
+            <div class="font-semibold">Menuiserie Moderne</div>
+            <div class="text-sm text-gray-600">Toulouse • Formule LOCAL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GMB Features by Plan -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">GMB Inclus Dans Toutes Nos Formules</h2>
+          <p>Choisissez le niveau d'accompagnement adapté à vos ambitions</p>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr>
+              <th class="border p-4 text-left">Services GMB</th>
+              <th class="border p-4 text-center bg-gray-50">LOCAL<br/><span class="text-sm font-normal">797€ + 79€/mois</span></th>
+              <th class="border p-4 text-center bg-primary/10">ZONE ⭐<br/><span class="text-sm font-normal">1297€ + 97€/mois</span></th>
+              <th class="border p-4 text-center bg-gray-50">RÉGION<br/><span class="text-sm font-normal">1797€ + 127€/mois</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border p-4">Optimisation GMB complète</td>
+              <td class="border p-4 text-center">✅</td>
+              <td class="border p-4 text-center bg-primary/5">✅</td>
+              <td class="border p-4 text-center">✅</td>
+            </tr>
+            <tr>
+              <td class="border p-4">Villes couvertes</td>
+              <td class="border p-4 text-center">3</td>
+              <td class="border p-4 text-center bg-primary/5 font-bold">5</td>
+              <td class="border p-4 text-center">10</td>
+            </tr>
+            <tr>
+              <td class="border p-4">Posts GMB mensuels</td>
+              <td class="border p-4 text-center">4</td>
+              <td class="border p-4 text-center bg-primary/5 font-bold">8</td>
+              <td class="border p-4 text-center">30</td>
+            </tr>
+            <tr>
+              <td class="border p-4">Page collecte avis</td>
+              <td class="border p-4 text-center">✅</td>
+              <td class="border p-4 text-center bg-primary/5">✅ + QR Code</td>
+              <td class="border p-4 text-center">✅ + Widget</td>
+            </tr>
+            <tr>
+              <td class="border p-4">Réponses aux avis</td>
+              <td class="border p-4 text-center">Templates</td>
+              <td class="border p-4 text-center bg-primary/5">Personnalisées</td>
+              <td class="border p-4 text-center">Gestion complète</td>
+            </tr>
+            <tr>
+              <td class="border p-4">Rapport performance</td>
+              <td class="border p-4 text-center">Trimestriel</td>
+              <td class="border p-4 text-center bg-primary/5">Mensuel</td>
+              <td class="border p-4 text-center">Hebdomadaire</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center mt-8">
+        <a href="/pricing" class="btn btn-primary">
+          Voir tous les tarifs détaillés
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Questions Fréquentes sur GMB</h2>
+        </div>
+      </div>
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <div class="space-y-6">
+            <details class="rounded-lg bg-light p-6">
+              <summary class="cursor-pointer font-semibold">
+                Pourquoi Google My Business est-il si important pour le BTP ?
+              </summary>
+              <p class="mt-4">
+                70% des clients cherchent un artisan sur Google Maps. Une fiche GMB optimisée
+                vous place devant vos concurrents, génère des appels directs et build la confiance
+                avec les avis clients. C'est LE levier #1 pour les entreprises locales.
+              </p>
+            </details>
+            <details class="rounded-lg bg-light p-6">
+              <summary class="cursor-pointer font-semibold">
+                Comment faites-vous pour obtenir 100 avis rapidement ?
+              </summary>
+              <p class="mt-4">
+                Notre système combine : page de collecte dédiée, QR codes sur chantier,
+                emails automatisés post-prestation, SMS de rappel et formation de vos équipes.
+                En moyenne, nos clients passent de 3 à 100 avis en 6 mois.
+              </p>
+            </details>
+            <details class="rounded-lg bg-light p-6">
+              <summary class="cursor-pointer font-semibold">
+                Les avis sont-ils authentiques ?
+              </summary>
+              <p class="mt-4">
+                100% authentiques ! Nous facilitons simplement le process pour vos vrais clients
+                satisfaits. Aucun achat d'avis, que du vrai. Google détecte et pénalise les faux avis.
+              </p>
+            </details>
+            <details class="rounded-lg bg-light p-6">
+              <summary class="cursor-pointer font-semibold">
+                Que contiennent les posts GMB ?
+              </summary>
+              <p class="mt-4">
+                Actualités entreprise, nouvelles réalisations (avant/après), promotions saisonnières,
+                conseils pros, témoignages clients, certifications... Contenu varié qui maintient
+                votre fiche active et améliore votre ranking.
+              </p>
+            </details>
+            <details class="rounded-lg bg-light p-6">
+              <summary class="cursor-pointer font-semibold">
+                Combien de temps pour voir des résultats ?
+              </summary>
+              <p class="mt-4">
+                Premiers résultats sous 30 jours (plus d'appels). Position top 3 généralement
+                atteinte en 60-90 jours. Les avis s'accumulent progressivement.
+                ROI moyen constaté : x5 en 6 mois.
+              </p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="section bg-primary text-white">
+    <div class="container">
+      <div class="row justify-center text-center">
+        <div class="lg:col-8">
+          <h2 class="text-white mb-4">
+            Arrêtez de Perdre 70% de Vos Leads
+          </h2>
+          <p class="mb-8 text-lg">
+            Pendant que vous lisez ces lignes, vos concurrents récoltent VOS clients sur Google Maps.
+            Rejoignez 300+ artisans qui dominent leur zone.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/contact" class="btn btn-white">
+              Dominer Google Maintenant
+            </a>
+            <a href="/pricing" class="btn btn-outline-white">
+              Voir les formules
+            </a>
+          </div>
+          <p class="mt-6 text-sm opacity-90">
+            ⚡ Offre limitée : -20% sur la création jusqu'au 31/01
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

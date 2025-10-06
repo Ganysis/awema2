@@ -1,0 +1,543 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+
+const meta = {
+  title: "Calculateur Prix/Heure Réel BTP - Découvrez vos Vrais Coûts | AWEMA",
+  meta_title: "Calculateur Taux Horaire Réel Artisan BTP | AWEMA",
+  description: "Calculez votre VRAI prix de revient horaire incluant toutes les charges cachées. Outil gratuit pour artisans BTP. Découvrez si vous êtes rentable.",
+  image: "/images/tools/calculateur-prix-heure.jpg"
+};
+---
+
+<Base {...meta}>
+  <PageHeader title="Calculateur Prix/Heure Réel" />
+
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <!-- Introduction -->
+          <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg mb-8">
+            <h2 class="text-xl font-bold text-yellow-800 mb-2">
+              ⚠️ 67% des artisans BTP facturent en dessous de leur prix de revient
+            </h2>
+            <p class="text-yellow-700">
+              Cet outil révèle votre VRAI coût horaire en incluant TOUTES les charges que vous oubliez.
+              Préparez-vous à être surpris...
+            </p>
+          </div>
+
+          <!-- Calculateur -->
+          <div class="bg-white rounded-xl shadow-xl p-8">
+            <h2 class="text-2xl font-bold mb-8 text-center">
+              💰 Calculez votre Prix de Revient Horaire Réel
+            </h2>
+
+            <div class="space-y-8">
+              <!-- Section 1: Charges Directes -->
+              <div class="border-b pb-6">
+                <h3 class="font-bold text-lg mb-4 text-primary">1. Charges Directes (visibles)</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Salaire NET souhaité (€/mois)
+                    </label>
+                    <input type="number" id="salaireNet" value="2500"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                    <small class="text-gray-500">Ce que vous voulez gagner</small>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Charges sociales (%)
+                    </label>
+                    <input type="number" id="chargesSociales" value="45"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                    <small class="text-gray-500">URSSAF, retraite, prévoyance...</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 2: Charges Fixes -->
+              <div class="border-b pb-6">
+                <h3 class="font-bold text-lg mb-4 text-primary">2. Charges Fixes Mensuelles (cachées)</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Véhicule (€/mois)
+                    </label>
+                    <input type="number" id="vehicule" value="450"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                    <small class="text-gray-500">Leasing, essence, entretien</small>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Assurances Pro (€/mois)
+                    </label>
+                    <input type="number" id="assurances" value="250"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                    <small class="text-gray-500">RC Pro, décennale...</small>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Local/Stockage (€/mois)
+                    </label>
+                    <input type="number" id="local" value="300"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                    <small class="text-gray-500">Loyer, box, garage...</small>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Téléphone/Internet (€/mois)
+                    </label>
+                    <input type="number" id="telecom" value="80"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Comptable (€/mois)
+                    </label>
+                    <input type="number" id="comptable" value="150"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Outillage (€/mois)
+                    </label>
+                    <input type="number" id="outillage" value="200"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                    <small class="text-gray-500">Amortissement + renouvellement</small>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Logiciels (€/mois)
+                    </label>
+                    <input type="number" id="logiciels" value="50"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                    <small class="text-gray-500">Devis, facturation...</small>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Marketing/Site (€/mois)
+                    </label>
+                    <input type="number" id="marketing" value="100"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Autres charges (€/mois)
+                    </label>
+                    <input type="number" id="autres" value="0"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 3: Temps Non Facturé -->
+              <div class="border-b pb-6">
+                <h3 class="font-bold text-lg mb-4 text-primary">3. Temps Réel Travaillé (souvent sous-estimé)</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Heures FACTURABLES par semaine
+                    </label>
+                    <input type="number" id="heuresFacturables" value="35"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                    <small class="text-gray-500">Heures sur chantier facturées au client</small>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Heures NON FACTURABLES par semaine
+                    </label>
+                    <input type="number" id="heuresNonFacturables" value="15"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                    <small class="text-gray-500">Devis, admin, déplacements, achats...</small>
+                  </div>
+                </div>
+                <div class="mt-4 p-4 bg-gray-100 rounded-lg">
+                  <p class="text-sm">
+                    <span class="font-semibold">Total heures travaillées :</span>
+                    <span id="totalHeures" class="font-bold text-primary">50h/semaine</span>
+                  </p>
+                  <p class="text-sm mt-1">
+                    <span class="font-semibold">Taux de facturation :</span>
+                    <span id="tauxFacturation" class="font-bold">70%</span>
+                    <span class="text-gray-600 ml-2">(temps facturé / temps total)</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Section 4: Congés et Absences -->
+              <div class="border-b pb-6">
+                <h3 class="font-bold text-lg mb-4 text-primary">4. Congés et Absences (impact énorme)</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Semaines de congés/an
+                    </label>
+                    <input type="number" id="conges" value="5"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Jours maladie/an
+                    </label>
+                    <input type="number" id="maladie" value="5"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Jours formation/an
+                    </label>
+                    <input type="number" id="formation" value="3"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                  </div>
+                </div>
+                <div class="mt-4 p-4 bg-gray-100 rounded-lg">
+                  <p class="text-sm">
+                    <span class="font-semibold">Semaines travaillées :</span>
+                    <span id="semainesTravaillees" class="font-bold text-primary">46 semaines/an</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Section 5: Provisions -->
+              <div class="border-b pb-6">
+                <h3 class="font-bold text-lg mb-4 text-primary">5. Provisions (sécurité financière)</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Impayés/Litiges (% du CA)
+                    </label>
+                    <input type="number" id="impayes" value="2"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                    <small class="text-gray-500">Clients qui ne paient pas</small>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Épargne/Investissement (% du CA)
+                    </label>
+                    <input type="number" id="epargne" value="5"
+                           class="w-full p-3 border rounded-lg focus:border-primary">
+                    <small class="text-gray-500">Pour renouveler le matériel</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bouton Calcul -->
+              <div class="text-center">
+                <button onclick="calculerPrixHeure()"
+                        class="btn btn-primary btn-lg px-8 py-4 text-lg">
+                  🔍 Révéler mon VRAI Prix/Heure
+                </button>
+              </div>
+
+              <!-- Résultats -->
+              <div id="resultats" class="hidden">
+                <!-- Box Principal -->
+                <div class="bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-xl p-8 mb-6">
+                  <h3 class="text-2xl font-bold mb-4 text-center">
+                    ⚡ Votre Prix de Revient RÉEL
+                  </h3>
+                  <div class="text-center">
+                    <div class="text-6xl font-bold mb-2">
+                      <span id="prixHeure">0</span>€/h
+                    </div>
+                    <p class="text-xl opacity-90">
+                      C'est ce que vous COÛTE réellement chaque heure facturée
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Détails -->
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                  <div class="bg-white border-2 border-gray-200 rounded-lg p-6">
+                    <h4 class="font-bold text-lg mb-4">📊 Décomposition des Coûts</h4>
+                    <div class="space-y-2">
+                      <div class="flex justify-between">
+                        <span>Salaire + Charges :</span>
+                        <span class="font-bold" id="coutSalaire">0€/h</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span>Charges fixes :</span>
+                        <span class="font-bold" id="coutFixes">0€/h</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span>Temps non facturé :</span>
+                        <span class="font-bold" id="coutTemps">0€/h</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span>Provisions :</span>
+                        <span class="font-bold" id="coutProvisions">0€/h</span>
+                      </div>
+                      <div class="pt-2 mt-2 border-t-2 flex justify-between">
+                        <span class="font-bold">TOTAL :</span>
+                        <span class="font-bold text-xl text-primary" id="totalCout">0€/h</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="bg-white border-2 border-gray-200 rounded-lg p-6">
+                    <h4 class="font-bold text-lg mb-4">💡 Recommandations Tarifs</h4>
+                    <div class="space-y-3">
+                      <div class="p-3 bg-red-100 rounded">
+                        <div class="font-semibold text-red-800">Minimum Vital</div>
+                        <div class="text-2xl font-bold text-red-600" id="tarifMinimum">0€/h</div>
+                        <small class="text-red-600">En dessous = vous perdez de l'argent</small>
+                      </div>
+                      <div class="p-3 bg-yellow-100 rounded">
+                        <div class="font-semibold text-yellow-800">Tarif Équilibre (+20%)</div>
+                        <div class="text-2xl font-bold text-yellow-600" id="tarifEquilibre">0€/h</div>
+                        <small class="text-yellow-600">Pour une petite marge</small>
+                      </div>
+                      <div class="p-3 bg-green-100 rounded">
+                        <div class="font-semibold text-green-800">Tarif Rentable (+40%)</div>
+                        <div class="text-2xl font-bold text-green-600" id="tarifRentable">0€/h</div>
+                        <small class="text-green-600">Pour développer l'entreprise</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Analyse -->
+                <div id="analyse" class="bg-gray-50 rounded-lg p-6 mb-6">
+                  <!-- Contenu dynamique -->
+                </div>
+
+                <!-- Comparaison Marché -->
+                <div class="bg-white rounded-lg p-6 mb-6">
+                  <h4 class="font-bold text-lg mb-4">📈 Comparaison Marché</h4>
+                  <div class="space-y-2">
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                      <span>Plombier (moyenne France)</span>
+                      <span class="font-bold">45-65€/h</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                      <span>Électricien (moyenne France)</span>
+                      <span class="font-bold">40-60€/h</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                      <span>Menuisier (moyenne France)</span>
+                      <span class="font-bold">35-55€/h</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                      <span>Peintre (moyenne France)</span>
+                      <span class="font-bold">30-45€/h</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                      <span>Maçon (moyenne France)</span>
+                      <span class="font-bold">40-60€/h</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+                  <h4 class="font-bold text-lg mb-3 text-blue-800">
+                    🚀 Plan d'Action pour Augmenter votre Rentabilité
+                  </h4>
+                  <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <h5 class="font-semibold mb-2">Court terme (immédiat)</h5>
+                      <ul class="text-sm space-y-1">
+                        <li>✓ Augmenter vos tarifs de 10-20%</li>
+                        <li>✓ Facturer les déplacements</li>
+                        <li>✓ Acompte 30% obligatoire</li>
+                        <li>✓ Refuser les petits chantiers non rentables</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h5 class="font-semibold mb-2">Long terme (6 mois)</h5>
+                      <ul class="text-sm space-y-1">
+                        <li>✓ Optimiser les tournées (-30% déplacements)</li>
+                        <li>✓ Automatiser les devis (gain 5h/semaine)</li>
+                        <li>✓ Embaucher un apprenti</li>
+                        <li>✓ Se spécialiser sur le haut de gamme</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Explications -->
+          <div class="mt-12 prose max-w-none">
+            <h2>📚 Comprendre les Coûts Cachés</h2>
+
+            <h3>Pourquoi la plupart des artisans se trompent ?</h3>
+            <p>
+              La majorité des artisans calculent leur tarif horaire en divisant simplement leur salaire souhaité
+              par le nombre d'heures travaillées. <strong>C'est une erreur fatale</strong> qui explique pourquoi
+              67% des artisans BTP ne sont pas rentables les 3 premières années.
+            </p>
+
+            <h3>Les 5 erreurs classiques de calcul</h3>
+            <ol>
+              <li><strong>Oublier le temps non facturé :</strong> Devis, trajets, achats représentent 30% de votre temps</li>
+              <li><strong>Sous-estimer les charges fixes :</strong> Véhicule, assurances, outillage = 1500€/mois minimum</li>
+              <li><strong>Négliger les congés/absences :</strong> Vous travaillez 46 semaines, pas 52</li>
+              <li><strong>Ignorer les provisions :</strong> 2-3% d'impayés peuvent ruiner votre rentabilité</li>
+              <li><strong>Confondre chiffre d'affaires et bénéfice :</strong> 100k€ de CA ≠ 100k€ de salaire</li>
+            </ol>
+
+            <h3>Comment utiliser ce calculateur ?</h3>
+            <p>
+              1. <strong>Soyez honnête</strong> sur vos charges réelles (ne minimisez pas)<br>
+              2. <strong>Incluez TOUT</strong> : même le café et les petites fournitures<br>
+              3. <strong>Comptez vraiment</strong> vos heures non facturables<br>
+              4. <strong>Ajustez</strong> selon votre situation (rural/urbain, spécialité...)
+            </p>
+
+            <div class="bg-green-50 p-6 rounded-lg mt-8">
+              <h3 class="text-green-800 font-bold">💡 Le Secret des Artisans Rentables</h3>
+              <p>
+                Les artisans qui réussissent facturent en moyenne <strong>40% au-dessus de leur prix de revient</strong>.
+                Cela leur permet d'absorber les imprévus, d'investir dans du meilleur matériel, et de développer
+                sereinement leur activité. Ne culpabilisez pas de facturer votre juste valeur !
+              </p>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="mt-12 bg-gradient-to-r from-primary to-purple-600 text-white rounded-xl p-8 text-center">
+            <h2 class="text-2xl font-bold mb-4">
+              Besoin d'Aide pour Optimiser votre Rentabilité ?
+            </h2>
+            <p class="text-lg mb-6">
+              Notre équipe d'experts BTP peut vous aider à augmenter vos marges de 20 à 40%
+              grâce à une stratégie digitale adaptée.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+              <a href="/contact" class="btn btn-white btn-lg">
+                Audit Gratuit de Rentabilité
+              </a>
+              <button onclick="window.print()" class="btn btn-outline-white btn-lg">
+                📄 Imprimer mes Résultats
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function calculerPrixHeure() {
+      // Récupération des valeurs
+      const salaireNet = parseFloat(document.getElementById('salaireNet').value) || 0;
+      const chargesSociales = parseFloat(document.getElementById('chargesSociales').value) || 0;
+
+      // Charges fixes mensuelles
+      const vehicule = parseFloat(document.getElementById('vehicule').value) || 0;
+      const assurances = parseFloat(document.getElementById('assurances').value) || 0;
+      const local = parseFloat(document.getElementById('local').value) || 0;
+      const telecom = parseFloat(document.getElementById('telecom').value) || 0;
+      const comptable = parseFloat(document.getElementById('comptable').value) || 0;
+      const outillage = parseFloat(document.getElementById('outillage').value) || 0;
+      const logiciels = parseFloat(document.getElementById('logiciels').value) || 0;
+      const marketing = parseFloat(document.getElementById('marketing').value) || 0;
+      const autres = parseFloat(document.getElementById('autres').value) || 0;
+
+      // Temps
+      const heuresFacturables = parseFloat(document.getElementById('heuresFacturables').value) || 0;
+      const heuresNonFacturables = parseFloat(document.getElementById('heuresNonFacturables').value) || 0;
+
+      // Absences
+      const conges = parseFloat(document.getElementById('conges').value) || 0;
+      const maladie = parseFloat(document.getElementById('maladie').value) || 0;
+      const formation = parseFloat(document.getElementById('formation').value) || 0;
+
+      // Provisions
+      const impayes = parseFloat(document.getElementById('impayes').value) || 0;
+      const epargne = parseFloat(document.getElementById('epargne').value) || 0;
+
+      // Calculs
+      const totalHeuresSemaine = heuresFacturables + heuresNonFacturables;
+      const tauxFacturation = heuresFacturables / totalHeuresSemaine * 100;
+
+      // Semaines travaillées
+      const joursAbsence = maladie + formation;
+      const semainesAbsence = conges + (joursAbsence / 5);
+      const semainesTravaillees = 52 - semainesAbsence;
+
+      // Heures facturables annuelles
+      const heuresFacturablesAnnuelles = heuresFacturables * semainesTravaillees;
+
+      // Coûts annuels
+      const salaireAnnuel = salaireNet * 12;
+      const chargesAnnuelles = salaireAnnuel * (chargesSociales / 100);
+      const totalSalaireCharges = salaireAnnuel + chargesAnnuelles;
+
+      const totalChargesFixes = (vehicule + assurances + local + telecom +
+                                 comptable + outillage + logiciels + marketing + autres) * 12;
+
+      // Coût horaire de base
+      const coutHoraireSalaire = totalSalaireCharges / heuresFacturablesAnnuelles;
+      const coutHoraireFixes = totalChargesFixes / heuresFacturablesAnnuelles;
+
+      // Impact du temps non facturé
+      const ratioTempsNonFacture = heuresNonFacturables / heuresFacturables;
+      const coutTempsNonFacture = (coutHoraireSalaire + coutHoraireFixes) * ratioTempsNonFacture;
+
+      // Provisions
+      const coutHoraireBase = coutHoraireSalaire + coutHoraireFixes + coutTempsNonFacture;
+      const coutProvisions = coutHoraireBase * ((impayes + epargne) / 100);
+
+      // Prix de revient total
+      const prixRevientHeure = coutHoraireSalaire + coutHoraireFixes + coutTempsNonFacture + coutProvisions;
+
+      // Tarifs recommandés
+      const tarifMinimum = prixRevientHeure;
+      const tarifEquilibre = prixRevientHeure * 1.2;
+      const tarifRentable = prixRevientHeure * 1.4;
+
+      // Mise à jour affichage temps
+      document.getElementById('totalHeures').textContent = `${totalHeuresSemaine}h/semaine`;
+      document.getElementById('tauxFacturation').textContent = `${tauxFacturation.toFixed(0)}%`;
+      document.getElementById('semainesTravaillees').textContent = `${semainesTravaillees.toFixed(0)} semaines/an`;
+
+      // Affichage résultats
+      document.getElementById('prixHeure').textContent = prixRevientHeure.toFixed(0);
+      document.getElementById('coutSalaire').textContent = `${coutHoraireSalaire.toFixed(0)}€/h`;
+      document.getElementById('coutFixes').textContent = `${coutHoraireFixes.toFixed(0)}€/h`;
+      document.getElementById('coutTemps').textContent = `${coutTempsNonFacture.toFixed(0)}€/h`;
+      document.getElementById('coutProvisions').textContent = `${coutProvisions.toFixed(0)}€/h`;
+      document.getElementById('totalCout').textContent = `${prixRevientHeure.toFixed(0)}€/h`;
+
+      document.getElementById('tarifMinimum').textContent = `${tarifMinimum.toFixed(0)}€/h`;
+      document.getElementById('tarifEquilibre').textContent = `${tarifEquilibre.toFixed(0)}€/h`;
+      document.getElementById('tarifRentable').textContent = `${tarifRentable.toFixed(0)}€/h`;
+
+      // Analyse personnalisée
+      let analyse = '<h4 class="font-bold text-lg mb-3">🔍 Analyse de votre Situation</h4><ul class="space-y-2">';
+
+      if (tauxFacturation < 60) {
+        analyse += '<li class="text-red-600">⚠️ <strong>Taux de facturation trop faible !</strong> Vous passez trop de temps sur des tâches non facturées. Objectif : 70% minimum.</li>';
+      }
+
+      if (totalChargesFixes > salaireNet * 0.6) {
+        analyse += '<li class="text-orange-600">⚠️ <strong>Charges fixes trop élevées !</strong> Vos charges fixes représentent plus de 60% de votre salaire. Cherchez à optimiser.</li>';
+      }
+
+      if (prixRevientHeure > 60) {
+        analyse += '<li class="text-blue-600">💡 <strong>Prix élevé justifié :</strong> Votre structure de coûts nécessite des tarifs premium. Ciblez une clientèle haut de gamme.</li>';
+      }
+
+      if (heuresFacturables > 40) {
+        analyse += '<li class="text-purple-600">⏰ <strong>Attention au burn-out !</strong> Plus de 40h facturables/semaine est difficilement tenable sur le long terme.</li>';
+      }
+
+      const caAnnuelNecessaire = totalSalaireCharges + totalChargesFixes;
+      analyse += `<li class="text-green-600">📊 <strong>CA minimum nécessaire :</strong> ${(caAnnuelNecessaire / 1000).toFixed(0)}k€/an pour atteindre vos objectifs de revenu.</li>`;
+
+      analyse += '</ul>';
+
+      document.getElementById('analyse').innerHTML = analyse;
+      document.getElementById('resultats').classList.remove('hidden');
+
+      // Scroll vers résultats
+      document.getElementById('resultats').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</Base>

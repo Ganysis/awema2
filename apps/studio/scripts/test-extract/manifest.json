@@ -1,9 +1,0 @@
-{
-  "name": "Site Plomberie Dupont & Fils",
-  "short_name": "Site Plomberie Dupont & Fils",
-  "start_url": "/",
-  "display": "standalone",
-  "theme_color": "hsl(221, 83%, 53%)",
-  "background_color": "hsl(0, 0%, 100%)",
-  "icons": []
-}

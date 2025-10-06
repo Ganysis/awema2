@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="400" height="300" fill="#F5F5F5"/>
+
+  <!-- Mur fissuré -->
+  <rect x="120" y="60" width="160" height="180" fill="#E0E0E0"/>
+
+  <!-- Fissures -->
+  <path d="M180 80 L175 120 L180 160 L175 200" stroke="#424242" stroke-width="3" fill="none"/>
+  <path d="M230 90 L225 110 L230 130" stroke="#424242" stroke-width="2" fill="none"/>
+
+  <!-- Réparation en cours -->
+  <rect x="170" y="120" width="20" height="40" fill="#9E9E9E"/>
+
+  <!-- Enduit de réparation -->
+  <ellipse cx="180" cy="140" rx="15" ry="25" fill="#BDBDBD" opacity="0.8"/>
+
+  <!-- Spatule -->
+  <polygon points="210,150 240,150 235,160 215,160" fill="#616161"/>
+  <rect x="223" y="160" width="4" height="20" fill="#795548"/>
+
+  <!-- Seau d'enduit -->
+  <path d="M130 200 L135 230 L165 230 L170 200 Z" fill="#757575"/>
+  <ellipse cx="150" cy="200" rx="20" ry="5" fill="#9E9E9E"/>
+  <rect x="140" y="195" width="20" height="10" fill="#EEEEEE"/>
+
+  <!-- Échelle -->
+  <rect x="290" y="100" width="4" height="120" fill="#8D6E63"/>
+  <rect x="310" y="100" width="4" height="120" fill="#8D6E63"/>
+  <rect x="294" y="120" width="16" height="3" fill="#8D6E63"/>
+  <rect x="294" y="140" width="16" height="3" fill="#8D6E63"/>
+  <rect x="294" y="160" width="16" height="3" fill="#8D6E63"/>
+  <rect x="294" y="180" width="16" height="3" fill="#8D6E63"/>
+
+  <!-- Texte -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#6B7280" text-anchor="middle">
+    Réparation Façade
+  </text>
+</svg>

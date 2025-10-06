@@ -1,0 +1,6 @@
+/* Image de fond du hero */
+.hero-banner-bg {
+  background-image: url('/images/banner.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}

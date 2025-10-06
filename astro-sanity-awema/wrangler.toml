@@ -1,0 +1,16 @@
+name = "awema"
+compatibility_date = "2024-01-01"
+
+# Configuration minimale pour Cloudflare Pages
+pages_build_output_dir = "dist"
+
+# Variables d'environnement publiques
+[vars]
+ENVIRONMENT = "production"
+PUBLIC_GOOGLE_ANALYTICS_ID = "G-1P2XPQXF9Q"
+PUBLIC_MICROSOFT_CLARITY_ID = "tk0dhm8027"
+PUBLIC_SITE_URL = "https://awema.fr"
+SMTP_HOST = "mail.awema.fr"
+SMTP_PORT = "465"
+SMTP_USER = "contact@awema.fr"
+SMTP_PASS = "enabled"

@@ -1,0 +1,371 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+
+const meta = {
+  title: "Site Internet Maçon - Création Web BTP | AWEMA",
+  meta_title: "Création Site Maçon ➤ Site Vitrine 797€ | AWEMA",
+  description: "Site web professionnel pour maçon et entreprise de maçonnerie. Montrez vos chantiers, générez des devis. Visible sur Google en 7 jours.",
+  image: "/images/metiers/macon.jpg"
+};
+
+const benefits = [
+  {
+    icon: "🏗️",
+    title: "Portfolio Chantiers",
+    description: "Photos avant/après de vos constructions et rénovations"
+  },
+  {
+    icon: "📊",
+    title: "Devis Construction",
+    description: "Formulaire détaillé avec surface, type de travaux, budget"
+  },
+  {
+    icon: "🎯",
+    title: "SEO Maçonnerie",
+    description: "Visible sur 'maçon + ville' et 'gros œuvre'"
+  },
+  {
+    icon: "🏆",
+    title: "Certifications",
+    description: "Mise en avant RGE, Qualibat, garantie décennale"
+  }
+];
+
+const services = [
+  "Construction neuve",
+  "Extension maison",
+  "Rénovation complète",
+  "Gros œuvre",
+  "Fondations",
+  "Dalles et chapes",
+  "Murs porteurs",
+  "Façades et ravalement",
+  "Terrasses béton",
+  "Piscines maçonnées"
+];
+
+const searchVolumes = [
+  { keyword: "Maçon", volume: "4.400/mois", competition: "Élevée" },
+  { keyword: "Entreprise maçonnerie", volume: "2.900/mois", competition: "Moyenne" },
+  { keyword: "Construction maison", volume: "8.100/mois", competition: "Très élevée" },
+  { keyword: "Extension maison", volume: "3.600/mois", competition: "Moyenne" },
+  { keyword: "Rénovation maison", volume: "6.600/mois", competition: "Élevée" }
+];
+
+const testimonial = {
+  name: "Michel Bertrand",
+  company: "Maçonnerie Bertrand & Fils, Toulouse",
+  text: "Le site AWEMA a transformé notre activité. On reçoit maintenant des demandes pour des chantiers complets, plus seulement des petits travaux. Les photos de nos réalisations font la différence.",
+  results: "+180% de devis qualifiés en 5 mois"
+};
+---
+
+<Base {...meta}>
+  <PageHeader title="Site Internet Maçon" />
+
+  <!-- Hero Section -->
+  <section class="section">
+    <div class="container">
+      <div class="row gy-5 items-center">
+        <div class="lg:col-7">
+          <h1 class="mb-6">
+            Site Internet <span class="text-primary">Maçon</span>
+            <br/>Montrez la Solidité de votre Savoir-Faire
+          </h1>
+          <p class="text-lg mb-6">
+            <strong>Les gros chantiers rentables commencent sur Google.</strong>
+            Les propriétaires cherchent un maçon de confiance avec références visibles.
+          </p>
+          <p class="mb-8">
+            Sans site professionnel, vous restez invisible pour les projets d'envergure.
+            Les particuliers et promoteurs privilégient les entreprises avec une présence digitale solide.
+            <strong> Notre solution : site vitrine qui inspire confiance et génère des leads.</strong>
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <a href="/contact?metier=macon" class="btn btn-primary btn-lg">
+              Créer mon Site Maçon
+            </a>
+            <a href="/pricing" class="btn btn-outline-primary btn-lg">
+              Voir les Tarifs
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-5">
+          <div class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="font-bold mb-4">Types de Travaux :</h3>
+            <div class="grid grid-cols-2 gap-3">
+              {services.map((service) => (
+                <div class="flex items-center text-sm">
+                  <span class="text-primary mr-2">✓</span>
+                  <span>{service}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Pourquoi un Site est Crucial pour un Maçon</h2>
+          <p>Transformez votre expertise en opportunités commerciales</p>
+        </div>
+      </div>
+      <div class="row gy-4">
+        {benefits.map((benefit) => (
+          <div class="lg:col-3">
+            <div class="bg-white rounded-lg p-6 h-full shadow text-center">
+              <div class="text-4xl mb-4">{benefit.icon}</div>
+              <h3 class="h5 mb-3">{benefit.title}</h3>
+              <p class="text-sm">{benefit.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Volumes -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Volume de Recherches Maçonnerie</h2>
+          <p>Nombre de personnes cherchant un maçon chaque mois</p>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse bg-white rounded-lg shadow">
+          <thead>
+            <tr class="bg-primary text-white">
+              <th class="p-4 text-left">Recherche</th>
+              <th class="p-4 text-center">Volume/mois</th>
+              <th class="p-4 text-center">Concurrence</th>
+              <th class="p-4 text-center">Potentiel CA</th>
+            </tr>
+          </thead>
+          <tbody>
+            {searchVolumes.map((item, i) => (
+              <tr class={i % 2 === 0 ? 'bg-gray-50' : ''}>
+                <td class="p-4 font-semibold">{item.keyword}</td>
+                <td class="p-4 text-center text-primary font-bold">{item.volume}</td>
+                <td class="p-4 text-center">
+                  <span class={`px-2 py-1 rounded text-sm ${
+                    item.competition === 'Très élevée' ? 'bg-red-100 text-red-700' :
+                    item.competition === 'Élevée' ? 'bg-orange-100 text-orange-700' :
+                    'bg-yellow-100 text-yellow-700'
+                  }`}>
+                    {item.competition}
+                  </span>
+                </td>
+                <td class="p-4 text-center font-semibold">
+                  {item.keyword.includes('Construction') ? '50-200k€' :
+                   item.keyword.includes('Extension') ? '30-80k€' :
+                   item.keyword.includes('Rénovation') ? '20-60k€' : '10-40k€'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Specific -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Fonctionnalités Spéciales Maçonnerie</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow">
+            <h3 class="h5 mb-4">🏗️ Galerie Chantiers</h3>
+            <ul class="space-y-2 text-sm">
+              <li>• Projets par catégorie (neuf/réno)</li>
+              <li>• Timeline avant/pendant/après</li>
+              <li>• Détails techniques visibles</li>
+              <li>• Localisation des chantiers</li>
+              <li>• Durée et complexité</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow">
+            <h3 class="h5 mb-4">📋 Devis Détaillé</h3>
+            <ul class="space-y-2 text-sm">
+              <li>• Type de construction</li>
+              <li>• Surface en m²</li>
+              <li>• Plans uploadables</li>
+              <li>• Budget prévisionnel</li>
+              <li>• Urgence du projet</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-white rounded-lg p-6 shadow">
+            <h3 class="h5 mb-4">🏆 Certifications</h3>
+            <ul class="space-y-2 text-sm">
+              <li>• Labels RGE visibles</li>
+              <li>• Qualibat affiché</li>
+              <li>• Garantie décennale</li>
+              <li>• Assurance RC Pro</li>
+              <li>• Références chantiers</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Construction Types -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">Pages Dédiées par Type de Construction</h2>
+        </div>
+      </div>
+      <div class="row gy-4">
+        <div class="lg:col-4">
+          <div class="bg-gradient-to-b from-primary/10 to-white rounded-lg p-6 text-center">
+            <h3 class="h5 mb-3">🏠 Construction Neuve</h3>
+            <p class="text-sm mb-4">Page optimisée pour les projets de construction complète</p>
+            <ul class="text-left text-sm space-y-2">
+              <li>• Maison individuelle</li>
+              <li>• Villa moderne</li>
+              <li>• Bâtiment collectif</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-gradient-to-b from-primary/10 to-white rounded-lg p-6 text-center">
+            <h3 class="h5 mb-3">🔨 Rénovation</h3>
+            <p class="text-sm mb-4">Section dédiée aux travaux de rénovation</p>
+            <ul class="text-left text-sm space-y-2">
+              <li>• Réhabilitation complète</li>
+              <li>• Mise aux normes</li>
+              <li>• Ravalement façade</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-4">
+          <div class="bg-gradient-to-b from-primary/10 to-white rounded-lg p-6 text-center">
+            <h3 class="h5 mb-3">➕ Extension</h3>
+            <p class="text-sm mb-4">Expertise en agrandissement</p>
+            <ul class="text-left text-sm space-y-2">
+              <li>• Extension latérale</li>
+              <li>• Surélévation</li>
+              <li>• Véranda maçonnée</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <div class="bg-white rounded-lg p-8 shadow-lg">
+            <div class="flex mb-4">
+              {[...Array(5)].map(() => (
+                <span class="text-yellow-400 text-xl">★</span>
+              ))}
+            </div>
+            <blockquote class="text-lg italic mb-6">
+              "{testimonial.text}"
+            </blockquote>
+            <div class="border-t pt-4">
+              <p class="font-bold">{testimonial.name}</p>
+              <p class="text-sm text-gray-600">{testimonial.company}</p>
+              <p class="text-sm font-semibold text-primary mt-2">{testimonial.results}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROI Calculator -->
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="lg:col-8 text-center">
+          <h2 class="mb-4">ROI d'un Site Maçon</h2>
+          <p>1 chantier moyen = 30.000€. Le site se rentabilise dès le 1er projet.</p>
+        </div>
+      </div>
+      <div class="row justify-center">
+        <div class="lg:col-6">
+          <div class="bg-white rounded-lg p-8 shadow-lg">
+            <h3 class="text-center mb-6">Calcul de Rentabilité</h3>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center pb-3 border-b">
+                <span>Investissement site AWEMA</span>
+                <span class="font-bold text-red-600">-797€</span>
+              </div>
+              <div class="flex justify-between items-center pb-3 border-b">
+                <span>Maintenance annuelle</span>
+                <span class="font-bold text-red-600">-948€</span>
+              </div>
+              <div class="flex justify-between items-center pb-3 border-b">
+                <span>Chantiers supplémentaires/an</span>
+                <span class="text-gray-600">+8 à 15</span>
+              </div>
+              <div class="flex justify-between items-center pb-3 border-b">
+                <span>CA additionnel moyen</span>
+                <span class="font-bold text-green-600">+240.000€</span>
+              </div>
+              <div class="flex justify-between items-center pt-3 text-lg">
+                <span class="font-bold">ROI année 1</span>
+                <span class="font-bold text-primary text-xl">+13.400%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="section bg-gradient-to-r from-gray-800 to-gray-900 text-white">
+    <div class="container">
+      <div class="row justify-center text-center">
+        <div class="lg:col-10">
+          <h2 class="text-white mb-6">
+            Les Gros Chantiers Vont aux Maçons Visibles en Ligne
+          </h2>
+          <p class="text-xl mb-8">
+            Pendant que vous hésitez, vos concurrents signent les contrats de construction.
+            <br/>Un site pro = crédibilité immédiate = meilleurs projets.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/contact?metier=macon&urgent=true" class="btn btn-white btn-lg">
+              Je Veux Mon Site Maçon
+            </a>
+            <a href="tel:+33612345678" class="btn btn-outline-white btn-lg">
+              📞 Appel Conseil Gratuit
+            </a>
+          </div>
+          <p class="mt-6 text-sm opacity-90">
+            ⚡ Site en ligne en 7 jours • 100% adapté maçonnerie
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <CallToAction /> -->
+</Base>

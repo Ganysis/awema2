@@ -1,0 +1,276 @@
+---
+// Composant centralisé pour tous les analytics et tracking
+const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID || '';
+const clarityId = import.meta.env.PUBLIC_MICROSOFT_CLARITY_ID || 'tk0dhm8027';
+---
+
+<!-- Consentement cookies initial (mode denied par défaut) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  // Définir le consentement par défaut (refusé)
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'wait_for_update': 500
+  });
+
+  // Vérifier si l'utilisateur a déjà donné son consentement
+  const consent = localStorage.getItem('awema-cookie-consent');
+  if (consent === 'accepted') {
+    gtag('consent', 'update', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'granted'
+    });
+  }
+</script>
+
+<!-- Google Analytics 4 (ULTRA-optimisé pour LCP - chargé après interaction) -->
+{googleAnalyticsId && (
+  <script define:vars={{ googleAnalyticsId }}>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    let gaLoaded = false;
+
+    function loadGA() {
+      if (gaLoaded) return;
+      gaLoaded = true;
+
+      // Charger le script gtag.js
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`;
+      document.head.appendChild(script);
+
+      // Init après chargement
+      script.onload = function() {
+        gtag('js', new Date());
+        gtag('config', googleAnalyticsId, {
+          page_path: window.location.pathname,
+          anonymize_ip: true,
+          cookie_flags: 'SameSite=None;Secure'
+        });
+      };
+    }
+
+    // Custom events helper
+    window.trackEvent = function(eventName, parameters) {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, parameters);
+      }
+    };
+
+    // Charger GA après interaction OU après 5s (fallback)
+    ['scroll', 'mousemove', 'touchstart', 'click'].forEach(event => {
+      window.addEventListener(event, loadGA, { once: true, passive: true });
+    });
+    setTimeout(loadGA, 5000);
+
+    // Track page views for SPA navigation
+    document.addEventListener('astro:page-load', () => {
+      if (typeof gtag !== 'undefined') {
+        gtag('config', googleAnalyticsId, {
+          page_path: window.location.pathname
+        });
+      }
+    });
+  </script>
+)}
+
+<!-- Microsoft Clarity Heatmap (chargé uniquement si consentement) -->
+<script define:vars={{ clarityId }}>
+  // Charger Clarity uniquement si consentement accepté
+  function loadClarity() {
+    const consent = localStorage.getItem('awema-cookie-consent');
+    if (consent === 'accepted') {
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", clarityId);
+    }
+  }
+
+  // Charger au chargement de la page si consentement existant
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadClarity);
+  } else {
+    loadClarity();
+  }
+</script>
+
+<!-- Event Tracking Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Track phone calls
+    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+      link.addEventListener('click', () => {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'contact', {
+            event_category: 'engagement',
+            event_label: 'phone_call',
+            value: link.href.replace('tel:', '')
+          });
+        }
+      });
+    });
+
+    // Track WhatsApp clicks
+    document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+      link.addEventListener('click', () => {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'contact', {
+            event_category: 'engagement',
+            event_label: 'whatsapp_click'
+          });
+        }
+      });
+    });
+
+    // Track email clicks
+    document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+      link.addEventListener('click', () => {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'contact', {
+            event_category: 'engagement',
+            event_label: 'email_click',
+            value: link.href.replace('mailto:', '')
+          });
+        }
+      });
+    });
+
+    // Track form submissions
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', function(e) {
+        const formId = this.id || 'unknown_form';
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'generate_lead', {
+            event_category: 'engagement',
+            event_label: formId,
+            value: 1
+          });
+        }
+      });
+    });
+
+    // Track CTA button clicks
+    document.querySelectorAll('.btn-primary, .btn-cta, [class*="cta"]').forEach(button => {
+      button.addEventListener('click', function() {
+        const buttonText = this.textContent || 'unknown';
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'click', {
+            event_category: 'cta',
+            event_label: buttonText.trim().substring(0, 50)
+          });
+        }
+      });
+    });
+
+    // Track scroll depth
+    let scrollPercentages = [25, 50, 75, 90, 100];
+    let triggeredPercentages = new Set();
+
+    function checkScrollDepth() {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = window.scrollY;
+      const scrollPercentage = Math.round((scrolled / scrollHeight) * 100);
+
+      scrollPercentages.forEach(percentage => {
+        if (scrollPercentage >= percentage && !triggeredPercentages.has(percentage)) {
+          triggeredPercentages.add(percentage);
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'scroll', {
+              event_category: 'engagement',
+              event_label: `${percentage}%`,
+              value: percentage
+            });
+          }
+        }
+      });
+    }
+
+    let scrollTimer;
+    window.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(checkScrollDepth, 100);
+    });
+
+    // Track time on page
+    let startTime = Date.now();
+    window.addEventListener('beforeunload', () => {
+      const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+      if (typeof gtag !== 'undefined' && timeOnPage > 0) {
+        gtag('event', 'timing_complete', {
+          name: 'time_on_page',
+          value: timeOnPage,
+          event_category: 'engagement'
+        });
+      }
+    });
+
+    // Track external link clicks
+    document.querySelectorAll('a[href^="http"]:not([href*="' + window.location.hostname + '"])').forEach(link => {
+      link.addEventListener('click', function() {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'click', {
+            event_category: 'outbound',
+            event_label: this.href,
+            transport_type: 'beacon'
+          });
+        }
+      });
+    });
+  });
+
+  // Exit Intent Popup Tracking
+  document.addEventListener('mouseout', (e) => {
+    if (e.clientY <= 0 && !sessionStorage.getItem('exitIntentShown')) {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'exit_intent', {
+          event_category: 'engagement',
+          event_label: 'mouse_leave'
+        });
+      }
+      // Here you can trigger a popup
+      sessionStorage.setItem('exitIntentShown', 'true');
+    }
+  });
+</script>
+
+<!-- Facebook Pixel (si configuré) -->
+{import.meta.env.PUBLIC_FACEBOOK_PIXEL_ID && (
+  <script define:vars={{ pixelId: import.meta.env.PUBLIC_FACEBOOK_PIXEL_ID }}>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', pixelId);
+    fbq('track', 'PageView');
+  </script>
+)}
+
+<!-- LinkedIn Insight Tag (si configuré) -->
+{import.meta.env.PUBLIC_LINKEDIN_PARTNER_ID && (
+  <script define:vars={{ partnerId: import.meta.env.PUBLIC_LINKEDIN_PARTNER_ID }}>
+    _linkedin_partner_id = partnerId;
+    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+    window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+  </script>
+  <script type="text/javascript">
+    (function(l) {
+    if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+    window.lintrk.q=[]}
+    var s = document.getElementsByTagName("script")[0];
+    var b = document.createElement("script");
+    b.type = "text/javascript";b.async = true;
+    b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+    s.parentNode.insertBefore(b, s);})(window.lintrk);
+  </script>
+)}
