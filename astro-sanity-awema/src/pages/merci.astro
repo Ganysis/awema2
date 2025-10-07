@@ -160,9 +160,12 @@ const { contact_form_action } = entry?.data || {};
 
   <!-- Event snippet for Achat conversion page -->
   <script is:inline>
+    // Génération d'un ID de transaction unique
+    const transactionId = 'AWM-' + Date.now() + '-' + Math.random().toString(36).substring(2, 9);
+
     gtag('event', 'conversion', {
         'send_to': 'AW-17628944043/V7dhCMuE26gbEKutkdZB',
-        'transaction_id': ''
+        'transaction_id': transactionId
     });
   </script>
 </Base>
