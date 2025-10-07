@@ -158,29 +158,11 @@ const { contact_form_action } = entry?.data || {};
     </div>
   </section>
 
-  <!-- Script de tracking Google Ads (Conversion) -->
+  <!-- Event snippet for Achat conversion page -->
   <script is:inline>
-    // Attendre que gtag soit chargé
-    window.addEventListener('load', function() {
-      // Event de conversion pour Google Ads
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'conversion', {
-          'send_to': 'AW-17628944043',
-          'value': 1.0,
-          'currency': 'EUR'
-        });
-        console.log('[AWEMA] Conversion Google Ads envoyée');
-      }
-
-      // Event de conversion pour Google Tag Manager
-      if (typeof dataLayer !== 'undefined') {
-        dataLayer.push({
-          'event': 'form_submission',
-          'form_type': 'contact',
-          'form_destination': 'lead'
-        });
-        console.log('[AWEMA] Event GTM envoyé');
-      }
+    gtag('event', 'conversion', {
+        'send_to': 'AW-17628944043/V7dhCMuE26gbEKutkdZB',
+        'transaction_id': ''
     });
   </script>
 </Base>
