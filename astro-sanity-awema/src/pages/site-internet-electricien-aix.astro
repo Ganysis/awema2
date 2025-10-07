@@ -2,68 +2,67 @@
 import Base from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
-import BadgeUrgence from "@/components/BadgeUrgence.astro";
 import LocalBusinessSchema from "@/components/schemas/LocalBusinessSchema.astro";
 import FAQSchema from "@/components/schemas/FAQSchema.astro";
 import ServiceSchema from "@/components/schemas/ServiceSchema.astro";
 import BreadcrumbSchema from "@/components/schemas/BreadcrumbSchema.astro";
 
-// Données statiques pour la landing page Paysagiste
+// Données statiques pour la landing page électricien
 const landingData = {
-  metier: "Paysagiste",
+  metier: "Électricien",
   ville: "",
   hero: {
-    headline: "Site Internet Professionnel pour Paysagiste",
-    subheadline: "Développez votre activité de paysagiste avec un site web qui génère des clients qualifiés automatiquement",
+    headline: "Site Internet Professionnel pour Électricien",
+    subheadline: "Devenez l'électricien de référence avec un site web qui génère des devis qualifiés automatiquement",
     ctaText: "Prendre rendez-vous",
     trustBadges: ["2200€ TTC tout inclus", "Livré en 3 semaines", "Vous êtes propriétaire"]
   },
   problems: [
     {
-        "icon": "🌿",
-        "problem": "Portfolio peu attrayant",
-        "description": "Vos créations de jardins ne sont pas mises en valeur"
+      icon: "🔌",
+      problem: "Clients perdus faute de visibilité",
+      description: "Lesnais ne vous trouvent pas quand ils cherchent un électricien"
     },
     {
-        "icon": "🏡",
-        "problem": "Clients indécis",
-        "description": "Difficile de faire visualiser le projet final"
+      icon: "⚡",
+      problem: "Urgences mal organisées",
+      description: "Pas de système pour gérer les dépannages électriques urgents"
     },
     {
-        "icon": "📅",
-        "problem": "Saisonnalité marquée",
-        "description": "Creux d'activité en hiver difficiles à gérer"
+      icon: "📋",
+      problem: "Devis chronophages",
+      description: "Vous perdez du temps à établir des devis pour des projets non qualifiés"
     },
     {
-        "icon": "💰",
-        "problem": "Devis complexes",
-        "description": "Entre plantes, travaux et entretien, c'est compliqué"
+      icon: "🏗️",
+      problem: "Image peu moderne",
+      description: "Votre expertise en domotique et rénovation électrique n'est pas mise en valeur"
     }
-],
+  ],
   solutions: [
     {
-        "icon": "📸",
-        "solution": "Portfolio avant/après",
-        "description": "Transformations spectaculaires de jardins"
+      icon: "🥇",
+      solution: "Référencement local 'électricien'",
+      description: "SEO optimisé pour toutes les recherches électricité dans le 69"
     },
     {
-        "icon": "🎨",
-        "solution": "Simulateur 3D",
-        "description": "Visualisation du jardin futur avec les plantes"
+      icon: "⚡",
+      solution: "Formulaire de contact",
+      description: "Vos clients vous contactent facilement, même le soir et weekend"
     },
     {
-        "icon": "❄️",
-        "solution": "Services 4 saisons",
-        "description": "Mise en avant entretien et jardins d'hiver"
+      icon: "📱",
+      solution: "Devis automatisés",
+      description: "Performance maximale sur tous les appareils pour une expérience parfaite"
     },
     {
-        "icon": "💵",
-        "solution": "Devis modulaires",
-        "description": "Options claires : création, entretien, arrosage"
+      icon: "🏠",
+      solution: "Portfolio projets",
+      description: "Galerie de vos réalisations : domotique, tableaux électriques, éclairage LED"
     }
-],
+  ],
   specialOffer: {
-    title: "Site Internet Paysagiste",
+    title: "Site Internet Electricien",
     description: "Vous êtes propriétaire à 100%",
     price: "2200€ TTC",
     monthlyPrice: "tout inclus",
@@ -71,48 +70,42 @@ const landingData = {
     features: [
       "Maquette gratuite en 24h",
       "Site 10 pages optimisé SEO",
-      "Galerie photos HD",
-      "Formulaire de devis intelligent",
-      "Avis clients",
+      "Site ultra rapide et optimisé smartphone",
+      "Portfolio projets interactif",
+      "Certifications Qualifelec affichées",
       "Formation incluse"
     ]
   },
   testimonials: [
     {
-        "name": "Sylvie Martin",
-        "company": "Les Jardins de Sylvie",
-        "location": "Lyon 5ème",
-        "content": "Mon site AWEMA montre vraiment la beauté de mes créations. J'ai doublé mes demandes de jardins complets à 20-30k€.",
-        "rating": 5,
-        "results": [
-            "Demandes x2",
-            "Projets 20-30k€"
-        ]
+      name: "Thomas Bernard",
+      company: "TB Élec",
+      location: "Lyon 3ème",
+      content: "Mon site AWEMA a transformé mon activité. Je reçois 20 demandes de devis par semaine, toutes qualifiées. Le ROI est incroyable !",
+      rating: 5,
+      results: ["20 devis/semaine", "ROI x10 en 3 mois"]
     },
     {
-        "name": "Julien Vert",
-        "company": "JV Paysages",
-        "location": "Tassin",
-        "content": "Le simulateur 3D fait la différence ! Les clients signent plus facilement quand ils peuvent visualiser leur futur jardin.",
-        "rating": 5,
-        "results": [
-            "Taux conversion +60%",
-            "Vente facilitée"
-        ]
+      name: "Mehdi Khelifi",
+      company: "MK Électricité",
+      location: "Caluire",
+      content: "Enfin un site qui montre mon expertise en domotique ! J'ai décroché 3 gros chantiers de rénovation complète grâce à mon nouveau site.",
+      rating: 5,
+      results: ["3 gros chantiers", "+150K€ de CA"]
     }
-],
+  ],
   faq: [
     {
-      question: "Pourquoi un site spécialisé pour paysagiste ?",
-      answer: "Nous connaissons parfaitement les besoins des paysagistes : types de prestations, processus de devis, galeries de réalisations, certifications... Votre site est conçu spécifiquement pour convertir vos visiteurs en clients."
+      question: "Pourquoi un site spécialisé pour électricien ?",
+      answer: "Nous connaissons vos spécificités : normes NF C 15-100, certifications, types d'interventions (dépannage, installation, rénovation), domotique... Votre site est conçu pour convertir les visiteurs en clients."
     },
     {
-      question: "Comment être sûr d'être visible sur Google ?",
-      answer: "Notre méthode SEO local a fait ses preuves sur +50 artisans en France. Nous optimisons pour 'paysagiste' et toutes les variantes. Premiers résultats en 4-6 semaines."
+      question: "Comment gérer les urgences électriques ?",
+      answer: "Notre module urgences permet aux clients de décrire leur panne, d'envoyer des photos, et de voir vos disponibilités. Vous recevez une notification immédiate avec toutes les infos nécessaires."
     },
     {
-      question: "Puis-je modifier mon site moi-même ?",
-      answer: "Oui ! Interface simple et intuitive. Vous pouvez modifier textes, photos, tarifs, ajouter des réalisations... Formation incluse et support illimité."
+      question: "Le calculateur de devis est-il personnalisable ?",
+      answer: "Totalement ! Il s'adapte à vos tarifs : mise aux normes, tableau électrique, installation complète, domotique. Les clients obtiennent une estimation immédiate, vous gagnez du temps."
     }
   ]
 };
@@ -126,46 +119,41 @@ const seoData = {
 const breadcrumbs = [
   { name: "Accueil", url: "https://awema.fr" },
   { name: "Sites Internet Métiers", url: "https://awema.fr/metiers" },
-  { name: `Site Internet ${landingData.metier} ${landingData.ville}`, url: `https://awema.fr/site-internet-paysagiste-lyon` }
+  { name: `Site Internet ${landingData.metier} ${landingData.ville}`, url: `https://awema.fr/site-internet-electricien-aix` }
 ];
 ---
 
 <Base {...seoData}>
   <!-- Structured Data -->
   <LocalBusinessSchema
-    name={`AWEMA - Sites Web pour Paysagistes à ${landingData.ville}`}
-    description={`Agence web spécialisée dans la création de sites internet haute conversion pour paysagistes à ${landingData.ville}. Solutions digitales sur mesure pour développer votre activité de paysagisme et jardinage.`}
+    name={`AWEMA - Sites Web pour Électriciens à ${landingData.ville}`}
+    description={`Agence web spécialisée dans la création de sites internet haute conversion pour électriciens à ${landingData.ville}. Solutions digitales sur mesure pour développer votre activité électrique.`}
     services={[
-      "Création de sites web pour paysagistes",
-      `Référencement local paysagiste ${landingData.ville}`,
-      "Portfolio avant/après de jardins",
-      "Simulateur 3D de jardins",
-      "Site ultra rapide et optimisé smartphone aménagement paysager",
-      "Marketing digital pour paysagistes"
+      "Création de sites web pour électriciens",
+      `Référencement local électricien ${landingData.ville}`,
+      "Module de dépannage électrique urgent",
+      "Site ultra rapide et optimisé smartphone installation électrique",
+      "Marketing digital pour électriciens"
     ]}
-    areaServed={["Lyon", "Villeurbanne", "Écully", "Tassin-la-Demi-Lune", "Caluire-et-Cuire", "Sainte-Foy-lès-Lyon", "Oullins", "Pierre-Bénite", "Saint-Genis-Laval", "Charbonnières-les-Bains"]}
-    aggregateRating={{ ratingValue: 4.9, reviewCount: 65 }}
+    areaServed={["Aix-en-Provence", "Marseille", "Velaux", "Vitrolles", "Salon-de-Provence", "Rognac", "Meyzieu", "Décines-Charpieu", "Rillieux-la-Pape", "Oullins"]}
   />
 
   <ServiceSchema
     name={`Création Site Internet ${landingData.metier} ${landingData.ville}`}
-    description={`Service de création de site web professionnel pour paysagistes à ${landingData.ville}. Sites optimisés SEO, portfolio interactif, devis automatiques. Livraison 48h, 97€/mois tout compris.`}
-    serviceType="Création de site web spécialisé paysagisme"
-    areaServed={["Lyon", "Rhône", "Auvergne-Rhône-Alpes"]}
+    description={`Service de création de site web professionnel pour électriciens à ${landingData.ville}. Sites optimisés SEO, gestion des urgences, devis automatiques. Livraison 48h, 97€/mois tout compris.`}
+    serviceType="Création de site web spécialisé électricité"
+    areaServed={["Aix-en-Provence", "Bouches-du-Rhône", "Provence-Alpes-Côte d'Azur"]}
     offers={{
       priceRange: "97€-197€/mois",
       price: "990"
     }}
-    aggregateRating={{ ratingValue: 4.9, reviewCount: 65 }}
   />
 
   <FAQSchema faqs={landingData.faq} />
 
   <BreadcrumbSchema items={breadcrumbs} />
   <!-- Hero Section avec urgence -->
-  <section class="section bg-gradient-to-br from-green-50 to-white relative overflow-hidden">
-    <div class="absolute top-0 right-0 bg-red-500 text-white px-6 py-2 rounded-bl-2xl font-bold animate-pulse">
-      🔥 Offre -50% limitée
+  <section class="section bg-gradient-to-br from-yellow-50 to-white relative overflow-hidden">
     </div>
 
     <div class="container">
@@ -215,7 +203,7 @@ const breadcrumbs = [
               width={600}
               height={500}
               alt={`Site web ${landingData.metier} ${landingData.ville}`}
-              src="/images/screenshots/banner-shot.png"
+              src="/images/portfolio/electricite-aix.jpg"
               format="webp"
             />
             <!-- Badge sur l'image -->
@@ -282,7 +270,7 @@ const breadcrumbs = [
   </section>
 
   <!-- Offre Spéciale -->
-  <section class="section bg-gradient-to-r from-green-600 to-green-700 text-white">
+  <section class="section bg-gradient-to-r from-yellow-600 to-yellow-700 text-white">
     <div class="container">
       <div class="bg-white/10 backdrop-blur rounded-2xl p-8 lg:p-12">
         <div class="text-center mb-8">
@@ -420,7 +408,7 @@ const breadcrumbs = [
               </div>
             </div>
 
-            <form class="space-y-6">
+            <form id="contact-form" class="space-y-6">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -428,6 +416,7 @@ const breadcrumbs = [
                   </label>
                   <input
                     type="text"
+                    name="name"
                     required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="Jean Dupont"
@@ -440,9 +429,10 @@ const breadcrumbs = [
                   </label>
                   <input
                     type="text"
+                    name="company"
                     required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Paysagiste Dupont"
+                    placeholder="Électricité Dupont"
                   />
                 </div>
 
@@ -452,6 +442,7 @@ const breadcrumbs = [
                   </label>
                   <input
                     type="email"
+                    name="email"
                     required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="contact@exemple.fr"
@@ -464,6 +455,7 @@ const breadcrumbs = [
                   </label>
                   <input
                     type="tel"
+                    name="phone"
                     required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="06 12 34 56 78"
@@ -477,6 +469,7 @@ const breadcrumbs = [
                 </label>
                 <input
                   type="text"
+                  name="city"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                   placeholder={`${landingData.ville} et environs`}
                   value={`${landingData.ville}`}
@@ -488,6 +481,7 @@ const breadcrumbs = [
                   Message (optionnel)
                 </label>
                 <textarea
+                  name="message"
                   rows="4"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                   placeholder="Décrivez vos besoins spécifiques..."
@@ -526,7 +520,7 @@ const breadcrumbs = [
   </section>
 
   <!-- CTA Final -->
-  <section class="section bg-green-600 text-white">
+  <section class="section bg-yellow-600 text-white">
     <div class="container text-center">
       <h2 class="text-4xl font-bold mb-6">
         Ne laissez plus vos concurrents prendre vos clients
@@ -545,6 +539,61 @@ const breadcrumbs = [
     </div>
   </section>
   <!-- Composants de conversion -->
-  <BadgeUrgence />
   <WhatsAppButton />
 </Base>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Envoi en cours...';
+
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        service: formData.get('trade') ? `${formData.get('trade')} - ${formData.get('city')}` : formData.get('service') || 'Contact',
+        message: formData.get('message') || `Demande de contact`
+      };
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Redirection vers la page de remerciement (pour tracking Google Ads)
+          window.location.href = '/merci';
+        } else {
+          throw new Error(result.message || 'Erreur lors de l\'envoi');
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4';
+        errorDiv.innerHTML = `<strong>Erreur:</strong> ${error.message}<br><small>Appelez-nous au 06.17.54.03.83</small>`;
+        form.appendChild(errorDiv);
+
+        setTimeout(() => {
+          errorDiv.remove();
+        }, 8000);
+      }
+    });
+  });
+</script>

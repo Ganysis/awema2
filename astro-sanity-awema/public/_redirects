@@ -3,6 +3,14 @@
 # Redirection www vers domaine principal
 https://www.awema.fr/*  https://awema.fr/:splat  301!
 
+# Redirections anciennes pages Lyon vers nouvelles pages Aix/Marseille
+/site-internet-plombier-lyon  /site-internet-plombier-aix  301
+/site-internet-electricien-lyon  /site-internet-electricien-marseille  301
+/site-internet-paysagiste-lyon  /site-internet-paysagiste-aix  301
+/site-internet-menuisier-lyon  /site-internet-menuisier-aix  301
+/site-internet-macon-lyon  /site-internet-macon-marseille  301
+/site-internet-carreleur-lyon  /site-internet-carreleur-aix  301
+
 # API routes vers Cloudflare Functions
 /api/*  /api/:splat  200
 

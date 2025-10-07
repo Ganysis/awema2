@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrelage d'Art Marseille - Carreleur Haut de Gamme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Lato', sans-serif;
+      background: #ffffff;
+      color: #1e293b;
+    }
+    .announcement-bar {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      color: white;
+      padding: 12px 0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    header {
+      background: white;
+      padding: 30px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .logo-icon {
+      width: 55px;
+      height: 55px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: white;
+    }
+    .logo-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: #1e3a8a;
+      letter-spacing: -0.5px;
+    }
+    .logo-text p {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    nav {
+      display: flex;
+      gap: 35px;
+      align-items: center;
+    }
+    nav a {
+      color: #475569;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #1e3a8a;
+    }
+    .header-btn {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      color: white;
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 15px;
+      transition: all 0.3s;
+    }
+    .header-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30, 58, 138, 0.3);
+    }
+    .hero {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 41, 59, 0.92) 100%),
+                  url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&auto=format&fit=crop&q=80');
+      background-size: cover;
+      background-position: center;
+      padding: 100px 0;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 10px 25px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 58px;
+      font-weight: 900;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+    .hero h2 span {
+      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 20px;
+      opacity: 0.9;
+      margin-bottom: 50px;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      padding: 20px 50px;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 18px;
+      display: inline-block;
+      transition: all 0.3s;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+    }
+    .expertise {
+      padding: 80px 0;
+      background: #f8fafc;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      font-weight: 900;
+      color: #1e293b;
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      font-size: 18px;
+      color: #64748b;
+    }
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+    .expertise-card {
+      background: white;
+      padding: 35px 25px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+      border-top: 4px solid transparent;
+    }
+    .expertise-card:hover {
+      border-top-color: #3b82f6;
+      transform: translateY(-8px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+    .expertise-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin: 0 auto 20px;
+    }
+    .expertise-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #1e293b;
+    }
+    .expertise-card p {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+    .gallery {
+      padding: 80px 0;
+      background: white;
+    }
+    .gallery-masonry {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .gallery-item {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .gallery-item:nth-child(1) { grid-row: span 2; }
+    .gallery-item:nth-child(4) { grid-row: span 2; }
+    .gallery-item-inner {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .gallery-emoji {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+    .gallery-label {
+      font-weight: 700;
+      color: #1e3a8a;
+      font-size: 16px;
+      text-align: center;
+    }
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 40px rgba(30, 58, 138, 0.15);
+    }
+    .promise {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      padding: 80px 0;
+      color: white;
+    }
+    .promise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+    .promise-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 40px 30px;
+      border-radius: 16px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .promise-icon {
+      font-size: 56px;
+      margin-bottom: 20px;
+    }
+    .promise-card h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    .promise-card p {
+      opacity: 0.9;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+    .testimonial {
+      padding: 80px 0;
+      background: #f8fafc;
+    }
+    .testimonial-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .testimonial-card {
+      background: white;
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+    .quote-icon {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      font-size: 60px;
+      color: #dbeafe;
+    }
+    .testimonial-content {
+      position: relative;
+      z-index: 2;
+    }
+    .stars {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .testimonial-text {
+      font-size: 20px;
+      font-style: italic;
+      color: #1e293b;
+      margin-bottom: 25px;
+      line-height: 1.8;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .author-avatar {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+    }
+    .author-info h4 {
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .author-info p {
+      color: #64748b;
+      font-size: 14px;
+    }
+    .cta-final {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      padding: 80px 0;
+      text-align: center;
+      color: white;
+    }
+    .cta-final h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 900;
+      margin-bottom: 20px;
+    }
+    .cta-final p {
+      font-size: 20px;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+    .cta-phone {
+      background: white;
+      color: #1e3a8a;
+      padding: 22px 50px;
+      border-radius: 12px;
+      font-weight: 900;
+      text-decoration: none;
+      font-size: 28px;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+    .cta-phone:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+    }
+    footer {
+      background: #0f172a;
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+    }
+    footer p {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement-bar">
+    ✨ NOUVEAU : Showroom de 200m² - Venez découvrir nos collections à Marseille 6e
+  </div>
+
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon">🏛️</div>
+          <div class="logo-text">
+            <h1>Carrelage d'Art</h1>
+            <p>Marseille</p>
+          </div>
+        </div>
+        <nav>
+          <a href="#realisations">Réalisations</a>
+          <a href="#showroom">Showroom</a>
+          <a href="#contact">Contact</a>
+          <a href="#devis" class="header-btn">Devis Gratuit</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🏆 Expert Carrelage Haut de Gamme depuis 2005</div>
+      <h2>L'Excellence du <span>Carrelage</span><br/>à Marseille</h2>
+      <p>Salles de bain design, terrasses luxueuses, cuisines raffinées. Des réalisations qui subliment votre intérieur avec les plus belles collections européennes.</p>
+      <a href="#devis" class="hero-cta">Découvrir notre showroom</a>
+    </div>
+  </section>
+
+  <section class="expertise">
+    <div class="container">
+      <div class="section-header">
+        <h2>Notre Savoir-Faire</h2>
+        <p>20 ans d'expérience au service de l'excellence</p>
+      </div>
+
+      <div class="expertise-grid">
+        <div class="expertise-card">
+          <div class="expertise-icon">🛁</div>
+          <h3>Salles de Bain</h3>
+          <p>Pose italienne, douche à l'italienne, faïence murale design</p>
+        </div>
+
+        <div class="expertise-card">
+          <div class="expertise-icon">🏡</div>
+          <h3>Terrasses</h3>
+          <p>Carrelage extérieur anti-dérapant, dallage, margelles</p>
+        </div>
+
+        <div class="expertise-card">
+          <div class="expertise-icon">🍽️</div>
+          <h3>Cuisines</h3>
+          <p>Crédence mosaïque, grand format, carreaux de ciment</p>
+        </div>
+
+        <div class="expertise-card">
+          <div class="expertise-icon">💎</div>
+          <h3>Haut de Gamme</h3>
+          <p>Marbre, grès cérame XXL, effet béton ciré</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <div class="container">
+      <div class="section-header">
+        <h2>Portfolio Premium</h2>
+        <p>Nos plus belles réalisations à Marseille, Aix et Cassis</p>
+      </div>
+
+      <div class="gallery-masonry">
+        <div class="gallery-item">
+          <div class="gallery-item-inner">
+            <div class="gallery-emoji">🏛️</div>
+            <div class="gallery-label">Marbre Calacatta<br/>Salle de bain • Marseille 8e</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item-inner">
+            <div class="gallery-emoji">✨</div>
+            <div class="gallery-label">Mosaïque Or<br/>Cuisine • Villa Cassis</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item-inner">
+            <div class="gallery-emoji">🌊</div>
+            <div class="gallery-label">Grès Cérame 120x120<br/>Séjour • Aix-en-Provence</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item-inner">
+            <div class="gallery-emoji">🏖️</div>
+            <div class="gallery-label">Terrasse Travertin<br/>Villa • Marseille 7e</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item-inner">
+            <div class="gallery-emoji">🎨</div>
+            <div class="gallery-label">Carreaux de Ciment<br/>Entrée • Aubagne</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item-inner">
+            <div class="gallery-emoji">💠</div>
+            <div class="gallery-label">Effet Béton Ciré<br/>Loft • Marseille 2e</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="promise">
+    <div class="container">
+      <div class="section-header">
+        <h2 style="color: white;">Nos Engagements</h2>
+        <p style="color: rgba(255,255,255,0.9);">Ce qui fait la différence Carrelage d'Art</p>
+      </div>
+
+      <div class="promise-grid">
+        <div class="promise-card">
+          <div class="promise-icon">🎨</div>
+          <h3>Collections Premium</h3>
+          <p>Accès direct aux plus grandes marques européennes : Porcelanosa, Marazzi, Cifre, Atlas Concorde</p>
+        </div>
+
+        <div class="promise-card">
+          <div class="promise-icon">👷</div>
+          <h3>Artisans Qualifiés</h3>
+          <p>Équipe certifiée Qualibat. Pose traditionnelle ou techniques modernes. Finitions parfaites.</p>
+        </div>
+
+        <div class="promise-card">
+          <div class="promise-icon">🛡️</div>
+          <h3>Garantie 10 ans</h3>
+          <p>Tous nos chantiers sont garantis décennale. Assurance tous risques. Satisfaction client 100%.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonial">
+    <div class="container">
+      <div class="section-header">
+        <h2>Témoignage Client</h2>
+      </div>
+
+      <div class="testimonial-container">
+        <div class="testimonial-card">
+          <div class="quote-icon">"</div>
+          <div class="testimonial-content">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-text">
+              "Salle de bain refaite à neuf avec du marbre Calacatta. Un travail d'orfèvre !
+              L'équipe est arrivée à l'heure chaque jour, chantier propre, pose millimétrique.
+              On a l'impression d'être dans un palace. Merci Carrelage d'Art !"
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">👨‍💼</div>
+              <div class="author-info">
+                <h4>Antoine R.</h4>
+                <p>Propriétaire • Appartement haussmannien Marseille 8e</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-final">
+    <div class="container">
+      <h2>Visitez Notre Showroom</h2>
+      <p>200m² d'exposition • Conseils personnalisés • Devis gratuit sous 48h</p>
+      <a href="tel:0491345678" class="cta-phone">📞 04 91 34 56 78</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p><strong>Carrelage d'Art Marseille</strong> - Expert Carrelage Haut de Gamme</p>
+      <p style="margin-top: 10px; font-size: 14px;">Showroom : 45 Rue Paradis, 13006 Marseille • Ouvert du lundi au samedi 9h-18h</p>
+      <p style="margin-top: 15px; font-size: 13px;">&copy; 2025 - Créé par AWEMA</p>
+    </div>
+  </footer>
+</body>
+</html>

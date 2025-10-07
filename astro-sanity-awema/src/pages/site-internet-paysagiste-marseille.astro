@@ -2,64 +2,63 @@
 import Base from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
-import BadgeUrgence from "@/components/BadgeUrgence.astro";
 
-// Données statiques pour la landing page Menuisier Paris
+// Données statiques pour la landing page Paysagiste Marseille
 const landingData = {
-  metier: "Menuisier",
-  ville: "Paris",
+  metier: "Paysagiste",
+  ville: "Marseille",
   hero: {
-    headline: "Site Internet Professionnel pour Menuisier à Paris",
-    subheadline: "Développez votre activité de menuisier avec un site web qui génère des clients qualifiés automatiquement",
+    headline: "Site Internet Professionnel pour Paysagiste à Marseille",
+    subheadline: "Développez votre activité de paysagiste avec un site web qui génère des clients qualifiés automatiquement",
     ctaText: "Obtenir ma maquette gratuite",
-    trustBadges: ["97€/mois tout compris", "Livré en 48h", "Expert menuisier"]
+    trustBadges: ["97€/mois tout compris", "Livré en 48h", "Expert paysagiste"]
   },
   problems: [
     {
         "icon": "🏢",
-        "problem": "Concurrence des grandes enseignes",
-        "description": "IKEA et Leroy Merlin dominent le marché parisien"
+        "problem": "Peu d'espaces verts",
+        "description": "Marché limité aux terrasses et petits jardins"
     },
     {
-        "icon": "💰",
-        "problem": "Clients exigeants",
-        "description": "Les Parisiens veulent du sur-mesure mais comparent les prix"
+        "icon": "💸",
+        "problem": "Clientèle exigeante",
+        "description": "Les Marseilleiens veulent du design végétal haut de gamme"
     },
     {
-        "icon": "🚪",
-        "problem": "Projets haussmanniens complexes",
-        "description": "Difficile de montrer votre expertise en rénovation"
+        "icon": "🌱",
+        "problem": "Tendance écolo complexe",
+        "description": "Demande croissante mais expertise mal valorisée"
     },
     {
-        "icon": "📱",
-        "problem": "Peu de visibilité",
-        "description": "Les architectes d'intérieur ne vous connaissent pas"
+        "icon": "🏗️",
+        "problem": "Accès difficiles",
+        "description": "Logistique complexe en centre-ville"
     }
 ],
   solutions: [
     {
-        "icon": "🏆",
-        "solution": "Positionnement artisan premium",
-        "description": "Site qui valorise le sur-mesure et l'artisanat français"
+        "icon": "🌿",
+        "solution": "Expert terrasses & toits",
+        "description": "Spécialisation espaces urbains et toitures végétalisées"
     },
     {
-        "icon": "🏗️",
-        "solution": "Portfolio spécial Haussmann",
-        "description": "Galerie dédiée aux rénovations d'appartements anciens"
+        "icon": "🎨",
+        "solution": "Design végétal premium",
+        "description": "Portfolio artistique façon magazine déco"
     },
     {
-        "icon": "👔",
-        "solution": "Espace pro architectes",
-        "description": "Section dédiée avec tarifs pro et catalogue"
+        "icon": "♻️",
+        "solution": "Label éco-responsable",
+        "description": "Mise en avant permaculture et biodiversité urbaine"
     },
     {
-        "icon": "💎",
-        "solution": "Image haut de gamme",
-        "description": "Design élégant qui attire une clientèle CSP++"
+        "icon": "🚚",
+        "solution": "Process logistique",
+        "description": "Transparence sur les modalités d'intervention"
     }
 ],
   specialOffer: {
-    title: "Offre Spéciale Menuisiers Paris",
+    title: "Offre Spéciale Paysagistes Marseille",
     description: "Profitez de notre expertise BTP pour dominer votre marché local",
     originalPrice: "1990€",
     discountPrice: "990€",
@@ -76,36 +75,36 @@ const landingData = {
   },
   testimonials: [
     {
-        "name": "Philippe Moreau",
-        "company": "PM Créations Bois",
-        "location": "Paris 8ème",
-        "content": "Grâce à mon site AWEMA, je travaille maintenant avec 3 architectes d'intérieur réguliers. Mon CA a triplé en 1 an !",
+        "name": "Marie Dubois",
+        "company": "Green Marseille",
+        "location": "Paris 16ème",
+        "content": "AWEMA a transformé mon image. Je suis passée de jardinière à designer végétal. Mes tarifs ont doublé et les clients adorent !",
         "rating": 5,
         "results": [
-            "CA x3",
-            "3 partenaires pro"
+            "Tarifs x2",
+            "Image premium"
         ]
     },
     {
-        "name": "Laurent Dubois",
-        "company": "L'Atelier du Bois",
-        "location": "Paris 15ème",
-        "content": "Mon portfolio en ligne impressionne les clients. Je décroche des projets à 30-50k€ régulièrement maintenant.",
+        "name": "Thomas Green",
+        "company": "Urban Garden",
+        "location": "Paris 7ème",
+        "content": "Mon expertise en toitures végétalisées est enfin visible. J'ai décroché 3 projets de copropriétés cette année.",
         "rating": 5,
         "results": [
-            "Projets 30-50k€",
-            "Clients premium"
+            "3 copropriétés",
+            "Spécialisation reconnue"
         ]
     }
 ],
   faq: [
     {
-      question: "Pourquoi un site spécialisé pour menuisier ?",
-      answer: "Nous connaissons parfaitement les besoins des menuisiers : types de prestations, processus de devis, galeries de réalisations, certifications... Votre site est conçu spécifiquement pour convertir vos visiteurs en clients."
+      question: "Pourquoi un site spécialisé pour paysagiste ?",
+      answer: "Nous connaissons parfaitement les besoins des paysagistes : types de prestations, processus de devis, galeries de réalisations, certifications... Votre site est conçu spécifiquement pour convertir vos visiteurs en clients."
     },
     {
-      question: "Comment être sûr d'être visible sur Google à Paris ?",
-      answer: "Notre méthode SEO local a fait ses preuves sur +50 artisans en France. Nous optimisons pour 'menuisier Paris' et toutes les variantes. Premiers résultats en 4-6 semaines."
+      question: "Comment être sûr d'être visible sur Google à Marseille ?",
+      answer: "Notre méthode SEO local a fait ses preuves sur +50 artisans en France. Nous optimisons pour 'paysagiste Marseille' et toutes les variantes. Premiers résultats en 4-6 semaines."
     },
     {
       question: "Puis-je modifier mon site moi-même ?",
@@ -122,9 +121,7 @@ const seoData = {
 
 <Base {...seoData}>
   <!-- Hero Section avec urgence -->
-  <section class="section bg-gradient-to-br from-amber-50 to-white relative overflow-hidden">
-    <div class="absolute top-0 right-0 bg-red-500 text-white px-6 py-2 rounded-bl-2xl font-bold animate-pulse">
-      🔥 Offre -50% limitée
+  <section class="section bg-gradient-to-br from-green-50 to-white relative overflow-hidden">
     </div>
 
     <div class="container">
@@ -241,7 +238,7 @@ const seoData = {
   </section>
 
   <!-- Offre Spéciale -->
-  <section class="section bg-gradient-to-r from-amber-600 to-amber-700 text-white">
+  <section class="section bg-gradient-to-r from-green-600 to-green-700 text-white">
     <div class="container">
       <div class="bg-white/10 backdrop-blur rounded-2xl p-8 lg:p-12">
         <div class="text-center mb-8">
@@ -267,7 +264,7 @@ const seoData = {
             <div class="bg-white rounded-xl p-8 text-gray-900 text-center">
               <div class="mb-4">
                 <span class="text-xl line-through text-gray-400">{landingData.specialOffer.originalPrice}</span>
-                <span class="text-5xl font-bold text-amber-600 ml-4">{landingData.specialOffer.discountPrice}</span>
+                <span class="text-5xl font-bold text-green-600 ml-4">{landingData.specialOffer.discountPrice}</span>
               </div>
               <p class="text-2xl font-semibold mb-6">
                 Puis {landingData.specialOffer.monthlyPrice}
@@ -380,7 +377,7 @@ const seoData = {
               </div>
             </div>
 
-            <form class="space-y-6">
+            <form id="contact-form" class="space-y-6">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -388,7 +385,7 @@ const seoData = {
                   </label>
                   <input
                     type="text"
-                    required
+                    name="name" required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="Jean Dupont"
                   />
@@ -402,7 +399,7 @@ const seoData = {
                     type="text"
                     required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Menuisier Dupont"
+                    placeholder="Paysagiste Dupont"
                   />
                 </div>
 
@@ -412,7 +409,7 @@ const seoData = {
                   </label>
                   <input
                     type="email"
-                    required
+                    name="email" required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="contact@exemple.fr"
                   />
@@ -424,7 +421,7 @@ const seoData = {
                   </label>
                   <input
                     type="tel"
-                    required
+                    name="phone" required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="06 12 34 56 78"
                   />
@@ -486,7 +483,7 @@ const seoData = {
   </section>
 
   <!-- CTA Final -->
-  <section class="section bg-amber-600 text-white">
+  <section class="section bg-green-600 text-white">
     <div class="container text-center">
       <h2 class="text-4xl font-bold mb-6">
         Ne laissez plus vos concurrents prendre vos clients
@@ -505,6 +502,61 @@ const seoData = {
     </div>
   </section>
   <!-- Composants de conversion -->
-  <BadgeUrgence />
   <WhatsAppButton />
 </Base>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Envoi en cours...';
+
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        service: formData.get('trade') ? `${formData.get('trade')} - ${formData.get('city')}` : formData.get('service') || 'Contact',
+        message: formData.get('message') || `Demande de contact`
+      };
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Redirection vers la page de remerciement (pour tracking Google Ads)
+          window.location.href = '/merci';
+        } else {
+          throw new Error(result.message || 'Erreur lors de l\'envoi');
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4';
+        errorDiv.innerHTML = `<strong>Erreur:</strong> ${error.message}<br><small>Appelez-nous au 06.17.54.03.83</small>`;
+        form.appendChild(errorDiv);
+
+        setTimeout(() => {
+          errorDiv.remove();
+        }, 8000);
+      }
+    });
+  });
+</script>

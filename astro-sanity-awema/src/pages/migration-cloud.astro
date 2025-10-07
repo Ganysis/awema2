@@ -712,7 +712,7 @@ const schema = [
           <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
             <h3 class="text-2xl font-bold mb-6 text-center text-white">Demandez votre audit gratuit</h3>
 
-            <form action="/api/contact" method="POST" class="space-y-6">
+            <form id="contact-form" action="/api/contact" method="POST" class="space-y-6">
               <input type="hidden" name="subject" value="Demande audit Migration Cloud" />
 
               <div class="grid md:grid-cols-2 gap-6">
@@ -826,3 +826,60 @@ const schema = [
   </section>
 
 </Base>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Envoi en cours...';
+
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        service: formData.get('trade') ? `${formData.get('trade')} - ${formData.get('city')}` : formData.get('service') || 'Contact',
+        message: formData.get('message') || `Demande de contact`
+      };
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Redirection vers la page de remerciement (pour tracking Google Ads)
+          window.location.href = '/merci';
+        } else {
+          throw new Error(result.message || 'Erreur lors de l\'envoi');
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4';
+        errorDiv.innerHTML = `<strong>Erreur:</strong> ${error.message}<br><small>Appelez-nous au 06.17.54.03.83</small>`;
+        form.appendChild(errorDiv);
+
+        setTimeout(() => {
+          errorDiv.remove();
+        }, 8000);
+      }
+    });
+  });
+</script>
+

@@ -2,111 +2,106 @@
 import Base from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
-import BadgeUrgence from "@/components/BadgeUrgence.astro";
-import LocalBusinessSchema from "@/components/schemas/LocalBusinessSchema.astro";
-import FAQSchema from "@/components/schemas/FAQSchema.astro";
-import ServiceSchema from "@/components/schemas/ServiceSchema.astro";
-import BreadcrumbSchema from "@/components/schemas/BreadcrumbSchema.astro";
 
-// Données statiques pour la landing page électricien
+// Données statiques pour la landing page plombier Marseille
 const landingData = {
-  metier: "Électricien",
-  ville: "",
+  metier: "Plombier",
+  ville: "Marseille",
   hero: {
-    headline: "Site Internet Professionnel pour Électricien",
-    subheadline: "Devenez l'électricien de référence avec un site web qui génère des devis qualifiés automatiquement",
-    ctaText: "Prendre rendez-vous",
-    trustBadges: ["2200€ TTC tout inclus", "Livré en 3 semaines", "Vous êtes propriétaire"]
+    headline: "Site Internet Professionnel pour Plombier à Marseille",
+    subheadline: "Dominez le marché parisien de la plomberie avec un site web qui génère des clients qualifiés 24/7",
+    ctaText: "Obtenir ma maquette gratuite",
+    trustBadges: ["97€/mois tout compris", "Livré en 48h", "Expert plomberie Marseille"]
   },
   problems: [
     {
-      icon: "🔌",
-      problem: "Clients perdus faute de visibilité",
-      description: "Lesnais ne vous trouvent pas quand ils cherchent un électricien"
+      icon: "📉",
+      problem: "Concurrence féroce à Marseille",
+      description: "Des centaines de plombiers se battent pour les mêmes clients dans la capitale"
     },
     {
-      icon: "⚡",
-      problem: "Urgences mal organisées",
-      description: "Pas de système pour gérer les dépannages électriques urgents"
+      icon: "📱",
+      problem: "Urgences mal gérées",
+      description: "Les appels d'urgence arrivent n'importe quand sans système de filtrage"
     },
     {
-      icon: "📋",
-      problem: "Devis chronophages",
-      description: "Vous perdez du temps à établir des devis pour des projets non qualifiés"
+      icon: "💸",
+      problem: "Coûts publicitaires élevés",
+      description: "Google Ads et les annuaires coûtent une fortune à Marseille"
     },
     {
-      icon: "🏗️",
-      problem: "Image peu moderne",
-      description: "Votre expertise en domotique et rénovation électrique n'est pas mise en valeur"
+      icon: "🏢",
+      problem: "Clients exigeants",
+      description: "Les Marseilleiens recherchent des professionnels avec une image irréprochable"
     }
   ],
   solutions: [
     {
-      icon: "🥇",
-      solution: "Référencement local 'électricien'",
-      description: "SEO optimisé pour toutes les recherches électricité dans le 69"
+      icon: "🎯",
+      solution: "Top 3 Google Marseille",
+      description: "SEO ultra-local par arrondissement (plombier Marseille 15, urgence plomberie 75)"
     },
     {
-      icon: "⚡",
-      solution: "Formulaire de contact",
-      description: "Vos clients vous contactent facilement, même le soir et weekend"
+      icon: "🚨",
+      solution: "Système urgences 24/7",
+      description: "Formulaire urgence avec géolocalisation et temps d'intervention"
     },
     {
-      icon: "📱",
-      solution: "Devis automatisés",
-      description: "Performance maximale sur tous les appareils pour une expérience parfaite"
+      icon: "💼",
+      solution: "Image premium",
+      description: "Design professionnel qui inspire confiance aux Marseilleiens exigeants"
     },
     {
-      icon: "🏠",
-      solution: "Portfolio projets",
-      description: "Galerie de vos réalisations : domotique, tableaux électriques, éclairage LED"
+      icon: "📊",
+      solution: "Tableau de bord client",
+      description: "Espace client avec suivi des interventions et factures"
     }
   ],
   specialOffer: {
-    title: "Site Internet Electricien",
-    description: "Vous êtes propriétaire à 100%",
-    price: "2200€ TTC",
-    monthlyPrice: "tout inclus",
-    maintenance: "Maintenance optionnelle 15€/mois",
+    title: "Offre Exclusive Plombiers Marseille",
+    originalPrice: "2490€",
+    discountPrice: "1290€",
+    monthlyPrice: "97€/mois",
+    urgency: "Dernière place disponible ce mois-ci",
     features: [
       "Maquette gratuite en 24h",
-      "Site 10 pages optimisé SEO",
-      "Site ultra rapide et optimisé smartphone",
-      "Portfolio projets interactif",
-      "Certifications Qualifelec affichées",
-      "Formation incluse"
+      "SEO par arrondissement",
+      "Module urgences géolocalisées",
+      "Galerie avant/après",
+      "Système de devis instantané",
+      "Support prioritaire Marseille"
     ]
   },
   testimonials: [
     {
-      name: "Thomas Bernard",
-      company: "TB Élec",
-      location: "Lyon 3ème",
-      content: "Mon site AWEMA a transformé mon activité. Je reçois 20 demandes de devis par semaine, toutes qualifiées. Le ROI est incroyable !",
+      name: "Marc Leroy",
+      company: "Plomberie Express 75",
+      location: "Paris 11ème",
+      content: "J'ai triplé mon chiffre d'affaires en 6 mois. Le site AWEMA me rapporte 15 nouveaux clients par mois minimum.",
       rating: 5,
-      results: ["20 devis/semaine", "ROI x10 en 3 mois"]
+      results: ["3x le CA", "15 clients/mois"]
     },
     {
-      name: "Mehdi Khelifi",
-      company: "MK Électricité",
-      location: "Caluire",
-      content: "Enfin un site qui montre mon expertise en domotique ! J'ai décroché 3 gros chantiers de rénovation complète grâce à mon nouveau site.",
+      name: "Karim Benali",
+      company: "KB Plomberie",
+      location: "Paris 20ème",
+      content: "Fini les intermédiaires ! Je reçois directement les demandes qualifiées. Mon agenda est plein 3 semaines à l'avance.",
       rating: 5,
-      results: ["3 gros chantiers", "+150K€ de CA"]
+      results: ["Agenda complet", "0€ commissions"]
     }
   ],
   faq: [
     {
-      question: "Pourquoi un site spécialisé pour électricien ?",
-      answer: "Nous connaissons vos spécificités : normes NF C 15-100, certifications, types d'interventions (dépannage, installation, rénovation), domotique... Votre site est conçu pour convertir les visiteurs en clients."
+      question: "Comment se démarquer à Marseille avec autant de concurrence ?",
+      answer: "Notre stratégie SEO multi-arrondissements et notre système de géolocalisation vous positionnent exactement là où sont vos clients. Nous créons aussi du contenu sur les spécificités parisiennes (immeubles haussmanniens, copropriétés, etc.)."
     },
     {
-      question: "Comment gérer les urgences électriques ?",
-      answer: "Notre module urgences permet aux clients de décrire leur panne, d'envoyer des photos, et de voir vos disponibilités. Vous recevez une notification immédiate avec toutes les infos nécessaires."
+      question: "Combien de temps pour être visible sur Google Marseille ?",
+      answer: "Premiers résultats en 4-6 semaines. Top 5 Google en 3-4 mois sur 'plombier + votre arrondissement'. Nous avons déjà référencé +30 plombiers parisiens avec succès."
     },
     {
-      question: "Le calculateur de devis est-il personnalisable ?",
-      answer: "Totalement ! Il s'adapte à vos tarifs : mise aux normes, tableau électrique, installation complète, domotique. Les clients obtiennent une estimation immédiate, vous gagnez du temps."
+      question: "Gérez-vous les urgences nocturnes ?",
+      answer: "Oui ! Système d'urgence avec formulaire intelligent qui qualifie et géolocalise. Vos clients peuvent même voir votre temps d'arrivée estimé."
     }
   ]
 };
@@ -115,50 +110,11 @@ const seoData = {
   meta_title: `Site Internet ${landingData.metier} ${landingData.ville} | AWEMA - 97€/mois`,
   meta_description: `Création de site web professionnel pour ${landingData.metier.toLowerCase()} à ${landingData.ville}. Générez plus de clients avec un site optimisé SEO. Maquette gratuite en 24h.`,
 };
-
-// Breadcrumb data
-const breadcrumbs = [
-  { name: "Accueil", url: "https://awema.fr" },
-  { name: "Sites Internet Métiers", url: "https://awema.fr/metiers" },
-  { name: `Site Internet ${landingData.metier} ${landingData.ville}`, url: `https://awema.fr/site-internet-electricien-lyon` }
-];
 ---
 
 <Base {...seoData}>
-  <!-- Structured Data -->
-  <LocalBusinessSchema
-    name={`AWEMA - Sites Web pour Électriciens à ${landingData.ville}`}
-    description={`Agence web spécialisée dans la création de sites internet haute conversion pour électriciens à ${landingData.ville}. Solutions digitales sur mesure pour développer votre activité électrique.`}
-    services={[
-      "Création de sites web pour électriciens",
-      `Référencement local électricien ${landingData.ville}`,
-      "Module de dépannage électrique urgent",
-      "Site ultra rapide et optimisé smartphone installation électrique",
-      "Marketing digital pour électriciens"
-    ]}
-    areaServed={["Lyon", "Villeurbanne", "Vénissieux", "Caluire-et-Cuire", "Saint-Priest", "Bron", "Meyzieu", "Décines-Charpieu", "Rillieux-la-Pape", "Oullins"]}
-    aggregateRating={{ ratingValue: 4.8, reviewCount: 92 }}
-  />
-
-  <ServiceSchema
-    name={`Création Site Internet ${landingData.metier} ${landingData.ville}`}
-    description={`Service de création de site web professionnel pour électriciens à ${landingData.ville}. Sites optimisés SEO, gestion des urgences, devis automatiques. Livraison 48h, 97€/mois tout compris.`}
-    serviceType="Création de site web spécialisé électricité"
-    areaServed={["Lyon", "Rhône", "Auvergne-Rhône-Alpes"]}
-    offers={{
-      priceRange: "97€-197€/mois",
-      price: "990"
-    }}
-    aggregateRating={{ ratingValue: 4.8, reviewCount: 92 }}
-  />
-
-  <FAQSchema faqs={landingData.faq} />
-
-  <BreadcrumbSchema items={breadcrumbs} />
   <!-- Hero Section avec urgence -->
-  <section class="section bg-gradient-to-br from-yellow-50 to-white relative overflow-hidden">
-    <div class="absolute top-0 right-0 bg-red-500 text-white px-6 py-2 rounded-bl-2xl font-bold animate-pulse">
-      🔥 Offre -50% limitée
+  <section class="section bg-gradient-to-br from-blue-50 to-white relative overflow-hidden">
     </div>
 
     <div class="container">
@@ -275,7 +231,7 @@ const breadcrumbs = [
   </section>
 
   <!-- Offre Spéciale -->
-  <section class="section bg-gradient-to-r from-yellow-600 to-yellow-700 text-white">
+  <section class="section bg-gradient-to-r from-primary to-blue-700 text-white">
     <div class="container">
       <div class="bg-white/10 backdrop-blur rounded-2xl p-8 lg:p-12">
         <div class="text-center mb-8">
@@ -299,17 +255,18 @@ const breadcrumbs = [
 
           <div class="lg:col-5">
             <div class="bg-white rounded-xl p-8 text-gray-900 text-center">
-              <div class="mb-6">
-                <span class="text-5xl font-bold text-primary">{landingData.specialOffer.price}</span>
+              <div class="mb-4">
+                <span class="text-xl line-through text-gray-400">{landingData.specialOffer.originalPrice}</span>
+                <span class="text-5xl font-bold text-primary ml-4">{landingData.specialOffer.discountPrice}</span>
               </div>
               <p class="text-2xl font-semibold mb-6">
-                {landingData.specialOffer.monthlyPrice}
+                Puis {landingData.specialOffer.monthlyPrice}
               </p>
               <a href="#formulaire" class="btn btn-primary btn-xl w-full mb-4">
-                Prendre rendez-vous
+                Je profite de l'offre
               </a>
-              <p class="text-sm text-gray-600 font-medium">
-                {landingData.specialOffer.maintenance}
+              <p class="text-sm text-red-600 font-medium animate-pulse">
+                ⚠️ {landingData.specialOffer.urgency}
               </p>
             </div>
           </div>
@@ -403,7 +360,7 @@ const breadcrumbs = [
           <div class="bg-white rounded-2xl shadow-2xl p-8 lg:p-12">
             <div class="text-center mb-8">
               <h2 class="text-4xl font-bold mb-4">
-                Discutons de votre projet
+                Recevez votre maquette gratuite en 24h
               </h2>
               <p class="text-xl text-gray-600">
                 Remplissez ce formulaire et découvrez votre futur site
@@ -413,7 +370,7 @@ const breadcrumbs = [
               </div>
             </div>
 
-            <form class="space-y-6">
+            <form id="contact-form" class="space-y-6">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -421,7 +378,7 @@ const breadcrumbs = [
                   </label>
                   <input
                     type="text"
-                    required
+                    name="name" required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="Jean Dupont"
                   />
@@ -435,7 +392,7 @@ const breadcrumbs = [
                     type="text"
                     required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Électricité Dupont"
+                    placeholder="Plomberie Dupont"
                   />
                 </div>
 
@@ -445,7 +402,7 @@ const breadcrumbs = [
                   </label>
                   <input
                     type="email"
-                    required
+                    name="email" required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="contact@exemple.fr"
                   />
@@ -457,7 +414,7 @@ const breadcrumbs = [
                   </label>
                   <input
                     type="tel"
-                    required
+                    name="phone" required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="06 12 34 56 78"
                   />
@@ -519,7 +476,7 @@ const breadcrumbs = [
   </section>
 
   <!-- CTA Final -->
-  <section class="section bg-yellow-600 text-white">
+  <section class="section bg-primary text-white">
     <div class="container text-center">
       <h2 class="text-4xl font-bold mb-6">
         Ne laissez plus vos concurrents prendre vos clients
@@ -529,7 +486,7 @@ const breadcrumbs = [
       </p>
       <div class="flex flex-wrap gap-4 justify-center">
         <a href="#formulaire" class="btn btn-white btn-xl">
-          Prendre rendez-vous
+          Je veux ma maquette gratuite
         </a>
         <a href="tel:0617540383" class="btn btn-outline-white btn-xl">
           Appeler maintenant
@@ -538,6 +495,61 @@ const breadcrumbs = [
     </div>
   </section>
   <!-- Composants de conversion -->
-  <BadgeUrgence />
   <WhatsAppButton />
 </Base>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Envoi en cours...';
+
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        service: formData.get('trade') ? `${formData.get('trade')} - ${formData.get('city')}` : formData.get('service') || 'Contact',
+        message: formData.get('message') || `Demande de contact`
+      };
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Redirection vers la page de remerciement (pour tracking Google Ads)
+          window.location.href = '/merci';
+        } else {
+          throw new Error(result.message || 'Erreur lors de l\'envoi');
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4';
+        errorDiv.innerHTML = `<strong>Erreur:</strong> ${error.message}<br><small>Appelez-nous au 06.17.54.03.83</small>`;
+        form.appendChild(errorDiv);
+
+        setTimeout(() => {
+          errorDiv.remove();
+        }, 8000);
+      }
+    });
+  });
+</script>

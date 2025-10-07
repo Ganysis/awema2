@@ -2,64 +2,63 @@
 import Base from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
-import BadgeUrgence from "@/components/BadgeUrgence.astro";
 
-// Données statiques pour la landing page Maçon
+// Données statiques pour la landing page Menuisier
 const landingData = {
-  metier: "Maçon",
+  metier: "Menuisier",
   ville: "",
   hero: {
-    headline: "Site Internet Professionnel pour Maçon",
-    subheadline: "Développez votre activité de maçon avec un site web qui génère des clients qualifiés automatiquement",
+    headline: "Site Internet Professionnel pour Menuisier",
+    subheadline: "Développez votre activité de menuisier avec un site web qui génère des clients qualifiés automatiquement",
     ctaText: "Prendre rendez-vous",
     trustBadges: ["2200€ TTC tout inclus", "Livré en 3 semaines", "Vous êtes propriétaire"]
   },
   problems: [
     {
-        "icon": "🏗️",
-        "problem": "Gros chantiers inaccessibles",
-        "description": "Les promoteurs ne vous connaissent pas"
+        "icon": "🪵",
+        "problem": "Portfolio mal présenté",
+        "description": "Vos créations sur-mesure ne sont pas mises en valeur"
     },
     {
-        "icon": "📋",
-        "problem": "Devis longs à établir",
-        "description": "Visites sur place chronophages pour chaque projet"
+        "icon": "📐",
+        "problem": "Devis complexes",
+        "description": "Difficile d'expliquer les options et finitions par téléphone"
     },
     {
         "icon": "🏠",
-        "problem": "Extensions mal valorisées",
-        "description": "Votre expertise en agrandissement n'est pas visible"
+        "problem": "Clients indécis",
+        "description": "Les prospects hésitent sans voir vos réalisations"
     },
     {
-        "icon": "⏰",
-        "problem": "Planning surchargé",
-        "description": "Difficile de gérer les demandes et les urgences"
+        "icon": "💼",
+        "problem": "Image artisanale dépassée",
+        "description": "Les clients recherchent des menuisiers modernes"
     }
 ],
   solutions: [
     {
+        "icon": "🖼️",
+        "solution": "Galerie photo optimisée",
+        "description": "Mise en valeur de vos réalisations"
+    },
+    {
+        "icon": "📊",
+        "solution": "Formulaire de contact intelligent",
+        "description": "Demande de devis simple et rapide"
+    },
+    {
+        "icon": "⭐",
+        "solution": "Avis clients",
+        "description": "Mise en valeur de vos meilleurs témoignages clients"
+    },
+    {
         "icon": "🎯",
-        "solution": "Visibilité promoteurs",
-        "description": "Page dédiée aux professionnels avec références"
-    },
-    {
-        "icon": "📸",
-        "solution": "Estimation par photos",
-        "description": "Système de pré-devis avec envoi de photos"
-    },
-    {
-        "icon": "🏡",
-        "solution": "Showcase extensions",
-        "description": "Portfolio spécialisé avec coûts indicatifs"
-    },
-    {
-        "icon": "📅",
-        "solution": "Calendrier en ligne",
-        "description": "Les clients voient vos disponibilités"
+        "solution": "SEO local optimisé",
+        "description": "Top 3 sur \"menuisier\" et quartiers"
     }
 ],
   specialOffer: {
-    title: "Site Internet Macon",
+    title: "Site Internet Menuisier",
     description: "Vous êtes propriétaire à 100%",
     price: "2200€ TTC",
     monthlyPrice: "tout inclus",
@@ -75,36 +74,36 @@ const landingData = {
   },
   testimonials: [
     {
-        "name": "Michel Perret",
-        "company": "MP Construction",
-        "location": "Lyon 9ème",
-        "content": "Mon site AWEMA m'a ouvert les portes des promoteurs locaux. Je travaille maintenant sur des chantiers de 100-200k€.",
+        "name": "Jean-Marc Rousseau",
+        "company": "Menuiserie Rousseau",
+        "location": "Lyon 7ème",
+        "content": "Mon site AWEMA a révolutionné mon activité. Les clients peuvent voir mes créations en détail et je reçois des demandes pour du sur-mesure haut de gamme.",
         "rating": 5,
         "results": [
-            "Chantiers 100-200k€",
-            "Clients pros"
+            "+40% de devis",
+            "Projets premium"
         ]
     },
     {
-        "name": "Karim Benzema",
-        "company": "KB Maçonnerie",
-        "location": "Vénissieux",
-        "content": "Le système de pré-devis en ligne me fait gagner 2 jours par semaine. Je me déplace uniquement pour les projets sérieux.",
+        "name": "Antoine Fabre",
+        "company": "AF Bois & Design",
+        "location": "Gardanne",
+        "content": "Le configurateur de devis me fait gagner un temps fou ! Les clients arrivent avec leur projet déjà défini, c'est un vrai plus.",
         "rating": 5,
         "results": [
-            "Gain 2j/semaine",
-            "Projets qualifiés"
+            "Gain 15h/semaine",
+            "Devis pré-qualifiés"
         ]
     }
 ],
   faq: [
     {
-      question: "Pourquoi un site spécialisé pour maçon ?",
-      answer: "Nous connaissons parfaitement les besoins des maçons : types de prestations, processus de devis, galeries de réalisations, certifications... Votre site est conçu spécifiquement pour convertir vos visiteurs en clients."
+      question: "Pourquoi un site spécialisé pour menuisier ?",
+      answer: "Nous connaissons parfaitement les besoins des menuisiers : types de prestations, processus de devis, galeries de réalisations, certifications... Votre site est conçu spécifiquement pour convertir vos visiteurs en clients."
     },
     {
       question: "Comment être sûr d'être visible sur Google ?",
-      answer: "Notre méthode SEO local a fait ses preuves sur +50 artisans en France. Nous optimisons pour 'maçon' et toutes les variantes. Premiers résultats en 4-6 semaines."
+      answer: "Notre méthode SEO local a fait ses preuves sur +50 artisans en France. Nous optimisons pour 'menuisier' et toutes les variantes. Premiers résultats en 4-6 semaines."
     },
     {
       question: "Puis-je modifier mon site moi-même ?",
@@ -121,9 +120,7 @@ const seoData = {
 
 <Base {...seoData}>
   <!-- Hero Section avec urgence -->
-  <section class="section bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
-    <div class="absolute top-0 right-0 bg-red-500 text-white px-6 py-2 rounded-bl-2xl font-bold animate-pulse">
-      🔥 Offre -50% limitée
+  <section class="section bg-gradient-to-br from-amber-50 to-white relative overflow-hidden">
     </div>
 
     <div class="container">
@@ -173,7 +170,7 @@ const seoData = {
               width={600}
               height={500}
               alt={`Site web ${landingData.metier} ${landingData.ville}`}
-              src="/images/screenshots/banner-shot.png"
+              src="/images/portfolio/menuiserie-marseille.jpg"
               format="webp"
             />
             <!-- Badge sur l'image -->
@@ -239,8 +236,86 @@ const seoData = {
     </div>
   </section>
 
+
+
+  <!-- Storytelling Section -->
+  <section class="section bg-white border-y border-gray-200">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <!-- Header -->
+          <div class="mb-12">
+            <div class="inline-block mb-4">
+              <span class="text-sm font-semibold tracking-wide text-primary uppercase">Mon parcours</span>
+            </div>
+            <h2 class="text-4xl font-bold mb-6 text-gray-900">Pourquoi j'ai créé AWEMA</h2>
+            <div class="h-1 w-20 bg-primary"></div>
+          </div>
+
+          <!-- Content -->
+          <div class="space-y-8">
+            <div class="prose prose-lg max-w-none">
+              <p class="text-xl text-gray-700 leading-relaxed">
+                Je suis co-gérant d'une entreprise du bâtiment, et j'ai vécu exactement les mêmes problématiques que vous rencontrez aujourd'hui.
+              </p>
+            </div>
+
+            <!-- Challenges Grid -->
+            <div class="grid md:grid-cols-2 gap-6 my-12">
+              <div class="bg-gray-50 border-l-4 border-red-500 p-6">
+                <h4 class="font-bold text-lg mb-3 text-gray-900">Les plateformes à commission</h4>
+                <p class="text-gray-600 leading-relaxed">Des milliers d'euros perdus en commissions avant de réaliser qu'il fallait s'affranchir de cette dépendance coûteuse.</p>
+              </div>
+
+              <div class="bg-gray-50 border-l-4 border-red-500 p-6">
+                <h4 class="font-bold text-lg mb-3 text-gray-900">La gestion client chronophage</h4>
+                <p class="text-gray-600 leading-relaxed">Sans système de qualification, impossible de différencier les prospects sérieux et de se concentrer sur les chantiers.</p>
+              </div>
+
+              <div class="bg-gray-50 border-l-4 border-red-500 p-6">
+                <h4 class="font-bold text-lg mb-3 text-gray-900">Le manque de visibilité</h4>
+                <p class="text-gray-600 leading-relaxed">Le bouche-à-oreille seul ne suffit pas pour garantir un flux régulier de nouveaux projets.</p>
+              </div>
+
+              <div class="bg-gray-50 border-l-4 border-red-500 p-6">
+                <h4 class="font-bold text-lg mb-3 text-gray-900">Les solutions inefficaces</h4>
+                <p class="text-gray-600 leading-relaxed">Les templates à bas prix ne génèrent aucun résultat concret. Zéro client en 6 mois avec ce type de site.</p>
+              </div>
+            </div>
+
+            <!-- Key Insight -->
+            <div class="bg-gradient-to-br from-primary/5 to-primary/10 border-l-4 border-primary p-8 my-8">
+              <p class="text-xl font-semibold text-gray-900 mb-4">
+                Le déclic
+              </p>
+              <p class="text-lg text-gray-700 leading-relaxed">
+                Les artisans ont besoin d'un <strong>système complet de génération de clients</strong>, pas simplement d'une vitrine en ligne. Un outil qui travaille pour vous 24h/24, qualifie les prospects et vous délivre des demandes sérieuses.
+              </p>
+            </div>
+
+            <!-- Solution -->
+            <div class="prose prose-lg max-w-none">
+              <p class="text-lg text-gray-700 leading-relaxed">
+                C'est précisément pour cette raison que j'ai fondé AWEMA. Je comprends intimement vos défis quotidiens et j'ai conçu une solution qui répond à vos besoins réels, sans dépendance aux plateformes externes.
+              </p>
+            </div>
+
+            <!-- Promise Box -->
+            <div class="bg-gray-900 text-white p-8 mt-12">
+              <p class="text-lg font-semibold mb-3">Mon engagement envers vous</p>
+              <p class="text-gray-300 text-lg leading-relaxed">
+                Un site web qui génère des demandes qualifiées chaque semaine. Vous êtes propriétaire à 100%. Plus aucune commission à verser.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <!-- Offre Spéciale -->
-  <section class="section bg-gradient-to-r from-gray-600 to-gray-700 text-white">
+  <section class="section bg-gradient-to-r from-amber-600 to-amber-700 text-white">
     <div class="container">
       <div class="bg-white/10 backdrop-blur rounded-2xl p-8 lg:p-12">
         <div class="text-center mb-8">
@@ -371,14 +446,14 @@ const seoData = {
                 Discutons de votre projet
               </h2>
               <p class="text-xl text-gray-600">
-                Remplissez ce formulaire et découvrez votre futur site
+                Échangeons sur vos besoins et objectifs
               </p>
               <div class="mt-4 inline-flex items-center px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full">
                 ⏰ Temps de remplissage : 2 minutes
               </div>
             </div>
 
-            <form class="space-y-6">
+            <form id="contact-form" class="space-y-6">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -386,7 +461,7 @@ const seoData = {
                   </label>
                   <input
                     type="text"
-                    required
+                    name="name" required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="Jean Dupont"
                   />
@@ -400,7 +475,7 @@ const seoData = {
                     type="text"
                     required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Maçon Dupont"
+                    placeholder="Menuisier Dupont"
                   />
                 </div>
 
@@ -410,7 +485,7 @@ const seoData = {
                   </label>
                   <input
                     type="email"
-                    required
+                    name="email" required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="contact@exemple.fr"
                   />
@@ -422,7 +497,7 @@ const seoData = {
                   </label>
                   <input
                     type="tel"
-                    required
+                    name="phone" required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="06 12 34 56 78"
                   />
@@ -467,7 +542,7 @@ const seoData = {
                 type="submit"
                 class="w-full btn btn-primary btn-xl py-4 text-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
               >
-                Recevoir ma maquette gratuite →
+                Je veux être recontacté →
               </button>
 
               <p class="text-center text-sm text-gray-500">
@@ -484,7 +559,7 @@ const seoData = {
   </section>
 
   <!-- CTA Final -->
-  <section class="section bg-gray-600 text-white">
+  <section class="section bg-amber-600 text-white">
     <div class="container text-center">
       <h2 class="text-4xl font-bold mb-6">
         Ne laissez plus vos concurrents prendre vos clients
@@ -503,6 +578,62 @@ const seoData = {
     </div>
   </section>
   <!-- Composants de conversion -->
-  <BadgeUrgence />
   <WhatsAppButton />
 </Base>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Envoi en cours...';
+
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        service: formData.get('trade') ? `${formData.get('trade')} - ${formData.get('city')}` : formData.get('service') || 'Contact',
+        message: formData.get('message') || `Demande de contact`
+      };
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Redirection vers la page de remerciement (pour tracking Google Ads)
+          window.location.href = '/merci';
+        } else {
+          throw new Error(result.message || 'Erreur lors de l\'envoi');
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4';
+        errorDiv.innerHTML = `<strong>Erreur:</strong> ${error.message}<br><small>Appelez-nous au 06.17.54.03.83</small>`;
+        form.appendChild(errorDiv);
+
+        setTimeout(() => {
+          errorDiv.remove();
+        }, 8000);
+      }
+    });
+  });
+</script>
+

@@ -2,7 +2,6 @@
 import Base from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
-import BadgeUrgence from "@/components/BadgeUrgence.astro";
 import LocalBusinessSchema from "@/components/schemas/LocalBusinessSchema.astro";
 import FAQSchema from "@/components/schemas/FAQSchema.astro";
 import ServiceSchema from "@/components/schemas/ServiceSchema.astro";
@@ -81,7 +80,7 @@ const landingData = {
     {
       name: "Pierre Martin",
       company: "Plomberie Martin",
-      location: "Lyon 6ème",
+      location: "Aix-en-Provence",
       content: "Depuis que j'ai mon site AWEMA, j'ai doublé mes demandes de devis. Le système de prise de RDV me fait gagner un temps fou !",
       rating: 5,
       results: ["+120% de demandes", "30h/mois gagnées"]
@@ -89,7 +88,7 @@ const landingData = {
     {
       name: "Sophie Dubois",
       company: "SOS Plomberie 69",
-      location: "Villeurbanne",
+      location: "Marseille",
       content: "Enfin visible sur Google ! Je suis passée de 5 à 25 appels par semaine. Le retour sur investissement est excellent.",
       rating: 5,
       results: ["5x plus d'appels", "ROI en 2 mois"]
@@ -128,36 +127,34 @@ const seoData = {
 const breadcrumbs = [
   { name: "Accueil", url: "https://awema.fr" },
   { name: "Sites Internet Métiers", url: "https://awema.fr/metiers" },
-  { name: "Site Internet Plombier Lyon", url: "https://awema.fr/site-internet-plombier-lyon" }
+  { name: "Site Internet Plombier Aix-en-Provence", url: "https://awema.fr/site-internet-plombier-aix" }
 ];
 ---
 
 <Base {...seoData}>
   <!-- Structured Data -->
   <LocalBusinessSchema
-    name="AWEMA - Sites Web pour Plombiers à Lyon"
+    name="AWEMA - Sites Web pour Plombiers à Aix-en-Provence"
     description="Agence web spécialisée dans la création de sites internet haute conversion pour plombiers en France. Solutions digitales sur mesure pour développer votre activité de plomberie."
     services={[
       "Création de sites web pour plombiers",
-      "Référencement local plombier Lyon",
+      "Référencement local plombier Aix-en-Provence",
       "Système de prise de RDV en ligne",
       "Génération de devis automatiques",
       "Marketing digital pour plombiers"
     ]}
-    areaServed={["Lyon", "Villeurbanne", "Vénissieux", "Caluire-et-Cuire", "Vaulx-en-Velin", "Bron", "Saint-Priest", "Écully", "Tassin-la-Demi-Lune", "Sainte-Foy-lès-Lyon"]}
-    aggregateRating={{ ratingValue: 4.9, reviewCount: 87 }}
+    areaServed={["Aix-en-Provence", "Marseille", "Velaux", "Vitrolles", "Les Pennes-Mirabeau", "Rognac", "Salon-de-Provence", "Gardanne", "Aubagne", "Martigues"]}
   />
 
   <ServiceSchema
-    name="Création Site Internet Plombier Lyon"
-    description="Service de création de site web professionnel pour plombiers à Lyon. Sites optimisés SEO, prise de RDV en ligne, devis automatiques. Livraison 48h, 97€/mois tout compris."
+    name="Création Site Internet Plombier Aix-en-Provence"
+    description="Service de création de site web professionnel pour plombiers à Aix-en-Provence. Sites optimisés SEO, prise de RDV en ligne, devis automatiques. Livraison 48h, 97€/mois tout compris."
     serviceType="Création de site web spécialisé plomberie"
-    areaServed={["Lyon", "Rhône", "Auvergne-Rhône-Alpes"]}
+    areaServed={["Aix-en-Provence", "Bouches-du-Rhône", "Provence-Alpes-Côte d'Azur"]}
     offers={{
       priceRange: "97€-197€/mois",
       price: "990"
     }}
-    aggregateRating={{ ratingValue: 4.9, reviewCount: 87 }}
   />
 
   <FAQSchema faqs={landingData.faq} />
@@ -207,19 +204,17 @@ const breadcrumbs = [
 
         <div class="lg:col-5 mt-10 lg:mt-0">
           <div class="relative" data-aos="zoom-in" data-aos-delay="400">
-            <Image
+            <img
               class="w-full rounded-lg shadow-2xl"
-              width={500}
-              height={400}
-              alt="Site web plombier professionnel"
-              src="/images/screenshots/banner-shot.png"
-              format="webp"
+              alt="Exemple site web plombier professionnel Marseille"
+              src="/images/portfolio/plomberie-marseille.jpg"
+              loading="lazy"
             />
             <div class="absolute -bottom-4 -left-4 rounded-lg bg-white p-4 shadow-lg">
-              <p class="text-sm font-medium text-gray-900">Jean-Pierre, Plombier</p>
+              <p class="text-sm font-medium text-gray-900">Plomberie SOS - Marseille</p>
               <div class="flex items-center mt-1">
                 <span class="text-yellow-400">⭐⭐⭐⭐⭐</span>
-                <span class="ml-2 text-xs text-gray-600">+45% de clients</span>
+                <span class="ml-2 text-xs text-gray-600">+40 demandes/mois</span>
               </div>
             </div>
           </div>
@@ -232,7 +227,7 @@ const breadcrumbs = [
   <section class="section">
     <div class="container">
       <div class="text-center mb-12">
-        <h2 class="h2 mb-4">Les problèmes que rencontrent les plombiers à Lyon</h2>
+        <h2 class="h2 mb-4">Les problèmes que rencontrent les plombiers à Aix-en-Provence</h2>
         <p class="text-lg text-gray-600">Nous comprenons vos défis quotidiens</p>
       </div>
 
@@ -276,13 +271,85 @@ const breadcrumbs = [
     </div>
   </section>
 
+  <!-- Storytelling Section -->
+  <section class="section bg-white border-y border-gray-200">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <!-- Header -->
+          <div class="mb-12">
+            <div class="inline-block mb-4">
+              <span class="text-sm font-semibold tracking-wide text-primary uppercase">Mon parcours</span>
+            </div>
+            <h2 class="text-4xl font-bold mb-6 text-gray-900">Pourquoi j'ai créé AWEMA</h2>
+            <div class="h-1 w-20 bg-primary"></div>
+          </div>
+
+          <!-- Content -->
+          <div class="space-y-8">
+            <div class="prose prose-lg max-w-none">
+              <p class="text-xl text-gray-700 leading-relaxed">
+                Je suis co-gérant d'une entreprise du bâtiment, et j'ai vécu exactement les mêmes problématiques que vous rencontrez aujourd'hui.
+              </p>
+            </div>
+
+            <!-- Challenges Grid -->
+            <div class="grid md:grid-cols-2 gap-6 my-12">
+              <div class="bg-gray-50 border-l-4 border-red-500 p-6">
+                <h4 class="font-bold text-lg mb-3 text-gray-900">Les plateformes à commission</h4>
+                <p class="text-gray-600 leading-relaxed">Des milliers d'euros perdus en commissions avant de réaliser qu'il fallait s'affranchir de cette dépendance coûteuse.</p>
+              </div>
+
+              <div class="bg-gray-50 border-l-4 border-red-500 p-6">
+                <h4 class="font-bold text-lg mb-3 text-gray-900">La gestion client chronophage</h4>
+                <p class="text-gray-600 leading-relaxed">Sans système de qualification, impossible de différencier les prospects sérieux et de se concentrer sur les chantiers.</p>
+              </div>
+
+              <div class="bg-gray-50 border-l-4 border-red-500 p-6">
+                <h4 class="font-bold text-lg mb-3 text-gray-900">Le manque de visibilité</h4>
+                <p class="text-gray-600 leading-relaxed">Le bouche-à-oreille seul ne suffit pas pour garantir un flux régulier de nouveaux projets.</p>
+              </div>
+
+              <div class="bg-gray-50 border-l-4 border-red-500 p-6">
+                <h4 class="font-bold text-lg mb-3 text-gray-900">Les solutions inefficaces</h4>
+                <p class="text-gray-600 leading-relaxed">Les templates à bas prix ne génèrent aucun résultat concret. Zéro client en 6 mois avec ce type de site.</p>
+              </div>
+            </div>
+
+            <!-- Key Insight -->
+            <div class="bg-gradient-to-br from-primary/5 to-primary/10 border-l-4 border-primary p-8 my-8">
+              <p class="text-xl font-semibold text-gray-900 mb-4">
+                Le déclic
+              </p>
+              <p class="text-lg text-gray-700 leading-relaxed">
+                Les artisans ont besoin d'un <strong>système complet de génération de clients</strong>, pas simplement d'une vitrine en ligne. Un outil qui travaille pour vous 24h/24, qualifie les prospects et vous délivre des demandes sérieuses.
+              </p>
+            </div>
+
+            <!-- Solution -->
+            <div class="prose prose-lg max-w-none">
+              <p class="text-lg text-gray-700 leading-relaxed">
+                C'est précisément pour cette raison que j'ai fondé AWEMA. Je comprends intimement vos défis quotidiens et j'ai conçu une solution qui répond à vos besoins réels, sans dépendance aux plateformes externes.
+              </p>
+            </div>
+
+            <!-- Promise Box -->
+            <div class="bg-gray-900 text-white p-8 mt-12">
+              <p class="text-lg font-semibold mb-3">Mon engagement envers vous</p>
+              <p class="text-gray-300 text-lg leading-relaxed">
+                Un site web qui génère des demandes qualifiées chaque semaine. Vous êtes propriétaire à 100%. Plus aucune commission à verser.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Special Offer Section -->
   <section id="offre" class="section bg-gradient-to-br from-blue-600 to-blue-800 text-white">
     <div class="container">
       <div class="text-center mb-12">
-        <div class="inline-flex items-center rounded-full bg-yellow-400 text-blue-900 px-4 py-2 text-sm font-bold mb-4">
-          ⚡ OFFRE LIMITÉE
-        </div>
         <h2 class="h2 mb-4 text-white">{landingData.specialOffer.title}</h2>
         <p class="text-xl opacity-90">{landingData.specialOffer.description}</p>
       </div>
@@ -412,35 +479,35 @@ const breadcrumbs = [
           <div class="bg-white rounded-xl shadow-xl p-8">
             <h3 class="h3 mb-6 text-center">Prenons rendez-vous pour discuter</h3>
 
-            <form>
+            <form id="contact-form">
               <div class="mb-6">
                 <label class="form-label">Nom et prénom *</label>
-                <input type="text" class="form-input" required />
+                <input type="text" name="name" class="form-input" required />
               </div>
 
               <div class="mb-6">
                 <label class="form-label">Nom de votre entreprise *</label>
-                <input type="text" class="form-input" required />
+                <input type="text" name="company" class="form-input" required />
               </div>
 
               <div class="mb-6">
                 <label class="form-label">Email *</label>
-                <input type="email" class="form-input" required />
+                <input type="email" name="email" class="form-input" required />
               </div>
 
               <div class="mb-6">
                 <label class="form-label">Téléphone *</label>
-                <input type="tel" class="form-input" required />
+                <input type="tel" name="phone" class="form-input" required />
               </div>
 
               <div class="mb-6">
                 <label class="form-label">Zone d'intervention</label>
-                <input type="text" class="form-input" placeholder="Ex: Lyon et 30km autour" />
+                <input type="text" name="city" class="form-input" placeholder="Ex: Aix-en-Provence et 30km autour" />
               </div>
 
               <div class="mb-6">
                 <label class="form-label">Votre message (optionnel)</label>
-                <textarea class="form-input" rows="3"></textarea>
+                <textarea name="message" class="form-input" rows="3"></textarea>
               </div>
 
               <button type="submit" class="btn btn-primary btn-xl w-full">
@@ -458,6 +525,61 @@ const breadcrumbs = [
   </section>
 
   <!-- Composants de conversion -->
-  <BadgeUrgence />
   <WhatsAppButton />
 </Base>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Envoi en cours...';
+
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        service: formData.get('trade') ? `${formData.get('trade')} - ${formData.get('city')}` : formData.get('service') || 'Contact',
+        message: formData.get('message') || `Demande de contact`
+      };
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Redirection vers la page de remerciement (pour tracking Google Ads)
+          window.location.href = '/merci';
+        } else {
+          throw new Error(result.message || 'Erreur lors de l\'envoi');
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4';
+        errorDiv.innerHTML = `<strong>Erreur:</strong> ${error.message}<br><small>Appelez-nous au 06.17.54.03.83</small>`;
+        form.appendChild(errorDiv);
+
+        setTimeout(() => {
+          errorDiv.remove();
+        }, 8000);
+      }
+    });
+  });
+</script>

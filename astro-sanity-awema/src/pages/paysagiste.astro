@@ -2,7 +2,6 @@
 import Base from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
-import BadgeUrgence from "@/components/BadgeUrgence.astro";
 
 // Données statiques pour la landing page Menuisier Lyon
 const landingData = {
@@ -123,8 +122,6 @@ const seoData = {
 <Base {...seoData}>
   <!-- Hero Section avec urgence -->
   <section class="section bg-gradient-to-br from-amber-50 to-white relative overflow-hidden">
-    <div class="absolute top-0 right-0 bg-red-500 text-white px-6 py-2 rounded-bl-2xl font-bold animate-pulse">
-      🔥 Offre -50% limitée
     </div>
 
     <div class="container">
@@ -505,6 +502,5 @@ const seoData = {
     </div>
   </section>
   <!-- Composants de conversion -->
-  <BadgeUrgence />
   <WhatsAppButton />
 </Base>

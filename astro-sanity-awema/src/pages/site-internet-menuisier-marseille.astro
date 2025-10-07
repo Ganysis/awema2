@@ -2,109 +2,109 @@
 import Base from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
-import BadgeUrgence from "@/components/BadgeUrgence.astro";
 
-// Données statiques pour la landing page Carreleur
+// Données statiques pour la landing page Menuisier Marseille
 const landingData = {
-  metier: "Carreleur",
-  ville: "",
+  metier: "Menuisier",
+  ville: "Marseille",
   hero: {
-    headline: "Site Internet Professionnel pour Carreleur",
-    subheadline: "Développez votre activité de carreleur avec un site web qui génère des clients qualifiés automatiquement",
-    ctaText: "Prendre rendez-vous",
-    trustBadges: ["2200€ TTC tout inclus", "Livré en 3 semaines", "Vous êtes propriétaire"]
+    headline: "Site Internet Professionnel pour Menuisier à Marseille",
+    subheadline: "Développez votre activité de menuisier avec un site web qui génère des clients qualifiés automatiquement",
+    ctaText: "Obtenir ma maquette gratuite",
+    trustBadges: ["97€/mois tout compris", "Livré en 48h", "Expert menuisier"]
   },
   problems: [
     {
-        "icon": "🎨",
-        "problem": "Créations mal valorisées",
-        "description": "Vos mosaïques et designs ne sont pas visibles"
+        "icon": "🏢",
+        "problem": "Concurrence des grandes enseignes",
+        "description": "IKEA et Leroy Merlin dominent le marché parisien"
     },
     {
-        "icon": "🏠",
-        "problem": "Concurrence low-cost",
-        "description": "Difficile de justifier vos tarifs qualité"
+        "icon": "💰",
+        "problem": "Clients exigeants",
+        "description": "Les Marseilleiens veulent du sur-mesure mais comparent les prix"
     },
     {
-        "icon": "📐",
-        "problem": "Projets complexes",
-        "description": "Les salles de bain design demandent du conseil"
+        "icon": "🚪",
+        "problem": "Projets haussmanniens complexes",
+        "description": "Difficile de montrer votre expertise en rénovation"
     },
     {
-        "icon": "🔧",
-        "problem": "Image peu moderne",
-        "description": "Les clients cherchent des carreleurs créatifs"
+        "icon": "📱",
+        "problem": "Peu de visibilité",
+        "description": "Les architectes d'intérieur ne vous connaissent pas"
     }
 ],
   solutions: [
     {
-        "icon": "🖼️",
-        "solution": "Galerie haute définition",
-        "description": "Portfolio avec zoom sur les finitions parfaites"
+        "icon": "🏆",
+        "solution": "Positionnement artisan premium",
+        "description": "Site qui valorise le sur-mesure et l'artisanat français"
+    },
+    {
+        "icon": "🏗️",
+        "solution": "Portfolio spécial Haussmann",
+        "description": "Galerie dédiée aux rénovations d'appartements anciens"
+    },
+    {
+        "icon": "👔",
+        "solution": "Espace pro architectes",
+        "description": "Section dédiée avec tarifs pro et catalogue"
     },
     {
         "icon": "💎",
-        "solution": "Positionnement qualité",
-        "description": "Mise en avant garantie 10 ans et expertise"
-    },
-    {
-        "icon": "🛁",
-        "solution": "Spécialiste salles de bain",
-        "description": "Inspirations et tendances 2025"
-    },
-    {
-        "icon": "📱",
-        "solution": "Devis photo rapide",
-        "description": "Estimation par photos en 24h"
+        "solution": "Image haut de gamme",
+        "description": "Design élégant qui attire une clientèle CSP++"
     }
 ],
   specialOffer: {
-    title: "Site Internet Carreleur",
-    description: "Vous êtes propriétaire à 100%",
-    price: "2200€ TTC",
-    monthlyPrice: "tout inclus",
-    maintenance: "Maintenance optionnelle 15€/mois",
+    title: "Offre Spéciale Menuisiers Marseille",
+    description: "Profitez de notre expertise BTP pour dominer votre marché local",
+    originalPrice: "1990€",
+    discountPrice: "990€",
+    monthlyPrice: "97€/mois",
+    urgency: "Plus que 2 places disponibles ce mois-ci",
     features: [
       "Maquette gratuite en 24h",
       "Site 10 pages optimisé SEO",
       "Galerie photos HD",
       "Formulaire de devis intelligent",
-      "Avis clients",
+      "Avis clients intégrés",
       "Formation incluse"
     ]
   },
   testimonials: [
     {
-        "name": "Roberto Silva",
-        "company": "RS Carrelage",
-        "location": "Lyon 2ème",
-        "content": "Mon site AWEMA valorise enfin mon savoir-faire. Je travaille maintenant sur des projets haut de gamme avec des architectes.",
+        "name": "Philippe Moreau",
+        "company": "PM Créations Bois",
+        "location": "Paris 8ème",
+        "content": "Grâce à mon site AWEMA, je travaille maintenant avec 3 architectes d'intérieur réguliers. Mon CA a triplé en 1 an !",
         "rating": 5,
         "results": [
-            "Projets premium",
-            "Partenaires architectes"
+            "CA x3",
+            "3 partenaires pro"
         ]
     },
     {
-        "name": "David Petit",
-        "company": "DP Carrelage Design",
-        "location": "Oullins",
-        "content": "Le portfolio HD fait toute la différence. Les clients voient la qualité de mes finitions et acceptent mes tarifs.",
+        "name": "Laurent Dubois",
+        "company": "L'Atelier du Bois",
+        "location": "Paris 15ème",
+        "content": "Mon portfolio en ligne impressionne les clients. Je décroche des projets à 30-50k€ régulièrement maintenant.",
         "rating": 5,
         "results": [
-            "Tarifs acceptés",
-            "Clients qualité"
+            "Projets 30-50k€",
+            "Clients premium"
         ]
     }
 ],
   faq: [
     {
-      question: "Pourquoi un site spécialisé pour carreleur ?",
-      answer: "Nous connaissons parfaitement les besoins des carreleurs : types de prestations, processus de devis, galeries de réalisations, certifications... Votre site est conçu spécifiquement pour convertir vos visiteurs en clients."
+      question: "Pourquoi un site spécialisé pour menuisier ?",
+      answer: "Nous connaissons parfaitement les besoins des menuisiers : types de prestations, processus de devis, galeries de réalisations, certifications... Votre site est conçu spécifiquement pour convertir vos visiteurs en clients."
     },
     {
-      question: "Comment être sûr d'être visible sur Google ?",
-      answer: "Notre méthode SEO local a fait ses preuves sur +50 artisans en France. Nous optimisons pour 'carreleur' et toutes les variantes. Premiers résultats en 4-6 semaines."
+      question: "Comment être sûr d'être visible sur Google à Marseille ?",
+      answer: "Notre méthode SEO local a fait ses preuves sur +50 artisans en France. Nous optimisons pour 'menuisier Marseille' et toutes les variantes. Premiers résultats en 4-6 semaines."
     },
     {
       question: "Puis-je modifier mon site moi-même ?",
@@ -121,9 +121,7 @@ const seoData = {
 
 <Base {...seoData}>
   <!-- Hero Section avec urgence -->
-  <section class="section bg-gradient-to-br from-blue-50 to-white relative overflow-hidden">
-    <div class="absolute top-0 right-0 bg-red-500 text-white px-6 py-2 rounded-bl-2xl font-bold animate-pulse">
-      🔥 Offre -50% limitée
+  <section class="section bg-gradient-to-br from-amber-50 to-white relative overflow-hidden">
     </div>
 
     <div class="container">
@@ -240,7 +238,7 @@ const seoData = {
   </section>
 
   <!-- Offre Spéciale -->
-  <section class="section bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+  <section class="section bg-gradient-to-r from-amber-600 to-amber-700 text-white">
     <div class="container">
       <div class="bg-white/10 backdrop-blur rounded-2xl p-8 lg:p-12">
         <div class="text-center mb-8">
@@ -264,17 +262,18 @@ const seoData = {
 
           <div class="lg:col-5">
             <div class="bg-white rounded-xl p-8 text-gray-900 text-center">
-              <div class="mb-6">
-                <span class="text-5xl font-bold text-primary">{landingData.specialOffer.price}</span>
+              <div class="mb-4">
+                <span class="text-xl line-through text-gray-400">{landingData.specialOffer.originalPrice}</span>
+                <span class="text-5xl font-bold text-amber-600 ml-4">{landingData.specialOffer.discountPrice}</span>
               </div>
               <p class="text-2xl font-semibold mb-6">
-                {landingData.specialOffer.monthlyPrice}
+                Puis {landingData.specialOffer.monthlyPrice}
               </p>
               <a href="#formulaire" class="btn btn-primary btn-xl w-full mb-4">
-                Prendre rendez-vous
+                Je profite de l'offre
               </a>
-              <p class="text-sm text-gray-600 font-medium">
-                {landingData.specialOffer.maintenance}
+              <p class="text-sm text-red-600 font-medium animate-pulse">
+                ⚠️ {landingData.specialOffer.urgency}
               </p>
             </div>
           </div>
@@ -368,7 +367,7 @@ const seoData = {
           <div class="bg-white rounded-2xl shadow-2xl p-8 lg:p-12">
             <div class="text-center mb-8">
               <h2 class="text-4xl font-bold mb-4">
-                Discutons de votre projet
+                Recevez votre maquette gratuite en 24h
               </h2>
               <p class="text-xl text-gray-600">
                 Remplissez ce formulaire et découvrez votre futur site
@@ -378,7 +377,7 @@ const seoData = {
               </div>
             </div>
 
-            <form class="space-y-6">
+            <form id="contact-form" class="space-y-6">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -386,7 +385,7 @@ const seoData = {
                   </label>
                   <input
                     type="text"
-                    required
+                    name="name" required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="Jean Dupont"
                   />
@@ -400,7 +399,7 @@ const seoData = {
                     type="text"
                     required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Carreleur Dupont"
+                    placeholder="Menuisier Dupont"
                   />
                 </div>
 
@@ -410,7 +409,7 @@ const seoData = {
                   </label>
                   <input
                     type="email"
-                    required
+                    name="email" required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="contact@exemple.fr"
                   />
@@ -422,7 +421,7 @@ const seoData = {
                   </label>
                   <input
                     type="tel"
-                    required
+                    name="phone" required
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="06 12 34 56 78"
                   />
@@ -484,7 +483,7 @@ const seoData = {
   </section>
 
   <!-- CTA Final -->
-  <section class="section bg-blue-600 text-white">
+  <section class="section bg-amber-600 text-white">
     <div class="container text-center">
       <h2 class="text-4xl font-bold mb-6">
         Ne laissez plus vos concurrents prendre vos clients
@@ -494,7 +493,7 @@ const seoData = {
       </p>
       <div class="flex flex-wrap gap-4 justify-center">
         <a href="#formulaire" class="btn btn-white btn-xl">
-          Prendre rendez-vous
+          Je veux ma maquette gratuite
         </a>
         <a href="tel:0617540383" class="btn btn-outline-white btn-xl">
           Appeler maintenant
@@ -503,6 +502,61 @@ const seoData = {
     </div>
   </section>
   <!-- Composants de conversion -->
-  <BadgeUrgence />
   <WhatsAppButton />
 </Base>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Envoi en cours...';
+
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        service: formData.get('trade') ? `${formData.get('trade')} - ${formData.get('city')}` : formData.get('service') || 'Contact',
+        message: formData.get('message') || `Demande de contact`
+      };
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Redirection vers la page de remerciement (pour tracking Google Ads)
+          window.location.href = '/merci';
+        } else {
+          throw new Error(result.message || 'Erreur lors de l\'envoi');
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4';
+        errorDiv.innerHTML = `<strong>Erreur:</strong> ${error.message}<br><small>Appelez-nous au 06.17.54.03.83</small>`;
+        form.appendChild(errorDiv);
+
+        setTimeout(() => {
+          errorDiv.remove();
+        }, 8000);
+      }
+    });
+  });
+</script>
