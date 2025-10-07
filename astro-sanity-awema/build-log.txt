@@ -1,0 +1,193 @@
+
+> copper-astro@3.2.0 build
+> astro build
+
+12:00:42 [content] Syncing content
+12:00:42 [content] Synced content
+12:00:42 [types] Generated 1.18s
+12:00:42 [build] output: "static"
+12:00:42 [build] mode: "static"
+12:00:42 [build] directory: /home/Ganyc/Desktop/awema/awema2/astro-sanity-awema/dist/
+12:00:42 [build] Collecting build info...
+12:00:42 [build] ✓ Completed in 1.37s.
+12:00:42 [build] Building static entrypoints...
+12:00:48 [WARN] [vite] [esbuild css minify]
+▲ [WARNING] Unexpected "$" [css-syntax-error]
+
+    <stdin>:1:3888:
+      1 │ ...eue", Arial, sans-serif);--font-${fontName}: ${fontFamily}}html:...
+        ╵                                    ^
+
+
+▲ [WARNING] Expected ":" [css-syntax-error]
+
+    <stdin>:1:3898:
+      1 │ ...l, sans-serif);--font-${fontName}: ${fontFamily}}html:not(.fonts...
+        │                                    ^
+        ╵                                    :
+
+
+▲ [WARNING] Expected identifier but found whitespace [css-syntax-error]
+
+    <stdin>:1:3900:
+      1 │ ... sans-serif);--font-${fontName}: ${fontFamily}}html:not(.fonts-l...
+        ╵                                    ^
+
+
+▲ [WARNING] Unexpected "$" [css-syntax-error]
+
+    <stdin>:1:3901:
+      1 │ ...sans-serif);--font-${fontName}: ${fontFamily}}html:not(.fonts-lo...
+        ╵                                    ^
+
+
+▲ [WARNING] Expected ":" [css-syntax-error]
+
+    <stdin>:1:3913:
+      1 │ ...--font-${fontName}: ${fontFamily}}html:not(.fonts-loaded) body{f...
+        │                                    ^
+        ╵                                    :
+
+
+12:00:48 [vite] ✓ built in 5.77s
+12:00:48 [build] ✓ Completed in 5.89s.
+
+ building client (vite) 
+12:00:48 [vite] transforming...
+12:00:50 [vite] ✓ 466 modules transformed.
+12:00:50 [WARN] [vite] Generated an empty chunk: "calculateur-prix-heure-reel.astro_astro_type_script_index_0_lang".
+12:00:50 [vite] rendering chunks...
+12:00:52 [vite] computing gzip size...
+12:00:52 [vite] dist/chunks/textConverter.C_NdKWHw.js                                       0.11 kB │ gzip:  0.11 kB
+12:00:52 [vite] dist/entry/ChangedLog.82G-pA_M.js                                           0.37 kB │ gzip:  0.26 kB
+12:00:52 [vite] dist/chunks/jsx-runtime.CnDyYxjH.js                                         0.45 kB │ gzip:  0.29 kB
+12:00:52 [vite] dist/entry/Accordion.N-oAnkxD.js                                            0.72 kB │ gzip:  0.46 kB
+12:00:52 [vite] dist/entry/Tabs.-wRQzpex.js                                                 0.98 kB │ gzip:  0.60 kB
+12:00:52 [vite] dist/entry/Accordion.C_YdidPU.js                                            1.06 kB │ gzip:  0.64 kB
+12:00:52 [vite] dist/entry/Youtube.DCEaSb3Y.js                                              1.36 kB │ gzip:  0.78 kB
+12:00:52 [vite] dist/entry/DynamicIcon.BrPQqQ82.js                                          1.91 kB │ gzip:  1.01 kB
+12:00:52 [vite] dist/chunks/index.BrDSwf1p.js                                               7.51 kB │ gzip:  2.89 kB
+12:00:52 [vite] dist/chunks/lite-youtube.BV7KvG22.js                                        9.00 kB │ gzip:  3.06 kB
+12:00:52 [vite] dist/entry/ClientRouter.astro_astro_type_script_index_0_lang.CmmUvqWV.js   14.93 kB │ gzip:  5.03 kB
+12:00:52 [vite] dist/chunks/marked.esm.DjdxUUEW.js                                         38.86 kB │ gzip: 11.62 kB
+12:00:52 [vite] dist/chunks/proxy.CNjZXiFL.js                                             115.44 kB │ gzip: 37.01 kB
+12:00:52 [vite] dist/entry/client.Dpbi4qKQ.js                                             176.66 kB │ gzip: 55.76 kB
+12:00:52 [vite] ✓ built in 4.25s
+(node:130881) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/Ganyc/Desktop/awema/awema2/astro-sanity-awema/dist/chunks/astro/server.DSC_VPmd.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/Ganyc/Desktop/awema/awema2/astro-sanity-awema/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+ generating static routes 
+12:00:52 ▶ src/pages/404.astro
+12:00:52   └─ /404.html (+34ms) 
+12:00:52 ▶ src/pages/audit-infrastructure.astro
+12:00:52   └─ /audit-infrastructure/index.html (+14ms) 
+12:00:53 ▶ src/pages/blog/[single].astro
+12:00:53   ├─ /blog/post-2/index.html (+14ms) 
+12:00:53   ├─ /blog/post-3/index.html (+10ms) 
+12:00:53   ├─ /blog/post-5/index.html (+7ms) 
+12:00:53   ├─ /blog/post-4/index.html (+12ms) 
+12:00:53   ├─ /blog/post-6/index.html (+14ms) 
+12:00:53   └─ /blog/post-1/index.html (+5ms) 
+12:00:53 ▶ src/pages/blog/index.astro
+12:00:53   └─ /blog/index.html (+11ms) 
+12:00:53 ▶ src/pages/career/[single].astro
+12:00:53   ├─ /career/job-1/index.html (+11ms) 
+12:00:53   ├─ /career/job-2/index.html (+8ms) 
+12:00:53   ├─ /career/job-3/index.html (+11ms) 
+12:00:53   ├─ /career/job-4/index.html (+9ms) 
+12:00:53   ├─ /career/job-5/index.html (+12ms) 
+12:00:53   └─ /career/job-6/index.html (+5ms) 
+12:00:53 ▶ src/pages/career/index.astro
+12:00:53   └─ /career/index.html (+42ms) 
+12:00:53 ▶ src/pages/cgv.astro
+12:00:53   └─ /cgv/index.html (+7ms) 
+12:00:53 ▶ src/pages/contact.astro
+12:00:53   └─ /contact/index.html (+6ms) 
+12:00:54 ▶ src/pages/contact-intelligent.astro
+12:00:54   └─ /contact-intelligent/index.html (+12ms) 
+12:00:54 ▶ src/pages/demo-performance.astro
+12:00:54   └─ /demo-performance/index.html (+9ms) 
+12:00:54 ▶ src/pages/electricien.astro
+12:00:54   └─ /electricien/index.html (+8ms) 
+12:00:54 ▶ src/pages/fondateur.astro
+12:00:54   └─ /fondateur/index.html (+4ms) 
+12:00:54 ▶ src/pages/fondateur-v2.astro
+12:00:54   └─ /fondateur-v2/index.html (+4ms) 
+12:00:54 ▶ src/pages/google-my-business.astro
+12:00:54   └─ /google-my-business/index.html (+13ms) 
+12:00:54 ▶ src/pages/macon.astro
+12:00:54   └─ /macon/index.html (+4ms) 
+12:00:54 ▶ src/pages/mentions-legales.astro
+12:00:54   └─ /mentions-legales/index.html (+6ms) 
+12:00:54 ▶ src/pages/merci.astro
+12:00:54   └─ /merci/index.htmlEntry pages → -index was not found.
+ (+4ms) 
+12:00:54 ▶ src/pages/migration-cloud.astro
+12:00:54   └─ /migration-cloud/index.html (+5ms) 
+12:00:54 ▶ src/pages/mon-histoire.astro
+12:00:54   └─ /mon-histoire/index.html (+9ms) 
+12:00:54 ▶ src/pages/offre-lancement.astro
+12:00:54   └─ /offre-lancement/index.html (+17ms) 
+12:00:54 ▶ src/pages/outils/calculateur-prix-heure-reel.astro
+12:00:54   └─ /outils/calculateur-prix-heure-reel/index.html (+6ms) 
+12:00:54 ▶ src/pages/outils/calculateur-rentabilite-chantier.astro
+12:00:54   └─ /outils/calculateur-rentabilite-chantier/index.html (+8ms) 
+12:00:54 ▶ src/pages/outils/checklist-ouvrir-entreprise-btp.astro
+12:00:54   └─ /outils/checklist-ouvrir-entreprise-btp/index.html (+10ms) 
+12:00:54 ▶ src/pages/outils/generateur-messages-whatsapp.astro
+12:00:54   └─ /outils/generateur-messages-whatsapp/index.html (+23ms) 
+12:00:54 ▶ src/pages/paysagiste.astro
+12:00:54   └─ /paysagiste/index.html (+9ms) 
+12:00:54 ▶ src/pages/peintre.astro
+12:00:54   └─ /peintre/index.html (+4ms) 
+12:00:54 ▶ src/pages/plombier.astro
+12:00:54   └─ /plombier/index.html (+16ms) 
+12:00:54 ▶ src/pages/plombier-aix.astro
+12:00:54   └─ /plombier-aix/index.html (+8ms) 
+12:00:54 ▶ src/pages/realisations.astro
+12:00:54   └─ /realisations/index.html (+12ms) 
+12:00:54 ▶ src/pages/ressources.astro
+12:00:54   └─ /ressources/index.html (+7ms) 
+12:00:54 ▶ src/pages/site-internet-artisan.astro
+12:00:54   └─ /site-internet-artisan/index.html (+11ms) 
+12:00:54 ▶ src/pages/site-internet-carreleur-aix.astro
+12:00:54   └─ /site-internet-carreleur-aix/index.html (+17ms) 
+12:00:54 ▶ src/pages/site-internet-electricien-aix.astro
+12:00:54   └─ /site-internet-electricien-aix/index.html (+10ms) 
+12:00:54 ▶ src/pages/site-internet-electricien-marseille.astro
+12:00:54   └─ /site-internet-electricien-marseille/index.html (+6ms) 
+12:00:54 ▶ src/pages/site-internet-macon-aix.astro
+12:00:54   └─ /site-internet-macon-aix/index.html (+11ms) 
+12:00:54 ▶ src/pages/site-internet-macon-marseille.astro
+12:00:54   └─ /site-internet-macon-marseille/index.html (+20ms) 
+12:00:54 ▶ src/pages/site-internet-menuisier-aix.astro
+12:00:54   └─ /site-internet-menuisier-aix/index.html (+13ms) 
+12:00:54 ▶ src/pages/site-internet-menuisier-marseille.astro
+12:00:54   └─ /site-internet-menuisier-marseille/index.html (+11ms) 
+12:00:54 ▶ src/pages/site-internet-paysagiste-aix.astro
+12:00:54   └─ /site-internet-paysagiste-aix/index.html (+9ms) 
+12:00:54 ▶ src/pages/site-internet-paysagiste-marseille.astro
+12:00:54   └─ /site-internet-paysagiste-marseille/index.html (+5ms) 
+12:00:54 ▶ src/pages/site-internet-plombier-aix.astro
+12:00:54   └─ /site-internet-plombier-aix/index.html (+6ms) 
+12:00:54 ▶ src/pages/site-internet-plombier-marseille.astro
+12:00:54   └─ /site-internet-plombier-marseille/index.html (+8ms) 
+12:00:54 ▶ src/pages/tarifs.astro
+12:00:54   └─ /tarifs/index.html (+6ms) 
+12:00:54 ▶ src/pages/tarifs-sites-web.astro
+12:00:54   └─ /tarifs-sites-web/index.html (+4ms) 
+12:00:54 ▶ src/pages/[regular].astro
+12:00:54   ├─ /changelog/index.html (+20ms) 
+12:00:54   ├─ /elements/index.html (+24ms) 
+12:00:54   ├─ /faq/index.html (+19ms) 
+12:00:54   ├─ /privacy-policy/index.html (+11ms) 
+12:00:54   └─ /terms-conditions/index.html (+17ms) 
+12:00:54 ▶ src/pages/index.astro
+12:00:54   └─ /index.html (+5ms) 
+12:00:54 ✓ Completed in 1.88s.
+
+12:00:54 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`
+12:00:54 [build] 60 page(s) built in 13.49s
+12:00:54 [build] Complete!

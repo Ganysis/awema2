@@ -4,14 +4,12 @@ export interface Props {
   title?: string;
   submitText?: string;
   showMetier?: boolean;
-  showBudget?: boolean;
 }
 
 const {
   title = "Demandez votre devis gratuit",
   submitText = "Envoyer ma demande",
-  showMetier = true,
-  showBudget = true
+  showMetier = true
 } = Astro.props;
 ---
 
@@ -111,20 +109,6 @@ const {
         required
       ></textarea>
     </div>
-
-    {showBudget && (
-      <div>
-        <label for="budget" class="form-label">Budget estimé</label>
-        <select id="budget" name="budget" class="form-input">
-          <option value="">Sélectionnez votre budget</option>
-          <option value="< 1000">Moins de 1 000€</option>
-          <option value="1000-2500">1 000€ - 2 500€</option>
-          <option value="2500-5000">2 500€ - 5 000€</option>
-          <option value="5000-10000">5 000€ - 10 000€</option>
-          <option value="> 10000">Plus de 10 000€</option>
-        </select>
-      </div>
-    )}
 
     <div class="flex items-center gap-3">
       <input type="checkbox" id="rgpd" name="rgpd" required class="w-4 h-4" />
