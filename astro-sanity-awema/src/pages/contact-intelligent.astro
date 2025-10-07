@@ -2,6 +2,7 @@
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/partials/PageHeader.astro";
 import DynamicIcon from "@/helpers/DynamicIcon";
+import ContactFormWorking from "@/components/ContactFormWorking.astro";
 
 const meta = {
   title: "Contact AWEMA - Devis Site BTP Gratuit",
@@ -598,59 +599,4 @@ const urgences = [
     }
   </script>
 </Base>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('contact-form-intelligent');
-    if (!form) return;
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const submitButton = form.querySelector('button[type="submit"]');
-      const originalText = submitButton.textContent;
-      submitButton.disabled = true;
-      submitButton.textContent = 'Envoi en cours...';
-
-      const formData = new FormData(form);
-      const data = {
-        name: `${formData.get('prenom')} ${formData.get('nom')}`,
-        email: formData.get('email'),
-        phone: formData.get('telephone'),
-        service: formData.get('metier') || 'Contact',
-        message: formData.get('message') || `Demande de contact pour ${formData.get('metier')} à ${formData.get('ville')}`
-      };
-
-      try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          // Redirection vers la page de remerciement (pour tracking Google Ads)
-          window.location.href = '/merci';
-        } else {
-          throw new Error(result.message || 'Erreur lors de l\'envoi');
-        }
-      } catch (error) {
-        console.error('Erreur:', error);
-        submitButton.disabled = false;
-        submitButton.textContent = originalText;
-
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4';
-        errorDiv.innerHTML = `<strong>Erreur:</strong> ${error.message}<br><small>Appelez-nous au 06.17.54.03.83</small>`;
-        form.appendChild(errorDiv);
-
-        setTimeout(() => {
-          errorDiv.remove();
-        }, 8000);
-      }
-    });
-  });
-</script>

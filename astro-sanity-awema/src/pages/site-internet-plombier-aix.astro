@@ -6,6 +6,7 @@ import LocalBusinessSchema from "@/components/schemas/LocalBusinessSchema.astro"
 import FAQSchema from "@/components/schemas/FAQSchema.astro";
 import ServiceSchema from "@/components/schemas/ServiceSchema.astro";
 import BreadcrumbSchema from "@/components/schemas/BreadcrumbSchema.astro";
+import ContactFormWorking from "@/components/ContactFormWorking.astro";
 
 // Données statiques pour la landing page plombier
 const landingData = {
@@ -476,49 +477,10 @@ const breadcrumbs = [
     <div class="container">
       <div class="row justify-center">
         <div class="lg:col-6">
-          <div class="bg-white rounded-xl shadow-xl p-8">
-            <h3 class="h3 mb-6 text-center">Prenons rendez-vous pour discuter</h3>
-
-            <form id="contact-form">
-              <div class="mb-6">
-                <label class="form-label">Nom et prénom *</label>
-                <input type="text" name="name" class="form-input" required />
-              </div>
-
-              <div class="mb-6">
-                <label class="form-label">Nom de votre entreprise *</label>
-                <input type="text" name="company" class="form-input" required />
-              </div>
-
-              <div class="mb-6">
-                <label class="form-label">Email *</label>
-                <input type="email" name="email" class="form-input" required />
-              </div>
-
-              <div class="mb-6">
-                <label class="form-label">Téléphone *</label>
-                <input type="tel" name="phone" class="form-input" required />
-              </div>
-
-              <div class="mb-6">
-                <label class="form-label">Zone d'intervention</label>
-                <input type="text" name="city" class="form-input" placeholder="Ex: Aix-en-Provence et 30km autour" />
-              </div>
-
-              <div class="mb-6">
-                <label class="form-label">Votre message (optionnel)</label>
-                <textarea name="message" class="form-input" rows="3"></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-xl w-full">
-                Prendre rendez-vous
-              </button>
-
-              <p class="text-center text-sm text-gray-600 mt-4">
-                En envoyant ce formulaire, vous acceptez d'être recontacté par notre équipe
-              </p>
-            </form>
-          </div>
+          <ContactFormWorking
+            title="Prenons rendez-vous pour discuter"
+            submitText="Prendre rendez-vous"
+          />
         </div>
       </div>
     </div>
@@ -527,59 +489,4 @@ const breadcrumbs = [
   <!-- Composants de conversion -->
   <WhatsAppButton />
 </Base>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('contact-form');
-    if (!form) return;
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const submitButton = form.querySelector('button[type="submit"]');
-      const originalText = submitButton.textContent;
-      submitButton.disabled = true;
-      submitButton.textContent = 'Envoi en cours...';
-
-      const formData = new FormData(form);
-      const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        service: formData.get('trade') ? `${formData.get('trade')} - ${formData.get('city')}` : formData.get('service') || 'Contact',
-        message: formData.get('message') || `Demande de contact`
-      };
-
-      try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          // Redirection vers la page de remerciement (pour tracking Google Ads)
-          window.location.href = '/merci';
-        } else {
-          throw new Error(result.message || 'Erreur lors de l\'envoi');
-        }
-      } catch (error) {
-        console.error('Erreur:', error);
-        submitButton.disabled = false;
-        submitButton.textContent = originalText;
-
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4';
-        errorDiv.innerHTML = `<strong>Erreur:</strong> ${error.message}<br><small>Appelez-nous au 06.17.54.03.83</small>`;
-        form.appendChild(errorDiv);
-
-        setTimeout(() => {
-          errorDiv.remove();
-        }, 8000);
-      }
-    });
-  });
-</script>
