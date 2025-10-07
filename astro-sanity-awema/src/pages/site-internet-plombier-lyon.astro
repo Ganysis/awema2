@@ -8,15 +8,15 @@ import FAQSchema from "@/components/schemas/FAQSchema.astro";
 import ServiceSchema from "@/components/schemas/ServiceSchema.astro";
 import BreadcrumbSchema from "@/components/schemas/BreadcrumbSchema.astro";
 
-// Données statiques pour la landing page plombier Lyon
+// Données statiques pour la landing page plombier
 const landingData = {
   metier: "Plombier",
-  ville: "Lyon",
+  ville: "",
   hero: {
-    headline: "Site Internet Professionnel pour Plombier à Lyon",
+    headline: "Site Internet Professionnel pour Plombier",
     subheadline: "Attirez plus de clients et développez votre entreprise de plomberie avec un site web qui convertit",
     ctaText: "Obtenir ma maquette gratuite",
-    trustBadges: ["97€/mois tout compris", "Livré en 48h", "Spécialiste du BTP"]
+    trustBadges: ["2200€ TTC tout inclus", "Livré en 3 semaines", "Vous êtes propriétaire"]
   },
   problems: [
     {
@@ -44,7 +44,7 @@ const landingData = {
     {
       icon: "🎯",
       solution: "1ère page Google garantie",
-      description: "Référencement local optimisé pour 'plombier Lyon' et zones alentours"
+      description: "Référencement local optimisé pour vos zones d'intervention"
     },
     {
       icon: "📅",
@@ -63,12 +63,11 @@ const landingData = {
     }
   ],
   specialOffer: {
-    title: "Offre Spéciale Plombiers Lyon",
-    description: "Profitez de notre offre de lancement exclusive pour les plombiers lyonnais",
-    originalPrice: "1990€",
-    discountPrice: "990€",
-    monthlyPrice: "97€/mois",
-    urgency: "Plus que 2 places disponibles ce mois-ci",
+    title: "Site Internet Plombier",
+    description: "Site professionnel - Vous êtes propriétaire à 100%",
+    price: "2200€ TTC",
+    monthlyPrice: "tout inclus",
+    maintenance: "Maintenance optionnelle 15€/mois",
     features: [
       "Maquette gratuite en 24h",
       "Site 10 pages optimisé SEO",
@@ -292,16 +291,14 @@ const breadcrumbs = [
         <div class="lg:col-8">
           <div class="bg-white text-gray-900 rounded-xl shadow-2xl p-8">
             <div class="text-center mb-8">
-              <div class="mb-4">
-                <span class="text-gray-400 line-through text-2xl">{landingData.specialOffer.originalPrice}</span>
-                <span class="text-5xl font-bold text-primary ml-4">{landingData.specialOffer.discountPrice}</span>
-                <span class="text-gray-600"> création</span>
+              <div class="mb-6">
+                <span class="text-5xl font-bold text-primary">{landingData.specialOffer.price}</span>
               </div>
-              <div class="text-3xl font-bold mb-4">
-                puis {landingData.specialOffer.monthlyPrice}
+              <div class="text-2xl font-semibold mb-4">
+                {landingData.specialOffer.monthlyPrice}
               </div>
-              <div class="inline-flex items-center rounded-full bg-red-100 text-red-800 px-4 py-2 text-sm font-medium">
-                🔥 {landingData.specialOffer.urgency}
+              <div class="inline-flex items-center rounded-full bg-gray-100 text-gray-700 px-4 py-2 text-sm font-medium">
+                {landingData.specialOffer.maintenance}
               </div>
             </div>
 
@@ -317,7 +314,7 @@ const breadcrumbs = [
             </div>
 
             <a href="#contact" class="btn btn-primary btn-xl w-full">
-              Je profite de l'offre maintenant
+              Obtenir ma maquette gratuite maintenant
             </a>
           </div>
         </div>
@@ -416,27 +413,27 @@ const breadcrumbs = [
             <h3 class="h3 mb-6 text-center">Demandez votre maquette gratuite</h3>
 
             <form>
-              <div class="mb-4">
+              <div class="mb-6">
                 <label class="form-label">Nom et prénom *</label>
                 <input type="text" class="form-input" required />
               </div>
 
-              <div class="mb-4">
+              <div class="mb-6">
                 <label class="form-label">Nom de votre entreprise *</label>
                 <input type="text" class="form-input" required />
               </div>
 
-              <div class="mb-4">
+              <div class="mb-6">
                 <label class="form-label">Email *</label>
                 <input type="email" class="form-input" required />
               </div>
 
-              <div class="mb-4">
+              <div class="mb-6">
                 <label class="form-label">Téléphone *</label>
                 <input type="tel" class="form-input" required />
               </div>
 
-              <div class="mb-4">
+              <div class="mb-6">
                 <label class="form-label">Zone d'intervention</label>
                 <input type="text" class="form-input" placeholder="Ex: Lyon et 30km autour" />
               </div>

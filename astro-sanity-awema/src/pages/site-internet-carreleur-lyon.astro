@@ -4,15 +4,15 @@ import { Image } from "astro:assets";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
 import BadgeUrgence from "@/components/BadgeUrgence.astro";
 
-// Données statiques pour la landing page Carreleur Lyon
+// Données statiques pour la landing page Carreleur
 const landingData = {
   metier: "Carreleur",
-  ville: "Lyon",
+  ville: "",
   hero: {
-    headline: "Site Internet Professionnel pour Carreleur à Lyon",
+    headline: "Site Internet Professionnel pour Carreleur",
     subheadline: "Développez votre activité de carreleur avec un site web qui génère des clients qualifiés automatiquement",
     ctaText: "Obtenir ma maquette gratuite",
-    trustBadges: ["97€/mois tout compris", "Livré en 48h", "Expert carreleur"]
+    trustBadges: ["2200€ TTC tout inclus", "Livré en 3 semaines", "Vous êtes propriétaire"]
   },
   problems: [
     {
@@ -59,12 +59,11 @@ const landingData = {
     }
 ],
   specialOffer: {
-    title: "Offre Spéciale Carreleurs Lyon",
+    title: "Site Internet Carreleur",
     description: "Profitez de notre expertise BTP pour dominer votre marché local",
-    originalPrice: "1990€",
-    discountPrice: "990€",
-    monthlyPrice: "97€/mois",
-    urgency: "Plus que 2 places disponibles ce mois-ci",
+    price: "2200€ TTC",
+    monthlyPrice: "tout inclus",
+    maintenance: "Maintenance optionnelle 15€/mois",
     features: [
       "Maquette gratuite en 24h",
       "Site 10 pages optimisé SEO",
@@ -104,8 +103,8 @@ const landingData = {
       answer: "Nous connaissons parfaitement les besoins des carreleurs : types de prestations, processus de devis, galeries de réalisations, certifications... Votre site est conçu spécifiquement pour convertir vos visiteurs en clients."
     },
     {
-      question: "Comment être sûr d'être visible sur Google à Lyon ?",
-      answer: "Notre méthode SEO local a fait ses preuves sur +50 artisans en France. Nous optimisons pour 'carreleur Lyon' et toutes les variantes. Premiers résultats en 4-6 semaines."
+      question: "Comment être sûr d'être visible sur Google ?",
+      answer: "Notre méthode SEO local a fait ses preuves sur +50 artisans en France. Nous optimisons pour 'carreleur' et toutes les variantes. Premiers résultats en 4-6 semaines."
     },
     {
       question: "Puis-je modifier mon site moi-même ?",
@@ -265,18 +264,17 @@ const seoData = {
 
           <div class="lg:col-5">
             <div class="bg-white rounded-xl p-8 text-gray-900 text-center">
-              <div class="mb-4">
-                <span class="text-xl line-through text-gray-400">{landingData.specialOffer.originalPrice}</span>
-                <span class="text-5xl font-bold text-blue-600 ml-4">{landingData.specialOffer.discountPrice}</span>
+              <div class="mb-6">
+                <span class="text-5xl font-bold text-primary">{landingData.specialOffer.price}</span>
               </div>
               <p class="text-2xl font-semibold mb-6">
-                Puis {landingData.specialOffer.monthlyPrice}
+                {landingData.specialOffer.monthlyPrice}
               </p>
               <a href="#formulaire" class="btn btn-primary btn-xl w-full mb-4">
-                Je profite de l'offre
+                Obtenir ma maquette gratuite
               </a>
-              <p class="text-sm text-red-600 font-medium animate-pulse">
-                ⚠️ {landingData.specialOffer.urgency}
+              <p class="text-sm text-gray-600 font-medium">
+                {landingData.specialOffer.maintenance}
               </p>
             </div>
           </div>
